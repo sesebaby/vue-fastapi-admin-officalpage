@@ -1,30 +1,67 @@
 {
   "lang": "中文",
-  "app_name": "Vue FastAPI Admin",
-  "header": {
-    "label_profile": "个人信息",
-    "label_logout": "退出登录",
-    "label_logout_dialog_title": "提示",
-    "text_logout_confirm": "确认退出？",
-    "text_logout_success": "已退出登录"
+  "app_name": "SIPUMTECH",
+  "company": {
+    "name": "苏州思普微电子科技有限公司",
+    "name_en": "SIPUMTECH",
+    "full_description": "2019年成立于苏州，为国内领先的先进系统级封装设计软硬件开发一站式综合服务供应商",
+    "slogan": "携手未来 共谋发展"
+  },
+  "navigation": {
+    "home": "首页",
+    "about": "关于我们",
+    "business": "业务中心",
+    "technology": "技术能力",
+    "cases": "案例展示",
+    "certification": "资质认证",
+    "contact": "联系我们",
+    "language": "语言"
+  },
+  "home": {
+    "hero": {
+      "title": "苏州思普微电子科技有限公司",
+      "subtitle": "SIPUMTECH",
+      "description": "2019年成立于苏州，为国内领先的先进系统级封装设计软硬件开发一站式综合服务供应商",
+      "slogan": "携手未来 共谋发展",
+      "cta_consultation": "免费技术咨询",
+      "cta_solution": "获取定制方案"
+    },
+    "business": {
+      "title": "主营业务",
+      "advanced_packaging": "先进封装",
+      "hardware_solution": "硬件方案",
+      "service_process": "设计、仿真、加工、测试",
+      "service_feature": "一站式解决方案"
+    },
+    "industries": {
+      "title": "服务行业",
+      "list": "国内外科研院所、高校、工控、医疗、通信/服务器"
+    }
+  },
+  "about": {
+    "title": "关于我们",
+    "company_overview": {
+      "title": "公司定位",
+      "description": "2019年成立于苏州，为国内领先的先进系统级封装设计软硬件开发一站式综合服务供应商"
+    }
+  },
+  "business": {
+    "title": "业务中心",
+    "advanced_packaging": {
+      "title": "先进封装",
+      "description": "设计、仿真、加工、测试一站式解决方案"
+    },
+    "hardware_solution": {
+      "title": "硬件方案",
+      "description": "设计、仿真、加工、测试"
+    }
+  },
+  "contact": {
+    "title": "联系我们",
+    "consultation": "免费技术咨询",
+    "solution": "获取定制方案"
   },
   "views": {
-    "login": {
-      "text_login": "登录",
-      "message_input_username_password": "请输入用户名和密码",
-      "message_verifying": "正在验证...",
-      "message_login_success": "登录成功"
-    },
-    "workbench": {
-      "label_workbench": "工作台",
-      "text_hello": "hello, {username}",
-      "text_welcome": "今天又是元气满满的一天!",
-      "label_number_of_items": "项目数",
-      "label_upcoming": "待办",
-      "label_information": "消息",
-      "label_project": "项目",
-      "label_more": "更多"
-    },
     "profile": {
       "label_profile": "个人中心",
       "label_modify_information": "修改信息",

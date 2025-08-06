@@ -1,12 +1,64 @@
 {
   "lang": "English",
-  "app_name": "Vue FastAPI Admin",
-  "header": {
-    "label_profile": "Profile",
-    "label_logout": "Logout",
-    "label_logout_dialog_title": "Hint",
-    "text_logout_confirm": "Logout confirm",
-    "text_logout_success": "Logout success"
+  "app_name": "SIPUMTECH",
+  "company": {
+    "name": "Suzhou SIPUMTECH Electronic Technology Co., Ltd.",
+    "name_en": "SIPUMTECH",
+    "full_description": "Established in Suzhou in 2019, as a leading domestic comprehensive service provider for advanced system-level packaging design and hardware/software development one-stop solutions",
+    "slogan": "Join hands for the future, seek common development"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About Us",
+    "business": "Business Center",
+    "technology": "Technology",
+    "cases": "Cases",
+    "certification": "Certification",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "title": "Suzhou SIPUMTECH Electronic Technology Co., Ltd.",
+      "subtitle": "SIPUMTECH",
+      "description": "Established in Suzhou in 2019, as a leading domestic comprehensive service provider for advanced system-level packaging design and hardware/software development one-stop solutions",
+      "slogan": "Join hands for the future, seek common development",
+      "cta_consultation": "Free Technical Consultation",
+      "cta_solution": "Get Custom Solution"
+    },
+    "business": {
+      "title": "Main Business",
+      "advanced_packaging": "Advanced Packaging",
+      "hardware_solution": "Hardware Solution",
+      "service_process": "Design, Simulation, Processing, Testing",
+      "service_feature": "One-stop Solution"
+    },
+    "industries": {
+      "title": "Service Industries",
+      "list": "Domestic and overseas research institutes, universities, industrial control, medical, communication/servers"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "company_overview": {
+      "title": "Company Positioning",
+      "description": "Established in Suzhou in 2019, as a leading domestic comprehensive service provider for advanced system-level packaging design and hardware/software development one-stop solutions"
+    }
+  },
+  "business": {
+    "title": "Business Center",
+    "advanced_packaging": {
+      "title": "Advanced Packaging",
+      "description": "Design, simulation, processing, testing one-stop solution"
+    },
+    "hardware_solution": {
+      "title": "Hardware Solution",
+      "description": "Design, simulation, processing, testing"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "consultation": "Free Technical Consultation",
+    "solution": "Get Custom Solution"
   },
   "views": {
     "login": {
