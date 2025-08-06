@@ -1,60 +1,81 @@
-import i18n from '~/i18n'
-const { t } = i18n.global
+// import i18n from '~/i18n'
+// const { t } = i18n.global
 
 const Layout = () => import('@/layout/index.vue')
+const WebsiteLayout = () => import('@/layout/website/index.vue')
 
 export const basicRoutes = [
   {
     path: '/',
-    redirect: '/workbench', // 默认跳转到首页
-    meta: { order: 0 },
+    name: 'Website',
+    component: WebsiteLayout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/website/home/index.vue'),
+        name: 'Home',
+        meta: {
+          title: '苏州思普微电子科技有限公司 - 先进封装一站式服务',
+          requiresAuth: false, // 不需要登录
+        },
+      },
+    ],
+    meta: { order: 0, requiresAuth: false },
   },
   {
-    name: t('views.workbench.label_workbench'),
-    path: '/workbench',
+    path: '/admin',
+    redirect: '/admin/workbench', // 管理系统入口
+    meta: { order: 0.5 },
+  },
+  {
+    name: 'Workbench',
+    path: '/admin/workbench',
     component: Layout,
     children: [
       {
         path: '',
         component: () => import('@/views/workbench/index.vue'),
-        name: `${t('views.workbench.label_workbench')}Default`,
+        name: 'WorkbenchDefault',
         meta: {
-          title: t('views.workbench.label_workbench'),
+          title: '工作台',
           icon: 'icon-park-outline:workbench',
           affix: true,
+          requiresAuth: true, // 需要登录
         },
       },
     ],
-    meta: { order: 1 },
+    meta: { order: 1, requiresAuth: true },
   },
   {
-    name: t('views.profile.label_profile'),
-    path: '/profile',
+    name: 'Profile',
+    path: '/admin/profile',
     component: Layout,
     isHidden: true,
     children: [
       {
         path: '',
         component: () => import('@/views/profile/index.vue'),
-        name: `${t('views.profile.label_profile')}Default`,
+        name: 'ProfileDefault',
         meta: {
-          title: t('views.profile.label_profile'),
+          title: '个人资料',
           icon: 'user',
           affix: true,
+          requiresAuth: true,
         },
       },
     ],
-    meta: { order: 99 },
+    meta: { order: 99, requiresAuth: true },
   },
   {
     name: 'ErrorPage',
-    path: '/error-page',
+    path: '/admin/error-page',
     component: Layout,
-    redirect: '/error-page/404',
+    redirect: '/admin/error-page/404',
     meta: {
-      title: t('views.errors.label_error'),
+      title: '错误页面',
       icon: 'mdi:alert-circle-outline',
       order: 99,
+      requiresAuth: true,
     },
     children: [
       {

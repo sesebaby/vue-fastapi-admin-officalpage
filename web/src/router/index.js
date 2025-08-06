@@ -30,12 +30,17 @@ export async function resetRouter() {
 export async function addDynamicRoutes() {
   const token = getToken()
 
-  // 没有token情况
+  // 总是添加NOT_FOUND_ROUTE，确保404页面正常工作
+  if (!router.hasRoute(NOT_FOUND_ROUTE.name)) {
+    router.addRoute(NOT_FOUND_ROUTE)
+  }
+
+  // 没有token情况 - 只需要企业官网路由，不需要添加EMPTY_ROUTE
   if (isNullOrWhitespace(token)) {
-    router.addRoute(EMPTY_ROUTE)
     return
   }
-  // 有token的情况
+
+  // 有token的情况 - 加载管理系统路由
   const userStore = useUserStore()
   const permissionStore = usePermissionStore()
   !userStore.userId && (await userStore.getUserInfo())
@@ -46,7 +51,6 @@ export async function addDynamicRoutes() {
       !router.hasRoute(route.name) && router.addRoute(route)
     })
     router.hasRoute(EMPTY_ROUTE.name) && router.removeRoute(EMPTY_ROUTE.name)
-    router.addRoute(NOT_FOUND_ROUTE)
   } catch (error) {
     console.error('error', error)
     const userStore = useUserStore()
