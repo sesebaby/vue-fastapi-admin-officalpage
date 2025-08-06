@@ -4,241 +4,546 @@
   </a>
 </p>
 
-<h1 align="center">vue-fastapi-admin</h1>
+<h1 align="center">Vue FastAPI Admin</h1>
+
+<p align="center">
+  <a href="https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
+  </a>
+  <a href="https://www.python.org/">
+    <img src="https://img.shields.io/badge/python-3.11+-blue.svg" alt="Python">
+  </a>
+  <a href="https://fastapi.tiangolo.com/">
+    <img src="https://img.shields.io/badge/FastAPI-0.111.0-green.svg" alt="FastAPI">
+  </a>
+  <a href="https://vuejs.org/">
+    <img src="https://img.shields.io/badge/Vue-3.3.4-green.svg" alt="Vue">
+  </a>
+  <a href="https://www.naiveui.com/">
+    <img src="https://img.shields.io/badge/Naive%20UI-2.34.4-blue.svg" alt="Naive UI">
+  </a>
+</p>
 
 [English](./README-en.md) | 简体中文
 
-基于 FastAPI + Vue3 + Naive UI 的现代化前后端分离开发平台，融合了 RBAC 权限管理、动态路由和 JWT 鉴权，助力中小型应用快速搭建，也可用于学习参考。
+## 📖 项目简介
 
-### 特性
-- **最流行技术栈**：基于 Python 3.11 和 FastAPI 高性能异步框架，结合 Vue3 和 Vite 等前沿技术进行开发，同时使用高效的 npm 包管理器 pnpm。
-- **代码规范**：项目内置丰富的规范插件，确保代码质量和一致性，有效提高团队协作效率。
-- **动态路由**：后端动态路由，结合 RBAC（Role-Based Access Control）权限模型，提供精细的菜单路由控制。
-- **JWT鉴权**：使用 JSON Web Token（JWT）进行身份验证和授权，增强应用的安全性。
-- **细粒度权限控制**：实现按钮和接口级别的权限控制，确保不同用户或角色在界面操作和接口访问时具有不同的权限限制。
+Vue FastAPI Admin 是一个基于 **FastAPI** + **Vue3** + **Naive UI** 的现代化前后端分离管理系统。该项目采用最新的技术栈，实现了完整的 RBAC 权限管理、动态路由、JWT 认证等核心功能，为中小型企业应用开发提供了一个高质量的基础框架，同时也是学习现代 Web 开发技术的优秀参考项目。
 
-### 在线预览
-- [http://47.111.145.81:3000](http://47.111.145.81:3000)
-- username: admin
-- password: 123456
+## ✨ 核心特性
 
-### 登录页
+### 🚀 技术特性
+- **现代化技术栈**：采用 Python 3.11 + FastAPI 异步框架，Vue3 + Vite + TypeScript 前端技术栈
+- **高性能架构**：异步 I/O 处理，支持高并发访问
+- **代码质量保证**：集成 ESLint、Prettier、Black、Ruff 等代码规范工具
+- **类型安全**：前端 TypeScript 支持，后端 Pydantic 数据验证
 
-![image](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/login.jpg)
+### 🔐 权限管理
+- **RBAC 权限模型**：基于角色的访问控制，支持多角色分配
+- **动态路由**：根据用户权限动态生成菜单和路由
+- **细粒度权限**：支持页面、按钮、API 接口级别的权限控制
+- **JWT 认证**：安全的身份验证和授权机制
+
+### 🎨 用户体验
+- **响应式设计**：支持多种设备和屏幕尺寸
+- **主题切换**：支持明暗主题切换
+- **国际化支持**：内置中英文语言切换
+- **丰富组件**：基于 Naive UI 的高质量组件库
+
+## 🌐 在线演示
+
+| 环境 | 地址 | 用户名 | 密码 |
+|------|------|--------|------|
+| 演示环境 | [http://47.111.145.81:3000](http://47.111.145.81:3000) | admin | 123456 |
+
+> 💡 **提示**：演示环境仅供体验，请勿进行破坏性操作
+
+## 🛠️ 技术栈
+
+### 后端技术栈
+| 技术 | 版本 | 描述 |
+|------|------|------|
+| [Python](https://www.python.org/) | 3.11+ | 编程语言 |
+| [FastAPI](https://fastapi.tiangolo.com/) | 0.111.0 | 高性能异步 Web 框架 |
+| [Tortoise ORM](https://tortoise.github.io/) | 0.23.0 | 异步 ORM 框架 |
+| [Pydantic](https://pydantic-docs.helpmanual.io/) | 2.10.5 | 数据验证和序列化 |
+| [Uvicorn](https://www.uvicorn.org/) | 0.34.0 | ASGI 服务器 |
+| [PyJWT](https://pyjwt.readthedocs.io/) | 2.10.1 | JWT 认证 |
+| [Argon2](https://argon2-cffi.readthedocs.io/) | 23.1.0 | 密码哈希 |
+| [Loguru](https://loguru.readthedocs.io/) | 0.7.3 | 日志管理 |
+
+### 前端技术栈
+| 技术 | 版本 | 描述 |
+|------|------|------|
+| [Vue.js](https://vuejs.org/) | 3.3.4 | 渐进式 JavaScript 框架 |
+| [Vite](https://vitejs.dev/) | 4.4.6 | 前端构建工具 |
+| [Naive UI](https://www.naiveui.com/) | 2.34.4 | Vue 3 组件库 |
+| [Vue Router](https://router.vuejs.org/) | 4.2.4 | 官方路由管理器 |
+| [Pinia](https://pinia.vuejs.org/) | 2.1.6 | 状态管理库 |
+| [UnoCSS](https://unocss.dev/) | 0.55.0 | 原子化 CSS 引擎 |
+| [Vue I18n](https://vue-i18n.intlify.dev/) | 9.x | 国际化插件 |
+| [Axios](https://axios-http.com/) | 1.4.0 | HTTP 客户端 |
+
+### 开发工具
+| 工具 | 描述 |
+|------|------|
+| [TypeScript](https://www.typescriptlang.org/) | 类型安全的 JavaScript |
+| [ESLint](https://eslint.org/) | JavaScript 代码检查工具 |
+| [Prettier](https://prettier.io/) | 代码格式化工具 |
+| [Black](https://black.readthedocs.io/) | Python 代码格式化工具 |
+| [Ruff](https://docs.astral.sh/ruff/) | Python 代码检查工具 |
+| [pnpm](https://pnpm.io/) | 高效的包管理器 |
+
+## 📸 系统截图
+
+### 登录页面
+![登录页面](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/login.jpg)
+
 ### 工作台
-
-![image](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/workbench.jpg)
+![工作台](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/workbench.jpg)
 
 ### 用户管理
+![用户管理](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/user.jpg)
 
-![image](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/user.jpg)
 ### 角色管理
-
-![image](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/role.jpg)
+![角色管理](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/role.jpg)
 
 ### 菜单管理
-
-![image](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/menu.jpg)
+![菜单管理](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/menu.jpg)
 
 ### API管理
+![API管理](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/api.jpg)
 
-![image](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/api.jpg)
+## 🏗️ 系统架构
 
-### 快速开始
-#### 方法一：dockerhub拉取镜像
-
-```sh
-docker pull mizhexiaoxiao/vue-fastapi-admin:latest 
-docker run -d --restart=always --name=vue-fastapi-admin -p 9999:80 mizhexiaoxiao/vue-fastapi-admin
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   前端 (Vue3)    │    │   后端 (FastAPI) │    │   数据库 (SQLite) │
+│                 │    │                 │    │                 │
+│ • Vue 3.3.4     │    │ • Python 3.11   │    │ • SQLite 3      │
+│ • Naive UI      │◄──►│ • FastAPI       │◄──►│ • 支持 MySQL    │
+│ • Pinia         │    │ • Tortoise ORM  │    │ • 支持 PostgreSQL│
+│ • Vue Router    │    │ • JWT 认证      │    │                 │
+│ • UnoCSS        │    │ • RBAC 权限     │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-#### 方法二：dockerfile构建镜像
-##### docker安装(版本17.05+)
+### 核心功能模块
 
-```sh
+- **🔐 认证授权模块**：JWT Token 认证、用户登录登出、密码加密存储
+- **👥 用户管理模块**：用户 CRUD、用户状态管理、用户角色分配
+- **🎭 角色管理模块**：角色 CRUD、权限分配、角色层级管理
+- **📋 菜单管理模块**：动态菜单、路由权限、菜单层级结构
+- **🔌 API管理模块**：接口权限控制、API 分组管理
+- **🏢 部门管理模块**：组织架构管理、部门层级关系
+- **📊 审计日志模块**：操作日志记录、系统访问追踪
+- **📈 工作台模块**：数据统计、系统监控面板
+
+## 🚀 快速开始
+
+### 方法一：Docker Hub 镜像部署（推荐）
+
+```bash
+# 拉取最新镜像
+docker pull mizhexiaoxiao/vue-fastapi-admin:latest
+
+# 启动容器
+docker run -d \
+  --restart=always \
+  --name=vue-fastapi-admin \
+  -p 9999:80 \
+  mizhexiaoxiao/vue-fastapi-admin
+```
+
+### 方法二：Docker 构建部署
+
+#### 1. 安装 Docker（版本 17.05+）
+
+```bash
+# CentOS/RHEL
 yum install -y docker-ce
 systemctl start docker
+systemctl enable docker
+
+# Ubuntu/Debian
+apt-get update
+apt-get install -y docker.io
+systemctl start docker
+systemctl enable docker
 ```
 
-##### 构建镜像
+#### 2. 克隆项目并构建
 
-```sh
+```bash
+# 克隆项目
 git clone https://github.com/mizhexiaoxiao/vue-fastapi-admin.git
 cd vue-fastapi-admin
+
+# 构建镜像
 docker build --no-cache . -t vue-fastapi-admin
+
+# 启动容器
+docker run -d \
+  --restart=always \
+  --name=vue-fastapi-admin \
+  -p 9999:80 \
+  vue-fastapi-admin
 ```
 
-##### 启动容器
+#### 3. 访问系统
 
-```sh
-docker run -d --restart=always --name=vue-fastapi-admin -p 9999:80 vue-fastapi-admin
-```
+- 🌐 **访问地址**：http://localhost:9999
+- 👤 **默认账号**：admin
+- 🔑 **默认密码**：123456
 
-##### 访问
+> ⚠️ **安全提示**：首次登录后请及时修改默认密码
 
-http://localhost:9999
+## 💻 本地开发
 
-username：admin
+### 环境要求
 
-password：123456
+| 环境 | 版本要求 | 说明 |
+|------|----------|------|
+| Python | 3.11+ | 后端运行环境 |
+| Node.js | 18.8.0+ | 前端运行环境 |
+| pnpm | 最新版 | 推荐的包管理器 |
 
-### 本地启动
-#### 后端
-启动项目需要以下环境：
-- Python 3.11
+### 后端开发环境搭建
 
-#### 方法一（推荐）：使用 uv 安装依赖
-1. 安装 uv
-```sh
+#### 方法一：使用 uv（推荐）
+
+```bash
+# 1. 安装 uv
 pip install uv
-```
 
-2. 创建并激活虚拟环境
-```sh
+# 2. 创建并激活虚拟环境
 uv venv
-source .venv/bin/activate  # Linux/Mac
-# 或
-.\.venv\Scripts\activate  # Windows
-```
+# Linux/Mac
+source .venv/bin/activate
+# Windows
+.\.venv\Scripts\activate
 
-3. 安装依赖
-```sh
-uv add pyproject.toml
-```
+# 3. 安装依赖
+uv sync
 
-4. 启动服务
-```sh
+# 4. 启动后端服务
 python run.py
 ```
 
-#### 方法二：使用 Pip 安装依赖
-1. 创建虚拟环境
-```sh
+#### 方法二：使用 pip
+
+```bash
+# 1. 创建虚拟环境
 python3 -m venv venv
-```
 
-2. 激活虚拟环境
-```sh
-source venv/bin/activate  # Linux/Mac
-# 或
-.\venv\Scripts\activate  # Windows
-```
+# 2. 激活虚拟环境
+# Linux/Mac
+source venv/bin/activate
+# Windows
+.\venv\Scripts\activate
 
-3. 安装依赖
-```sh
+# 3. 安装依赖
 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
 
-4. 启动服务
-```sh
+# 4. 启动后端服务
 python run.py
 ```
 
-服务现在应该正在运行，访问 http://localhost:9999/docs 查看API文档
+#### 后端服务验证
 
-#### 前端
-启动项目需要以下环境：
-- node v18.8.0+
+- 🌐 **API 文档**：http://localhost:9999/docs
+- 📊 **ReDoc 文档**：http://localhost:9999/redoc
+- 🔍 **健康检查**：http://localhost:9999/api/v1/base/health
 
-1. 进入前端目录
-```sh
+### 前端开发环境搭建
+
+```bash
+# 1. 进入前端目录
 cd web
-```
 
-2. 安装依赖(建议使用pnpm: https://pnpm.io/zh/installation)
-```sh
-npm i -g pnpm # 已安装可忽略
-pnpm i # 或者 npm i
-```
+# 2. 安装 pnpm（如未安装）
+npm install -g pnpm
 
-3. 启动
-```sh
+# 3. 安装依赖
+pnpm install
+
+# 4. 启动开发服务器
 pnpm dev
 ```
 
-### 目录说明
+#### 前端服务验证
 
-```
-├── app                   // 应用程序目录
-│   ├── api               // API接口目录
-│   │   └── v1            // 版本1的API接口
-│   │       ├── apis      // API相关接口
-│   │       ├── base      // 基础信息接口
-│   │       ├── menus     // 菜单相关接口
-│   │       ├── roles     // 角色相关接口
-│   │       └── users     // 用户相关接口
-│   ├── controllers       // 控制器目录
-│   ├── core              // 核心功能模块
-│   ├── log               // 日志目录
-│   ├── models            // 数据模型目录
-│   ├── schemas           // 数据模式/结构定义
-│   ├── settings          // 配置设置目录
-│   └── utils             // 工具类目录
-├── deploy                // 部署相关目录
-│   └── sample-picture    // 示例图片目录
-└── web                   // 前端网页目录
-    ├── build             // 构建脚本和配置目录
-    │   ├── config        // 构建配置
-    │   ├── plugin        // 构建插件
-    │   └── script        // 构建脚本
-    ├── public            // 公共资源目录
-    │   └── resource      // 公共资源文件
-    ├── settings          // 前端项目配置
-    └── src               // 源代码目录
-        ├── api           // API接口定义
-        ├── assets        // 静态资源目录
-        │   ├── images    // 图片资源
-        │   ├── js        // JavaScript文件
-        │   └── svg       // SVG矢量图文件
-        ├── components    // 组件目录
-        │   ├── common    // 通用组件
-        │   ├── icon      // 图标组件
-        │   ├── page      // 页面组件
-        │   ├── query-bar // 查询栏组件
-        │   └── table     // 表格组件
-        ├── composables   // 可组合式功能块
-        ├── directives    // 指令目录
-        ├── layout        // 布局目录
-        │   └── components // 布局组件
-        ├── router        // 路由目录
-        │   ├── guard     // 路由守卫
-        │   └── routes    // 路由定义
-        ├── store         // 状态管理(pinia)
-        │   └── modules   // 状态模块
-        ├── styles        // 样式文件目录
-        ├── utils         // 工具类目录
-        │   ├── auth      // 认证相关工具
-        │   ├── common    // 通用工具
-        │   ├── http      // 封装axios
-        │   └── storage   // 封装localStorage和sessionStorage
-        └── views         // 视图/页面目录
-            ├── error-page // 错误页面
-            ├── login      // 登录页面
-            ├── profile    // 个人资料页面
-            ├── system     // 系统管理页面
-            └── workbench  // 工作台页面
+- 🌐 **开发服务器**：http://localhost:3000
+- 🔧 **Vite 配置**：支持热重载和快速构建
+
+### 开发工具配置
+
+#### VS Code 推荐插件
+
+```json
+{
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.black-formatter",
+    "charliermarsh.ruff",
+    "vue.volar",
+    "vue.typescript-vue-plugin",
+    "bradlc.vscode-tailwindcss",
+    "esbenp.prettier-vscode"
+  ]
+}
 ```
 
-### 进群交流
-进群的条件是给项目一个star，小小的star是作者维护下去的动力。
+#### 代码格式化配置
 
-你可以在群里提出任何疑问，我会尽快回复答疑。
+项目已配置自动代码格式化：
+- **后端**：Black + Ruff
+- **前端**：ESLint + Prettier
 
-<img width="300" src="https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/group.jpg">
+## 📁 项目结构
 
-## 打赏
-如果项目有帮助到你，可以请作者喝杯咖啡~
+```
+vue-fastapi-admin/
+├── 📁 app/                     # 后端应用程序目录
+│   ├── 📁 api/                 # API 接口目录
+│   │   └── 📁 v1/              # API v1 版本
+│   │       ├── 📁 apis/        # API 管理接口
+│   │       ├── 📁 base/        # 基础功能接口
+│   │       ├── 📁 menus/       # 菜单管理接口
+│   │       ├── 📁 roles/       # 角色管理接口
+│   │       └── 📁 users/       # 用户管理接口
+│   ├── 📁 controllers/         # 业务控制器
+│   ├── 📁 core/                # 核心功能模块
+│   │   ├── 📄 dependency.py    # 依赖注入
+│   │   ├── 📄 exceptions.py    # 异常处理
+│   │   └── 📄 init_app.py      # 应用初始化
+│   ├── 📁 models/              # 数据模型
+│   │   └── 📄 admin.py         # 管理员相关模型
+│   ├── 📁 schemas/             # 数据验证模式
+│   ├── 📁 settings/            # 配置文件
+│   │   └── 📄 config.py        # 主配置文件
+│   └── 📁 utils/               # 工具函数
+├── 📁 web/                     # 前端项目目录
+│   ├── 📁 build/               # 构建配置
+│   │   ├── 📁 config/          # 构建配置文件
+│   │   ├── 📁 plugin/          # Vite 插件配置
+│   │   └── 📁 script/          # 构建脚本
+│   ├── 📁 public/              # 静态资源
+│   ├── 📁 src/                 # 源代码目录
+│   │   ├── 📁 api/             # API 接口封装
+│   │   ├── 📁 assets/          # 静态资源
+│   │   │   ├── 📁 images/      # 图片资源
+│   │   │   ├── 📁 js/          # JavaScript 文件
+│   │   │   └── 📁 svg/         # SVG 图标
+│   │   ├── 📁 components/      # Vue 组件
+│   │   │   ├── 📁 common/      # 通用组件
+│   │   │   ├── 📁 icon/        # 图标组件
+│   │   │   ├── 📁 page/        # 页面组件
+│   │   │   ├── 📁 query-bar/   # 查询栏组件
+│   │   │   └── 📁 table/       # 表格组件
+│   │   ├── 📁 composables/     # 组合式 API
+│   │   ├── 📁 directives/      # Vue 指令
+│   │   ├── 📁 layout/          # 布局组件
+│   │   ├── 📁 router/          # 路由配置
+│   │   │   ├── 📁 guard/       # 路由守卫
+│   │   │   └── 📁 routes/      # 路由定义
+│   │   ├── 📁 store/           # Pinia 状态管理
+│   │   │   └── 📁 modules/     # 状态模块
+│   │   ├── 📁 styles/          # 样式文件
+│   │   ├── 📁 utils/           # 工具函数
+│   │   │   ├── 📁 auth/        # 认证工具
+│   │   │   ├── 📁 common/      # 通用工具
+│   │   │   ├── 📁 http/        # HTTP 请求封装
+│   │   │   └── 📁 storage/     # 存储工具
+│   │   └── 📁 views/           # 页面视图
+│   │       ├── 📁 error-page/  # 错误页面
+│   │       ├── 📁 login/       # 登录页面
+│   │       ├── 📁 profile/     # 个人资料
+│   │       ├── 📁 system/      # 系统管理
+│   │       └── 📁 workbench/   # 工作台
+│   ├── 📄 package.json         # 前端依赖配置
+│   ├── 📄 vite.config.js       # Vite 配置
+│   └── 📄 unocss.config.js     # UnoCSS 配置
+├── 📁 deploy/                  # 部署相关文件
+│   ├── 📄 entrypoint.sh        # Docker 入口脚本
+│   ├── 📄 web.conf             # Nginx 配置
+│   └── 📁 sample-picture/      # 示例图片
+├── 📄 Dockerfile               # Docker 构建文件
+├── 📄 pyproject.toml           # Python 项目配置
+├── 📄 requirements.txt         # Python 依赖
+├── 📄 run.py                   # 应用启动文件
+└── 📄 README.md                # 项目说明文档
+```
 
-<div style="display: flex">
-    <img src="https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/1.jpg" width="300">
-    <img src="https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/2.jpg" width="300">
-</div>
+## ⚙️ 配置说明
 
-## 定制开发
-如果有基于该项目的定制需求或其他合作，请添加下方微信，备注来意
+### 后端配置
 
-<img width="300" src="https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/3.jpg">
+主要配置文件：`app/settings/config.py`
 
-### Visitors Count
+```python
+class Settings(BaseSettings):
+    # 应用基本信息
+    APP_TITLE: str = "Vue FastAPI Admin"
+    VERSION: str = "0.1.0"
 
-<img align="left" src = "https://profile-counter.glitch.me/vue-fastapi-admin/count.svg" alt="Loading">
+    # 跨域配置
+    CORS_ORIGINS: List = ["*"]
+    CORS_ALLOW_CREDENTIALS: bool = True
+
+    # JWT 配置
+    SECRET_KEY: str = "your-secret-key"
+    JWT_ALGORITHM: str = "HS256"
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7天
+
+    # 数据库配置
+    TORTOISE_ORM: dict = {
+        "connections": {
+            "sqlite": {
+                "engine": "tortoise.backends.sqlite",
+                "credentials": {"file_path": "db.sqlite3"}
+            }
+        }
+    }
+```
+
+### 前端配置
+
+主要配置文件：`web/settings/`
+
+- **环境变量**：`.env` 文件配置
+- **构建配置**：`vite.config.js`
+- **路由配置**：`src/router/`
+- **状态管理**：`src/store/`
+
+## 📚 API 文档
+
+启动后端服务后，可以访问以下地址查看 API 文档：
+
+- **Swagger UI**：http://localhost:9999/docs
+- **ReDoc**：http://localhost:9999/redoc
+- **OpenAPI JSON**：http://localhost:9999/openapi.json
+
+### 主要 API 端点
+
+| 模块 | 端点 | 描述 |
+|------|------|------|
+| 认证 | `/api/v1/base/access_token` | 用户登录获取 Token |
+| 用户 | `/api/v1/user/` | 用户管理 CRUD |
+| 角色 | `/api/v1/role/` | 角色管理 CRUD |
+| 菜单 | `/api/v1/menu/` | 菜单管理 CRUD |
+| API | `/api/v1/api/` | API 权限管理 |
+
+## 🚀 部署指南
+
+### 生产环境部署
+
+#### 1. 环境变量配置
+
+```bash
+# 创建 .env 文件
+cat > .env << EOF
+APP_TITLE=Vue FastAPI Admin
+DEBUG=False
+SECRET_KEY=your-production-secret-key
+DATABASE_URL=sqlite:///./production.db
+EOF
+```
+
+#### 2. 使用 Docker Compose
+
+```yaml
+version: '3.8'
+services:
+  vue-fastapi-admin:
+    image: mizhexiaoxiao/vue-fastapi-admin:latest
+    ports:
+      - "80:80"
+    environment:
+      - DEBUG=False
+    volumes:
+      - ./data:/opt/vue-fastapi-admin/data
+    restart: unless-stopped
+```
+
+#### 3. 反向代理配置（Nginx）
+
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    location / {
+        proxy_pass http://localhost:9999;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+## 🤝 贡献指南
+
+我们欢迎所有形式的贡献！请遵循以下步骤：
+
+### 开发流程
+
+1. **Fork 项目**
+   ```bash
+   git clone https://github.com/your-username/vue-fastapi-admin.git
+   cd vue-fastapi-admin
+   ```
+
+2. **创建功能分支**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. **提交更改**
+   ```bash
+   git add .
+   git commit -m "feat: add your feature description"
+   ```
+
+4. **推送分支**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+5. **创建 Pull Request**
+
+### 代码规范
+
+- **后端**：遵循 PEP 8 规范，使用 Black 和 Ruff 进行代码格式化
+- **前端**：遵循 Vue 3 官方风格指南，使用 ESLint 和 Prettier
+- **提交信息**：遵循 [Conventional Commits](https://www.conventionalcommits.org/) 规范
+
+### 问题反馈
+
+如果您发现 bug 或有功能建议，请：
+
+1. 查看 [Issues](https://github.com/mizhexiaoxiao/vue-fastapi-admin/issues) 是否已存在相关问题
+2. 如果没有，请创建新的 Issue 并详细描述问题
+3. 提供复现步骤和环境信息
+
+## 📄 许可证
+
+本项目基于 [MIT License](./LICENSE) 开源协议，您可以自由使用、修改和分发。
+
+```
+MIT License
+
+Copyright (c) 2023 mizhexiaoxiao
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+```
+
