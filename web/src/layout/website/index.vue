@@ -28,19 +28,23 @@
         <!-- 右侧语言切换和登录入口 -->
         <div class="header-right">
           <div class="language-switch">
-            <button
+            <n-button
+              text
+              :type="currentLocale === 'zh-CN' ? 'primary' : 'default'"
               :class="['lang-item', { active: currentLocale === 'zh-CN' }]"
               @click="switchLanguage('zh-CN')"
             >
               中文
-            </button>
+            </n-button>
             <span class="lang-divider">|</span>
-            <button
+            <n-button
+              text
+              :type="currentLocale === 'en' ? 'primary' : 'default'"
               :class="['lang-item', { active: currentLocale === 'en' }]"
               @click="switchLanguage('en')"
             >
               English
-            </button>
+            </n-button>
           </div>
 
           <!-- 管理员登录图标按钮 -->
@@ -135,9 +139,14 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { lStorage } from '@/utils'
+import { websiteThemeOverrides } from '~/settings'
 
 const router = useRouter()
 const { locale } = useI18n()
+
+// 网站主题配置
+const websiteTheme = websiteThemeOverrides
+
 const showMobileMenu = ref(false)
 
 // 当前语言状态
