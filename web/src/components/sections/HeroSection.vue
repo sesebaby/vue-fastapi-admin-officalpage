@@ -16,7 +16,8 @@
           :fallback-src="PLACEHOLDER_IMAGES.business"
           alt="商务科技"
           object-fit="cover"
-          style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1;"
+          style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1; object-position: center center;"
+          :img-props="{ style: 'filter: brightness(1.1) contrast(1.05);' }"
         />
         <div class="hero-overlay"></div>
         <n-space
@@ -60,7 +61,8 @@
           :fallback-src="PLACEHOLDER_IMAGES.technology"
           alt="科技背景"
           object-fit="cover"
-          style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1;"
+          style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1; object-position: center center;"
+          :img-props="{ style: 'filter: brightness(1.1) contrast(1.05);' }"
         />
         <div class="hero-overlay"></div>
         <n-space
@@ -140,7 +142,11 @@ const emit = defineEmits(['scroll-to-section'])
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--sipumtech-bg-gradient-2);
+  background: linear-gradient(135deg,
+    rgba(30, 58, 138, 0.4) 0%,
+    rgba(59, 130, 246, 0.3) 50%,
+    rgba(0, 212, 170, 0.2) 100%
+  );
   z-index: 2;
 }
 

@@ -17,7 +17,7 @@
   --sipumtech-bg-gray: #f8fafc;              /* 浅灰色 - 辅助背景 */
   --sipumtech-bg-tech: #f0f9ff;              /* 科技蓝背景 - 技术展示区域 */
   --sipumtech-bg-gradient-1: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  --sipumtech-bg-gradient-2: linear-gradient(135deg, rgba(30, 58, 138, 0.8) 0%, rgba(59, 130, 246, 0.6) 100%);
+  --sipumtech-bg-gradient-2: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(59, 130, 246, 0.3) 50%, rgba(0, 212, 170, 0.2) 100%);
   
   /* 文字色系 */
   --sipumtech-text-primary: #1f2937;         /* 深灰色 - 主要文字 */
