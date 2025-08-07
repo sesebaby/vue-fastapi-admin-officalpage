@@ -73,33 +73,37 @@
         </n-button>
       </div>
 
-      <!-- 移动端菜单 -->
-      <div v-show="showMobileMenu" class="mobile-menu">
-        <a href="#home" class="mobile-nav-item">{{ $t('navigation.home') }}</a>
-        <a href="#about" class="mobile-nav-item">{{ $t('navigation.about') }}</a>
-        <a href="#business" class="mobile-nav-item">{{ $t('navigation.business') }}</a>
-        <a href="#technology" class="mobile-nav-item">{{ $t('navigation.technology') }}</a>
-        <a href="#cases" class="mobile-nav-item">{{ $t('navigation.cases') }}</a>
-        <a href="#news" class="mobile-nav-item">{{ $t('navigation.news') }}</a>
-        <a href="#contact" class="mobile-nav-item">{{ $t('navigation.contact') }}</a>
-        <div class="mobile-actions">
-          <div class="mobile-language-switch">
-            <button
-              :class="['mobile-lang-item', { active: currentLocale === 'zh-CN' }]"
-              @click="switchLanguage('zh-CN')"
-            >
-              中文
-            </button>
-            <button
-              :class="['mobile-lang-item', { active: currentLocale === 'en' }]"
-              @click="switchLanguage('en')"
-            >
-              English
-            </button>
+      <!-- 移动端抽屉菜单 -->
+      <n-drawer v-model:show="showMobileMenu" :width="280" placement="right">
+        <n-drawer-content :title="t('navigation.menu')" closable>
+          <n-menu
+            :options="mobileMenuOptions"
+            @update:value="handleMobileMenuSelect"
+            class="mobile-nav-menu"
+          />
+          <div class="mobile-actions">
+            <div class="mobile-language-switch">
+              <n-button
+                :type="currentLocale === 'zh-CN' ? 'primary' : 'default'"
+                :class="['mobile-lang-item', { active: currentLocale === 'zh-CN' }]"
+                @click="switchLanguage('zh-CN')"
+                size="small"
+              >
+                中文
+              </n-button>
+              <n-button
+                :type="currentLocale === 'en' ? 'primary' : 'default'"
+                :class="['mobile-lang-item', { active: currentLocale === 'en' }]"
+                @click="switchLanguage('en')"
+                size="small"
+              >
+                English
+              </n-button>
+            </div>
+            <n-button type="primary" block @click="handleLogin">{{ t('navigation.admin_login') }}</n-button>
           </div>
-          <n-button type="primary" block @click="handleLogin">{{ $t('navigation.admin_login') }}</n-button>
-        </div>
-      </div>
+        </n-drawer-content>
+      </n-drawer>
     </header>
 
     <!-- 主要内容区域 -->
@@ -153,7 +157,7 @@ import { lStorage } from '@/utils'
 import { websiteThemeOverrides } from '~/settings'
 
 const router = useRouter()
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 
 // 网站主题配置
 const websiteTheme = websiteThemeOverrides
@@ -175,12 +179,61 @@ const navSpacing = computed(() => {
   return 32                         // 默认值
 })
 
+// 移动端菜单选项
+const mobileMenuOptions = computed(() => [
+  {
+    label: t('navigation.home'),
+    key: 'home',
+    href: '#home'
+  },
+  {
+    label: t('navigation.about'),
+    key: 'about',
+    href: '#about'
+  },
+  {
+    label: t('navigation.business'),
+    key: 'business',
+    href: '#business'
+  },
+  {
+    label: t('navigation.technology'),
+    key: 'technology',
+    href: '#technology'
+  },
+  {
+    label: t('navigation.cases'),
+    key: 'cases',
+    href: '#cases'
+  },
+  {
+    label: t('navigation.news'),
+    key: 'news',
+    href: '#news'
+  },
+  {
+    label: t('navigation.contact'),
+    key: 'contact',
+    href: '#contact'
+  }
+])
+
 const handleLogin = () => {
   router.push('/login')
 }
 
 const toggleMobileMenu = () => {
   showMobileMenu.value = !showMobileMenu.value
+}
+
+// 处理移动端菜单项点击
+const handleMobileMenuSelect = (key, item) => {
+  // 导航到对应的锚点
+  if (item.href) {
+    window.location.href = item.href
+  }
+  // 关闭移动端菜单
+  showMobileMenu.value = false
 }
 
 // 语言切换功能
@@ -193,25 +246,7 @@ const switchLanguage = (lang) => {
   showMobileMenu.value = false
 }
 
-// 处理移动端菜单外部点击关闭
-const handleClickOutside = (event) => {
-  const mobileMenu = document.querySelector('.mobile-menu')
-  const menuToggle = document.querySelector('.mobile-menu-btn')
-
-  if (mobileMenu && menuToggle &&
-      !mobileMenu.contains(event.target) &&
-      !menuToggle.contains(event.target)) {
-    showMobileMenu.value = false
-  }
-}
-
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside)
-})
+// n-drawer 组件自带点击外部关闭功能，不需要手动处理
 </script>
 
 <style scoped>
@@ -430,39 +465,24 @@ onUnmounted(() => {
   border: none !important;
 }
 
-.mobile-menu {
-  display: none;
-  background: #ffffff;
-  border-top: 1px solid #e5e7eb;
-  padding: 20px;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 999;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* 移动端抽屉菜单样式 */
+.mobile-nav-menu {
+  margin-bottom: 20px;
 }
 
-.mobile-nav-item {
-  display: block;
-  color: #374151;
-  text-decoration: none;
-  padding: 12px 0;
-  border-bottom: 1px solid #f3f4f6;
-  font-weight: 500;
-  transition: color 0.3s ease;
+.mobile-nav-menu .n-menu-item-content {
+  padding: 12px 0 !important;
+  font-weight: 500 !important;
 }
 
-.mobile-nav-item:hover {
-  color: #1e40af;
-}
-
-.mobile-nav-item:last-child {
-  border-bottom: none;
+.mobile-nav-menu .n-menu-item-content:hover {
+  color: #1e40af !important;
 }
 
 .mobile-actions {
   margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #f3f4f6;
 }
 
 .mobile-language-switch {
@@ -470,6 +490,10 @@ onUnmounted(() => {
   gap: 8px;
   margin-bottom: 16px;
   justify-content: center;
+}
+
+.mobile-lang-item {
+  flex: 1;
 }
 
 .mobile-lang-item {
@@ -668,10 +692,6 @@ onUnmounted(() => {
   }
 
   .mobile-menu-btn {
-    display: block;
-  }
-
-  .mobile-menu {
     display: block;
   }
 
