@@ -148,7 +148,7 @@ const toggleMobileMenu = () => {
   height: 90px;
 }
 
-/* 左侧Logo区域 */
+/* 左侧Logo区域 - 华天科技风格 */
 .header-left {
   display: flex;
   align-items: center;
@@ -157,12 +157,12 @@ const toggleMobileMenu = () => {
 .company-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .logo-img {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
 }
 
@@ -172,46 +172,66 @@ const toggleMobileMenu = () => {
 }
 
 .company-name {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
   color: #1e3a8a;
   margin: 0;
   line-height: 1.2;
+  letter-spacing: 1px;
 }
 
 .company-subtitle {
-  font-size: 12px;
+  font-size: 13px;
   color: #6b7280;
   margin: 0;
   line-height: 1.2;
+  font-weight: 400;
 }
 
-/* 中间导航菜单 */
+/* 中间导航菜单 - 华天科技风格 */
 .header-nav {
   display: flex;
-  gap: 32px;
+  gap: 40px;
 }
 
 .nav-item {
   color: #374151;
   text-decoration: none;
   font-weight: 500;
-  padding: 8px 0;
+  font-size: 16px;
+  padding: 12px 0;
   border-bottom: 2px solid transparent;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .nav-item:hover,
 .nav-item.active {
   color: #1e3a8a;
-  border-bottom-color: #00D4AA;
+  border-bottom-color: #f59e0b;
 }
 
-/* 右侧操作区域 */
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #f59e0b;
+  transition: width 0.3s ease;
+}
+
+.nav-item:hover::after,
+.nav-item.active::after {
+  width: 100%;
+}
+
+/* 右侧操作区域 - 华天科技风格 */
 .header-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
 }
 
 .language-switch {
@@ -225,11 +245,14 @@ const toggleMobileMenu = () => {
   color: #6b7280;
   cursor: pointer;
   transition: color 0.3s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
 .lang-item.active,
 .lang-item:hover {
   color: #1e3a8a;
+  background: #f0f9ff;
 }
 
 .lang-divider {
@@ -237,10 +260,21 @@ const toggleMobileMenu = () => {
 }
 
 .login-btn {
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-  border: none;
-  padding: 8px 20px;
+  background: #1e3a8a;
+  border: 1px solid #1e3a8a;
+  color: #ffffff;
+  padding: 10px 24px;
   font-weight: 500;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  background: #1e40af;
+  border-color: #1e40af;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
 }
 
 /* 移动端菜单 */
@@ -275,71 +309,85 @@ const toggleMobileMenu = () => {
   flex: 1;
 }
 
-/* 页脚 */
+/* 页脚 - 华天科技风格 */
 .website-footer {
-  background: #1f2937;
+  background: #1e3a8a;
   color: #ffffff;
-  padding: 40px 0 20px;
+  padding: 50px 0 30px;
 }
 
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 30px;
 }
 
 .footer-content {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 30px;
+  gap: 50px;
+  margin-bottom: 40px;
 }
 
 .footer-section h3 {
-  color: #00D4AA;
-  margin-bottom: 16px;
-  font-size: 20px;
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 .footer-section h4 {
-  color: #ffffff;
-  margin-bottom: 12px;
-  font-size: 16px;
+  color: #f59e0b;
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .footer-section p {
-  color: #d1d5db;
-  line-height: 1.6;
-  margin-bottom: 8px;
+  color: #cbd5e1;
+  line-height: 1.7;
+  margin-bottom: 10px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
+  font-size: 14px;
+}
+
+.footer-section p span {
+  margin-top: 2px;
 }
 
 .certifications {
   display: flex;
-  gap: 12px;
-  margin-top: 16px;
+  gap: 16px;
+  margin-top: 20px;
 }
 
 .cert-badge {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   object-fit: contain;
   background: #ffffff;
-  padding: 4px;
-  border-radius: 4px;
+  padding: 6px;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+}
+
+.cert-badge:hover {
+  transform: scale(1.05);
 }
 
 .footer-bottom {
-  border-top: 1px solid #374151;
-  padding-top: 20px;
+  border-top: 1px solid #3b82f6;
+  padding-top: 25px;
   text-align: center;
-  color: #9ca3af;
+  color: #cbd5e1;
 }
 
 .footer-bottom p {
-  margin: 4px 0;
+  margin: 6px 0;
+  font-size: 14px;
+  justify-content: center;
 }
 
 /* 响应式设计 */
