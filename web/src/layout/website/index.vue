@@ -332,53 +332,7 @@ onUnmounted(() => {
 
 /* footer-container和footer-content样式已移至n-flex组件 - 遵循Naive UI框架优先原则 */
 
-.footer-section h3 {
-  color: var(--n-color-base);
-  margin-bottom: 20px;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-.footer-section h4 {
-  color: var(--n-accent-color);
-  margin-bottom: 16px;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.footer-section p {
-  color: var(--n-text-color-3);
-  line-height: 1.7;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 14px;
-}
-
-.footer-section p span {
-  margin-top: 2px;
-}
-
-.certifications {
-  display: flex;
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.cert-badge {
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-  background: #ffffff;
-  padding: 6px;
-  border-radius: 6px;
-  transition: transform 0.3s ease;
-}
-
-.cert-badge:hover {
-  transform: scale(1.05);
-}
+/* 页脚相关样式已移除 - 当前页脚使用简化版本，复杂页脚样式应在具体页面中使用Naive UI组件实现 */
 
 /* footer-bottom样式已移至n-flex组件的style属性 - 遵循Naive UI框架优先原则 */
 
@@ -469,14 +423,7 @@ onUnmounted(() => {
     display: block;
   }
 
-  .footer-content :deep(.n-grid) {
-    grid-template-columns: 1fr !important;
-    gap: 24px !important;
-  }
-
-  .certifications {
-    justify-content: center;
-  }
+  /* 网格和认证样式已移除 - 使用Naive UI组件的响应式属性替代!important强制覆盖 */
 }
 
 @media (max-width: 480px) {
