@@ -49,23 +49,15 @@
             <div class="slide-container">
               <h1 class="slide-title">
                 <span class="company-name animated-text">
-                  <span class="char">S</span>
-                  <span class="char">I</span>
-                  <span class="char">P</span>
-                  <span class="char">U</span>
-                  <span class="char">M</span>
-                  <span class="char">T</span>
-                  <span class="char">E</span>
-                  <span class="char">C</span>
-                  <span class="char">H</span>
+                  {{ $t('website.hero.company_name') }}
                 </span>
               </h1>
               <h2 class="slide-subtitle animated-text">
-                打造卓越的先进封测及软硬件开发一站式解决方案服务商
+                {{ $t('website.hero.title_1') }}
               </h2>
               <div class="hero-actions">
-                <button class="cta-button primary" @click="scrollToSection('about')">了解更多</button>
-                <button class="cta-button secondary" @click="scrollToSection('contact')">联系我们</button>
+                <button class="cta-button primary" @click="scrollToSection('about')">{{ $t('website.hero.cta_learn_more') }}</button>
+                <button class="cta-button secondary" @click="scrollToSection('contact')">{{ $t('website.hero.cta_contact') }}</button>
               </div>
             </div>
           </div>
@@ -80,14 +72,14 @@
           <div class="slide-content">
             <div class="slide-container">
               <h1 class="slide-title">
-                <span class="company-name">专业技术团队</span>
+                <span class="company-name">{{ $t('website.hero.title_2') }}</span>
               </h1>
               <h2 class="slide-subtitle">
-                快速响应 · 质量保证 · 一站式解决方案
+                {{ $t('website.hero.subtitle_2') }}
               </h2>
               <div class="hero-actions">
-                <button class="cta-button primary" @click="scrollToSection('technology')">技术能力</button>
-                <button class="cta-button secondary" @click="scrollToSection('business')">核心业务</button>
+                <button class="cta-button primary" @click="scrollToSection('technology')">{{ $t('website.hero.cta_technology') }}</button>
+                <button class="cta-button secondary" @click="scrollToSection('business')">{{ $t('website.hero.cta_business') }}</button>
               </div>
             </div>
           </div>
@@ -117,28 +109,28 @@
         <div class="about-content">
           <div class="about-text">
             <div class="section-header">
-              <h2 class="section-title">关于思普微</h2>
+              <h2 class="section-title">{{ $t('website.about.title') }}</h2>
               <div class="title-underline"></div>
             </div>
             <div class="company-intro">
               <p class="intro-highlight">
-                苏州思普微电子科技有限公司成立于2019年，总部位于苏州，是国内领先的先进系统级封装设计软硬件开发一站式服务综合服务供应商。
+                {{ $t('website.about.intro_highlight') }}
               </p>
               <p class="intro-description">
-                公司专注于先进封装技术和硬件方案开发，拥有专业的技术团队和完善的服务体系，为客户提供从设计到测试的全流程解决方案。
+                {{ $t('website.about.intro_description') }}
               </p>
               <div class="company-stats">
                 <div class="stat-item">
                   <div class="stat-number">2019</div>
-                  <div class="stat-label">成立年份</div>
+                  <div class="stat-label">{{ $t('website.about.stat_founded') }}</div>
                 </div>
                 <div class="stat-item">
                   <div class="stat-number">100+</div>
-                  <div class="stat-label">服务客户</div>
+                  <div class="stat-label">{{ $t('website.about.stat_clients') }}</div>
                 </div>
                 <div class="stat-item">
                   <div class="stat-number">5+</div>
-                  <div class="stat-label">核心团队</div>
+                  <div class="stat-label">{{ $t('website.about.stat_team') }}</div>
                 </div>
               </div>
             </div>
@@ -147,8 +139,8 @@
             <img src="/images/business_office_scene.jpg" alt="办公场景" class="about-img">
             <div class="image-overlay">
               <div class="overlay-content">
-                <h4>专业团队</h4>
-                <p>硬件设计、SIP设计、PCB设计、软件开发、热力电仿真等专业团队</p>
+                <h4>{{ $t('website.about.team_overlay_title') }}</h4>
+                <p>{{ $t('website.about.team_overlay_desc') }}</p>
               </div>
             </div>
           </div>
@@ -161,18 +153,18 @@
       <div class="section-container">
         <div class="service-nav-header">
           <h3 class="service-nav-title">
-            <span class="title-highlight">封测服务</span>
+            <span class="title-highlight">{{ $t('website.service_nav.title') }}</span>
           </h3>
         </div>
         <div class="service-nav-list">
           <a href="#advanced-packaging" class="service-nav-item">
-            <h5>先进封装</h5>
+            <h5>{{ $t('website.service_nav.advanced_packaging') }}</h5>
           </a>
           <a href="#hardware-solution" class="service-nav-item">
-            <h5>硬件方案</h5>
+            <h5>{{ $t('website.service_nav.hardware_solution') }}</h5>
           </a>
           <a href="#testing-service" class="service-nav-item">
-            <h5>测试服务</h5>
+            <h5>{{ $t('website.service_nav.testing_service') }}</h5>
           </a>
         </div>
       </div>
@@ -182,9 +174,9 @@
     <section id="business" class="main-services-section section-full">
       <div class="section-container">
         <div class="section-header centered">
-          <h2 class="section-title">核心业务</h2>
+          <h2 class="section-title">{{ $t('website.business.title') }}</h2>
           <div class="title-underline"></div>
-          <p class="section-subtitle">专业的先进系统级封装设计软硬件开发一站式服务</p>
+          <p class="section-subtitle">{{ $t('website.business.subtitle') }}</p>
         </div>
 
         <div class="services-grid">
@@ -193,19 +185,19 @@
               <div class="service-icon">
                 <img src="/images/icon_advanced_packaging.jpg" alt="先进封装">
               </div>
-              <h4 class="service-brand">SIPUMTECH</h4>
-              <h4 class="service-subtitle">Advanced Packaging</h4>
-              <h5 class="service-title">先进封装</h5>
+              <h4 class="service-brand">{{ $t('website.business.advanced_packaging.brand') }}</h4>
+              <h4 class="service-subtitle">{{ $t('website.business.advanced_packaging.subtitle') }}</h4>
+              <h5 class="service-title">{{ $t('website.business.advanced_packaging.title') }}</h5>
               <p class="service-description">
-                提供wafer后段bump，RDL优化及设计加工、wafer级设计封装（WLCSP）、硅转接板、硅穿孔（TSV）设计加工等服务。
+                {{ $t('website.business.advanced_packaging.description') }}
               </p>
               <ul class="service-features">
-                <li>晶圆级封装设计与制造</li>
-                <li>IC测试板设计加工</li>
-                <li>先进封装一站式方案</li>
+                <li>{{ $t('website.business.advanced_packaging.feature_1') }}</li>
+                <li>{{ $t('website.business.advanced_packaging.feature_2') }}</li>
+                <li>{{ $t('website.business.advanced_packaging.feature_3') }}</li>
               </ul>
               <div class="service-more">
-                <span class="more-text">了解详情</span>
+                <span class="more-text">{{ $t('website.business.advanced_packaging.cta') }}</span>
                 <span class="more-arrow">→</span>
               </div>
             </div>
@@ -216,19 +208,19 @@
               <div class="service-icon">
                 <img src="/images/icon_hardware_design.jpg" alt="硬件方案">
               </div>
-              <h4 class="service-brand">SIPUMTECH</h4>
-              <h4 class="service-subtitle">Hardware Solutions</h4>
-              <h5 class="service-title">软硬件方案开发</h5>
+              <h4 class="service-brand">{{ $t('website.business.hardware_solution.brand') }}</h4>
+              <h4 class="service-subtitle">{{ $t('website.business.hardware_solution.subtitle') }}</h4>
+              <h5 class="service-title">{{ $t('website.business.hardware_solution.title') }}</h5>
               <p class="service-description">
-                硬件方案开发、原理图及PCB设计、板级及系统级仿真、嵌入式驱动程序及上位机软件开发等服务。
+                {{ $t('website.business.hardware_solution.description') }}
               </p>
               <ul class="service-features">
-                <li>硬件设计开发</li>
-                <li>PCB产品设计制造</li>
-                <li>软件开发设计</li>
+                <li>{{ $t('website.business.hardware_solution.feature_1') }}</li>
+                <li>{{ $t('website.business.hardware_solution.feature_2') }}</li>
+                <li>{{ $t('website.business.hardware_solution.feature_3') }}</li>
               </ul>
               <div class="service-more">
-                <span class="more-text">了解详情</span>
+                <span class="more-text">{{ $t('website.business.hardware_solution.cta') }}</span>
                 <span class="more-arrow">→</span>
               </div>
             </div>
@@ -241,9 +233,9 @@
     <section id="technology" class="technology-section section-full">
       <div class="section-container">
         <div class="section-header centered">
-          <h2 class="section-title">技术能力</h2>
+          <h2 class="section-title">{{ $t('website.technology.title') }}</h2>
           <div class="title-underline"></div>
-          <p class="section-subtitle">专业的技术团队和完善的技术体系</p>
+          <p class="section-subtitle">{{ $t('website.technology.subtitle') }}</p>
         </div>
 
         <div class="technology-content">
@@ -321,9 +313,9 @@
     <section id="cases" class="cases-section section-half">
       <div class="section-container">
         <div class="section-header centered">
-          <h2 class="section-title">成功案例</h2>
+          <h2 class="section-title">{{ $t('website.cases.title') }}</h2>
           <div class="title-underline"></div>
-          <p class="section-subtitle">为多个行业客户提供专业的技术解决方案</p>
+          <p class="section-subtitle">{{ $t('website.cases.subtitle') }}</p>
         </div>
 
         <div class="cases-content">
@@ -379,9 +371,9 @@
     <section id="news" class="news-section section-half">
       <div class="section-container">
         <div class="news-header">
-          <h3 class="news-title">新闻动态</h3>
+          <h3 class="news-title">{{ $t('website.news.title') }}</h3>
           <a href="#" class="news-more">
-            <span>查看更多</span>
+            <span>{{ $t('website.news.more') }}</span>
             <span class="more-arrow">→</span>
           </a>
         </div>
@@ -421,9 +413,9 @@
     <section id="contact" class="contact-section section-half">
       <div class="section-container">
         <div class="section-header centered">
-          <h2 class="section-title">联系我们</h2>
+          <h2 class="section-title">{{ $t('website.contact.title') }}</h2>
           <div class="title-underline"></div>
-          <p class="section-subtitle">专业团队随时为您提供技术支持和解决方案</p>
+          <p class="section-subtitle">{{ $t('website.contact.subtitle') }}</p>
         </div>
 
         <div class="contact-content">
@@ -473,6 +465,9 @@
 
 <script setup>
 import { ref, reactive, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 // 滚动相关状态
 const scrollProgress = ref(0)

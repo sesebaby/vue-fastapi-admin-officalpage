@@ -7,109 +7,400 @@
     "full_description": "2019年成立于苏州，为国内领先的先进系统级封装设计软硬件开发一站式综合服务供应商",
     "slogan": "携手未来 共谋发展"
   },
+  "common": {
+    "add": "新增",
+    "delete": "删除",
+    "edit": "编辑",
+    "query": "查询",
+    "reset": "重置",
+    "action": "操作",
+    "confirm": "确认",
+    "cancel": "取消"
+  },
   "navigation": {
     "home": "首页",
     "about": "关于我们",
-    "business": "业务中心",
+    "business": "核心业务",
     "technology": "技术能力",
-    "cases": "案例展示",
-    "certification": "资质认证",
+    "cases": "成功案例",
+    "news": "新闻动态",
     "contact": "联系我们",
-    "language": "语言"
+    "language": "语言",
+    "admin_login": "管理员登录",
+    "admin_login_tooltip": "管理员登录"
   },
-  "home": {
+  "website": {
     "hero": {
-      "title": "苏州思普微电子科技有限公司",
-      "subtitle": "SIPUMTECH",
-      "description": "2019年成立于苏州，为国内领先的先进系统级封装设计软硬件开发一站式综合服务供应商",
-      "slogan": "携手未来 共谋发展",
-      "cta_consultation": "免费技术咨询",
-      "cta_solution": "获取定制方案"
+      "company_name": "SIPUMTECH",
+      "title_1": "打造卓越的先进封测及软硬件开发一站式解决方案服务商",
+      "title_2": "专业技术团队",
+      "subtitle_2": "快速响应 · 质量保证 · 一站式解决方案",
+      "cta_learn_more": "了解更多",
+      "cta_contact": "联系我们",
+      "cta_technology": "技术能力",
+      "cta_business": "核心业务"
     },
-    "business": {
-      "title": "主营业务",
+    "about": {
+      "title": "关于思普微",
+      "intro_highlight": "苏州思普微电子科技有限公司成立于2019年，总部位于苏州，是国内领先的先进系统级封装设计软硬件开发一站式服务综合服务供应商。",
+      "intro_description": "公司专注于先进封装技术和硬件方案开发，拥有专业的技术团队和完善的服务体系，为客户提供从设计到测试的全流程解决方案。",
+      "stat_founded": "成立年份",
+      "stat_clients": "服务客户",
+      "stat_team": "核心团队",
+      "team_overlay_title": "专业团队",
+      "team_overlay_desc": "硬件设计、SIP设计、PCB设计、软件开发、热力电仿真等专业团队"
+    },
+    "service_nav": {
+      "title": "封测服务",
       "advanced_packaging": "先进封装",
       "hardware_solution": "硬件方案",
-      "service_process": "设计、仿真、加工、测试",
-      "service_feature": "一站式解决方案"
+      "testing_service": "测试服务"
     },
-    "industries": {
-      "title": "服务行业",
-      "list": "国内外科研院所、高校、工控、医疗、通信/服务器"
-    }
-  },
-  "about": {
-    "title": "关于我们",
-    "company_overview": {
-      "title": "公司定位",
-      "description": "2019年成立于苏州，为国内领先的先进系统级封装设计软硬件开发一站式综合服务供应商"
-    }
-  },
-  "business": {
-    "title": "业务中心",
-    "advanced_packaging": {
-      "title": "先进封装",
-      "description": "设计、仿真、加工、测试一站式解决方案"
+    "business": {
+      "title": "核心业务",
+      "subtitle": "专业的先进系统级封装设计软硬件开发一站式服务",
+      "advanced_packaging": {
+        "brand": "SIPUMTECH",
+        "subtitle": "Advanced Packaging",
+        "title": "先进封装",
+        "description": "提供wafer后段bump，RDL优化及设计加工、wafer级设计封装（WLCSP）、硅转接板、硅穿孔（TSV）设计加工等服务。",
+        "feature_1": "晶圆级封装设计与制造",
+        "feature_2": "IC测试板设计加工",
+        "feature_3": "先进封装一站式方案",
+        "cta": "了解详情"
+      },
+      "hardware_solution": {
+        "brand": "SIPUMTECH",
+        "subtitle": "Hardware Solutions",
+        "title": "软硬件方案开发",
+        "description": "硬件方案开发、原理图及PCB设计、板级及系统级仿真、嵌入式驱动程序及上位机软件开发等服务。",
+        "feature_1": "硬件设计开发",
+        "feature_2": "PCB产品设计制造",
+        "feature_3": "软件开发设计",
+        "cta": "了解详情"
+      }
     },
-    "hardware_solution": {
-      "title": "硬件方案",
-      "description": "设计、仿真、加工、测试"
+    "technology": {
+      "title": "技术能力",
+      "subtitle": "专业的技术团队和完善的技术体系"
+    },
+    "cases": {
+      "title": "成功案例",
+      "subtitle": "为多个行业客户提供专业的技术解决方案"
+    },
+    "news": {
+      "title": "新闻动态",
+      "more": "查看更多"
+    },
+    "contact": {
+      "title": "联系我们",
+      "subtitle": "专业团队随时为您提供技术支持和解决方案",
+      "address_title": "公司地址",
+      "address": "苏州市吴江区东太湖生态旅游度假区体育路508号金鹰商业中心2,3幢3幢1911",
+      "phone_title": "联系电话",
+      "phone": "15318923490",
+      "email_title": "邮箱地址",
+      "email": "wenqiang.chang@sipumtech.com",
+      "certification_title": "资质认证"
     }
   },
-  "contact": {
-    "title": "联系我们",
-    "consultation": "免费技术咨询",
-    "solution": "获取定制方案"
+  "route": {
+    "login": "登录",
+    "workbench": "工作台",
+    "dashboard": "仪表盘",
+    "document": "文档",
+    "component": "组件",
+    "plugin": "插件",
+    "plugin_charts": "图表",
+    "plugin_copy": "复制",
+    "plugin_editor": "编辑器",
+    "plugin_icon": "图标",
+    "plugin_map": "地图",
+    "plugin_print": "打印",
+    "plugin_swiper": "轮播",
+    "plugin_video": "视频",
+    "auth": "权限管理",
+    "auth_demo": "权限演示",
+    "function": "功能",
+    "function_tab": "标签页",
+    "function_multi_tab": "多标签页",
+    "exception": "异常页",
+    "exception_403": "403",
+    "exception_404": "404",
+    "exception_500": "500",
+    "multi_menu": "多级菜单",
+    "multi_menu_first": "菜单一",
+    "multi_menu_second": "菜单二",
+    "multi_menu_second_child": "菜单二子项",
+    "management": "系统管理",
+    "management_user": "用户管理",
+    "management_role": "角色管理",
+    "management_route": "路由管理",
+    "management_menu": "菜单管理",
+    "about": "关于"
   },
-  "views": {
+  "page": {
     "login": {
-      "text_login": "登录",
-      "message_input_username_password": "请输入用户名和密码",
-      "message_verifying": "正在验证...",
-      "message_login_success": "登录成功"
-    },
-    "workbench": {
-      "label_workbench": "工作台",
-      "text_hello": "hello, {username}",
-      "text_welcome": "今天又是元气满满的一天!",
-      "label_number_of_items": "项目数",
-      "label_upcoming": "待办",
-      "label_information": "消息",
-      "label_project": "项目",
-      "label_more": "更多"
-    },
-    "profile": {
-      "label_profile": "个人中心",
-      "label_modify_information": "修改信息",
-      "label_change_password": "修改密码",
-      "label_avatar": "头像",
-      "label_username": "用户姓名",
-      "label_email": "邮箱",
-      "label_old_password": "旧密码",
-      "label_new_password": "新密码",
-      "label_confirm_password": "确认密码",
-      "placeholder_username": "请填写姓名",
-      "placeholder_email": "请填写邮箱",
-      "placeholder_old_password": "请输入旧密码",
-      "placeholder_new_password": "请输入新密码",
-      "placeholder_confirm_password": "请再次输入新密码",
-      "message_username_required": "请输入昵称",
-      "message_old_password_required": "请输入旧密码",
-      "message_new_password_required": "请输入新密码",
-      "message_password_confirmation_required": "请再次输入密码",
-      "message_password_confirmation_diff": "两次密码输入不一致"
-    },
-    "errors": {
-      "label_error": "错误页",
-      "text_back_to_home": "返回首页"
+      "common": {
+        "loginOrRegister": "登录 / 注册",
+        "userNamePlaceholder": "请输入用户名",
+        "phonePlaceholder": "请输入手机号",
+        "codePlaceholder": "请输入验证码",
+        "passwordPlaceholder": "请输入密码",
+        "confirmPasswordPlaceholder": "请再次输入密码",
+        "codeLogin": "验证码登录",
+        "confirm": "确定",
+        "back": "返回",
+        "validateSuccess": "验证成功",
+        "loginSuccess": "登录成功",
+        "welcomeBack": "欢迎回来，{userName} ！"
+      },
+      "pwdLogin": {
+        "title": "密码登录",
+        "rememberMe": "记住我",
+        "forgetPassword": "忘记密码？",
+        "register": "注册账号",
+        "otherAccountLogin": "其他账号登录",
+        "otherLoginMode": "其他登录方式",
+        "superAdmin": "超级管理员",
+        "admin": "管理员",
+        "user": "普通用户"
+      },
+      "codeLogin": {
+        "title": "验证码登录",
+        "getCode": "获取验证码",
+        "reGetCode": "{time}秒后重新获取",
+        "sendCodeSuccess": "验证码发送成功",
+        "imageCodePlaceholder": "请输入图片验证码"
+      },
+      "register": {
+        "title": "注册账号",
+        "agreement": "我已经仔细阅读并接受",
+        "protocol": "《用户协议》",
+        "policy": "《隐私权政策》"
+      },
+      "resetPwd": {
+        "title": "重置密码"
+      },
+      "bindWeChat": {
+        "title": "绑定微信"
+      }
     }
   },
-  "common": {
-    "text": {
-      "update_success": "修改成功"
+  "form": {
+    "required": "不能为空",
+    "userName": {
+      "required": "请输入用户名",
+      "invalid": "用户名格式不正确"
     },
-    "buttons": {
-      "update": "修改"
+    "phone": {
+      "required": "请输入手机号",
+      "invalid": "手机号格式不正确"
+    },
+    "pwd": {
+      "required": "请输入密码",
+      "invalid": "密码格式不正确，6-18位字符，至少包含字母、数字、特殊字符中的2种"
+    },
+    "confirmPwd": {
+      "required": "请输入确认密码",
+      "invalid": "两次输入密码不一致"
+    },
+    "code": {
+      "required": "请输入验证码",
+      "invalid": "验证码格式不正确"
+    },
+    "email": {
+      "required": "请输入邮箱",
+      "invalid": "邮箱格式不正确"
     }
+  },
+  "dropdown": {
+    "closeCurrent": "关闭",
+    "closeOther": "关闭其它",
+    "closeLeft": "关闭左侧",
+    "closeRight": "关闭右侧",
+    "closeAll": "关闭所有"
+  },
+  "icon": {
+    "themeConfig": "主题配置",
+    "themeSchema": "主题模式",
+    "lang": "切换语言",
+    "fullscreen": "全屏",
+    "fullscreenExit": "退出全屏",
+    "reload": "刷新页面",
+    "collapse": "折叠菜单",
+    "expand": "展开菜单",
+    "pin": "固定",
+    "unpin": "取消固定"
+  },
+  "datatable": {
+    "itemCount": "共 {total} 条"
+  },
+  "request": {
+    "logout": "登出用户",
+    "logoutMsg": "用户状态失效，请重新登录",
+    "logoutWithModal": "提示",
+    "logoutWithModalMsg": "当前页面已失效，请重新登录",
+    "refreshToken": "刷新token",
+    "tokenExpired": "token已过期"
+  },
+  "theme": {
+    "themeSchema": {
+      "title": "主题模式",
+      "light": "亮色模式",
+      "dark": "暗黑模式",
+      "auto": "跟随系统"
+    },
+    "grayscale": "灰色模式",
+    "colourWeakness": "色弱模式",
+    "layoutMode": {
+      "title": "布局模式",
+      "vertical": "左侧菜单模式",
+      "horizontal": "顶部菜单模式",
+      "vertical-mix": "左侧菜单混合模式",
+      "horizontal-mix": "顶部菜单混合模式"
+    },
+    "recommendColor": "应用推荐算法的颜色",
+    "recommendColorDesc": "推荐颜色的算法参照",
+    "themeColor": {
+      "title": "主题颜色",
+      "primary": "主色",
+      "info": "信息色",
+      "success": "成功色",
+      "warning": "警告色",
+      "error": "错误色",
+      "followPrimary": "跟随主色"
+    },
+    "scrollMode": {
+      "title": "滚动模式",
+      "wrapper": "外层滚动",
+      "content": "主体滚动"
+    },
+    "page": {
+      "animate": "页面切换动画",
+      "mode": {
+        "title": "页面切换动画类型",
+        "fade-slide": "滑动",
+        "fade": "淡入淡出",
+        "fade-bottom": "底部消退",
+        "fade-scale": "缩放消退",
+        "zoom-fade": "渐变",
+        "zoom-out": "闪现",
+        "none": "无"
+      }
+    },
+    "fixedHeaderAndTab": "固定头部和标签栏",
+    "header": {
+      "height": "头部高度",
+      "breadcrumb": {
+        "visible": "显示面包屑",
+        "showIcon": "显示面包屑图标"
+      }
+    },
+    "tab": {
+      "visible": "显示标签栏",
+      "cache": "缓存标签页",
+      "height": "标签栏高度",
+      "mode": {
+        "title": "标签栏风格",
+        "chrome": "谷歌风格",
+        "button": "按钮风格"
+      }
+    },
+    "sider": {
+      "inverted": "深色侧边栏",
+      "width": "侧边栏宽度",
+      "collapsedWidth": "侧边栏折叠宽度",
+      "mixWidth": "混合布局侧边栏宽度",
+      "mixCollapsedWidth": "混合布局侧边栏折叠宽度",
+      "mixChildMenuWidth": "混合布局子菜单宽度"
+    },
+    "footer": {
+      "visible": "显示底部",
+      "fixed": "固定底部",
+      "height": "底部高度",
+      "right": "底部局右"
+    },
+    "watermark": {
+      "visible": "显示全屏水印",
+      "text": "水印文本"
+    },
+    "themeDrawerTitle": "主题配置",
+    "pageFunTitle": "页面功能",
+    "configOperation": {
+      "copyConfig": "复制配置",
+      "copySuccessMsg": "复制成功，请替换 src/theme/settings.ts 中的变量 themeSettings",
+      "resetConfig": "重置配置",
+      "resetSuccessMsg": "重置成功"
+    }
+  },
+  "route": {
+    "login": "登录",
+    "403": "无权限",
+    "404": "页面不存在",
+    "500": "服务器错误",
+    "home": "首页",
+    "document": "项目文档",
+    "document_project": "项目文档(外链)",
+    "document_project-link": "项目文档(内嵌)",
+    "document_vue": "Vue文档",
+    "document_vite": "Vite文档",
+    "document_unocss": "UnoCSS文档",
+    "document_naive": "Naive UI文档",
+    "document_antd": "Ant Design Vue文档",
+    "component": "组件示例",
+    "component_button": "按钮",
+    "component_card": "卡片",
+    "component_table": "表格",
+    "plugin": "插件示例",
+    "plugin_charts": "图表",
+    "plugin_charts_echarts": "ECharts",
+    "plugin_charts_antv": "AntV",
+    "plugin_copy": "复制",
+    "plugin_editor": "编辑器",
+    "plugin_editor_quill": "富文本编辑器",
+    "plugin_editor_monaco": "代码编辑器",
+    "plugin_icon": "图标",
+    "plugin_icon_iconify": "Iconify图标",
+    "plugin_icon_local": "本地图标",
+    "plugin_map": "地图",
+    "plugin_map_baidu": "百度地图",
+    "plugin_map_gaode": "高德地图",
+    "plugin_print": "打印",
+    "plugin_swiper": "轮播",
+    "plugin_video": "视频",
+    "auth": "权限管理",
+    "auth_demo": "权限演示",
+    "auth_demo_permission": "切换权限",
+    "auth_demo_super": "超级管理员可见",
+    "function": "系统功能",
+    "function_tab": "标签页",
+    "function_multi-tab": "多标签页",
+    "function_hide-child": "隐藏子菜单",
+    "function_hide-child_one": "隐藏子菜单",
+    "function_hide-child_two": "菜单二",
+    "function_hide-child_three": "菜单三",
+    "exception": "异常页",
+    "exception_403": "403",
+    "exception_404": "404",
+    "exception_500": "500",
+    "multi-menu": "多级菜单",
+    "multi-menu_first": "菜单一",
+    "multi-menu_first_child": "菜单一子菜单",
+    "multi-menu_second": "菜单二",
+    "multi-menu_second_child": "菜单二子菜单",
+    "multi-menu_second_child_home": "菜单二子菜单首页",
+    "management": "系统管理",
+    "management_auth": "权限管理",
+    "management_role": "角色管理",
+    "management_user": "用户管理",
+    "management_route": "路由管理",
+    "management_menu": "菜单管理",
+    "about": "关于",
+    "user-center": "个人中心",
+    "workbench": "工作台"
+  },
+  "system": {
+    "title": "SoybeanAdmin"
   }
 }

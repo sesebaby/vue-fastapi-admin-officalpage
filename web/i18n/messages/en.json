@@ -10,31 +10,123 @@
   "navigation": {
     "home": "Home",
     "about": "About Us",
-    "business": "Business Center",
+    "business": "Core Business",
     "technology": "Technology",
-    "cases": "Cases",
-    "certification": "Certification",
-    "contact": "Contact"
+    "cases": "Success Cases",
+    "news": "News",
+    "contact": "Contact",
+    "language": "Language",
+    "admin_login": "Admin Login",
+    "admin_login_tooltip": "Admin Login"
   },
-  "home": {
+  "website": {
     "hero": {
-      "title": "Suzhou SIPUMTECH Electronic Technology Co., Ltd.",
-      "subtitle": "SIPUMTECH",
-      "description": "Established in Suzhou in 2019, as a leading domestic comprehensive service provider for advanced system-level packaging design and hardware/software development one-stop solutions",
-      "slogan": "Join hands for the future, seek common development",
-      "cta_consultation": "Free Technical Consultation",
-      "cta_solution": "Get Custom Solution"
+      "company_name": "SIPUMTECH",
+      "title_1": "Creating Excellence in Advanced Packaging and Hardware/Software Development One-Stop Solutions",
+      "title_2": "Professional Technical Team",
+      "subtitle_2": "Rapid Response · Quality Assurance · One-Stop Solutions",
+      "cta_learn_more": "Learn More",
+      "cta_contact": "Contact Us",
+      "cta_technology": "Technology",
+      "cta_business": "Core Business"
+    },
+    "about": {
+      "title": "About SIPUMTECH",
+      "intro_highlight": "Suzhou SIPUMTECH Electronic Technology Co., Ltd. was established in 2019, headquartered in Suzhou, as a leading domestic comprehensive service provider for advanced system-level packaging design and hardware/software development one-stop solutions.",
+      "intro_description": "The company focuses on advanced packaging technology and hardware solution development, with professional technical teams and comprehensive service systems, providing customers with full-process solutions from design to testing.",
+      "stat_founded": "Founded",
+      "stat_clients": "Clients Served",
+      "stat_team": "Core Team",
+      "team_overlay_title": "Professional Team",
+      "team_overlay_desc": "Professional teams in hardware design, SIP design, PCB design, software development, thermal and electrical simulation"
+    },
+    "service_nav": {
+      "title": "Packaging & Testing Services",
+      "advanced_packaging": "Advanced Packaging",
+      "hardware_solution": "Hardware Solutions",
+      "testing_service": "Testing Services"
     },
     "business": {
-      "title": "Main Business",
-      "advanced_packaging": "Advanced Packaging",
-      "hardware_solution": "Hardware Solution",
-      "service_process": "Design, Simulation, Processing, Testing",
-      "service_feature": "One-stop Solution"
+      "title": "Core Business",
+      "subtitle": "Professional advanced system-level packaging design and hardware/software development one-stop services",
+      "advanced_packaging": {
+        "brand": "SIPUMTECH",
+        "subtitle": "Advanced Packaging",
+        "title": "Advanced Packaging",
+        "description": "Providing wafer back-end bump, RDL optimization and design processing, wafer-level design packaging (WLCSP), silicon interposer, through-silicon via (TSV) design and processing services.",
+        "feature_1": "Wafer-level packaging design and manufacturing",
+        "feature_2": "IC test board design and processing",
+        "feature_3": "Advanced packaging one-stop solutions",
+        "cta": "Learn More"
+      },
+      "hardware_solution": {
+        "brand": "SIPUMTECH",
+        "subtitle": "Hardware Solutions",
+        "title": "Hardware & Software Solutions",
+        "description": "Hardware solution development, schematic and PCB design, board-level and system-level simulation, embedded driver and host computer software development services.",
+        "feature_1": "Hardware design and development",
+        "feature_2": "PCB product design and manufacturing",
+        "feature_3": "Software development and design",
+        "cta": "Learn More"
+      }
     },
-    "industries": {
-      "title": "Service Industries",
-      "list": "Domestic and overseas research institutes, universities, industrial control, medical, communication/servers"
+    "technology": {
+      "title": "Technology Capabilities",
+      "subtitle": "Professional technical teams and comprehensive technical systems",
+      "overview_title": "Comprehensive Technical Services",
+      "overview_description": "SIPUMTECH has professional technical teams including hardware design, SIP design, PCB design, software development, thermal and electrical simulation, providing comprehensive technical services to customers.",
+      "highlight_1_title": "Advanced Process",
+      "highlight_1_desc": "Master the latest packaging process technologies",
+      "highlight_2_title": "Rapid Response",
+      "highlight_2_desc": "7x24 hours technical support services",
+      "highlight_3_title": "Precise Customization",
+      "highlight_3_desc": "Customized solutions based on customer needs",
+      "capability_1_title": "Advanced Packaging Technology",
+      "capability_1_desc": "WLCSP, TSV, RDL and other advanced packaging technologies to meet high-density and high-speed packaging requirements",
+      "capability_2_title": "Hardware Design Capabilities",
+      "capability_2_desc": "Full-process hardware development services including schematic design, PCB design, and system-level simulation",
+      "capability_3_title": "Testing and Verification Services",
+      "capability_3_desc": "MEMS probe card design, Load board test board design, test board assembly, etc.",
+      "capability_4_title": "Simulation Analysis Technology",
+      "capability_4_desc": "Thermal and electrical simulation, signal integrity analysis, electromagnetic compatibility design, etc."
+    },
+    "cases": {
+      "title": "Success Cases",
+      "subtitle": "Providing professional technical solutions for customers in multiple industries",
+      "overview_title": "Extensive Service Coverage",
+      "overview_description": "SIPUMTECH's services cover multiple key cities nationwide, providing professional services for communication/servers, research institutes, industrial control equipment, medical equipment, universities and other industries.",
+      "sector_1_title": "Communication/Servers",
+      "sector_1_desc": "Providing high-performance packaging solutions for communication equipment and server manufacturers",
+      "sector_2_title": "Research Institutes",
+      "sector_2_desc": "Supporting cutting-edge technology R&D and industrialization applications of research institutes",
+      "sector_3_title": "Industrial Control Equipment",
+      "sector_3_desc": "Providing reliable hardware solutions for industrial control equipment",
+      "sector_4_title": "Medical Equipment",
+      "sector_4_desc": "Providing high-precision packaging technology services for medical equipment manufacturers",
+      "sector_5_title": "Universities",
+      "sector_5_desc": "Cooperating with universities on industry-academia-research integration projects",
+      "process_title": "Service Process"
+    },
+    "news": {
+      "title": "News & Updates",
+      "more": "View More",
+      "news_1_title": "SIPUMTECH Awarded High-Tech Enterprise Certification",
+      "news_1_excerpt": "SIPUMTECH has been awarded the High-Tech Enterprise Certification, marking the company's authoritative recognition in technological innovation and R&D capabilities...",
+      "news_2_title": "SIPUMTECH: Technological Innovation Drives Industry Development",
+      "news_2_excerpt": "SIPUMTECH: Technological innovation drives industry development. The company continues to increase R&D investment and promote the industrialization of advanced packaging technologies...",
+      "news_3_title": "New Year Greetings Warm Hearts",
+      "news_3_excerpt": "'Happy New Year everyone!' The chairman of SIPUMTECH smiled and waved to the employees working during the Spring Festival, 'Happy New Year, Chairman...'"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "subtitle": "Professional teams are ready to provide technical support and solutions",
+      "address_title": "Company Address",
+      "address": "Room 1911, Building 3, Golden Eagle Commercial Center, No. 508 Sports Road, East Taihu Lake Ecological Tourism Resort, Wujiang District, Suzhou",
+      "phone_title": "Phone",
+      "phone": "15318923490",
+      "email_title": "Email",
+      "email": "wenqiang.chang@sipumtech.com",
+      "certification_title": "Certifications"
     }
   },
   "about": {

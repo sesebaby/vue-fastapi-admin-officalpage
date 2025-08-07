@@ -16,28 +16,40 @@
 
         <!-- 中间导航菜单 -->
         <nav class="header-nav">
-          <a href="#home" class="nav-item active">首页</a>
-          <a href="#about" class="nav-item">关于我们</a>
-          <a href="#business" class="nav-item">业务中心</a>
-          <a href="#technology" class="nav-item">技术能力</a>
-          <a href="#cases" class="nav-item">案例展示</a>
-          <a href="#contact" class="nav-item">联系我们</a>
+          <a href="#home" class="nav-item active">{{ $t('navigation.home') }}</a>
+          <a href="#about" class="nav-item">{{ $t('navigation.about') }}</a>
+          <a href="#business" class="nav-item">{{ $t('navigation.business') }}</a>
+          <a href="#technology" class="nav-item">{{ $t('navigation.technology') }}</a>
+          <a href="#cases" class="nav-item">{{ $t('navigation.cases') }}</a>
+          <a href="#news" class="nav-item">{{ $t('navigation.news') }}</a>
+          <a href="#contact" class="nav-item">{{ $t('navigation.contact') }}</a>
         </nav>
 
-        <!-- 右侧登录入口和语言切换 -->
+        <!-- 右侧语言切换和登录入口 -->
         <div class="header-right">
           <div class="language-switch">
-            <span class="lang-item active">中文</span>
+            <button
+              :class="['lang-item', { active: currentLocale === 'zh-CN' }]"
+              @click="switchLanguage('zh-CN')"
+            >
+              中文
+            </button>
             <span class="lang-divider">|</span>
-            <span class="lang-item">English</span>
+            <button
+              :class="['lang-item', { active: currentLocale === 'en' }]"
+              @click="switchLanguage('en')"
+            >
+              English
+            </button>
           </div>
-          <n-button 
-            type="primary" 
-            class="login-btn"
-            @click="handleLogin"
-          >
-            管理员登录
-          </n-button>
+
+          <!-- 管理员登录图标按钮 -->
+          <div class="admin-login" @click="handleLogin" :title="$t('navigation.admin_login_tooltip')">
+            <svg class="login-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
         </div>
 
         <!-- 移动端菜单按钮 -->
@@ -48,14 +60,29 @@
 
       <!-- 移动端菜单 -->
       <div v-show="showMobileMenu" class="mobile-menu">
-        <a href="#home" class="mobile-nav-item">首页</a>
-        <a href="#about" class="mobile-nav-item">关于我们</a>
-        <a href="#business" class="mobile-nav-item">业务中心</a>
-        <a href="#technology" class="mobile-nav-item">技术能力</a>
-        <a href="#cases" class="mobile-nav-item">案例展示</a>
-        <a href="#contact" class="mobile-nav-item">联系我们</a>
+        <a href="#home" class="mobile-nav-item">{{ $t('navigation.home') }}</a>
+        <a href="#about" class="mobile-nav-item">{{ $t('navigation.about') }}</a>
+        <a href="#business" class="mobile-nav-item">{{ $t('navigation.business') }}</a>
+        <a href="#technology" class="mobile-nav-item">{{ $t('navigation.technology') }}</a>
+        <a href="#cases" class="mobile-nav-item">{{ $t('navigation.cases') }}</a>
+        <a href="#news" class="mobile-nav-item">{{ $t('navigation.news') }}</a>
+        <a href="#contact" class="mobile-nav-item">{{ $t('navigation.contact') }}</a>
         <div class="mobile-actions">
-          <n-button type="primary" block @click="handleLogin">管理员登录</n-button>
+          <div class="mobile-language-switch">
+            <button
+              :class="['mobile-lang-item', { active: currentLocale === 'zh-CN' }]"
+              @click="switchLanguage('zh-CN')"
+            >
+              中文
+            </button>
+            <button
+              :class="['mobile-lang-item', { active: currentLocale === 'en' }]"
+              @click="switchLanguage('en')"
+            >
+              English
+            </button>
+          </div>
+          <n-button type="primary" block @click="handleLogin">{{ $t('navigation.admin_login') }}</n-button>
         </div>
       </div>
     </header>
@@ -70,33 +97,33 @@
       <div class="footer-container">
         <div class="footer-content">
           <div class="footer-section">
-            <h3>苏州思普微电子科技有限公司</h3>
-            <p>专业的先进系统级封装设计软硬件开发一站式服务供应商</p>
+            <h3>{{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd.' }}</h3>
+            <p>{{ currentLocale === 'zh-CN' ? '专业的先进系统级封装设计软硬件开发一站式服务供应商' : 'Professional advanced system-level packaging design and hardware/software development one-stop service provider' }}</p>
             <div class="certifications">
               <img src="/images/ISO9001质量管理体系认证证书.png" alt="ISO9001认证" class="cert-badge">
               <img src="/images/武器装备质量管理体系证书.png" alt="军工认证" class="cert-badge">
             </div>
           </div>
-          
+
           <div class="footer-section">
-            <h4>联系信息</h4>
-            <p><span>📍</span> 苏州市吴江区东太湖生态旅游度假区体育路508号</p>
-            <p><span>📞</span> 15318923490</p>
-            <p><span>📧</span> wenqiang.chang@sipumtech.com</p>
+            <h4>{{ $t('website.contact.title') }}</h4>
+            <p><span>📍</span> {{ $t('website.contact.address') }}</p>
+            <p><span>📞</span> {{ $t('website.contact.phone') }}</p>
+            <p><span>📧</span> {{ $t('website.contact.email') }}</p>
           </div>
-          
+
           <div class="footer-section">
-            <h4>核心业务</h4>
-            <p>• 先进封装设计与制造</p>
-            <p>• 硬件方案开发</p>
-            <p>• PCB设计与仿真</p>
-            <p>• 系统级测试服务</p>
+            <h4>{{ $t('navigation.business') }}</h4>
+            <p>• {{ $t('website.service_nav.advanced_packaging') }}</p>
+            <p>• {{ $t('website.service_nav.hardware_solution') }}</p>
+            <p>• {{ currentLocale === 'zh-CN' ? 'PCB设计与仿真' : 'PCB Design & Simulation' }}</p>
+            <p>• {{ currentLocale === 'zh-CN' ? '系统级测试服务' : 'System-level Testing Services' }}</p>
           </div>
         </div>
-        
+
         <div class="footer-bottom">
-          <p>&copy; 2019-2025 苏州思普微电子科技有限公司 版权所有</p>
-          <p>专业技术 · 快速响应 · 质量保证</p>
+          <p>&copy; 2019-2025 {{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司 版权所有' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd. All Rights Reserved' }}</p>
+          <p>{{ currentLocale === 'zh-CN' ? '专业技术 · 快速响应 · 质量保证' : 'Professional Technology · Rapid Response · Quality Assurance' }}</p>
         </div>
       </div>
     </footer>
@@ -104,11 +131,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { lStorage } from '@/utils'
 
 const router = useRouter()
+const { locale } = useI18n()
 const showMobileMenu = ref(false)
+
+// 当前语言状态
+const currentLocale = computed(() => locale.value === 'cn' ? 'zh-CN' : 'en')
 
 const handleLogin = () => {
   router.push('/login')
@@ -117,6 +150,34 @@ const handleLogin = () => {
 const toggleMobileMenu = () => {
   showMobileMenu.value = !showMobileMenu.value
 }
+
+// 语言切换功能
+const switchLanguage = (lang) => {
+  const targetLang = lang === 'zh-CN' ? 'cn' : 'en'
+  locale.value = targetLang
+  lStorage.set('locale', targetLang)
+
+  // 关闭移动端菜单
+  showMobileMenu.value = false
+}
+
+// 处理移动端菜单外部点击关闭
+const handleClickOutside = (event) => {
+  const mobileMenu = document.querySelector('.mobile-menu')
+  const menuToggle = document.querySelector('.mobile-menu-toggle')
+
+  if (mobileMenu && !mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+    showMobileMenu.value = false
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
 </script>
 
 <style scoped>
@@ -239,24 +300,64 @@ const toggleMobileMenu = () => {
   align-items: center;
   gap: 8px;
   font-size: 14px;
+  margin-right: 20px;
 }
 
 .lang-item {
+  background: none;
+  border: none;
   color: #6b7280;
   cursor: pointer;
-  transition: color 0.3s ease;
-  padding: 4px 8px;
-  border-radius: 4px;
+  transition: all 0.3s ease;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.lang-item.active,
-.lang-item:hover {
+.lang-item.active {
   color: #1e3a8a;
   background: #f0f9ff;
+  font-weight: 600;
+}
+
+.lang-item:hover {
+  color: #1e40af;
+  background: #f8fafc;
 }
 
 .lang-divider {
   color: #d1d5db;
+}
+
+/* 管理员登录图标 */
+.admin-login {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(30, 58, 138, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.admin-login:hover {
+  background: rgba(30, 58, 138, 0.15);
+  transform: scale(1.05);
+}
+
+.login-icon {
+  width: 20px;
+  height: 20px;
+  color: #1e3a8a;
+  transition: color 0.3s ease;
+}
+
+.admin-login:hover .login-icon {
+  color: #1e40af;
 }
 
 .login-btn {
@@ -302,6 +403,39 @@ const toggleMobileMenu = () => {
 
 .mobile-actions {
   margin-top: 20px;
+}
+
+.mobile-language-switch {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  justify-content: center;
+}
+
+.mobile-lang-item {
+  background: none;
+  border: 1px solid #e5e7eb;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.mobile-lang-item.active {
+  color: #1e3a8a;
+  background: #f0f9ff;
+  border-color: #1e3a8a;
+  font-weight: 600;
+}
+
+.mobile-lang-item:hover {
+  color: #1e40af;
+  background: #f8fafc;
+  border-color: #1e40af;
 }
 
 /* 主要内容区域 */
