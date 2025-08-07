@@ -126,7 +126,31 @@
       "phone": "15318923490",
       "email_title": "Email",
       "email": "wenqiang.chang@sipumtech.com",
-      "certification_title": "Certifications"
+      "certification_title": "Certifications",
+      "form": {
+        "name_placeholder": "Please enter your name",
+        "phone_placeholder": "Please enter your phone number",
+        "email_placeholder": "Please enter your email address",
+        "message_placeholder": "Please describe your requirements or questions",
+        "submit_button": "Submit Inquiry",
+        "submit_success": "Your inquiry has been submitted. We will contact you soon!",
+        "submit_error": "Submission failed, please try again later"
+      }
+    },
+    "form_validation": {
+      "name_required": "Please enter your name",
+      "phone_required": "Please enter your phone number",
+      "email_required": "Please enter your email address",
+      "message_required": "Please describe your requirements or questions"
+    },
+    "navigation_sections": {
+      "home": "Home",
+      "about": "About Us",
+      "business": "Core Business",
+      "technology": "Technology",
+      "cases": "Success Cases",
+      "news": "News",
+      "contact": "Contact"
     }
   },
   "about": {

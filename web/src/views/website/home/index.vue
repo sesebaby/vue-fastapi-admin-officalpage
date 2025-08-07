@@ -244,28 +244,28 @@
               <img src="/images/page4_business_scope_full.jpg" alt="业务范围" class="overview-img">
             </div>
             <div class="tech-description">
-              <h3>全方位技术服务</h3>
-              <p>思普微科技拥有专业的技术团队，包括硬件设计、SIP设计、PCB设计、软件开发、热力电仿真等多个专业领域，为客户提供全方位的技术服务。</p>
+              <h3>{{ $t('website.technology.overview_title') }}</h3>
+              <p>{{ $t('website.technology.overview_description') }}</p>
               <div class="tech-highlights">
                 <div class="highlight-item">
                   <div class="highlight-icon">🔬</div>
                   <div class="highlight-text">
-                    <h4>先进工艺</h4>
-                    <p>掌握最新的封装工艺技术</p>
+                    <h4>{{ $t('website.technology.highlight_1_title') }}</h4>
+                    <p>{{ $t('website.technology.highlight_1_desc') }}</p>
                   </div>
                 </div>
                 <div class="highlight-item">
                   <div class="highlight-icon">⚡</div>
                   <div class="highlight-text">
-                    <h4>快速响应</h4>
-                    <p>7x24小时技术支持服务</p>
+                    <h4>{{ $t('website.technology.highlight_2_title') }}</h4>
+                    <p>{{ $t('website.technology.highlight_2_desc') }}</p>
                   </div>
                 </div>
                 <div class="highlight-item">
                   <div class="highlight-icon">🎯</div>
                   <div class="highlight-text">
-                    <h4>精准定制</h4>
-                    <p>根据客户需求定制解决方案</p>
+                    <h4>{{ $t('website.technology.highlight_3_title') }}</h4>
+                    <p>{{ $t('website.technology.highlight_3_desc') }}</p>
                   </div>
                 </div>
               </div>
@@ -275,34 +275,34 @@
           <div class="tech-capabilities">
             <div class="capability-card">
               <div class="capability-icon">
-                <img src="/images/icon_advanced_packaging.jpg" alt="先进封装">
+                <img src="/images/icon_advanced_packaging.jpg" :alt="$t('website.technology.capability_1_title')">
               </div>
-              <h4>先进封装技术</h4>
-              <p>WLCSP、TSV、RDL等先进封装技术，满足高密度高速度封装需求</p>
+              <h4>{{ $t('website.technology.capability_1_title') }}</h4>
+              <p>{{ $t('website.technology.capability_1_desc') }}</p>
             </div>
 
             <div class="capability-card">
               <div class="capability-icon">
-                <img src="/images/icon_hardware_design.jpg" alt="硬件设计">
+                <img src="/images/icon_hardware_design.jpg" :alt="$t('website.technology.capability_2_title')">
               </div>
-              <h4>硬件设计能力</h4>
-              <p>原理图设计、PCB设计、系统级仿真等硬件开发全流程服务</p>
+              <h4>{{ $t('website.technology.capability_2_title') }}</h4>
+              <p>{{ $t('website.technology.capability_2_desc') }}</p>
             </div>
 
             <div class="capability-card">
               <div class="capability-icon">
-                <img src="/images/icon_ic_testing.jpg" alt="测试服务">
+                <img src="/images/icon_ic_testing.jpg" :alt="$t('website.technology.capability_3_title')">
               </div>
-              <h4>测试验证服务</h4>
-              <p>MEMS探针卡设计、Load board测试板设计、测试板组装等</p>
+              <h4>{{ $t('website.technology.capability_3_title') }}</h4>
+              <p>{{ $t('website.technology.capability_3_desc') }}</p>
             </div>
 
             <div class="capability-card">
               <div class="capability-icon">
-                <img src="/images/technical_chart_circuit.jpg" alt="仿真分析">
+                <img src="/images/technical_chart_circuit.jpg" :alt="$t('website.technology.capability_4_title')">
               </div>
-              <h4>仿真分析技术</h4>
-              <p>热力电仿真、信号完整性分析、电磁兼容性设计等</p>
+              <h4>{{ $t('website.technology.capability_4_title') }}</h4>
+              <p>{{ $t('website.technology.capability_4_desc') }}</p>
             </div>
           </div>
         </div>
@@ -324,43 +324,43 @@
               <img src="/images/page5_service_coverage_full.jpg" alt="服务覆盖" class="coverage-img">
             </div>
             <div class="overview-text">
-              <h3>广泛的服务覆盖</h3>
-              <p>思普微科技服务覆盖全国多个重点城市，为通信/服务器、科研院所、工控设备、医疗设备、高等院校等多个行业提供专业服务。</p>
+              <h3>{{ $t('website.cases.overview_title') }}</h3>
+              <p>{{ $t('website.cases.overview_description') }}</p>
             </div>
           </div>
 
           <div class="industry-sectors">
             <div class="sector-item">
               <div class="sector-icon">📡</div>
-              <h4>通信/服务器</h4>
-              <p>为通信设备和服务器厂商提供高性能封装解决方案</p>
+              <h4>{{ $t('website.cases.sector_1_title') }}</h4>
+              <p>{{ $t('website.cases.sector_1_desc') }}</p>
             </div>
             <div class="sector-item">
               <div class="sector-icon">🏫</div>
-              <h4>科研院所</h4>
-              <p>支持科研院所的前沿技术研发和产业化应用</p>
+              <h4>{{ $t('website.cases.sector_2_title') }}</h4>
+              <p>{{ $t('website.cases.sector_2_desc') }}</p>
             </div>
             <div class="sector-item">
               <div class="sector-icon">🏭</div>
-              <h4>工控设备</h4>
-              <p>为工业控制设备提供可靠的硬件解决方案</p>
+              <h4>{{ $t('website.cases.sector_3_title') }}</h4>
+              <p>{{ $t('website.cases.sector_3_desc') }}</p>
             </div>
             <div class="sector-item">
               <div class="sector-icon">🏥</div>
-              <h4>医疗设备</h4>
-              <p>为医疗设备厂商提供高精度的封装技术服务</p>
+              <h4>{{ $t('website.cases.sector_4_title') }}</h4>
+              <p>{{ $t('website.cases.sector_4_desc') }}</p>
             </div>
             <div class="sector-item">
               <div class="sector-icon">🎓</div>
-              <h4>高等院校</h4>
-              <p>与高等院校合作开展产学研一体化项目</p>
+              <h4>{{ $t('website.cases.sector_5_title') }}</h4>
+              <p>{{ $t('website.cases.sector_5_desc') }}</p>
             </div>
           </div>
 
           <div class="service-process">
-            <h3>服务流程</h3>
+            <h3>{{ $t('website.cases.process_title') }}</h3>
             <div class="process-image">
-              <img src="/images/page6_design_process_full.jpg" alt="设计流程" class="process-img">
+              <img src="/images/page6_design_process_full.jpg" :alt="$t('website.cases.process_title')" class="process-img">
             </div>
           </div>
         </div>
@@ -381,28 +381,28 @@
         <div class="news-grid">
           <div class="news-item">
             <a href="#" class="news-link">
-              <img src="/images/business_office_scene.jpg" alt="思普微科技荣获高新技术企业认证" class="news-image">
+              <img src="/images/business_office_scene.jpg" :alt="$t('website.news.news_1_title')" class="news-image">
               <div class="news-date">2024-08-06</div>
-              <h5 class="news-item-title">思普微科技荣获高新技术企业认证</h5>
-              <p class="news-excerpt">思普微科技荣获高新技术企业认证，这标志着公司在技术创新和研发实力方面得到了权威认可...</p>
+              <h5 class="news-item-title">{{ $t('website.news.news_1_title') }}</h5>
+              <p class="news-excerpt">{{ $t('website.news.news_1_excerpt') }}</p>
             </a>
           </div>
 
           <div class="news-item">
             <a href="#" class="news-link">
-              <img src="/images/modern_buildings_night_scene.jpg" alt="思普微科技：技术创新推动行业发展" class="news-image">
+              <img src="/images/modern_buildings_night_scene.jpg" :alt="$t('website.news.news_2_title')" class="news-image">
               <div class="news-date">2024-07-28</div>
-              <h5 class="news-item-title">思普微科技：技术创新推动行业发展</h5>
-              <p class="news-excerpt">思普微科技：技术创新推动行业发展，公司持续加大研发投入，推动先进封装技术的产业化应用...</p>
+              <h5 class="news-item-title">{{ $t('website.news.news_2_title') }}</h5>
+              <p class="news-excerpt">{{ $t('website.news.news_2_excerpt') }}</p>
             </a>
           </div>
 
           <div class="news-item">
             <a href="#" class="news-link">
-              <img src="/images/product_development_cycle_chart.jpg" alt="新春送祝福 温情暖人心" class="news-image">
+              <img src="/images/product_development_cycle_chart.jpg" :alt="$t('website.news.news_3_title')" class="news-image">
               <div class="news-date">2024-02-01</div>
-              <h5 class="news-item-title">新春送祝福 温情暖人心</h5>
-              <p class="news-excerpt">"大家过年好！"思普微科技董事长微笑着向春节在岗员工招手问候，"董事长过年好..."</p>
+              <h5 class="news-item-title">{{ $t('website.news.news_3_title') }}</h5>
+              <p class="news-excerpt">{{ $t('website.news.news_3_excerpt') }}</p>
             </a>
           </div>
         </div>
@@ -423,30 +423,30 @@
             <div class="contact-item">
               <div class="contact-icon">📍</div>
               <div class="contact-details">
-                <h4>公司地址</h4>
-                <p>苏州市吴江区东太湖生态旅游度假区体育路508号金鹰商业中心2,3幢3幢1911</p>
+                <h4>{{ $t('website.contact.address_title') }}</h4>
+                <p>{{ $t('website.contact.address') }}</p>
               </div>
             </div>
 
             <div class="contact-item">
               <div class="contact-icon">📞</div>
               <div class="contact-details">
-                <h4>联系电话</h4>
-                <p>15318923490</p>
+                <h4>{{ $t('website.contact.phone_title') }}</h4>
+                <p>{{ $t('website.contact.phone') }}</p>
               </div>
             </div>
 
             <div class="contact-item">
               <div class="contact-icon">📧</div>
               <div class="contact-details">
-                <h4>邮箱地址</h4>
-                <p>wenqiang.chang@sipumtech.com</p>
+                <h4>{{ $t('website.contact.email_title') }}</h4>
+                <p>{{ $t('website.contact.email') }}</p>
               </div>
             </div>
           </div>
 
           <div class="contact-certifications">
-            <h4>资质认证</h4>
+            <h4>{{ $t('website.contact.certification_title') }}</h4>
             <div class="cert-images">
               <img src="/images/ISO9001质量管理体系认证证书.png" alt="ISO9001认证" class="cert-img">
               <img src="/images/武器装备质量管理体系证书.png" alt="军工认证" class="cert-img">
@@ -464,7 +464,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted } from 'vue'
+import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -476,9 +476,9 @@ const showSideNav = ref(false)
 
 // 轮播功能
 const currentSlide = ref(0)
-const slides = ref([
-  { id: 1, title: 'SIPUMTECH', subtitle: '打造卓越的先进封测及软硬件开发一站式解决方案服务商' },
-  { id: 2, title: '专业技术团队', subtitle: '快速响应·质量保证·一站式解决方案' }
+const slides = computed(() => [
+  { id: 1, title: t('website.hero.company_name'), subtitle: t('website.hero.title_1') },
+  { id: 2, title: t('website.hero.title_2'), subtitle: t('website.hero.subtitle_2') }
 ])
 
 let slideInterval = null
@@ -606,16 +606,7 @@ const toggleSideNav = () => {
 
 // 获取区域名称
 const getSectionName = (sectionId) => {
-  const names = {
-    home: '首页',
-    about: '关于我们',
-    business: '核心业务',
-    technology: '技术能力',
-    cases: '成功案例',
-    news: '新闻动态',
-    contact: '联系我们'
-  }
-  return names[sectionId] || sectionId
+  return t(`website.navigation_sections.${sectionId}`) || sectionId
 }
 
 // 键盘导航
@@ -700,28 +691,28 @@ const contactForm = reactive({
   message: ''
 })
 
-const formRules = {
+const formRules = computed(() => ({
   name: {
     required: true,
-    message: '请输入您的姓名',
+    message: t('website.form_validation.name_required'),
     trigger: 'blur'
   },
   phone: {
     required: true,
-    message: '请输入您的联系电话',
+    message: t('website.form_validation.phone_required'),
     trigger: 'blur'
   },
   email: {
     required: true,
-    message: '请输入您的邮箱地址',
+    message: t('website.form_validation.email_required'),
     trigger: 'blur'
   },
   message: {
     required: true,
-    message: '请描述您的需求或问题',
+    message: t('website.form_validation.message_required'),
     trigger: 'blur'
   }
-}
+}))
 
 const submitForm = () => {
   formRef.value?.validate((errors) => {
@@ -729,7 +720,7 @@ const submitForm = () => {
       // 这里可以调用API提交表单
       console.log('提交表单:', contactForm)
       // 显示成功消息
-      window.$message?.success('咨询信息已提交，我们会尽快与您联系！')
+      window.$message?.success(t('website.contact.form.submit_success'))
       // 重置表单
       Object.keys(contactForm).forEach(key => {
         contactForm[key] = ''

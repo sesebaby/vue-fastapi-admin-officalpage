@@ -101,7 +101,31 @@
       "phone": "15318923490",
       "email_title": "邮箱地址",
       "email": "wenqiang.chang@sipumtech.com",
-      "certification_title": "资质认证"
+      "certification_title": "资质认证",
+      "form": {
+        "name_placeholder": "请输入您的姓名",
+        "phone_placeholder": "请输入您的联系电话",
+        "email_placeholder": "请输入您的邮箱地址",
+        "message_placeholder": "请描述您的需求或问题",
+        "submit_button": "提交咨询",
+        "submit_success": "咨询信息已提交，我们会尽快与您联系！",
+        "submit_error": "提交失败，请稍后重试"
+      }
+    },
+    "form_validation": {
+      "name_required": "请输入您的姓名",
+      "phone_required": "请输入您的联系电话",
+      "email_required": "请输入您的邮箱地址",
+      "message_required": "请描述您的需求或问题"
+    },
+    "navigation_sections": {
+      "home": "首页",
+      "about": "关于我们",
+      "business": "核心业务",
+      "technology": "技术能力",
+      "cases": "成功案例",
+      "news": "新闻动态",
+      "contact": "联系我们"
     }
   },
   "route": {
