@@ -310,19 +310,7 @@ onUnmounted(() => {
  * 原因：组件样式应该封装在组件内部，符合组件化设计原则
  */
 
-/* 响应式设计 - 最小化自定义CSS */
-@media (max-width: 1200px) {
-  .header-container {
-    padding: 0 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .header-container {
-    padding: 0 15px;
-    height: 70px;
-  }
-}
+/* 响应式设计 - header-container已移至n-flex组件，无需媒体查询 */
 
 /* 移动端抽屉菜单样式已移至n-flex和n-menu的theme-overrides - 遵循Naive UI框架优先原则 */
 
@@ -336,112 +324,7 @@ onUnmounted(() => {
 
 /* footer-bottom样式已移至n-flex组件的style属性 - 遵循Naive UI框架优先原则 */
 
-/* 响应式设计 */
-/* 大屏幕优化 (1200px+) */
-@media (min-width: 1200px) {
-  .nav-item {
-    font-size: 16px;
-    padding: 12px 12px;
-  }
-}
+/* 响应式设计 - 导航项样式已移至NavigationMenu组件，其他样式已移至对应组件 */
 
-/* 中等屏幕适配 (1024px - 1199px) */
-@media (max-width: 1199px) and (min-width: 1024px) {
-  .header-container {
-    padding: 0 24px;
-  }
-
-  .nav-item {
-    font-size: 15px;
-    padding: 12px 6px;
-  }
-
-  .language-switch {
-    margin-right: 16px;
-  }
-}
-
-/* 平板端适配 (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 769px) {
-  .header-container {
-    padding: 0 20px;
-    height: 75px;
-  }
-
-  .nav-item {
-    font-size: 14px;
-    padding: 8px 4px;
-  }
-
-  .language-switch {
-    margin-right: 12px;
-  }
-
-  .lang-item {
-    padding: 4px 8px;
-    font-size: 13px;
-  }
-
-  .admin-login-btn {
-    padding: 8px 16px;
-    font-size: 13px;
-  }
-}
-
-/* 小平板端适配 (900px以下时进一步压缩) */
-@media (max-width: 900px) and (min-width: 769px) {
-  .nav-item {
-    font-size: 13px;
-    padding: 8px 2px;
-  }
-}
-
-/* 移动端适配 (768px及以下) */
-@media (max-width: 768px) {
-  .header-container {
-    padding: 0 16px;
-    height: 70px;
-  }
-
-  .company-name {
-    font-size: 18px;
-  }
-
-  .company-subtitle {
-    font-size: 10px;
-  }
-
-  .header-nav-container {
-    display: none;
-  }
-
-  .header-right {
-    display: none;
-  }
-
-  .mobile-menu-btn {
-    display: block;
-  }
-
-  /* 网格和认证样式已移除 - 使用Naive UI组件的响应式属性替代!important强制覆盖 */
-}
-
-@media (max-width: 480px) {
-  .company-logo {
-    gap: 8px;
-  }
-
-  .logo-img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .company-name {
-    font-size: 16px;
-  }
-
-  .company-subtitle {
-    display: none;
-  }
-}
+/* 移动端适配 - 所有样式已移至对应组件，使用Naive UI的响应式能力和JavaScript breakpoints */
 </style>
