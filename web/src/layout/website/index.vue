@@ -1,62 +1,61 @@
 <template>
-  <n-layout :style="{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'var(--n-font-family)' }">
-    <!-- 顶部导航栏 - 使用Naive UI原生n-space组件 -->
-    <n-layout-header :style="{
-      background: 'var(--n-color-base)',
-      borderBottom: '1px solid var(--n-border-color)',
-      boxShadow: 'var(--n-box-shadow-1)',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      zIndex: 1000
-    }">
-      <n-flex justify="start" style="width: 100%;">`
-        <n-flex
-          justify="space-between"
-          align="center"
-          :size="0"
-          style="max-width: 1200px; width: 100%; height: 90px; padding: 0 24px;"
-        >
-        <!-- 桌面端布局 - 扁平化n-flex布局，所有元素作为直接子元素 -->
-        <n-flex
-          v-if="!isMobile"
-          justify="space-between"
-          align="center"
-          :size="0"
-          style="width: 100%; height: 100%;"
-        >
-          <!-- Logo -->
+  <n-layout :style="{ minHeight: '100vh', fontFamily: 'var(--n-font-family)' }" position="absolute">
+    <!-- 顶部导航栏 - 使用Naive UI原生布局系统和栅格组件 -->
+    <n-layout-header
+      position="absolute"
+      :style="{
+        background: 'var(--n-color-base)',
+        borderBottom: '1px solid var(--n-border-color)',
+        boxShadow: 'var(--n-box-shadow-1)',
+        height: '90px',
+        zIndex: 1000
+      }"
+      :content-style="{
+        height: '100%',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '0 24px',
+        display: 'flex',
+        alignItems: 'center'
+      }"
+    >
+      <!-- 桌面端布局 - 使用 n-grid 栅格系统 -->
+      <n-grid v-if="!isMobile" :cols="24" :y-gap="0" style="width: 100%; align-items: center;">
+        <!-- Logo 区域 - 固定宽度 -->
+        <n-gi :span="4">
           <CompanyLogo />
+        </n-gi>
 
-          <!-- 导航菜单 - 占据剩余空间并左对齐 -->
+        <!-- 导航菜单区域 - 占据剩余空间 -->
+        <n-gi :span="16">
           <NavigationMenu
             :spacing="navSpacing"
             justify="start"
             :active-key="currentNavKey"
             @nav-click="handleNavClick"
-            style="flex: 1; margin-left: 24px;"
+            style="margin-left: 24px;"
           />
+        </n-gi>
 
-          <!-- 右侧操作区域 -->
-          <n-flex align="center" :size="24" style="flex-shrink: 0;">
+        <!-- 右侧操作区域 - 固定宽度 -->
+        <n-gi :span="4" style="display: flex; justify-content: flex-end;">
+          <div style="display: flex; align-items: center; gap: 24px;">
             <LanguageSwitcher @language-changed="handleLanguageChanged" />
             <AdminLoginButton @login-click="handleLoginClick" />
-          </n-flex>
-        </n-flex>
+          </div>
+        </n-gi>
+      </n-grid>
 
-        <!-- 移动端布局 - 使用n-flex实现移动端布局 -->
-        <n-flex
-          v-else
-          justify="space-between"
-          align="center"
-          style="width: 100%; height: 100%;"
-        >
-          <!-- 移动端Logo -->
+      <!-- 移动端布局 - 使用 n-grid 栅格系统 -->
+      <n-grid v-else :cols="24" :y-gap="0" style="width: 100%; align-items: center;">
+        <!-- 移动端Logo -->
+        <n-gi :span="18">
           <CompanyLogo />
+        </n-gi>
 
-          <!-- 移动端右侧操作 -->
-          <n-flex align="center" :size="16">
+        <!-- 移动端右侧操作 -->
+        <n-gi :span="6" style="display: flex; justify-content: flex-end;">
+          <div style="display: flex; align-items: center; gap: 16px;">
             <LanguageSwitcher @language-changed="handleLanguageChanged" />
             <n-button
               text
@@ -65,10 +64,9 @@
             >
               ☰
             </n-button>
-          </n-flex>
-        </n-flex>
-        </n-flex>
-      </n-flex>
+          </div>
+        </n-gi>
+      </n-grid>
     </n-layout-header>
 
       <!-- 移动端抽屉菜单 -->
