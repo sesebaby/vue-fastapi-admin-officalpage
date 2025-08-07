@@ -1,58 +1,158 @@
 <template>
+  <!-- 成功案例展示区域 - 使用Naive UI原生组件 -->
   <section id="cases" class="cases-section section-half">
     <div class="section-container">
-      <div class="section-header centered">
+      <!-- 标题区域 -->
+      <n-space vertical align="center" :size="20" style="margin-bottom: 80px;">
         <h2 class="section-title">{{ $t('website.cases.title') }}</h2>
         <div class="title-underline"></div>
         <p class="section-subtitle">{{ $t('website.cases.subtitle') }}</p>
-      </div>
+      </n-space>
 
-      <div class="cases-content">
-        <div class="cases-overview">
-          <div class="overview-image">
-            <img src="/images/page5_service_coverage_full.jpg" alt="服务覆盖" class="coverage-img">
-          </div>
-          <div class="overview-text">
-            <h3>{{ $t('website.cases.overview_title') }}</h3>
-            <p>{{ $t('website.cases.overview_description') }}</p>
-          </div>
-        </div>
+      <!-- 案例内容区域 -->
+      <n-space vertical :size="80">
+        <!-- 服务概览区域 - 使用Naive UI Grid布局 -->
+        <n-grid
+          :cols="2"
+          :x-gap="60"
+          item-responsive
+          responsive="screen"
+          style="align-items: center;"
+        >
+          <!-- 左侧图片 -->
+          <n-grid-item>
+            <n-image
+              src="/images/page5_service_coverage_full.jpg"
+              alt="服务覆盖"
+              object-fit="cover"
+              style="width: 100%; height: 350px; border-radius: 12px;"
+            />
+          </n-grid-item>
 
-        <div class="industry-sectors">
-          <div class="sector-item">
-            <div class="sector-icon">📡</div>
-            <h4>{{ $t('website.cases.sector_1_title') }}</h4>
-            <p>{{ $t('website.cases.sector_1_desc') }}</p>
-          </div>
-          <div class="sector-item">
-            <div class="sector-icon">🏫</div>
-            <h4>{{ $t('website.cases.sector_2_title') }}</h4>
-            <p>{{ $t('website.cases.sector_2_desc') }}</p>
-          </div>
-          <div class="sector-item">
-            <div class="sector-icon">🏭</div>
-            <h4>{{ $t('website.cases.sector_3_title') }}</h4>
-            <p>{{ $t('website.cases.sector_3_desc') }}</p>
-          </div>
-          <div class="sector-item">
-            <div class="sector-icon">🏥</div>
-            <h4>{{ $t('website.cases.sector_4_title') }}</h4>
-            <p>{{ $t('website.cases.sector_4_desc') }}</p>
-          </div>
-          <div class="sector-item">
-            <div class="sector-icon">🎓</div>
-            <h4>{{ $t('website.cases.sector_5_title') }}</h4>
-            <p>{{ $t('website.cases.sector_5_desc') }}</p>
-          </div>
-        </div>
+          <!-- 右侧描述 -->
+          <n-grid-item>
+            <n-space vertical :size="20">
+              <h3 class="overview-title">{{ $t('website.cases.overview_title') }}</h3>
+              <p class="overview-desc">{{ $t('website.cases.overview_description') }}</p>
+            </n-space>
+          </n-grid-item>
+        </n-grid>
 
-        <div class="service-process">
-          <h3>{{ $t('website.cases.process_title') }}</h3>
-          <div class="process-image">
-            <img src="/images/page6_design_process_full.jpg" :alt="$t('website.cases.process_title')" class="process-img">
-          </div>
-        </div>
-      </div>
+        <!-- 行业领域卡片 - 使用Naive UI Grid -->
+        <n-grid
+          :cols="5"
+          :x-gap="24"
+          :y-gap="24"
+          item-responsive
+          responsive="screen"
+        >
+          <!-- 通信设备 -->
+          <n-grid-item>
+            <n-card hoverable class="sector-card">
+              <n-space vertical align="center" :size="16">
+                <n-avatar
+                  :size="50"
+                  color="#f0f9ff"
+                  style="background: #f0f9ff; color: #1e3a8a; font-size: 24px;"
+                >
+                  📡
+                </n-avatar>
+                <n-space vertical align="center" :size="8">
+                  <h4 class="sector-title">{{ $t('website.cases.sector_1_title') }}</h4>
+                  <p class="sector-desc">{{ $t('website.cases.sector_1_desc') }}</p>
+                </n-space>
+              </n-space>
+            </n-card>
+          </n-grid-item>
+
+          <!-- 消费电子 -->
+          <n-grid-item>
+            <n-card hoverable class="sector-card">
+              <n-space vertical align="center" :size="16">
+                <n-avatar
+                  :size="50"
+                  color="#f0f9ff"
+                  style="background: #f0f9ff; color: #1e3a8a; font-size: 24px;"
+                >
+                  🏫
+                </n-avatar>
+                <n-space vertical align="center" :size="8">
+                  <h4 class="sector-title">{{ $t('website.cases.sector_2_title') }}</h4>
+                  <p class="sector-desc">{{ $t('website.cases.sector_2_desc') }}</p>
+                </n-space>
+              </n-space>
+            </n-card>
+          </n-grid-item>
+
+          <!-- 工业控制 -->
+          <n-grid-item>
+            <n-card hoverable class="sector-card">
+              <n-space vertical align="center" :size="16">
+                <n-avatar
+                  :size="50"
+                  color="#f0f9ff"
+                  style="background: #f0f9ff; color: #1e3a8a; font-size: 24px;"
+                >
+                  🏭
+                </n-avatar>
+                <n-space vertical align="center" :size="8">
+                  <h4 class="sector-title">{{ $t('website.cases.sector_3_title') }}</h4>
+                  <p class="sector-desc">{{ $t('website.cases.sector_3_desc') }}</p>
+                </n-space>
+              </n-space>
+            </n-card>
+          </n-grid-item>
+
+          <!-- 医疗设备 -->
+          <n-grid-item>
+            <n-card hoverable class="sector-card">
+              <n-space vertical align="center" :size="16">
+                <n-avatar
+                  :size="50"
+                  color="#f0f9ff"
+                  style="background: #f0f9ff; color: #1e3a8a; font-size: 24px;"
+                >
+                  🏥
+                </n-avatar>
+                <n-space vertical align="center" :size="8">
+                  <h4 class="sector-title">{{ $t('website.cases.sector_4_title') }}</h4>
+                  <p class="sector-desc">{{ $t('website.cases.sector_4_desc') }}</p>
+                </n-space>
+              </n-space>
+            </n-card>
+          </n-grid-item>
+
+          <!-- 汽车电子 -->
+          <n-grid-item>
+            <n-card hoverable class="sector-card">
+              <n-space vertical align="center" :size="16">
+                <n-avatar
+                  :size="50"
+                  color="#f0f9ff"
+                  style="background: #f0f9ff; color: #1e3a8a; font-size: 24px;"
+                >
+                  🎓
+                </n-avatar>
+                <n-space vertical align="center" :size="8">
+                  <h4 class="sector-title">{{ $t('website.cases.sector_5_title') }}</h4>
+                  <p class="sector-desc">{{ $t('website.cases.sector_5_desc') }}</p>
+                </n-space>
+              </n-space>
+            </n-card>
+          </n-grid-item>
+        </n-grid>
+
+        <!-- 服务流程区域 -->
+        <n-space vertical align="center" :size="30">
+          <h3 class="process-title">{{ $t('website.cases.process_title') }}</h3>
+          <n-image
+            src="/images/page6_design_process_full.jpg"
+            :alt="$t('website.cases.process_title')"
+            object-fit="contain"
+            style="width: 100%; max-width: 800px; height: auto; border-radius: 12px;"
+          />
+        </n-space>
+      </n-space>
     </div>
   </section>
 </template>
@@ -64,7 +164,12 @@ const { t } = useI18n()
 </script>
 
 <style scoped>
-/* 成功案例区域样式 */
+/*
+ * CasesSection样式 - 使用Naive UI原生组件
+ * 大部分样式已由n-card、n-grid、n-avatar、n-image等组件自动处理
+ */
+
+/* 成功案例区域 */
 .cases-section {
   background: #ffffff;
   padding: 100px 0;
@@ -76,23 +181,12 @@ const { t } = useI18n()
   padding: 0 30px;
 }
 
-.section-header {
-  text-align: center;
-  margin-bottom: 80px;
-}
-
-.section-header.centered {
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 80px;
-}
-
+/* 保留必要的品牌样式 */
 .section-title {
   font-size: 42px;
   font-weight: bold;
   color: #1e3a8a;
-  margin: 0 0 20px 0;
+  margin: 0;
   line-height: 1.2;
 }
 
@@ -101,7 +195,6 @@ const { t } = useI18n()
   height: 4px;
   background: linear-gradient(45deg, #f59e0b, #d97706);
   border-radius: 2px;
-  margin: 0 auto 30px auto;
 }
 
 .section-subtitle {
@@ -111,122 +204,53 @@ const { t } = useI18n()
   line-height: 1.6;
 }
 
-.cases-content {
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-}
-
-.cases-overview {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.overview-image {
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.coverage-img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-}
-
-.overview-text h3 {
+/* 服务概览内容样式 */
+.overview-title {
   font-size: 28px;
   font-weight: bold;
   color: #1e3a8a;
-  margin: 0 0 20px 0;
+  margin: 0;
 }
 
-.overview-text p {
+.overview-desc {
   font-size: 16px;
   color: #6b7280;
   line-height: 1.7;
   margin: 0;
 }
 
-.industry-sectors {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 30px;
-}
-
-.sector-item {
-  text-align: center;
-  padding: 30px 20px;
-  background: #f8f9fa;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.sector-item:hover {
-  background: #1e3a8a;
-  color: #ffffff;
-  transform: translateY(-5px);
-}
-
-.sector-icon {
-  font-size: 32px;
-  margin-bottom: 16px;
-}
-
-.sector-item h4 {
+/* 行业领域卡片内容样式 */
+.sector-title {
   font-size: 16px;
   font-weight: bold;
-  margin: 0 0 8px 0;
-}
-
-.sector-item p {
-  font-size: 12px;
-  line-height: 1.4;
+  color: #1e3a8a;
   margin: 0;
-  opacity: 0.8;
-}
-
-.service-process {
   text-align: center;
 }
 
-.service-process h3 {
-  font-size: 28px;
+.sector-desc {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* 服务流程标题样式 */
+.process-title {
+  font-size: 24px;
   font-weight: bold;
   color: #1e3a8a;
-  margin: 0 0 30px 0;
+  margin: 0;
 }
 
-.process-image {
-  border-radius: 12px;
-  overflow: hidden;
-  max-width: 800px;
-  margin: 0 auto;
-}
+/*
+ * 案例概览和行业卡片样式已移除 - 现在使用Naive UI组件
+ * n-grid组件处理布局，n-card组件处理卡片样式
+ * n-image组件处理图片显示，n-avatar组件处理图标
+ */
 
-.process-img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-/* 响应式设计 */
-@media (max-width: 1024px) {
-  .cases-overview {
-    gap: 40px;
-  }
-
-  .industry-sectors {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
-  .sector-item {
-    padding: 24px 16px;
-  }
-}
-
+/* 响应式设计 - 简化版，主要依赖Naive UI的响应式能力 */
 @media (max-width: 768px) {
   .cases-section {
     padding: 80px 0;
@@ -238,49 +262,6 @@ const { t } = useI18n()
 
   .section-title {
     font-size: 32px;
-  }
-
-  .cases-content {
-    gap: 40px;
-  }
-
-  .cases-overview {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .coverage-img {
-    height: 250px;
-  }
-
-  .overview-text h3 {
-    font-size: 24px;
-  }
-
-  .industry-sectors {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-
-  .sector-item {
-    padding: 20px 12px;
-  }
-
-  .sector-icon {
-    font-size: 28px;
-    margin-bottom: 12px;
-  }
-
-  .sector-item h4 {
-    font-size: 15px;
-  }
-
-  .sector-item p {
-    font-size: 11px;
-  }
-
-  .service-process h3 {
-    font-size: 24px;
   }
 }
 
@@ -297,47 +278,12 @@ const { t } = useI18n()
     font-size: 28px;
   }
 
-  .cases-content {
-    gap: 30px;
-  }
-
-  .coverage-img {
-    height: 200px;
-  }
-
-  .overview-text h3 {
+  .overview-title {
     font-size: 20px;
   }
 
-  .overview-text p {
-    font-size: 15px;
-  }
-
-  .industry-sectors {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .sector-item {
-    padding: 16px 12px;
-  }
-
-  .sector-icon {
-    font-size: 24px;
-    margin-bottom: 8px;
-  }
-
-  .sector-item h4 {
-    font-size: 14px;
-  }
-
-  .sector-item p {
-    font-size: 10px;
-  }
-
-  .service-process h3 {
+  .process-title {
     font-size: 20px;
-    margin-bottom: 20px;
   }
 }
 </style>

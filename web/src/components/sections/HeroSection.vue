@@ -1,454 +1,210 @@
 <template>
+  <!-- 使用Naive UI原生轮播组件重构Hero Section -->
   <section id="home" class="hero-banner section-full">
-    <div class="hero-slider">
-      <!-- 第一张轮播 -->
-      <div class="slide active">
-        <div class="slide-background">
-          <img src="/images/商务科技概念图.png" alt="商务科技" class="bg-image">
-          <div class="bg-overlay"></div>
-        </div>
-        <div class="slide-content">
-          <div class="slide-container">
-            <h1 class="slide-title">
-              <span class="company-name">{{ $t('website.hero.company_name') }}</span>
-            </h1>
-            <h2 class="slide-subtitle animated-text">
-              {{ $t('website.hero.title_1') }}
-            </h2>
-            <p class="slide-description">
-              {{ $t('website.hero.subtitle_1') }}
-            </p>
-            <div class="hero-actions">
-              <button class="cta-button primary" @click="$emit('scroll-to-section', 'about')">
-                {{ $t('website.hero.cta_learn_more') }}
-              </button>
-              <button class="cta-button secondary" @click="$emit('scroll-to-section', 'contact')">
-                {{ $t('website.hero.cta_contact') }}
-              </button>
-            </div>
-          </div>
-        </div>
+    <n-carousel
+      :autoplay="true"
+      :interval="5000"
+      :show-dots="true"
+      :show-arrow="true"
+      style="height: 100vh;"
+      effect="slide"
+    >
+      <!-- 第一张轮播 - 使用Naive UI组件结构 -->
+      <div class="hero-slide">
+        <n-image
+          src="/images/商务科技概念图.png"
+          alt="商务科技"
+          object-fit="cover"
+          style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1;"
+        />
+        <div class="hero-overlay"></div>
+        <n-space
+          vertical
+          align="center"
+          justify="center"
+          style="position: relative; z-index: 3; height: 100vh; text-align: center; color: white;"
+        >
+          <h1 class="hero-title">
+            {{ $t('website.hero.company_name') }}
+          </h1>
+          <h2 class="hero-subtitle">
+            {{ $t('website.hero.title_1') }}
+          </h2>
+          <p class="hero-description">
+            {{ $t('website.hero.subtitle_1') }}
+          </p>
+          <n-space :size="20">
+            <n-button
+              type="primary"
+              size="large"
+              @click="$emit('scroll-to-section', 'about')"
+            >
+              {{ $t('website.hero.cta_learn_more') }}
+            </n-button>
+            <n-button
+              type="default"
+              size="large"
+              @click="$emit('scroll-to-section', 'contact')"
+            >
+              {{ $t('website.hero.cta_contact') }}
+            </n-button>
+          </n-space>
+        </n-space>
       </div>
 
-      <!-- 第二张轮播 -->
-      <div class="slide">
-        <div class="slide-background">
-          <img src="/images/科技电路背景图.png" alt="科技背景" class="bg-image">
-          <div class="bg-overlay"></div>
-        </div>
-        <div class="slide-content">
-          <div class="slide-container">
-            <h1 class="slide-title">
-              <span class="company-name">{{ $t('website.hero.title_2') }}</span>
-            </h1>
-            <h2 class="slide-subtitle">
-              {{ $t('website.hero.subtitle_2') }}
-            </h2>
-            <div class="hero-actions">
-              <button class="cta-button primary" @click="$emit('scroll-to-section', 'technology')">
-                {{ $t('website.hero.cta_technology') }}
-              </button>
-              <button class="cta-button secondary" @click="$emit('scroll-to-section', 'business')">
-                {{ $t('website.hero.cta_business') }}
-              </button>
-            </div>
-          </div>
-        </div>
+      <!-- 第二张轮播 - 使用Naive UI组件结构 -->
+      <div class="hero-slide">
+        <n-image
+          src="/images/科技电路背景图.png"
+          alt="科技背景"
+          object-fit="cover"
+          style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1;"
+        />
+        <div class="hero-overlay"></div>
+        <n-space
+          vertical
+          align="center"
+          justify="center"
+          style="position: relative; z-index: 3; height: 100vh; text-align: center; color: white;"
+        >
+          <h1 class="hero-title">
+            {{ $t('website.hero.title_2') }}
+          </h1>
+          <h2 class="hero-subtitle">
+            {{ $t('website.hero.subtitle_2') }}
+          </h2>
+          <n-space :size="20">
+            <n-button
+              type="primary"
+              size="large"
+              @click="$emit('scroll-to-section', 'technology')"
+            >
+              {{ $t('website.hero.cta_technology') }}
+            </n-button>
+            <n-button
+              type="default"
+              size="large"
+              @click="$emit('scroll-to-section', 'business')"
+            >
+              {{ $t('website.hero.cta_business') }}
+            </n-button>
+          </n-space>
+        </n-space>
       </div>
-
-      <!-- 轮播控制按钮 -->
-      <div class="slider-controls">
-        <button class="prev-btn" @click="prevSlide">‹</button>
-        <button class="next-btn" @click="nextSlide">›</button>
-      </div>
-
-      <!-- 轮播指示器 -->
-      <div class="slider-indicators">
-        <button
-          v-for="(slide, index) in slides"
-          :key="index"
-          :class="['indicator', { active: currentSlide === index }]"
-          @click="goToSlide(index)"
-        ></button>
-      </div>
-    </div>
+    </n-carousel>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-// 定义事件
+// 定义事件 - 简化后只需要滚动事件
 const emit = defineEmits(['scroll-to-section'])
 
-// 轮播相关状态
-const currentSlide = ref(0)
-const slides = ref([
-  { id: 1, title: 'slide1' },
-  { id: 2, title: 'slide2' }
-])
-const autoSlideInterval = ref(null)
-
-// 轮播功能
-const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % slides.value.length
-  updateSlideDisplay()
-}
-
-const prevSlide = () => {
-  currentSlide.value = currentSlide.value === 0 ? slides.value.length - 1 : currentSlide.value - 1
-  updateSlideDisplay()
-}
-
-const goToSlide = (index) => {
-  currentSlide.value = index
-  updateSlideDisplay()
-}
-
-const updateSlideDisplay = () => {
-  const slideElements = document.querySelectorAll('.slide')
-  slideElements.forEach((slide, index) => {
-    slide.classList.toggle('active', index === currentSlide.value)
-  })
-}
-
-// 自动轮播
-const startAutoSlide = () => {
-  autoSlideInterval.value = setInterval(() => {
-    nextSlide()
-  }, 5000)
-}
-
-const stopAutoSlide = () => {
-  if (autoSlideInterval.value) {
-    clearInterval(autoSlideInterval.value)
-    autoSlideInterval.value = null
-  }
-}
-
-// 卡片悬停效果
-const startHover = () => {
-  stopAutoSlide()
-}
-
-const endHover = () => {
-  startAutoSlide()
-}
-
-// 生命周期
-onMounted(() => {
-  startAutoSlide()
-})
-
-onUnmounted(() => {
-  stopAutoSlide()
-})
-
-// 暴露方法给父组件
-defineExpose({
-  startHover,
-  endHover
-})
+//
+// 所有轮播逻辑已移除 - 现在由Naive UI的n-carousel组件自动处理
+// 包括：自动播放、指示器、控制按钮、悬停暂停等功能
+//
 </script>
 
 <style scoped>
-/* Hero Banner 样式 */
+/*
+ * Hero Banner样式 - 使用Naive UI原生轮播组件
+ * 大部分样式已由n-carousel组件自动处理
+ */
 .hero-banner {
   position: relative;
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.hero-slider {
+/*
+ * 自定义轮播样式已移除 - 现在使用Naive UI的n-carousel组件
+ * 只保留必要的内容样式
+ */
+
+.hero-slide {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 
-.slide {
+.hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.slide.active {
-  opacity: 1;
-}
-
-.slide-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.bg-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.bg-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(30, 58, 138, 0.8) 0%,
-    rgba(59, 130, 246, 0.6) 50%,
-    rgba(147, 51, 234, 0.7) 100%
-  );
-}
-
-.slide-content {
-  position: relative;
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.8) 0%, rgba(59, 130, 246, 0.6) 100%);
   z-index: 2;
-  text-align: center;
-  color: white;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 30px;
 }
 
-.slide-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.slide-title {
-  margin: 0;
-  line-height: 1.1;
-}
-
-.company-name {
-  font-size: 72px;
+/*
+ * Hero内容样式 - 简化版，主要依赖Naive UI组件样式
+ * 只保留必要的品牌样式
+ */
+.hero-title {
+  font-size: 4rem;
   font-weight: bold;
-  background: linear-gradient(45deg, #ffffff, #f0f9ff, #dbeafe);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin: 0;
   letter-spacing: 2px;
-}
-
-.slide-subtitle {
-  font-size: 28px;
-  font-weight: 500;
-  margin: 0 0 20px 0;
-  opacity: 0.95;
-  line-height: 1.4;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.slide-description {
-  font-size: 18px;
-  font-weight: 400;
-  margin: 0 0 30px 0;
+.hero-subtitle {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin: 1rem 0;
+  opacity: 0.95;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.hero-description {
+  font-size: 1.1rem;
   opacity: 0.9;
-  line-height: 1.5;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 2rem auto;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.hero-actions {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 40px;
-}
+/*
+ * CTA按钮样式已移除 - 现在使用Naive UI的n-button组件
+ * 所有按钮样式由Naive UI自动处理
+ */
 
-.cta-button {
-  padding: 16px 32px;
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 140px;
-}
+/*
+ * 所有轮播控制样式已移除 - 现在由Naive UI的n-carousel组件自动处理
+ * 包括：控制按钮、指示器、悬停效果等
+ */
 
-.cta-button.primary {
-  background: linear-gradient(45deg, #f59e0b, #d97706);
-  color: white;
-  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
-}
-
-.cta-button.primary:hover {
-  background: linear-gradient(45deg, #d97706, #b45309);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
-}
-
-.cta-button.secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-}
-
-.cta-button.secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
-}
-
-/* 轮播控制 */
-.slider-controls {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 30px;
-  z-index: 3;
-  pointer-events: none;
-}
-
-.prev-btn,
-.next-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: white;
-  font-size: 24px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  pointer-events: auto;
-}
-
-.prev-btn:hover,
-.next-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
-}
-
-.slider-indicators {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 12px;
-  z-index: 3;
-}
-
-.indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.4);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.indicator.active {
-  background: white;
-  transform: scale(1.2);
-}
-
-.indicator:hover {
-  background: rgba(255, 255, 255, 0.7);
-}
-
-/* 响应式设计 */
+/* 响应式设计 - 简化版，主要依赖Naive UI的响应式能力 */
 @media (max-width: 1024px) {
-  .company-name {
-    font-size: 52px;
+  .hero-title {
+    font-size: 3rem;
   }
 
-  .slide-subtitle {
-    font-size: 22px;
+  .hero-subtitle {
+    font-size: 1.5rem;
   }
 
-  .slide-description {
-    font-size: 16px;
+  .hero-description {
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 768px) {
-  .slide-content {
-    padding: 0 20px;
+  .hero-title {
+    font-size: 2.5rem;
   }
 
-  .company-name {
-    font-size: 48px;
+  .hero-subtitle {
+    font-size: 1.3rem;
   }
 
-  .slide-subtitle {
-    font-size: 20px;
-  }
-
-  .slide-description {
-    font-size: 15px;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .cta-button {
-    width: 100%;
-    max-width: 280px;
-  }
-}
-
-@media (max-width: 480px) {
-  .slide-content {
-    padding: 0 16px;
-  }
-
-  .company-name {
-    font-size: 32px;
-  }
-
-  .slide-subtitle {
-    font-size: 16px;
-  }
-
-  .slide-description {
-    font-size: 14px;
-    max-width: 100%;
-  }
-
-  .slider-controls {
-    padding: 0 16px;
-  }
-
-  .prev-btn,
-  .next-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
+  .hero-description {
+    font-size: 0.9rem;
   }
 }
 </style>

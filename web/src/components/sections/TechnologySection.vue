@@ -1,80 +1,179 @@
 <template>
+  <!-- 技术能力展示区域 - 使用Naive UI原生组件 -->
   <section id="technology" class="technology-section section-full">
     <div class="section-container">
-      <div class="section-header centered">
+      <!-- 标题区域 -->
+      <n-space vertical align="center" :size="20" style="margin-bottom: 80px;">
         <h2 class="section-title">{{ $t('website.technology.title') }}</h2>
         <div class="title-underline"></div>
         <p class="section-subtitle">{{ $t('website.technology.subtitle') }}</p>
-      </div>
+      </n-space>
 
-      <div class="technology-content">
-        <div class="tech-overview">
-          <div class="tech-image">
-            <img src="/images/page4_business_scope_full.jpg" alt="业务范围" class="overview-img">
-          </div>
-          <div class="tech-description">
-            <h3>{{ $t('website.technology.overview_title') }}</h3>
-            <p>{{ $t('website.technology.overview_description') }}</p>
-            <div class="tech-highlights">
-              <div class="highlight-item">
-                <div class="highlight-icon">🔬</div>
-                <div class="highlight-text">
-                  <h4>{{ $t('website.technology.highlight_1_title') }}</h4>
-                  <p>{{ $t('website.technology.highlight_1_desc') }}</p>
-                </div>
-              </div>
-              <div class="highlight-item">
-                <div class="highlight-icon">⚡</div>
-                <div class="highlight-text">
-                  <h4>{{ $t('website.technology.highlight_2_title') }}</h4>
-                  <p>{{ $t('website.technology.highlight_2_desc') }}</p>
-                </div>
-              </div>
-              <div class="highlight-item">
-                <div class="highlight-icon">🎯</div>
-                <div class="highlight-text">
-                  <h4>{{ $t('website.technology.highlight_3_title') }}</h4>
-                  <p>{{ $t('website.technology.highlight_3_desc') }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- 技术内容区域 -->
+      <n-space vertical :size="80">
+        <!-- 技术概览区域 - 使用Naive UI Grid布局 -->
+        <n-grid
+          :cols="2"
+          :x-gap="60"
+          item-responsive
+          responsive="screen"
+          style="align-items: center;"
+        >
+          <!-- 左侧图片 -->
+          <n-grid-item>
+            <n-image
+              src="/images/page4_business_scope_full.jpg"
+              alt="业务范围"
+              object-fit="cover"
+              style="width: 100%; height: 400px; border-radius: 12px;"
+            />
+          </n-grid-item>
 
-        <div class="tech-capabilities">
-          <div class="capability-card">
-            <div class="capability-icon">
-              <img src="/images/icon_advanced_packaging.jpg" :alt="$t('website.technology.capability_1_title')">
-            </div>
-            <h4>{{ $t('website.technology.capability_1_title') }}</h4>
-            <p>{{ $t('website.technology.capability_1_desc') }}</p>
-          </div>
+          <!-- 右侧技术描述 -->
+          <n-grid-item>
+            <n-space vertical :size="30">
+              <n-space vertical :size="16">
+                <h3 class="tech-overview-title">{{ $t('website.technology.overview_title') }}</h3>
+                <p class="tech-overview-desc">{{ $t('website.technology.overview_description') }}</p>
+              </n-space>
 
-          <div class="capability-card">
-            <div class="capability-icon">
-              <img src="/images/icon_hardware_design.jpg" :alt="$t('website.technology.capability_2_title')">
-            </div>
-            <h4>{{ $t('website.technology.capability_2_title') }}</h4>
-            <p>{{ $t('website.technology.capability_2_desc') }}</p>
-          </div>
+              <!-- 技术亮点 - 使用Naive UI Space和Avatar -->
+              <n-space vertical :size="20">
+                <n-space align="flex-start" :size="16">
+                  <n-avatar
+                    :size="40"
+                    color="#f0f9ff"
+                    style="background: #f0f9ff; color: #1e3a8a; font-size: 20px;"
+                  >
+                    🔬
+                  </n-avatar>
+                  <n-space vertical :size="4">
+                    <h4 class="highlight-title">{{ $t('website.technology.highlight_1_title') }}</h4>
+                    <p class="highlight-desc">{{ $t('website.technology.highlight_1_desc') }}</p>
+                  </n-space>
+                </n-space>
 
-          <div class="capability-card">
-            <div class="capability-icon">
-              <img src="/images/icon_ic_testing.jpg" :alt="$t('website.technology.capability_3_title')">
-            </div>
-            <h4>{{ $t('website.technology.capability_3_title') }}</h4>
-            <p>{{ $t('website.technology.capability_3_desc') }}</p>
-          </div>
+                <n-space align="flex-start" :size="16">
+                  <n-avatar
+                    :size="40"
+                    color="#f0f9ff"
+                    style="background: #f0f9ff; color: #1e3a8a; font-size: 20px;"
+                  >
+                    ⚡
+                  </n-avatar>
+                  <n-space vertical :size="4">
+                    <h4 class="highlight-title">{{ $t('website.technology.highlight_2_title') }}</h4>
+                    <p class="highlight-desc">{{ $t('website.technology.highlight_2_desc') }}</p>
+                  </n-space>
+                </n-space>
 
-          <div class="capability-card">
-            <div class="capability-icon">
-              <img src="/images/technical_chart_circuit.jpg" :alt="$t('website.technology.capability_4_title')">
-            </div>
-            <h4>{{ $t('website.technology.capability_4_title') }}</h4>
-            <p>{{ $t('website.technology.capability_4_desc') }}</p>
-          </div>
-        </div>
-      </div>
+                <n-space align="flex-start" :size="16">
+                  <n-avatar
+                    :size="40"
+                    color="#f0f9ff"
+                    style="background: #f0f9ff; color: #1e3a8a; font-size: 20px;"
+                  >
+                    🎯
+                  </n-avatar>
+                  <n-space vertical :size="4">
+                    <h4 class="highlight-title">{{ $t('website.technology.highlight_3_title') }}</h4>
+                    <p class="highlight-desc">{{ $t('website.technology.highlight_3_desc') }}</p>
+                  </n-space>
+                </n-space>
+              </n-space>
+            </n-space>
+          </n-grid-item>
+        </n-grid>
+
+        <!-- 技术能力卡片区域 - 使用Naive UI Grid -->
+        <n-grid
+          :cols="4"
+          :x-gap="30"
+          :y-gap="30"
+          item-responsive
+          responsive="screen"
+        >
+          <!-- 先进封装技术卡片 -->
+          <n-grid-item>
+            <n-card hoverable class="capability-card">
+              <n-space vertical align="center" :size="20">
+                <n-image
+                  src="/images/icon_advanced_packaging.jpg"
+                  :alt="$t('website.technology.capability_1_title')"
+                  width="80"
+                  height="80"
+                  object-fit="cover"
+                  style="border-radius: 8px;"
+                />
+                <n-space vertical align="center" :size="12">
+                  <h4 class="capability-title">{{ $t('website.technology.capability_1_title') }}</h4>
+                  <p class="capability-desc">{{ $t('website.technology.capability_1_desc') }}</p>
+                </n-space>
+              </n-space>
+            </n-card>
+          </n-grid-item>
+
+          <!-- 硬件设计能力卡片 -->
+          <n-grid-item>
+            <n-card hoverable class="capability-card">
+              <n-space vertical align="center" :size="20">
+                <n-image
+                  src="/images/icon_hardware_design.jpg"
+                  :alt="$t('website.technology.capability_2_title')"
+                  width="80"
+                  height="80"
+                  object-fit="cover"
+                  style="border-radius: 8px;"
+                />
+                <n-space vertical align="center" :size="12">
+                  <h4 class="capability-title">{{ $t('website.technology.capability_2_title') }}</h4>
+                  <p class="capability-desc">{{ $t('website.technology.capability_2_desc') }}</p>
+                </n-space>
+              </n-space>
+            </n-card>
+          </n-grid-item>
+
+          <!-- 测试验证服务卡片 -->
+          <n-grid-item>
+            <n-card hoverable class="capability-card">
+              <n-space vertical align="center" :size="20">
+                <n-image
+                  src="/images/icon_ic_testing.jpg"
+                  :alt="$t('website.technology.capability_3_title')"
+                  width="80"
+                  height="80"
+                  object-fit="cover"
+                  style="border-radius: 8px;"
+                />
+                <n-space vertical align="center" :size="12">
+                  <h4 class="capability-title">{{ $t('website.technology.capability_3_title') }}</h4>
+                  <p class="capability-desc">{{ $t('website.technology.capability_3_desc') }}</p>
+                </n-space>
+              </n-space>
+            </n-card>
+          </n-grid-item>
+
+          <!-- 技术咨询服务卡片 -->
+          <n-grid-item>
+            <n-card hoverable class="capability-card">
+              <n-space vertical align="center" :size="20">
+                <n-image
+                  src="/images/technical_chart_circuit.jpg"
+                  :alt="$t('website.technology.capability_4_title')"
+                  width="80"
+                  height="80"
+                  object-fit="cover"
+                  style="border-radius: 8px;"
+                />
+                <n-space vertical align="center" :size="12">
+                  <h4 class="capability-title">{{ $t('website.technology.capability_4_title') }}</h4>
+                  <p class="capability-desc">{{ $t('website.technology.capability_4_desc') }}</p>
+                </n-space>
+              </n-space>
+            </n-card>
+          </n-grid-item>
+        </n-grid>
+      </n-space>
     </div>
   </section>
 </template>
@@ -86,7 +185,12 @@ const { t } = useI18n()
 </script>
 
 <style scoped>
-/* 技术能力展示样式 - 华天科技风格 */
+/*
+ * TechnologySection样式 - 使用Naive UI原生组件
+ * 大部分样式已由n-card、n-grid、n-avatar、n-image等组件自动处理
+ */
+
+/* 技术能力展示区域 */
 .technology-section {
   background: #f8f9fa;
   padding: 100px 0;
@@ -98,23 +202,12 @@ const { t } = useI18n()
   padding: 0 30px;
 }
 
-.section-header {
-  text-align: center;
-  margin-bottom: 80px;
-}
-
-.section-header.centered {
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 80px;
-}
-
+/* 保留必要的品牌样式 */
 .section-title {
   font-size: 42px;
   font-weight: bold;
   color: #1e3a8a;
-  margin: 0 0 20px 0;
+  margin: 0;
   line-height: 1.2;
 }
 
@@ -123,7 +216,6 @@ const { t } = useI18n()
   height: 4px;
   background: linear-gradient(45deg, #f59e0b, #d97706);
   border-radius: 2px;
-  margin: 0 auto 30px auto;
 }
 
 .section-subtitle {
@@ -133,140 +225,60 @@ const { t } = useI18n()
   line-height: 1.6;
 }
 
-.technology-content {
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-}
-
-.tech-overview {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.tech-image {
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.overview-img {
-  width: 100%;
-  height: 350px;
-  object-fit: cover;
-}
-
-.tech-description h3 {
+/* 技术概览内容样式 */
+.tech-overview-title {
   font-size: 28px;
   font-weight: bold;
   color: #1e3a8a;
-  margin: 0 0 20px 0;
+  margin: 0;
 }
 
-.tech-description p {
+.tech-overview-desc {
   font-size: 16px;
   color: #6b7280;
   line-height: 1.7;
-  margin-bottom: 30px;
+  margin: 0;
 }
 
-.tech-highlights {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.highlight-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-.highlight-icon {
-  font-size: 24px;
-  margin-top: 4px;
-}
-
-.highlight-text h4 {
+/* 技术亮点样式 */
+.highlight-title {
   font-size: 18px;
   font-weight: bold;
   color: #1f2937;
-  margin: 0 0 8px 0;
+  margin: 0;
 }
 
-.highlight-text p {
+.highlight-desc {
   font-size: 14px;
   color: #6b7280;
   margin: 0;
   line-height: 1.5;
 }
 
-.tech-capabilities {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
-}
-
-.capability-card {
-  background: #ffffff;
-  padding: 30px 24px;
-  border-radius: 12px;
+/* 技术能力卡片内容样式 */
+.capability-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1e3a8a;
+  margin: 0;
   text-align: center;
-  transition: all 0.3s ease;
-  border: 1px solid #e5e7eb;
 }
 
-.capability-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  border-color: #3b82f6;
-}
-
-.capability-icon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 20px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #f0f9ff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.capability-icon img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
-
-.capability-card h4 {
-  font-size: 18px;
-  font-weight: bold;
-  color: #1f2937;
-  margin: 0 0 12px 0;
-}
-
-.capability-card p {
+.capability-desc {
   font-size: 14px;
   color: #6b7280;
-  line-height: 1.5;
   margin: 0;
+  line-height: 1.5;
+  text-align: center;
 }
 
-/* 响应式设计 */
-@media (max-width: 1024px) {
-  .tech-overview {
-    gap: 40px;
-  }
+/*
+ * 技术概览和能力卡片样式已移除 - 现在使用Naive UI组件
+ * n-grid组件处理布局，n-card组件处理卡片样式
+ * n-image组件处理图片显示，n-avatar组件处理图标
+ */
 
-  .tech-capabilities {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-}
-
+/* 响应式设计 - 简化版，主要依赖Naive UI的响应式能力 */
 @media (max-width: 768px) {
   .technology-section {
     padding: 80px 0;
@@ -279,33 +291,8 @@ const { t } = useI18n()
   .section-title {
     font-size: 32px;
   }
-
-  .technology-content {
-    gap: 60px;
-  }
-
-  .tech-overview {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .overview-img {
-    height: 250px;
-  }
-
-  .tech-description h3 {
-    font-size: 24px;
-  }
-
-  .tech-capabilities {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .capability-card {
-    padding: 24px 20px;
-  }
 }
+
 
 @media (max-width: 480px) {
   .technology-section {
@@ -320,40 +307,8 @@ const { t } = useI18n()
     font-size: 28px;
   }
 
-  .technology-content {
-    gap: 40px;
-  }
-
-  .overview-img {
-    height: 200px;
-  }
-
-  .tech-description h3 {
+  .tech-overview-title {
     font-size: 20px;
-  }
-
-  .tech-description p {
-    font-size: 15px;
-  }
-
-  .capability-card {
-    padding: 20px 16px;
-  }
-
-  .highlight-item {
-    gap: 12px;
-  }
-
-  .highlight-icon {
-    font-size: 20px;
-  }
-
-  .highlight-text h4 {
-    font-size: 16px;
-  }
-
-  .highlight-text p {
-    font-size: 13px;
   }
 }
 </style>

@@ -1,40 +1,55 @@
 <template>
   <div class="home-page">
-    <!-- 滚动进度指示器 -->
-    <div class="scroll-progress">
-      <div class="progress-bar" :style="{ height: scrollProgress + '%' }"></div>
-    </div>
+    <!-- 滚动进度指示器 - 使用Naive UI原生组件 -->
+    <n-affix :top="0" style="z-index: 1001;">
+      <n-progress
+        type="line"
+        :percentage="scrollProgress"
+        :show-indicator="false"
+        :height="4"
+        color="#1e3a8a"
+        style="width: 100vw;"
+      />
+    </n-affix>
 
-    <!-- 区域指示器 -->
-    <div class="section-indicators">
-      <div
-        v-for="(section, index) in sections"
-        :key="section"
-        :class="['indicator-dot', { active: currentSection === index }]"
-        @click="scrollToSection(section)"
-        :title="getSectionName(section)"
-      ></div>
-    </div>
+    <!-- 区域指示器 - 使用Naive UI原生组件 -->
+    <n-affix :right="30" :top="50" style="z-index: 1000;">
+      <n-space vertical :size="8">
+        <n-button
+          v-for="(section, index) in sections"
+          :key="section"
+          circle
+          size="small"
+          :type="currentSection === index ? 'primary' : 'default'"
+          @click="scrollToSection(section)"
+          :title="getSectionName(section)"
+          style="width: 12px; height: 12px; min-width: 12px;"
+        />
+      </n-space>
+    </n-affix>
 
-    <!-- 侧边导航菜单 -->
-    <nav class="side-navigation" :class="{ visible: showSideNav }">
-      <div class="nav-toggle" @click="toggleSideNav">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <ul class="nav-menu">
-        <li v-for="(section, index) in sections" :key="section">
-          <a
-            :href="`#${section}`"
-            :class="{ active: currentSection === index }"
-            @click="scrollToSection(section)"
-          >
-            {{ getSectionName(section) }}
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <!-- 侧边导航菜单 - 使用Naive UI原生组件 -->
+    <n-drawer v-model:show="showSideNav" :width="280" placement="right">
+      <n-drawer-content title="页面导航" closable>
+        <n-menu
+          :value="sections[currentSection]"
+          :options="menuOptions"
+          @update:value="handleMenuSelect"
+        />
+      </n-drawer-content>
+    </n-drawer>
+
+    <!-- 侧边导航触发按钮 -->
+    <n-affix :right="30" :top="120" style="z-index: 1000;">
+      <n-button
+        circle
+        type="primary"
+        @click="showSideNav = true"
+        style="width: 40px; height: 40px;"
+      >
+        ☰
+      </n-button>
+    </n-affix>
 
     <!-- Hero Banner 轮播区域 -->
     <HeroSection
@@ -68,10 +83,8 @@
     <!-- 联系我们 -->
     <ContactSection />
 
-    <!-- 回到顶部按钮 -->
-    <div class="back-to-top" :class="{ visible: showBackToTop }" @click="scrollToTop">
-      <span>↑</span>
-    </div>
+    <!-- 回到顶部按钮 - 使用Naive UI原生组件 -->
+    <n-back-top :right="30" :bottom="30" />
   </div>
 </template>
 
@@ -102,6 +115,23 @@ const heroRef = ref(null)
 // 滚动相关状态（简化版）
 const currentSection = ref(0)
 const sections = ref(['home', 'about', 'business', 'technology', 'cases', 'news', 'contact'])
+
+// Naive UI菜单选项配置
+const menuOptions = computed(() =>
+  sections.value.map((section, index) => ({
+    label: getSectionName(section),
+    key: section,
+    props: {
+      onClick: () => scrollToSection(section)
+    }
+  }))
+)
+
+// 菜单选择处理
+const handleMenuSelect = (key) => {
+  scrollToSection(key)
+  showSideNav.value = false
+}
 
 // 业务卡片悬停控制
 const startHover = () => {
@@ -280,44 +310,15 @@ section.section-half {
   transform: translateY(0);
 }
 
-/* 侧边导航样式 */
-.side-nav {
-  position: fixed;
-  right: 30px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+/*
+ * 侧边导航样式已移除 - 现在使用Naive UI的n-drawer和n-affix组件
+ * 原因：Naive UI提供了更好的原生抽屉和固定定位组件
+ */
 
-.nav-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  border: 2px solid #1e3a8a;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.nav-dot.active {
-  background: #1e3a8a;
-  transform: scale(1.2);
-}
-
-.nav-dot:hover {
-  background: #1e40af;
-  transform: scale(1.1);
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .side-nav {
-    display: none;
-  }
-}
+/*
+ * 响应式设计已简化 - Naive UI组件自带响应式能力
+ * 原因：n-drawer、n-affix等组件内置了响应式处理
+ */
 
 /* 组件相关的CSS已移至各自的组件文件中 */
 
@@ -354,37 +355,10 @@ section.section-half {
 /* 继续移除技术相关CSS */
 /* 大量组件相关CSS已移至各自的组件文件中 */
 
-/* 回到顶部按钮 */
-.back-to-top {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  background: #1e3a8a;
-  color: #ffffff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  z-index: 1000;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.back-to-top.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-.back-to-top:hover {
-  background: #1e40af;
-  transform: translateY(-3px);
-}
+/*
+ * 回到顶部按钮样式已移除 - 现在使用Naive UI的n-back-top组件
+ * 原因：Naive UI提供了功能完整的原生回到顶部组件，包含平滑滚动和自动显示/隐藏
+ */
 
 /* 成功案例相关样式已移至CasesSection组件 */
 
@@ -392,22 +366,14 @@ section.section-half {
 /* 新闻动态相关样式已移至NewsSection组件 */
 /* 联系我们相关样式已移至ContactSection组件 */
 
-/* 响应式设计 */
+/*
+ * 移动端响应式设计已简化 - 主要依赖Naive UI组件的内置响应式能力
+ * 保留必要的布局样式，其他交给Naive UI处理
+ */
 @media (max-width: 768px) {
-  .side-nav {
-    display: none;
-  }
-
   .section-half {
     min-height: 60vh;
     padding: 60px 0;
-  }
-
-  .back-to-top {
-    width: 45px;
-    height: 45px;
-    bottom: 20px;
-    right: 20px;
   }
 }
 

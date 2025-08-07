@@ -1,45 +1,86 @@
 <template>
+  <!-- 关于我们区域 - 使用Naive UI原生组件 -->
   <section id="about" class="about-section section-half">
     <div class="section-container">
-      <div class="about-content">
-        <div class="about-text">
-          <div class="section-header">
-            <h2 class="section-title">{{ $t('website.about.title') }}</h2>
-            <div class="title-underline"></div>
+      <!-- 使用Naive UI Grid布局 -->
+      <n-grid
+        :cols="2"
+        :x-gap="80"
+        item-responsive
+        responsive="screen"
+        style="align-items: center;"
+      >
+        <!-- 左侧文本内容 -->
+        <n-grid-item>
+          <n-space vertical :size="40">
+            <!-- 标题区域 -->
+            <n-space vertical :size="20">
+              <h2 class="section-title">{{ $t('website.about.title') }}</h2>
+              <div class="title-underline"></div>
+            </n-space>
+
+            <!-- 公司介绍 -->
+            <n-space vertical :size="24">
+              <p class="intro-highlight">
+                {{ $t('website.about.intro_highlight') }}
+              </p>
+              <p class="intro-description">
+                {{ $t('website.about.intro_description') }}
+              </p>
+            </n-space>
+
+            <!-- 公司统计数据 - 使用Naive UI Statistic组件 -->
+            <n-grid :cols="3" :x-gap="30">
+              <n-grid-item>
+                <n-statistic
+                  label="成立年份"
+                  :value="2019"
+                  :value-style="{ fontSize: '32px', fontWeight: 'bold', color: '#1e3a8a' }"
+                />
+              </n-grid-item>
+              <n-grid-item>
+                <n-statistic
+                  :label="$t('website.about.stat_clients')"
+                  value="100+"
+                  :value-style="{ fontSize: '32px', fontWeight: 'bold', color: '#1e3a8a' }"
+                />
+              </n-grid-item>
+              <n-grid-item>
+                <n-statistic
+                  :label="$t('website.about.stat_team')"
+                  value="5+"
+                  :value-style="{ fontSize: '32px', fontWeight: 'bold', color: '#1e3a8a' }"
+                />
+              </n-grid-item>
+            </n-grid>
+          </n-space>
+        </n-grid-item>
+
+        <!-- 右侧图片内容 -->
+        <n-grid-item>
+          <div class="about-image-container">
+            <!-- 使用Naive UI Image组件 -->
+            <n-image
+              src="/images/business_office_scene.jpg"
+              alt="办公场景"
+              object-fit="cover"
+              style="width: 100%; height: 400px; border-radius: 12px;"
+            />
+
+            <!-- 图片覆盖层信息 -->
+            <n-card
+              class="image-overlay-card"
+              :bordered="false"
+              style="position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);"
+            >
+              <n-space vertical :size="8">
+                <h4 class="overlay-title">{{ $t('website.about.team_overlay_title') }}</h4>
+                <p class="overlay-description">{{ $t('website.about.team_overlay_desc') }}</p>
+              </n-space>
+            </n-card>
           </div>
-          <div class="company-intro">
-            <p class="intro-highlight">
-              {{ $t('website.about.intro_highlight') }}
-            </p>
-            <p class="intro-description">
-              {{ $t('website.about.intro_description') }}
-            </p>
-            <div class="company-stats">
-              <div class="stat-item">
-                <div class="stat-number">2019</div>
-                <div class="stat-label">{{ $t('website.about.stat_founded') }}</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number">100+</div>
-                <div class="stat-label">{{ $t('website.about.stat_clients') }}</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number">5+</div>
-                <div class="stat-label">{{ $t('website.about.stat_team') }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="about-image">
-          <img src="/images/business_office_scene.jpg" alt="办公场景" class="about-img">
-          <div class="image-overlay">
-            <div class="overlay-content">
-              <h4>{{ $t('website.about.team_overlay_title') }}</h4>
-              <p>{{ $t('website.about.team_overlay_desc') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+        </n-grid-item>
+      </n-grid>
     </div>
   </section>
 </template>
@@ -51,6 +92,11 @@ const { t } = useI18n()
 </script>
 
 <style scoped>
+/*
+ * AboutSection样式 - 使用Naive UI原生组件
+ * 大部分样式已由n-grid、n-statistic、n-image、n-card等组件自动处理
+ */
+
 /* 关于我们区域 */
 .about-section {
   padding: 100px 0;
@@ -74,24 +120,13 @@ const { t } = useI18n()
   padding: 0 30px;
 }
 
-.about-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-.section-header {
-  margin-bottom: 40px;
-}
-
+/* 保留必要的品牌样式 */
 .section-title {
   font-size: 42px;
   font-weight: bold;
   color: #1e3a8a;
-  margin: 0 0 20px 0;
+  margin: 0;
   line-height: 1.2;
-  position: relative;
 }
 
 .title-underline {
@@ -119,117 +154,56 @@ const { t } = useI18n()
   50% { transform: translateX(40px); }
 }
 
-.company-intro {
-  color: #374151;
-  line-height: 1.8;
-}
-
+/* 保留的内容样式 */
 .intro-highlight {
   font-size: 20px;
   font-weight: 600;
   color: #1e3a8a;
-  margin-bottom: 24px;
+  margin: 0;
   line-height: 1.6;
 }
 
 .intro-description {
   font-size: 16px;
-  margin-bottom: 40px;
   color: #6b7280;
+  margin: 0;
+  line-height: 1.8;
 }
 
-.company-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  margin-top: 40px;
-}
+/*
+ * 统计数据样式已移除 - 现在使用Naive UI的n-statistic组件
+ * 自动处理数字显示、标签、悬停效果等
+ */
 
-.stat-item {
-  text-align: center;
-  padding: 20px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.stat-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.15);
-}
-
-.stat-number {
-  font-size: 32px;
-  font-weight: bold;
-  color: #1e3a8a;
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  font-size: 14px;
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.about-image {
+/* 图片容器样式 */
+.about-image-container {
   position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.about-img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.about-image:hover .about-img {
-  transform: scale(1.05);
-}
-
-.image-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(30, 58, 138, 0.9));
-  color: white;
-  padding: 30px;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-}
-
-.about-image:hover .image-overlay {
-  transform: translateY(0);
-}
-
-.overlay-content h4 {
+/* 覆盖层卡片内容样式 */
+.overlay-title {
   font-size: 18px;
   font-weight: 600;
-  margin: 0 0 8px 0;
-}
-
-.overlay-content p {
-  font-size: 14px;
+  color: #1e3a8a;
   margin: 0;
-  opacity: 0.9;
 }
 
-/* 响应式设计 */
-@media (max-width: 1024px) {
-  .about-content {
-    gap: 60px;
-  }
+.overlay-description {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
 
+/*
+ * 图片和覆盖层样式已移除 - 现在使用Naive UI组件
+ * n-image组件处理图片显示和悬停效果
+ * n-card组件处理覆盖层样式和动画
+ */
+
+/* 响应式设计 - 简化版，主要依赖Naive UI的响应式能力 */
+@media (max-width: 1024px) {
   .section-title {
     font-size: 36px;
-  }
-
-  .company-stats {
-    gap: 20px;
   }
 }
 
@@ -242,34 +216,12 @@ const { t } = useI18n()
     padding: 0 20px;
   }
 
-  .about-content {
-    grid-template-columns: 1fr;
-    gap: 50px;
-  }
-
   .section-title {
     font-size: 32px;
   }
 
   .intro-highlight {
     font-size: 18px;
-  }
-
-  .company-stats {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .stat-item {
-    padding: 16px;
-  }
-
-  .stat-number {
-    font-size: 28px;
-  }
-
-  .about-img {
-    height: 300px;
   }
 }
 
@@ -288,18 +240,6 @@ const { t } = useI18n()
 
   .intro-highlight {
     font-size: 16px;
-  }
-
-  .intro-description {
-    font-size: 15px;
-  }
-
-  .about-img {
-    height: 250px;
-  }
-
-  .image-overlay {
-    padding: 20px;
   }
 }
 </style>

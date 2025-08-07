@@ -1,45 +1,57 @@
 <template>
   <n-layout class="website-layout">
-    <!-- 顶部导航栏 -->
+    <!-- 顶部导航栏 - 使用Naive UI原生n-space组件 -->
     <n-layout-header class="website-header">
-      <n-grid :cols="24" class="header-container">
-        <!-- 左侧Logo和公司名称 -->
-        <n-grid-item :span="6" class="header-left">
+      <div class="header-container">
+        <!-- 桌面端布局 - 使用n-space实现space-between布局 -->
+        <n-space
+          v-if="!isMobile"
+          justify="space-between"
+          align="center"
+          :size="20"
+          style="width: 100%; height: 100%;"
+        >
+          <!-- 左侧Logo -->
           <CompanyLogo />
-        </n-grid-item>
 
-        <!-- 中间导航菜单 -->
-        <n-grid-item :span="12" class="header-nav-container">
+          <!-- 中间导航菜单 -->
           <NavigationMenu
             :spacing="navSpacing"
             justify="center"
-            container-class="header-nav"
             :active-key="currentNavKey"
             @nav-click="handleNavClick"
           />
-        </n-grid-item>
 
-        <!-- 右侧语言切换和登录入口 -->
-        <n-grid-item :span="6" class="header-right">
-          <n-space align="center" justify="end" :size="24">
-            <LanguageSwitcher
-              container-class="language-switch"
-              @language-changed="handleLanguageChanged"
-            />
+          <!-- 右侧操作区域 -->
+          <n-space align="center" :size="24">
+            <LanguageSwitcher @language-changed="handleLanguageChanged" />
             <AdminLoginButton @login-click="handleLoginClick" />
           </n-space>
-        </n-grid-item>
+        </n-space>
 
-        <!-- 移动端菜单按钮 -->
-        <n-button
-          text
-          class="mobile-menu-btn"
-          @click="toggleMobileMenu"
-          :aria-label="$t('navigation.mobile_menu_toggle')"
+        <!-- 移动端布局 - 使用n-space实现移动端布局 -->
+        <n-space
+          v-else
+          justify="space-between"
+          align="center"
+          style="width: 100%; height: 100%;"
         >
-          ☰
-        </n-button>
-      </n-grid>
+          <!-- 移动端Logo -->
+          <CompanyLogo />
+
+          <!-- 移动端右侧操作 -->
+          <n-space align="center" :size="16">
+            <LanguageSwitcher @language-changed="handleLanguageChanged" />
+            <n-button
+              text
+              @click="toggleMobileMenu"
+              :aria-label="$t('navigation.mobile_menu_toggle')"
+            >
+              ☰
+            </n-button>
+          </n-space>
+        </n-space>
+      </div>
     </n-layout-header>
 
       <!-- 移动端抽屉菜单 -->
@@ -63,7 +75,6 @@
           </div>
         </n-drawer-content>
       </n-drawer>
-    </header>
 
     <!-- 主要内容区域 -->
     <n-layout-content class="website-main">
@@ -87,7 +98,7 @@
             <h4>{{ $t('website.contact.title') }}</h4>
             <p><span>📍</span> {{ $t('website.contact.address') }}</p>
             <p><span>📞</span> {{ $t('website.contact.phone') }}</p>
-            <p><span>📧</span> {{ $t('website.contact.email') }}</p>
+            <p><span>📧</span> wenqiang.chang@sipumtech.com</p>
           </n-grid-item>
 
           <n-grid-item class="footer-section">
@@ -110,21 +121,14 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useBreakpoints } from '@vueuse/core'
-import { lStorage } from '@/utils'
-import { websiteThemeOverrides } from '~/settings'
 import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
 import CompanyLogo from '@/components/common/CompanyLogo.vue'
 import NavigationMenu from '@/components/common/NavigationMenu.vue'
 import AdminLoginButton from '@/components/common/AdminLoginButton.vue'
 
-const router = useRouter()
 const { locale, t } = useI18n()
-
-// 网站主题配置
-const websiteTheme = websiteThemeOverrides
 
 const showMobileMenu = ref(false)
 const currentNavKey = ref('home') // 当前激活的导航项
@@ -147,6 +151,12 @@ const navSpacing = computed(() => {
   if (breakpoints.md.value) return 16      // 平板端 (>=900px)
   if (breakpoints.sm.value) return 12      // 小平板端 (>=769px)
   return 32                                // 默认值 (<769px)
+})
+
+// 使用Naive UI原生响应式能力 - 移动端检测
+const isMobile = computed(() => {
+  // 使用breakpoints判断是否为移动端
+  return !breakpoints.md.value  // 小于900px视为移动端
 })
 
 // 移动端菜单选项
@@ -278,11 +288,7 @@ onUnmounted(() => {
   }
 })
 
-// 全局错误处理
-const handleGlobalError = (error, errorInfo) => {
-  console.error('Website layout error:', error, errorInfo)
-  // 可以在这里添加错误上报逻辑
-}
+// 全局错误处理已移除 - 如需要可在应用级别配置
 
 // n-drawer 组件自带点击外部关闭功能，不需要手动处理
 </script>
@@ -306,33 +312,12 @@ const handleGlobalError = (error, errorInfo) => {
   z-index: 1000;
 }
 
+/* 最小化自定义样式 - 主要依赖Naive UI原生组件 */
 .header-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 30px;
   height: 90px;
-  align-items: center;
-}
-
-/* 左侧Logo区域 - 华天科技风格 */
-.header-left {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-/* 中间导航区域 */
-.header-nav-container {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-/* 右侧操作区域 */
-.header-right {
-  display: flex;
-  align-items: center;
-  height: 100%;
 }
 
 /* Logo样式由CompanyLogo组件管理 */
@@ -343,38 +328,23 @@ const handleGlobalError = (error, errorInfo) => {
   width: 100%;
 }
 
-/* 语言切换和管理员登录样式由对应组件管理 */
+/*
+ * 语言切换和管理员登录样式已移至对应组件
+ * 原因：组件样式应该封装在组件内部，符合组件化设计原则
+ */
 
-.login-btn {
-  background: #1e3a8a;
-  border: 1px solid #1e3a8a;
-  color: #ffffff;
-  padding: 10px 24px;
-  font-weight: 500;
-  font-size: 14px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
+/* 响应式设计 - 最小化自定义CSS */
+@media (max-width: 1200px) {
+  .header-container {
+    padding: 0 20px;
+  }
 }
 
-.login-btn:hover {
-  background: #1e40af;
-  border-color: #1e40af;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
-}
-
-/* 移动端菜单 */
-.mobile-menu-btn {
-  display: none;
-  color: #374151 !important;
-  z-index: 1000;
-  position: relative;
-  padding: 8px !important;
-  font-size: 20px !important;
-  min-width: auto !important;
-  height: auto !important;
-  background: transparent !important;
-  border: none !important;
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 15px;
+    height: 70px;
+  }
 }
 
 /* 移动端抽屉菜单样式 */
