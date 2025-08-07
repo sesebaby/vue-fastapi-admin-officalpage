@@ -606,7 +606,7 @@ const toggleSideNav = () => {
 
 // 获取区域名称
 const getSectionName = (sectionId) => {
-  return t(`website.navigation_sections.${sectionId}`) || sectionId
+  return t(`navigation.${sectionId}`) || sectionId
 }
 
 // 键盘导航
@@ -832,7 +832,7 @@ section.section-half {
   right: 0;
 }
 
-.nav-toggle {
+.side-navigation .nav-toggle {
   position: absolute;
   top: 30px;
   left: -60px;
@@ -846,9 +846,10 @@ section.section-half {
   justify-content: center;
   align-items: center;
   gap: 4px;
+  z-index: 998;
 }
 
-.nav-toggle span {
+.side-navigation .nav-toggle span {
   width: 20px;
   height: 2px;
   background: #ffffff;
@@ -1976,14 +1977,57 @@ section.section-half {
 }
 
 /* 响应式设计 - 华天科技风格 */
-@media (max-width: 1024px) {
+/* 大屏幕优化 (1200px+) */
+@media (min-width: 1200px) {
+  .section-container {
+    max-width: 1200px;
+    padding: 80px 40px;
+  }
+
   .services-grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 60px;
   }
 
   .tech-capabilities {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+}
+
+/* 中等桌面屏幕 (1024px - 1199px) */
+@media (max-width: 1199px) and (min-width: 1024px) {
+  .section-container {
+    padding: 60px 30px;
+  }
+
+  .services-grid {
+    gap: 50px;
+  }
+
+  .tech-capabilities {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .industry-sectors {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* 平板端适配 (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 769px) {
+  .section-container {
+    padding: 50px 25px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .tech-capabilities {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
   }
 
   .industry-sectors {
@@ -1991,19 +2035,27 @@ section.section-half {
   }
 
   .service-nav-list {
-    gap: 30px;
+    gap: 25px;
   }
 
   .about-content,
   .tech-overview,
   .cases-overview {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 35px;
   }
 
   .contact-content {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 35px;
+  }
+
+  .company-name {
+    font-size: 52px;
+  }
+
+  .slide-subtitle {
+    font-size: 22px;
   }
 }
 

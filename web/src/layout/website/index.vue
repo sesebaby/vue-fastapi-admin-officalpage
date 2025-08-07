@@ -252,18 +252,22 @@ onUnmounted(() => {
 /* 中间导航菜单 - 华天科技风格 */
 .header-nav {
   display: flex;
-  gap: 40px;
+  gap: 32px;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
 .nav-item {
   color: #374151;
   text-decoration: none;
   font-weight: 500;
-  font-size: 16px;
-  padding: 12px 0;
+  font-size: 15px;
+  padding: 12px 8px;
   border-bottom: 2px solid transparent;
   transition: all 0.3s ease;
   position: relative;
+  white-space: nowrap;
+  min-width: fit-content;
 }
 
 .nav-item:hover,
@@ -383,6 +387,10 @@ onUnmounted(() => {
   display: none;
   cursor: pointer;
   color: #374151;
+  z-index: 1000;
+  position: relative;
+  padding: 8px;
+  font-size: 20px;
 }
 
 .mobile-menu {
@@ -390,6 +398,12 @@ onUnmounted(() => {
   background: #ffffff;
   border-top: 1px solid #e5e7eb;
   padding: 20px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .mobile-nav-item {
@@ -399,6 +413,15 @@ onUnmounted(() => {
   padding: 12px 0;
   border-bottom: 1px solid #f3f4f6;
   font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.mobile-nav-item:hover {
+  color: #1e40af;
+}
+
+.mobile-nav-item:last-child {
+  border-bottom: none;
 }
 
 .mobile-actions {
@@ -525,6 +548,83 @@ onUnmounted(() => {
 }
 
 /* 响应式设计 */
+/* 大屏幕优化 (1200px+) */
+@media (min-width: 1200px) {
+  .header-nav {
+    gap: 40px;
+  }
+
+  .nav-item {
+    font-size: 16px;
+    padding: 12px 12px;
+  }
+}
+
+/* 中等屏幕适配 (1024px - 1199px) */
+@media (max-width: 1199px) and (min-width: 1024px) {
+  .header-container {
+    padding: 0 24px;
+  }
+
+  .header-nav {
+    gap: 28px;
+  }
+
+  .nav-item {
+    font-size: 15px;
+    padding: 12px 6px;
+  }
+
+  .language-switch {
+    margin-right: 16px;
+  }
+}
+
+/* 平板端适配 (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 769px) {
+  .header-container {
+    padding: 0 20px;
+    height: 75px;
+  }
+
+  .header-nav {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .nav-item {
+    font-size: 14px;
+    padding: 8px 4px;
+  }
+
+  .language-switch {
+    margin-right: 12px;
+  }
+
+  .lang-item {
+    padding: 4px 8px;
+    font-size: 13px;
+  }
+
+  .admin-login-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
+
+/* 小平板端适配 (900px以下时进一步压缩) */
+@media (max-width: 900px) and (min-width: 769px) {
+  .header-nav {
+    gap: 12px;
+  }
+
+  .nav-item {
+    font-size: 13px;
+    padding: 8px 2px;
+  }
+}
+
+/* 移动端适配 (768px及以下) */
 @media (max-width: 768px) {
   .header-container {
     padding: 0 16px;
