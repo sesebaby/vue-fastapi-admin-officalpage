@@ -48,12 +48,18 @@
           </n-space>
 
           <!-- 管理员登录图标按钮 -->
-          <div class="admin-login" @click="handleLogin" :title="$t('navigation.admin_login_tooltip')">
+          <n-button
+            text
+            class="admin-login"
+            @click="handleLogin"
+            :title="$t('navigation.admin_login_tooltip')"
+            :aria-label="$t('navigation.admin_login_tooltip')"
+          >
             <svg class="login-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
-          </div>
+          </n-button>
         </div>
 
         <!-- 移动端菜单按钮 -->
@@ -352,21 +358,24 @@ onUnmounted(() => {
 
 /* 管理员登录图标 */
 .admin-login {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(30, 58, 138, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background: rgba(30, 58, 138, 0.08) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  min-width: 40px !important;
+  padding: 0 !important;
+  border: none !important;
 }
 
 .admin-login:hover {
-  background: rgba(30, 58, 138, 0.15);
-  transform: scale(1.05);
+  background: rgba(30, 58, 138, 0.15) !important;
+  transform: scale(1.05) !important;
 }
 
 .login-icon {
