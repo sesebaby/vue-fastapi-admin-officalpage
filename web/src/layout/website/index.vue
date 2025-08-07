@@ -92,12 +92,16 @@
       </n-drawer>
 
     <!-- 主要内容区域 -->
-    <n-layout-content class="website-main">
+    <n-layout-content :style="{ flex: 1 }">
       <router-view />
     </n-layout-content>
 
     <!-- 页脚 -->
-    <n-layout-footer class="website-footer">
+    <n-layout-footer :style="{
+      background: 'var(--n-color-primary)',
+      color: 'var(--n-color-base)',
+      padding: '50px 0 30px'
+    }">
       <div class="footer-container">
         <div class="footer-bottom">
           <p>&copy; 2019-2025 {{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司 版权所有' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd. All Rights Reserved' }}</p>
@@ -336,17 +340,9 @@ onUnmounted(() => {
   margin-bottom: 16px;
 }
 
-/* 主要内容区域 */
-.website-main {
-  flex: 1;
-}
+/* website-main样式已移至n-layout-content的style属性 - 遵循Naive UI框架优先原则 */
 
-/* 页脚 - 华天科技风格 */
-.website-footer {
-  background: var(--n-color-primary);
-  color: var(--n-color-base);
-  padding: 50px 0 30px;
-}
+/* website-footer样式已移至n-layout-footer的style属性 - 遵循Naive UI框架优先原则 */
 
 .footer-container {
   max-width: 1200px;
