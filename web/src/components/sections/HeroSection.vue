@@ -155,30 +155,31 @@ const emit = defineEmits(['scroll-to-section'])
  * 只保留必要的品牌样式
  */
 .hero-title {
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: var(--sipumtech-font-weight-bold);
   margin: 0;
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  color: var(--sipumtech-text-white);
+  letter-spacing: 3px;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6), 1px 1px 3px rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  line-height: 1.1;
 }
 
 .hero-subtitle {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: var(--sipumtech-font-weight-medium);
-  margin: 1rem 0;
-  opacity: 0.95;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  color: var(--sipumtech-text-white);
+  margin: 1.5rem 0;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  line-height: 1.2;
 }
 
 .hero-description {
-  font-size: 1.1rem;
-  opacity: 0.9;
-  max-width: 600px;
-  margin: 0 auto 2rem auto;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  color: var(--sipumtech-text-white);
+  font-size: 1.3rem;
+  max-width: 700px;
+  margin: 0 auto 2.5rem auto;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5), 0 0 2px rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  line-height: 1.4;
 }
 
 /*
@@ -191,24 +192,71 @@ const emit = defineEmits(['scroll-to-section'])
  * 包括：控制按钮、指示器、悬停效果等
  */
 
-/* 响应式设计 - 简化版，主要依赖Naive UI的响应式能力 */
+/* 响应式设计 - 优化的文字大小适配 */
+
+/* 大屏桌面端 (>1440px) */
+@media (min-width: 1441px) {
+  .hero-title {
+    font-size: 5.5rem;
+    letter-spacing: 4px;
+  }
+
+  .hero-subtitle {
+    font-size: 2.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.4rem;
+    max-width: 800px;
+  }
+}
+
+/* 平板端 (768px - 1024px) */
 @media (max-width: 1024px) {
   .hero-title {
+    font-size: 4rem;
+    letter-spacing: 2px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.8rem;
+    margin: 1.2rem 0;
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+  }
+}
+
+/* 移动端 (≤768px) */
+@media (max-width: 768px) {
+  .hero-title {
     font-size: 3rem;
+    letter-spacing: 1px;
+    line-height: 1.1;
   }
 
   .hero-subtitle {
     font-size: 1.5rem;
+    margin: 1rem 0;
+    line-height: 1.2;
   }
 
   .hero-description {
     font-size: 1rem;
+    max-width: 500px;
+    margin: 0 auto 1.5rem auto;
+    line-height: 1.4;
   }
 }
 
-@media (max-width: 768px) {
+/* 小屏移动端 (≤480px) */
+@media (max-width: 480px) {
   .hero-title {
     font-size: 2.5rem;
+    letter-spacing: 0.5px;
   }
 
   .hero-subtitle {
@@ -216,7 +264,9 @@ const emit = defineEmits(['scroll-to-section'])
   }
 
   .hero-description {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    max-width: 90%;
+    padding: 0 1rem;
   }
 }
 </style>
