@@ -99,8 +99,8 @@ const { t } = useI18n()
 
 /* 关于我们区域 */
 .about-section {
-  padding: 100px 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  padding: var(--sipumtech-section-padding-desktop);
+  background: var(--sipumtech-bg-gradient-1);
   position: relative;
 }
 
@@ -111,29 +111,29 @@ const { t } = useI18n()
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+  background: linear-gradient(90deg, transparent, var(--sipumtech-divider), transparent);
 }
 
 .section-container {
-  max-width: 1200px;
+  max-width: var(--sipumtech-container-max-width);
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 var(--sipumtech-container-padding-desktop);
 }
 
 /* 保留必要的品牌样式 */
 .section-title {
-  font-size: 42px;
-  font-weight: bold;
-  color: #1e3a8a;
+  font-size: var(--sipumtech-font-size-h1);
+  font-weight: var(--sipumtech-font-weight-bold);
+  color: var(--sipumtech-primary-blue);
   margin: 0;
-  line-height: 1.2;
+  line-height: var(--sipumtech-line-height-tight);
 }
 
 .title-underline {
   width: 80px;
   height: 4px;
-  background: linear-gradient(45deg, #f59e0b, #d97706);
-  border-radius: 2px;
+  background: linear-gradient(45deg, var(--sipumtech-accent-orange), #d97706);
+  border-radius: var(--sipumtech-radius-sm);
   position: relative;
 }
 
@@ -144,8 +144,8 @@ const { t } = useI18n()
   left: 0;
   width: 40px;
   height: 4px;
-  background: #1e3a8a;
-  border-radius: 2px;
+  background: var(--sipumtech-primary-blue);
+  border-radius: var(--sipumtech-radius-sm);
   animation: slideUnderline 2s ease-in-out infinite;
 }
 
@@ -156,18 +156,18 @@ const { t } = useI18n()
 
 /* 保留的内容样式 */
 .intro-highlight {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1e3a8a;
+  font-size: var(--sipumtech-font-size-h5);
+  font-weight: var(--sipumtech-font-weight-semibold);
+  color: var(--sipumtech-primary-blue);
   margin: 0;
-  line-height: 1.6;
+  line-height: var(--sipumtech-line-height-relaxed);
 }
 
 .intro-description {
-  font-size: 16px;
-  color: #6b7280;
+  font-size: var(--sipumtech-font-size-body);
+  color: var(--sipumtech-text-secondary);
   margin: 0;
-  line-height: 1.8;
+  line-height: var(--sipumtech-line-height-loose);
 }
 
 /*
@@ -183,14 +183,14 @@ const { t } = useI18n()
 /* 覆盖层卡片内容样式 */
 .overlay-title {
   font-size: 18px;
-  font-weight: 600;
-  color: #1e3a8a;
+  font-weight: var(--sipumtech-font-weight-semibold);
+  color: var(--sipumtech-primary-blue);
   margin: 0;
 }
 
 .overlay-description {
-  font-size: 14px;
-  color: #6b7280;
+  font-size: var(--sipumtech-font-size-small);
+  color: var(--sipumtech-text-secondary);
   margin: 0;
 }
 
