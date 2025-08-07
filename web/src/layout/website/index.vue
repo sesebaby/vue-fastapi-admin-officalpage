@@ -14,13 +14,13 @@
         height: '100%',
         maxWidth: '1200px',
         margin: '0 auto',
-        padding: '0 24px',
+        padding: '0 48px',
         display: 'flex',
         alignItems: 'center'
       }"
     >
       <!-- 桌面端布局 - 使用 n-grid 栅格系统 -->
-      <n-grid v-if="!isMobile" :cols="24" :y-gap="0" style="width: 100%; align-items: center;">
+      <n-grid v-if="!isMobile" :cols="24" :y-gap="0" style="width: 100%; align-items: center; padding: 0 48px; box-sizing: border-box;">
         <!-- Logo 区域 - 固定宽度 -->
         <n-gi :span="4">
           <CompanyLogo />
@@ -47,7 +47,7 @@
       </n-grid>
 
       <!-- 移动端布局 - 使用 n-grid 栅格系统 -->
-      <n-grid v-else :cols="24" :y-gap="0" style="width: 100%; align-items: center;">
+      <n-grid v-else :cols="24" :y-gap="0" style="width: 100%; align-items: center; padding: 0 24px; box-sizing: border-box;">
         <!-- 移动端Logo -->
         <n-gi :span="18">
           <CompanyLogo />
