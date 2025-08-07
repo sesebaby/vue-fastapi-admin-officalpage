@@ -12,8 +12,19 @@
       />
     </n-affix>
 
-    <!-- 区域指示器 - 使用Naive UI原生组件 -->
-    <n-affix :right="30" :top="50" style="z-index: 1000;">
+    <!-- 区域指示器 - 使用正确的 n-affix 属性 -->
+    <n-affix
+      :trigger-top="100"
+      :top="50"
+      position="fixed"
+      style="
+        position: fixed;
+        right: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1000;
+      "
+    >
       <n-space vertical :size="8">
         <n-button
           v-for="(section, index) in sections"
@@ -39,13 +50,23 @@
       </n-drawer-content>
     </n-drawer>
 
-    <!-- 侧边导航触发按钮 -->
-    <n-affix :right="30" :top="120" style="z-index: 1000;">
+    <!-- 侧边导航触发按钮 - 使用正确的 n-affix 属性 -->
+    <n-affix
+      :trigger-top="200"
+      :top="50"
+      position="fixed"
+      style="
+        position: fixed;
+        right: 30px;
+        bottom: 120px;
+        z-index: 1000;
+      "
+    >
       <n-button
         circle
         type="primary"
         @click="showSideNav = true"
-        style="width: 40px; height: 40px;"
+        style="width: 48px; height: 48px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);"
       >
         ☰
       </n-button>
