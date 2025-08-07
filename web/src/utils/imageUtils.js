@@ -3,89 +3,89 @@
  * 提供图片加载错误处理、占位图片、资源验证等功能
  */
 
-// 占位图片配置
+// 占位图片配置 - 使用实际存在的图片作为占位图
 export const PLACEHOLDER_IMAGES = {
   // 新闻占位图
-  news: '/images/placeholders/news-placeholder.jpg',
+  news: '/images/business_office_scene.jpg',
   // 客户头像占位图
-  avatar: '/images/placeholders/avatar-placeholder.png',
+  avatar: '/images/business_office_scene.jpg',
   // 合作伙伴logo占位图
-  logo: '/images/placeholders/logo-placeholder.png',
+  logo: '/images/ISO9001质量管理体系认证证书.png',
   // 业务场景占位图
-  business: '/images/placeholders/business-placeholder.jpg',
+  business: '/images/business_office_scene.jpg',
   // 技术展示占位图
-  technology: '/images/placeholders/technology-placeholder.jpg',
+  technology: '/images/icon_advanced_packaging.jpg',
   // 案例展示占位图
-  case: '/images/placeholders/case-placeholder.jpg',
+  case: '/images/product_development_cycle_chart.jpg',
   // 认证证书占位图
-  certificate: '/images/placeholders/certificate-placeholder.png'
+  certificate: '/images/ISO9001质量管理体系认证证书.png'
 }
 
-// 图片资源映射表 - 确保所有引用的图片都有对应的文件
+// 图片资源映射表 - 基于实际存在的图片文件路径
 export const IMAGE_RESOURCES = {
-  // Hero轮播图片
+  // Hero轮播图片 - 使用实际存在的图片路径
   hero: {
-    tech_concept: '/images/hero/tech-concept.jpg',
-    circuit_background: '/images/hero/circuit-background.jpg',
-    business_office: '/images/hero/business-office.jpg'
+    tech_concept: '/images/商务科技概念图.png',
+    circuit_background: '/images/科技电路背景图.png',
+    business_office: '/images/business_office_scene.jpg'
   },
-  
-  // 关于我们图片
+
+  // 关于我们图片 - 使用实际存在的图片路径
   about: {
-    office_scene: '/images/about/office-scene.jpg',
-    team_photo: '/images/about/team-photo.jpg'
+    office_scene: '/images/business_office_scene.jpg',
+    team_photo: '/images/business_office_scene.jpg'  // 暂时使用同一张图片
   },
-  
-  // 业务展示图片
+
+  // 业务展示图片 - 使用实际存在的图片路径
   business: {
-    advanced_packaging: '/images/business/advanced-packaging.jpg',
-    hardware_solution: '/images/business/hardware-solution.jpg',
-    testing_service: '/images/business/testing-service.jpg'
+    advanced_packaging: '/images/icon_advanced_packaging.jpg',
+    hardware_solution: '/images/icon_hardware_design.jpg',
+    testing_service: '/images/icon_hardware_design.jpg'  // 暂时使用同一张图片
   },
-  
-  // 技术能力图片
+
+  // 技术能力图片 - 使用实际存在的图片路径
   technology: {
-    lab_equipment: '/images/technology/lab-equipment.jpg',
-    pcb_design: '/images/technology/pcb-design.jpg',
-    testing_facility: '/images/technology/testing-facility.jpg'
+    lab_equipment: '/images/business_office_scene.jpg',  // 暂时使用现有图片
+    pcb_design: '/images/icon_advanced_packaging.jpg',
+    testing_facility: '/images/icon_hardware_design.jpg'
   },
-  
-  // 案例展示图片
+
+  // 案例展示图片 - 使用实际存在的图片路径
   cases: {
-    automotive: '/images/cases/automotive-case.jpg',
-    consumer: '/images/cases/consumer-case.jpg',
-    industrial: '/images/cases/industrial-case.jpg'
+    automotive: '/images/business_office_scene.jpg',  // 暂时使用现有图片
+    consumer: '/images/modern_buildings_night_scene.jpg',
+    industrial: '/images/product_development_cycle_chart.jpg'
   },
-  
-  // 新闻动态图片
+
+  // 新闻动态图片 - 使用实际存在的图片路径
   news: {
-    news_1: '/images/news/iso-certification.jpg',
-    news_2: '/images/news/new-production-line.jpg',
-    news_3: '/images/news/tech-conference.jpg'
+    news_1: '/images/business_office_scene.jpg',
+    news_2: '/images/modern_buildings_night_scene.jpg',
+    news_3: '/images/product_development_cycle_chart.jpg'
   },
-  
-  // 认证证书图片
+
+  // 认证证书图片 - 使用实际存在的图片路径
   certificates: {
-    iso9001: '/images/certificates/iso9001-cert.png',
-    military: '/images/certificates/military-cert.png'
+    iso9001: '/images/ISO9001质量管理体系认证证书.png',
+    military: '/images/武器装备质量管理体系证书.png'
   },
-  
-  // 客户头像图片
+
+  // 客户头像图片 - 使用实际存在的图片路径（暂时使用现有图片）
   customers: {
-    avatar_1: '/images/customers/customer-1.jpg',
-    avatar_2: '/images/customers/customer-2.jpg',
-    avatar_3: '/images/customers/customer-3.jpg',
-    avatar_4: '/images/customers/customer-4.jpg'
+    avatar_1: '/images/business_office_scene.jpg',
+    avatar_2: '/images/modern_buildings_night_scene.jpg',
+    avatar_3: '/images/product_development_cycle_chart.jpg',
+    avatar_4: '/images/ISO9001质量管理体系认证证书.png'
   },
-  
-  // 合作伙伴logo
+
+  // 合作伙伴logo - 使用实际存在的图片路径（暂时使用现有图片）
   partners: {
-    huawei: '/images/partners/huawei-logo.png',
-    zte: '/images/partners/zte-logo.png',
-    xiaomi: '/images/partners/xiaomi-logo.png',
-    lenovo: '/images/partners/lenovo-logo.png',
-    hikvision: '/images/partners/hikvision-logo.png',
-    dji: '/images/partners/dji-logo.png'
+    huawei: '/images/ISO9001质量管理体系认证证书.png',
+    zte: '/images/武器装备质量管理体系证书.png',
+    xiaomi: '/images/business_office_scene.jpg',
+    lenovo: '/images/modern_buildings_night_scene.jpg',
+    hikvision: '/images/product_development_cycle_chart.jpg',
+    dji: '/images/icon_advanced_packaging.jpg'
   }
 }
 
