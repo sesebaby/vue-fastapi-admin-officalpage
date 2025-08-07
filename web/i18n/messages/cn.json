@@ -32,13 +32,20 @@
   "website": {
     "hero": {
       "company_name": "SIPUMTECH",
-      "title_1": "打造卓越的先进封测及软硬件开发一站式解决方案服务商",
+      "title_1": "先进封装 · 一站式服务",
+      "subtitle_1": "从设计到测试，SIPUMTECH让创新更简单",
       "title_2": "专业技术团队",
       "subtitle_2": "快速响应 · 质量保证 · 一站式解决方案",
       "cta_learn_more": "了解更多",
       "cta_contact": "联系我们",
       "cta_technology": "技术能力",
-      "cta_business": "核心业务"
+      "cta_business": "核心业务",
+      "trust_iso": "ISO质量认证",
+      "trust_military": "军工认证",
+      "trust_experience": "5年专业经验",
+      "value_tech": "专业技术",
+      "value_speed": "快速响应",
+      "value_quality": "质量保证"
     },
     "about": {
       "title": "关于思普微",

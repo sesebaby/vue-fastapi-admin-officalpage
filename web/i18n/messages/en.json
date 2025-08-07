@@ -22,13 +22,20 @@
   "website": {
     "hero": {
       "company_name": "SIPUMTECH",
-      "title_1": "Creating Excellence in Advanced Packaging and Hardware/Software Development One-Stop Solutions",
+      "title_1": "Advanced Packaging · One-Stop Service",
+      "subtitle_1": "From Design to Testing, SIPUMTECH Makes Innovation Simpler",
       "title_2": "Professional Technical Team",
       "subtitle_2": "Rapid Response · Quality Assurance · One-Stop Solutions",
       "cta_learn_more": "Learn More",
       "cta_contact": "Contact Us",
       "cta_technology": "Technology",
-      "cta_business": "Core Business"
+      "cta_business": "Core Business",
+      "trust_iso": "ISO Quality Certification",
+      "trust_military": "Military Certification",
+      "trust_experience": "5 Years Professional Experience",
+      "value_tech": "Professional Technology",
+      "value_speed": "Rapid Response",
+      "value_quality": "Quality Assurance"
     },
     "about": {
       "title": "About SIPUMTECH",

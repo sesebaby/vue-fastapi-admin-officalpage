@@ -55,6 +55,9 @@
               <h2 class="slide-subtitle animated-text">
                 {{ $t('website.hero.title_1') }}
               </h2>
+              <p class="slide-description">
+                {{ $t('website.hero.subtitle_1') }}
+              </p>
               <div class="hero-actions">
                 <button class="cta-button primary" @click="scrollToSection('about')">{{ $t('website.hero.cta_learn_more') }}</button>
                 <button class="cta-button secondary" @click="scrollToSection('contact')">{{ $t('website.hero.cta_contact') }}</button>
@@ -102,6 +105,9 @@
         </div>
       </div>
     </section>
+
+    <!-- 信任建立区域 -->
+    <TrustSection />
 
     <!-- 关于我们区域 -->
     <section id="about" class="about-section section-half">
@@ -466,6 +472,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import TrustSection from '@/components/common/TrustSection.vue'
 
 const { t } = useI18n()
 
@@ -517,9 +524,8 @@ const stopAutoSlide = () => {
   }
 }
 
-// 滚动分段相关状态
+// 滚动相关状态（简化版）
 const currentSection = ref(0)
-const isScrolling = ref(false)
 const sections = ref(['home', 'about', 'business', 'technology', 'cases', 'news', 'contact'])
 
 // 滚动功能
@@ -550,27 +556,7 @@ const updateCurrentSection = () => {
   }
 }
 
-// 鼠标滚轮事件处理
-const handleWheel = (event) => {
-  if (isScrolling.value) return
-
-  event.preventDefault()
-
-  const delta = event.deltaY
-  let targetSection = currentSection.value
-
-  if (delta > 0 && currentSection.value < sections.value.length - 1) {
-    // 向下滚动
-    targetSection = currentSection.value + 1
-  } else if (delta < 0 && currentSection.value > 0) {
-    // 向上滚动
-    targetSection = currentSection.value - 1
-  }
-
-  if (targetSection !== currentSection.value) {
-    scrollToSection(sections.value[targetSection])
-  }
-}
+// 滚动劫持功能已移除，改用自然滚动
 
 const scrollToTop = () => {
   scrollToSection('home')
@@ -579,8 +565,6 @@ const scrollToTop = () => {
 const scrollToSection = (sectionId) => {
   const element = document.getElementById(sectionId)
   if (element) {
-    isScrolling.value = true
-
     element.scrollIntoView({
       behavior: 'smooth',
       block: 'start'
@@ -591,11 +575,6 @@ const scrollToSection = (sectionId) => {
     if (sectionIndex !== -1) {
       currentSection.value = sectionIndex
     }
-
-    // 滚动完成后重置状态
-    setTimeout(() => {
-      isScrolling.value = false
-    }, 1000)
   }
   showSideNav.value = false
 }
@@ -609,35 +588,7 @@ const getSectionName = (sectionId) => {
   return t(`navigation.${sectionId}`) || sectionId
 }
 
-// 键盘导航
-const handleKeydown = (event) => {
-  if (isScrolling.value) return
-
-  switch (event.key) {
-    case 'ArrowDown':
-    case 'PageDown':
-      event.preventDefault()
-      if (currentSection.value < sections.value.length - 1) {
-        scrollToSection(sections.value[currentSection.value + 1])
-      }
-      break
-    case 'ArrowUp':
-    case 'PageUp':
-      event.preventDefault()
-      if (currentSection.value > 0) {
-        scrollToSection(sections.value[currentSection.value - 1])
-      }
-      break
-    case 'Home':
-      event.preventDefault()
-      scrollToSection('home')
-      break
-    case 'End':
-      event.preventDefault()
-      scrollToSection('contact')
-      break
-  }
-}
+// 键盘导航功能已简化，移除滚动劫持
 
 // 卡片悬停效果
 const startHover = (event) => {
@@ -654,11 +605,7 @@ onMounted(() => {
   // 添加滚动监听
   window.addEventListener('scroll', handleScroll)
 
-  // 添加滚轮监听（分段滚动）
-  window.addEventListener('wheel', handleWheel, { passive: false })
-
-  // 添加键盘监听
-  window.addEventListener('keydown', handleKeydown)
+  // 滚动劫持功能已移除，使用浏览器默认滚动行为
 
   // 初始化当前区域
   updateCurrentSection()
@@ -678,8 +625,7 @@ onMounted(() => {
 onUnmounted(() => {
   stopAutoSlide()
   window.removeEventListener('scroll', handleScroll)
-  window.removeEventListener('wheel', handleWheel)
-  window.removeEventListener('keydown', handleKeydown)
+  // 滚动劫持相关的事件监听器已移除
 })
 
 // 联系表单
@@ -1027,10 +973,20 @@ section.section-half {
 .slide-subtitle {
   font-size: 28px;
   font-weight: 500;
-  margin: 0;
+  margin: 0 0 20px 0;
   opacity: 0.95;
   line-height: 1.4;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.slide-description {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0 0 30px 0;
+  opacity: 0.9;
+  line-height: 1.5;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
 }
 
 /* 文字动画效果 - 华天科技风格 */
@@ -2057,6 +2013,10 @@ section.section-half {
   .slide-subtitle {
     font-size: 22px;
   }
+
+  .slide-description {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2075,6 +2035,10 @@ section.section-half {
 
   .slide-subtitle {
     font-size: 20px;
+  }
+
+  .slide-description {
+    font-size: 15px;
   }
 
   .hero-actions {
@@ -2147,6 +2111,11 @@ section.section-half {
 
   .slide-subtitle {
     font-size: 16px;
+  }
+
+  .slide-description {
+    font-size: 14px;
+    max-width: 100%;
   }
 
   .section-title {
