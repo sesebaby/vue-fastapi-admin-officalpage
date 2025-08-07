@@ -5,11 +5,13 @@
       background: 'var(--n-color-base)',
       borderBottom: '1px solid var(--n-border-color)',
       boxShadow: 'var(--n-box-shadow-1)',
-      position: 'sticky',
+      position: 'fixed',
       top: 0,
+      left: 0,
+      width: '100%',
       zIndex: 1000
     }">
-      <n-flex justify="center" style="width: 100%;">
+      <n-flex justify="start" style="width: 100%;">`
         <n-flex
           justify="space-between"
           align="center"
@@ -95,7 +97,7 @@
       </n-drawer>
 
     <!-- 主要内容区域 -->
-    <n-layout-content :style="{ flex: 1 }">
+    <n-layout-content :style="{ flex: 1, paddingTop: '90px' }">
       <router-view />
     </n-layout-content>
 
