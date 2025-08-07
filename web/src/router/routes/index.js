@@ -19,6 +19,15 @@ export const basicRoutes = [
           requiresAuth: false, // 不需要登录
         },
       },
+      {
+        path: 'image-test',
+        component: () => import('@/components/test/ImageTest.vue'),
+        name: 'ImageTest',
+        meta: {
+          title: '图片资源测试',
+          requiresAuth: false, // 不需要登录
+        },
+      },
     ],
     meta: { order: 0, requiresAuth: false },
   },
