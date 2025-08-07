@@ -22,7 +22,8 @@
           <!-- 左侧图片 -->
           <n-grid-item>
             <n-image
-              src="/images/page5_service_coverage_full.jpg"
+              :src="getImagePath('cases', 'automotive')"
+              :fallback-src="PLACEHOLDER_IMAGES.case"
               alt="服务覆盖"
               object-fit="cover"
               style="width: 100%; height: 350px; border-radius: 12px;"
@@ -146,7 +147,8 @@
         <n-space vertical align="center" :size="30">
           <h3 class="process-title">{{ $t('website.cases.process_title') }}</h3>
           <n-image
-            src="/images/page6_design_process_full.jpg"
+            :src="getImagePath('cases', 'industrial')"
+            :fallback-src="PLACEHOLDER_IMAGES.case"
             :alt="$t('website.cases.process_title')"
             object-fit="contain"
             style="width: 100%; max-width: 800px; height: auto; border-radius: 12px;"
@@ -159,6 +161,7 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
 const { t } = useI18n()
 </script>

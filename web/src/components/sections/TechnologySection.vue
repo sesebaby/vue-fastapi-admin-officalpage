@@ -22,7 +22,8 @@
           <!-- 左侧图片 -->
           <n-grid-item>
             <n-image
-              src="/images/page4_business_scope_full.jpg"
+              :src="getImagePath('technology', 'lab_equipment')"
+              :fallback-src="PLACEHOLDER_IMAGES.technology"
               alt="业务范围"
               object-fit="cover"
               style="width: 100%; height: 400px; border-radius: 12px;"
@@ -98,7 +99,8 @@
             <n-card hoverable class="capability-card">
               <n-space vertical align="center" :size="20">
                 <n-image
-                  src="/images/icon_advanced_packaging.jpg"
+                  :src="getImagePath('technology', 'pcb_design')"
+                  :fallback-src="PLACEHOLDER_IMAGES.technology"
                   :alt="$t('website.technology.capability_1_title')"
                   width="80"
                   height="80"
@@ -118,7 +120,8 @@
             <n-card hoverable class="capability-card">
               <n-space vertical align="center" :size="20">
                 <n-image
-                  src="/images/icon_hardware_design.jpg"
+                  :src="getImagePath('technology', 'testing_facility')"
+                  :fallback-src="PLACEHOLDER_IMAGES.technology"
                   :alt="$t('website.technology.capability_2_title')"
                   width="80"
                   height="80"
@@ -180,6 +183,7 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
 const { t } = useI18n()
 </script>
