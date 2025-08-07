@@ -15,7 +15,7 @@
         </div>
 
         <!-- 中间导航菜单 -->
-        <nav class="header-nav">
+        <n-space :size="navSpacing" align="center" class="header-nav">
           <a href="#home" class="nav-item active">{{ $t('navigation.home') }}</a>
           <a href="#about" class="nav-item">{{ $t('navigation.about') }}</a>
           <a href="#business" class="nav-item">{{ $t('navigation.business') }}</a>
@@ -23,7 +23,7 @@
           <a href="#cases" class="nav-item">{{ $t('navigation.cases') }}</a>
           <a href="#news" class="nav-item">{{ $t('navigation.news') }}</a>
           <a href="#contact" class="nav-item">{{ $t('navigation.contact') }}</a>
-        </nav>
+        </n-space>
 
         <!-- 右侧语言切换和登录入口 -->
         <div class="header-right">
@@ -163,6 +163,18 @@ const showMobileMenu = ref(false)
 // 当前语言状态
 const currentLocale = computed(() => locale.value === 'cn' ? 'zh-CN' : 'en')
 
+// 响应式导航间距
+const navSpacing = computed(() => {
+  if (typeof window === 'undefined') return 32
+
+  const width = window.innerWidth
+  if (width >= 1200) return 40      // 大屏幕
+  if (width >= 1024) return 28      // 中等屏幕
+  if (width >= 900) return 16       // 平板端
+  if (width >= 769) return 12       // 小平板端
+  return 32                         // 默认值
+})
+
 const handleLogin = () => {
   router.push('/login')
 }
@@ -273,10 +285,7 @@ onUnmounted(() => {
 
 /* 中间导航菜单 - 华天科技风格 */
 .header-nav {
-  display: flex;
-  gap: 32px;
-  align-items: center;
-  flex-wrap: nowrap;
+  flex-wrap: nowrap !important;
 }
 
 .nav-item {
@@ -578,10 +587,6 @@ onUnmounted(() => {
 /* 响应式设计 */
 /* 大屏幕优化 (1200px+) */
 @media (min-width: 1200px) {
-  .header-nav {
-    gap: 40px;
-  }
-
   .nav-item {
     font-size: 16px;
     padding: 12px 12px;
@@ -592,10 +597,6 @@ onUnmounted(() => {
 @media (max-width: 1199px) and (min-width: 1024px) {
   .header-container {
     padding: 0 24px;
-  }
-
-  .header-nav {
-    gap: 28px;
   }
 
   .nav-item {
@@ -613,11 +614,6 @@ onUnmounted(() => {
   .header-container {
     padding: 0 20px;
     height: 75px;
-  }
-
-  .header-nav {
-    gap: 16px;
-    flex-wrap: wrap;
   }
 
   .nav-item {
@@ -642,10 +638,6 @@ onUnmounted(() => {
 
 /* 小平板端适配 (900px以下时进一步压缩) */
 @media (max-width: 900px) and (min-width: 769px) {
-  .header-nav {
-    gap: 12px;
-  }
-
   .nav-item {
     font-size: 13px;
     padding: 8px 2px;
