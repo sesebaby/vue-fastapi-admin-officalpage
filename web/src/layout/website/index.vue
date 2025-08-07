@@ -84,32 +84,6 @@
     <!-- 页脚 -->
     <n-layout-footer class="website-footer">
       <div class="footer-container">
-        <n-grid :cols="3" :x-gap="50" class="footer-content">
-          <n-grid-item class="footer-section">
-            <h3>{{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd.' }}</h3>
-            <p>{{ currentLocale === 'zh-CN' ? '专业的先进系统级封装设计软硬件开发一站式服务供应商' : 'Professional advanced system-level packaging design and hardware/software development one-stop service provider' }}</p>
-            <div class="certifications">
-              <img src="/images/ISO9001质量管理体系认证证书.png" alt="ISO9001认证" class="cert-badge">
-              <img src="/images/武器装备质量管理体系证书.png" alt="军工认证" class="cert-badge">
-            </div>
-          </n-grid-item>
-
-          <n-grid-item class="footer-section">
-            <h4>{{ $t('website.contact.title') }}</h4>
-            <p><span>📍</span> {{ $t('website.contact.address') }}</p>
-            <p><span>📞</span> {{ $t('website.contact.phone') }}</p>
-            <p><span>📧</span> wenqiang.chang@sipumtech.com</p>
-          </n-grid-item>
-
-          <n-grid-item class="footer-section">
-            <h4>{{ $t('navigation.business') }}</h4>
-            <p>• {{ $t('website.service_nav.advanced_packaging') }}</p>
-            <p>• {{ $t('website.service_nav.hardware_solution') }}</p>
-            <p>• {{ currentLocale === 'zh-CN' ? 'PCB设计与仿真' : 'PCB Design & Simulation' }}</p>
-            <p>• {{ currentLocale === 'zh-CN' ? '系统级测试服务' : 'System-level Testing Services' }}</p>
-          </n-grid-item>
-        </n-grid>
-
         <div class="footer-bottom">
           <p>&copy; 2019-2025 {{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司 版权所有' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd. All Rights Reserved' }}</p>
           <p>{{ currentLocale === 'zh-CN' ? '专业技术 · 快速响应 · 质量保证' : 'Professional Technology · Rapid Response · Quality Assurance' }}</p>
