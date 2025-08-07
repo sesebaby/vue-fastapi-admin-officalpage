@@ -57,9 +57,14 @@
         </div>
 
         <!-- 移动端菜单按钮 -->
-        <div class="mobile-menu-btn" @click="toggleMobileMenu">
-          <span>☰</span>
-        </div>
+        <n-button
+          text
+          class="mobile-menu-btn"
+          @click="toggleMobileMenu"
+          :aria-label="$t('navigation.mobile_menu_toggle')"
+        >
+          ☰
+        </n-button>
       </div>
 
       <!-- 移动端菜单 -->
@@ -396,12 +401,15 @@ onUnmounted(() => {
 /* 移动端菜单 */
 .mobile-menu-btn {
   display: none;
-  cursor: pointer;
-  color: #374151;
+  color: #374151 !important;
   z-index: 1000;
   position: relative;
-  padding: 8px;
-  font-size: 20px;
+  padding: 8px !important;
+  font-size: 20px !important;
+  min-width: auto !important;
+  height: auto !important;
+  background: transparent !important;
+  border: none !important;
 }
 
 .mobile-menu {
