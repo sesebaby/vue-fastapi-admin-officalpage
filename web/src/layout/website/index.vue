@@ -72,22 +72,25 @@
       <!-- 移动端抽屉菜单 -->
       <n-drawer v-model:show="showMobileMenu" :width="280" placement="right">
         <n-drawer-content :title="t('navigation.menu')" closable>
-          <n-menu
-            :options="mobileMenuOptions"
-            @update:value="handleMobileMenuSelect"
-            class="mobile-nav-menu"
-          />
-          <div class="mobile-actions">
-            <div class="mobile-language-switch">
+          <n-flex vertical :size="20">
+            <n-menu
+              :options="mobileMenuOptions"
+              @update:value="handleMobileMenuSelect"
+              :theme-overrides="{
+                itemContentPadding: '12px 0',
+                itemFontWeight: '500'
+              }"
+            />
+            <n-divider />
+            <n-flex vertical :size="16">
               <LanguageSwitcher
                 size="small"
                 mobile
-                container-class="mobile-language-switch"
                 @language-changed="handleLanguageChanged"
               />
-            </div>
-            <n-button type="primary" block @click="handleLogin">{{ t('navigation.admin_login') }}</n-button>
-          </div>
+              <n-button type="primary" block @click="handleLogin">{{ t('navigation.admin_login') }}</n-button>
+            </n-flex>
+          </n-flex>
         </n-drawer-content>
       </n-drawer>
 
@@ -102,12 +105,17 @@
       color: 'var(--n-color-base)',
       padding: '50px 0 30px'
     }">
-      <div class="footer-container">
-        <div class="footer-bottom">
-          <p>&copy; 2019-2025 {{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司 版权所有' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd. All Rights Reserved' }}</p>
-          <p>{{ currentLocale === 'zh-CN' ? '专业技术 · 快速响应 · 质量保证' : 'Professional Technology · Rapid Response · Quality Assurance' }}</p>
-        </div>
-      </div>
+      <n-flex justify="center" style="width: 100%;">
+        <n-flex
+          vertical
+          align="center"
+          :size="6"
+          style="max-width: 1200px; width: 100%; padding: 0 30px; border-top: 1px solid #3b82f6; padding-top: 25px; text-align: center; color: #cbd5e1;"
+        >
+          <p style="margin: 6px 0; font-size: 14px;">&copy; 2019-2025 {{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司 版权所有' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd. All Rights Reserved' }}</p>
+          <p style="margin: 6px 0; font-size: 14px;">{{ currentLocale === 'zh-CN' ? '专业技术 · 快速响应 · 质量保证' : 'Professional Technology · Rapid Response · Quality Assurance' }}</p>
+        </n-flex>
+      </n-flex>
     </n-layout-footer>
   </n-layout>
 </template>
@@ -316,43 +324,13 @@ onUnmounted(() => {
   }
 }
 
-/* 移动端抽屉菜单样式 */
-.mobile-nav-menu {
-  margin-bottom: 20px;
-}
-
-.mobile-nav-menu .n-menu-item-content {
-  padding: 12px 0 !important;
-  font-weight: 500 !important;
-}
-
-.mobile-nav-menu .n-menu-item-content:hover {
-  color: #1e40af !important;
-}
-
-.mobile-actions {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #f3f4f6;
-}
-
-.mobile-language-switch {
-  margin-bottom: 16px;
-}
+/* 移动端抽屉菜单样式已移至n-flex和n-menu的theme-overrides - 遵循Naive UI框架优先原则 */
 
 /* website-main样式已移至n-layout-content的style属性 - 遵循Naive UI框架优先原则 */
 
 /* website-footer样式已移至n-layout-footer的style属性 - 遵循Naive UI框架优先原则 */
 
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 30px;
-}
-
-.footer-content {
-  margin-bottom: 40px;
-}
+/* footer-container和footer-content样式已移至n-flex组件 - 遵循Naive UI框架优先原则 */
 
 .footer-section h3 {
   color: var(--n-color-base);
@@ -402,18 +380,7 @@ onUnmounted(() => {
   transform: scale(1.05);
 }
 
-.footer-bottom {
-  border-top: 1px solid #3b82f6;
-  padding-top: 25px;
-  text-align: center;
-  color: #cbd5e1;
-}
-
-.footer-bottom p {
-  margin: 6px 0;
-  font-size: 14px;
-  justify-content: center;
-}
+/* footer-bottom样式已移至n-flex组件的style属性 - 遵循Naive UI框架优先原则 */
 
 /* 响应式设计 */
 /* 大屏幕优化 (1200px+) */
