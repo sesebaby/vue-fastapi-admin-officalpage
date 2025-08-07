@@ -71,7 +71,8 @@
                 <!-- 服务图标 -->
                 <n-space justify="center">
                   <n-image
-                    src="/images/icon_advanced_packaging.jpg"
+                    :src="getImagePath('business', 'advanced_packaging')"
+                    :fallback-src="PLACEHOLDER_IMAGES.technology"
                     alt="先进封装"
                     width="80"
                     height="80"
@@ -146,7 +147,8 @@
                 <!-- 服务图标 -->
                 <n-space justify="center">
                   <n-image
-                    src="/images/icon_hardware_design.jpg"
+                    :src="getImagePath('business', 'hardware_solution')"
+                    :fallback-src="PLACEHOLDER_IMAGES.technology"
                     alt="硬件方案"
                     width="80"
                     height="80"
@@ -216,6 +218,7 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
 const { t } = useI18n()
 

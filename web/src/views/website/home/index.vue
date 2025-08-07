@@ -30,7 +30,7 @@
 
     <!-- 侧边导航菜单 - 使用Naive UI原生组件 -->
     <n-drawer v-model:show="showSideNav" :width="280" placement="right">
-      <n-drawer-content title="页面导航" closable>
+      <n-drawer-content :title="$t('website.ui.navigation_menu')" closable>
         <n-menu
           :value="sections[currentSection]"
           :options="menuOptions"
@@ -77,6 +77,9 @@
     <!-- 成功案例区域 -->
     <CasesSection />
 
+    <!-- 信任建立区域 -->
+    <TrustBuildingSection />
+
     <!-- 新闻动态 -->
     <NewsSection />
 
@@ -97,6 +100,7 @@ import AboutSection from '@/components/sections/AboutSection.vue'
 import BusinessSection from '@/components/sections/BusinessSection.vue'
 import TechnologySection from '@/components/sections/TechnologySection.vue'
 import CasesSection from '@/components/sections/CasesSection.vue'
+import TrustBuildingSection from '@/components/sections/TrustBuildingSection.vue'
 import NewsSection from '@/components/sections/NewsSection.vue'
 import ContactSection from '@/components/sections/ContactSection.vue'
 

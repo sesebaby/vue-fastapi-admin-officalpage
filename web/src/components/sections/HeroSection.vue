@@ -12,7 +12,8 @@
       <!-- 第一张轮播 - 使用Naive UI组件结构 -->
       <div class="hero-slide">
         <n-image
-          src="/images/商务科技概念图.png"
+          :src="getImagePath('hero', 'tech_concept')"
+          :fallback-src="PLACEHOLDER_IMAGES.business"
           alt="商务科技"
           object-fit="cover"
           style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1;"
@@ -55,7 +56,8 @@
       <!-- 第二张轮播 - 使用Naive UI组件结构 -->
       <div class="hero-slide">
         <n-image
-          src="/images/科技电路背景图.png"
+          :src="getImagePath('hero', 'circuit_background')"
+          :fallback-src="PLACEHOLDER_IMAGES.technology"
           alt="科技背景"
           object-fit="cover"
           style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1;"
@@ -97,6 +99,7 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
 const { t } = useI18n()
 
@@ -137,7 +140,7 @@ const emit = defineEmits(['scroll-to-section'])
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(30, 58, 138, 0.8) 0%, rgba(59, 130, 246, 0.6) 100%);
+  background: var(--sipumtech-bg-gradient-2);
   z-index: 2;
 }
 
@@ -147,18 +150,20 @@ const emit = defineEmits(['scroll-to-section'])
  */
 .hero-title {
   font-size: 4rem;
-  font-weight: bold;
+  font-weight: var(--sipumtech-font-weight-bold);
   margin: 0;
   letter-spacing: 2px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: var(--sipumtech-text-white);
 }
 
 .hero-subtitle {
   font-size: 1.8rem;
-  font-weight: 500;
+  font-weight: var(--sipumtech-font-weight-medium);
   margin: 1rem 0;
   opacity: 0.95;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  color: var(--sipumtech-text-white);
 }
 
 .hero-description {
@@ -167,6 +172,7 @@ const emit = defineEmits(['scroll-to-section'])
   max-width: 600px;
   margin: 0 auto 2rem auto;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  color: var(--sipumtech-text-white);
 }
 
 /*

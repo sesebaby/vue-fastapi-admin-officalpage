@@ -7,6 +7,20 @@
     "full_description": "Established in Suzhou in 2019, as a leading domestic comprehensive service provider for advanced system-level packaging design and hardware/software development one-stop solutions",
     "slogan": "Join hands for the future, seek common development"
   },
+  "common": {
+    "loading": "Loading...",
+    "retry": "Retry",
+    "reload_page": "Reload Page"
+  },
+  "error": {
+    "component_error_title": "Component Load Failed",
+    "component_error_description": "Sorry, the component encountered a problem",
+    "network_error": "Network connection failed",
+    "timeout_error": "Request timeout",
+    "unknown_error": "Unknown error",
+    "image_load_failed": "Image load failed",
+    "data_load_failed": "Data load failed"
+  },
   "navigation": {
     "home": "Home",
     "about": "About Us",
@@ -143,6 +157,65 @@
         "submit_success": "Your inquiry has been submitted. We will contact you soon!",
         "submit_error": "Submission failed, please try again later"
       }
+    },
+    "cta": {
+      "get_solution": "Get Solution",
+      "tech_consultation": "Tech Consultation"
+    },
+    "trust": {
+      "title": "Customer Trust · Proven Strength",
+      "subtitle": "Professional technical team and quality service win unanimous praise from customers",
+      "testimonials_title": "Customer Testimonials",
+      "testimonials_subtitle": "Hear what our partners say",
+      "partners_title": "Partners",
+      "partners_subtitle": "Working together with industry-leading companies",
+      "testimonial_1_quote": "SIPUMTECH's advanced packaging technology solutions are very professional, with fast team response and quality assurance. During the cooperation, they demonstrated extremely high professional standards and service awareness.",
+      "testimonial_1_name": "Engineer Zhang",
+      "testimonial_1_title": "Hardware Design Director",
+      "testimonial_1_company": "Huawei Technologies Co., Ltd.",
+      "testimonial_2_quote": "In PCB design and hardware solution development, SIPUMTECH provided one-stop professional services, greatly shortening our product development cycle. A trustworthy partner.",
+      "testimonial_2_name": "Manager Li",
+      "testimonial_2_title": "Project Manager",
+      "testimonial_2_company": "ZTE Corporation",
+      "testimonial_3_quote": "The technical consulting service is very comprehensive. SIPUMTECH's expert team helped us optimize our design solutions and improve product performance. They are our long-term technical partner.",
+      "testimonial_3_name": "Director Wang",
+      "testimonial_3_title": "Technical Director",
+      "testimonial_3_company": "Xiaomi Corporation",
+      "testimonial_4_quote": "The full-process service from design to testing saves us worry and effort. SIPUMTECH's quality control system is very comprehensive, and the delivered product quality is always consistent.",
+      "testimonial_4_name": "Director Chen",
+      "testimonial_4_title": "R&D Director",
+      "testimonial_4_company": "Lenovo Group Limited"
+    },
+    "stats": {
+      "title": "Company Strength",
+      "founded_year": "Founded",
+      "clients_served": "Clients Served",
+      "projects_completed": "Projects Completed",
+      "team_size": "Team Size",
+      "patents": "Patents",
+      "industry_experience": "Industry Experience",
+      "year": "Year",
+      "people": "People",
+      "items": "Items",
+      "years": "Years",
+      "iso_certification": "ISO9001 Quality Management System Certification",
+      "military_certification": "Military Equipment Quality Management System Certification"
+    },
+    "ui": {
+      "navigation_menu": "Page Navigation",
+      "menu_button": "Menu",
+      "back_to_top": "Back to Top",
+      "side_navigation": "Side Navigation"
+    },
+    "project_tags": {
+      "advanced_packaging": "Advanced Packaging",
+      "pcb_design": "PCB Design",
+      "hardware_solution": "Hardware Solution",
+      "system_testing": "System Testing",
+      "tech_consultation": "Tech Consultation",
+      "solution_optimization": "Solution Optimization",
+      "one_stop_service": "One-Stop Service",
+      "quality_assurance": "Quality Assurance"
     },
     "form_validation": {
       "name_required": "Please enter your name",

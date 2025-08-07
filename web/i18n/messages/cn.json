@@ -15,7 +15,19 @@
     "reset": "重置",
     "action": "操作",
     "confirm": "确认",
-    "cancel": "取消"
+    "cancel": "取消",
+    "loading": "加载中...",
+    "retry": "重试",
+    "reload_page": "刷新页面"
+  },
+  "error": {
+    "component_error_title": "组件加载失败",
+    "component_error_description": "抱歉，组件遇到了问题",
+    "network_error": "网络连接失败",
+    "timeout_error": "请求超时",
+    "unknown_error": "未知错误",
+    "image_load_failed": "图片加载失败",
+    "data_load_failed": "数据加载失败"
   },
   "navigation": {
     "home": "首页",
@@ -153,6 +165,65 @@
         "submit_success": "咨询信息已提交，我们会尽快与您联系！",
         "submit_error": "提交失败，请稍后重试"
       }
+    },
+    "cta": {
+      "get_solution": "获取方案",
+      "tech_consultation": "技术咨询"
+    },
+    "trust": {
+      "title": "客户信赖 · 实力见证",
+      "subtitle": "专业技术团队，优质服务品质，赢得客户一致好评",
+      "testimonials_title": "客户证言",
+      "testimonials_subtitle": "听听我们的合作伙伴怎么说",
+      "partners_title": "合作伙伴",
+      "partners_subtitle": "与行业领先企业携手共进",
+      "testimonial_1_quote": "SIPUMTECH的先进封装技术解决方案非常专业，团队响应速度快，质量有保障。合作过程中，他们展现出了极高的专业水准和服务意识。",
+      "testimonial_1_name": "张工程师",
+      "testimonial_1_title": "硬件设计总监",
+      "testimonial_1_company": "华为技术有限公司",
+      "testimonial_2_quote": "在PCB设计和硬件方案开发方面，SIPUMTECH提供了一站式的专业服务，大大缩短了我们的产品开发周期，值得信赖的合作伙伴。",
+      "testimonial_2_name": "李经理",
+      "testimonial_2_title": "项目经理",
+      "testimonial_2_company": "中兴通讯股份有限公司",
+      "testimonial_3_quote": "技术咨询服务非常到位，SIPUMTECH的专家团队帮助我们优化了设计方案，提升了产品性能，是我们长期合作的技术伙伴。",
+      "testimonial_3_name": "王总监",
+      "testimonial_3_title": "技术总监",
+      "testimonial_3_company": "小米科技有限责任公司",
+      "testimonial_4_quote": "从设计到测试的全流程服务让我们省心省力，SIPUMTECH的质量管控体系很完善，交付的产品质量始终如一。",
+      "testimonial_4_name": "陈主任",
+      "testimonial_4_title": "研发主任",
+      "testimonial_4_company": "联想集团有限公司"
+    },
+    "stats": {
+      "title": "企业实力",
+      "founded_year": "成立年份",
+      "clients_served": "服务客户",
+      "projects_completed": "完成项目",
+      "team_size": "团队规模",
+      "patents": "技术专利",
+      "industry_experience": "行业经验",
+      "year": "年",
+      "people": "人",
+      "items": "项",
+      "years": "年",
+      "iso_certification": "ISO9001质量管理体系认证",
+      "military_certification": "武器装备质量管理体系认证"
+    },
+    "ui": {
+      "navigation_menu": "页面导航",
+      "menu_button": "菜单",
+      "back_to_top": "回到顶部",
+      "side_navigation": "侧边导航"
+    },
+    "project_tags": {
+      "advanced_packaging": "先进封装",
+      "pcb_design": "PCB设计",
+      "hardware_solution": "硬件方案",
+      "system_testing": "系统测试",
+      "tech_consultation": "技术咨询",
+      "solution_optimization": "方案优化",
+      "one_stop_service": "一站式服务",
+      "quality_assurance": "质量保证"
     },
     "form_validation": {
       "name_required": "请输入您的姓名",

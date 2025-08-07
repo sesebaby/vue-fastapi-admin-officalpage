@@ -61,7 +61,8 @@
           <div class="about-image-container">
             <!-- 使用Naive UI Image组件 -->
             <n-image
-              src="/images/business_office_scene.jpg"
+              :src="getImagePath('about', 'office_scene')"
+              :fallback-src="PLACEHOLDER_IMAGES.business"
               alt="办公场景"
               object-fit="cover"
               style="width: 100%; height: 400px; border-radius: 12px;"
@@ -87,6 +88,7 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
 const { t } = useI18n()
 </script>

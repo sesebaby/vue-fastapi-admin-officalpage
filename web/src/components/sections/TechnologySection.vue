@@ -192,83 +192,83 @@ const { t } = useI18n()
 
 /* 技术能力展示区域 */
 .technology-section {
-  background: #f8f9fa;
-  padding: 100px 0;
+  background: var(--sipumtech-bg-gray);
+  padding: var(--sipumtech-section-padding-desktop);
 }
 
 .section-container {
-  max-width: 1200px;
+  max-width: var(--sipumtech-container-max-width);
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 var(--sipumtech-container-padding-desktop);
 }
 
 /* 保留必要的品牌样式 */
 .section-title {
-  font-size: 42px;
-  font-weight: bold;
-  color: #1e3a8a;
+  font-size: var(--sipumtech-font-size-h1);
+  font-weight: var(--sipumtech-font-weight-bold);
+  color: var(--sipumtech-primary-blue);
   margin: 0;
-  line-height: 1.2;
+  line-height: var(--sipumtech-line-height-tight);
 }
 
 .title-underline {
   width: 80px;
   height: 4px;
-  background: linear-gradient(45deg, #f59e0b, #d97706);
-  border-radius: 2px;
+  background: linear-gradient(45deg, var(--sipumtech-accent-orange), #d97706);
+  border-radius: var(--sipumtech-radius-sm);
 }
 
 .section-subtitle {
   font-size: 18px;
-  color: #6b7280;
+  color: var(--sipumtech-text-secondary);
   margin: 0;
-  line-height: 1.6;
+  line-height: var(--sipumtech-line-height-relaxed);
 }
 
 /* 技术概览内容样式 */
 .tech-overview-title {
-  font-size: 28px;
-  font-weight: bold;
-  color: #1e3a8a;
+  font-size: var(--sipumtech-font-size-h3);
+  font-weight: var(--sipumtech-font-weight-bold);
+  color: var(--sipumtech-primary-blue);
   margin: 0;
 }
 
 .tech-overview-desc {
-  font-size: 16px;
-  color: #6b7280;
-  line-height: 1.7;
+  font-size: var(--sipumtech-font-size-body);
+  color: var(--sipumtech-text-secondary);
+  line-height: var(--sipumtech-line-height-loose);
   margin: 0;
 }
 
 /* 技术亮点样式 */
 .highlight-title {
   font-size: 18px;
-  font-weight: bold;
-  color: #1f2937;
+  font-weight: var(--sipumtech-font-weight-bold);
+  color: var(--sipumtech-text-primary);
   margin: 0;
 }
 
 .highlight-desc {
-  font-size: 14px;
-  color: #6b7280;
+  font-size: var(--sipumtech-font-size-small);
+  color: var(--sipumtech-text-secondary);
   margin: 0;
-  line-height: 1.5;
+  line-height: var(--sipumtech-line-height-normal);
 }
 
 /* 技术能力卡片内容样式 */
 .capability-title {
   font-size: 18px;
-  font-weight: bold;
-  color: #1e3a8a;
+  font-weight: var(--sipumtech-font-weight-bold);
+  color: var(--sipumtech-primary-blue);
   margin: 0;
   text-align: center;
 }
 
 .capability-desc {
-  font-size: 14px;
-  color: #6b7280;
+  font-size: var(--sipumtech-font-size-small);
+  color: var(--sipumtech-text-secondary);
   margin: 0;
-  line-height: 1.5;
+  line-height: var(--sipumtech-line-height-normal);
   text-align: center;
 }
 

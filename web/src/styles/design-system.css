@@ -1,0 +1,193 @@
+/* 
+ * SIPUMTECH 企业官网设计系统
+ * 基于企业官网开发计划的色彩方案和设计令牌
+ */
+
+:root {
+  /* ========== SIPUMTECH专属色彩系统 ========== */
+  
+  /* 主品牌色 */
+  --sipumtech-primary-blue: #1e3a8a;         /* 深蓝色 - 主品牌色 */
+  --sipumtech-secondary-blue: #3b82f6;       /* 中蓝色 - 辅助色 */
+  --sipumtech-accent-green: #00D4AA;         /* 科技绿 - SIPUMTECH专属强调色 */
+  --sipumtech-accent-orange: #f59e0b;        /* 橙色 - 次要强调色 */
+  
+  /* 背景色系 */
+  --sipumtech-bg-white: #ffffff;             /* 纯白色 - 主背景 */
+  --sipumtech-bg-gray: #f8fafc;              /* 浅灰色 - 辅助背景 */
+  --sipumtech-bg-tech: #f0f9ff;              /* 科技蓝背景 - 技术展示区域 */
+  --sipumtech-bg-gradient-1: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  --sipumtech-bg-gradient-2: linear-gradient(135deg, rgba(30, 58, 138, 0.8) 0%, rgba(59, 130, 246, 0.6) 100%);
+  
+  /* 文字色系 */
+  --sipumtech-text-primary: #1f2937;         /* 深灰色 - 主要文字 */
+  --sipumtech-text-secondary: #6b7280;       /* 中灰色 - 次要文字 */
+  --sipumtech-text-light: #9ca3af;           /* 浅灰色 - 辅助文字 */
+  --sipumtech-text-white: #ffffff;           /* 白色文字 */
+  
+  /* 边框和分割线 */
+  --sipumtech-border-color: #e5e7eb;         /* 边框颜色 */
+  --sipumtech-border-light: #f3f4f6;         /* 浅边框 */
+  --sipumtech-divider: #e2e8f0;              /* 分割线 */
+  
+  /* 信任和认证色彩 */
+  --sipumtech-trust-gold: #fbbf24;           /* 信任金 - 认证标识 */
+  --sipumtech-success-green: #10b981;        /* 成功绿 */
+  --sipumtech-warning-amber: #f59e0b;        /* 警告琥珀 */
+  --sipumtech-error-red: #ef4444;            /* 错误红 */
+  
+  /* ========== 字体系统 ========== */
+  
+  /* 字体族 */
+  --sipumtech-font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  
+  /* 字体大小 */
+  --sipumtech-font-size-h1: 42px;            /* 主标题 */
+  --sipumtech-font-size-h2: 32px;            /* 二级标题 */
+  --sipumtech-font-size-h3: 28px;            /* 三级标题 */
+  --sipumtech-font-size-h4: 24px;            /* 四级标题 */
+  --sipumtech-font-size-h5: 20px;            /* 五级标题 */
+  --sipumtech-font-size-body: 16px;          /* 正文 */
+  --sipumtech-font-size-small: 14px;         /* 小字 */
+  --sipumtech-font-size-xs: 12px;            /* 极小字 */
+  
+  /* 字体重量 */
+  --sipumtech-font-weight-light: 300;
+  --sipumtech-font-weight-normal: 400;
+  --sipumtech-font-weight-medium: 500;
+  --sipumtech-font-weight-semibold: 600;
+  --sipumtech-font-weight-bold: 700;
+  --sipumtech-font-weight-extrabold: 800;
+  
+  /* 行高 */
+  --sipumtech-line-height-tight: 1.2;
+  --sipumtech-line-height-normal: 1.5;
+  --sipumtech-line-height-relaxed: 1.6;
+  --sipumtech-line-height-loose: 1.8;
+  
+  /* ========== 间距系统 ========== */
+  
+  /* 基础间距单位 */
+  --sipumtech-space-xs: 4px;
+  --sipumtech-space-sm: 8px;
+  --sipumtech-space-md: 16px;
+  --sipumtech-space-lg: 24px;
+  --sipumtech-space-xl: 32px;
+  --sipumtech-space-2xl: 48px;
+  --sipumtech-space-3xl: 64px;
+  --sipumtech-space-4xl: 80px;
+  --sipumtech-space-5xl: 100px;
+  
+  /* 容器间距 */
+  --sipumtech-container-padding-mobile: 16px;
+  --sipumtech-container-padding-tablet: 20px;
+  --sipumtech-container-padding-desktop: 30px;
+  --sipumtech-container-max-width: 1200px;
+  
+  /* 区域间距 */
+  --sipumtech-section-padding-mobile: 60px 0;
+  --sipumtech-section-padding-tablet: 80px 0;
+  --sipumtech-section-padding-desktop: 100px 0;
+  
+  /* ========== 圆角系统 ========== */
+  
+  --sipumtech-radius-sm: 4px;
+  --sipumtech-radius-md: 8px;
+  --sipumtech-radius-lg: 12px;
+  --sipumtech-radius-xl: 16px;
+  --sipumtech-radius-2xl: 24px;
+  --sipumtech-radius-full: 9999px;
+  
+  /* ========== 阴影系统 ========== */
+  
+  --sipumtech-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --sipumtech-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --sipumtech-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --sipumtech-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+  --sipumtech-shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+  --sipumtech-shadow-brand: 0 12px 30px rgba(30, 58, 138, 0.15);
+  
+  /* ========== 过渡动画 ========== */
+  
+  --sipumtech-transition-fast: 0.15s ease;
+  --sipumtech-transition-normal: 0.3s ease;
+  --sipumtech-transition-slow: 0.5s ease;
+  --sipumtech-transition-bounce: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* ========== Z-index层级 ========== */
+  
+  --sipumtech-z-dropdown: 1000;
+  --sipumtech-z-sticky: 1020;
+  --sipumtech-z-fixed: 1030;
+  --sipumtech-z-modal-backdrop: 1040;
+  --sipumtech-z-modal: 1050;
+  --sipumtech-z-popover: 1060;
+  --sipumtech-z-tooltip: 1070;
+  --sipumtech-z-toast: 1080;
+  
+  /* ========== 响应式断点 ========== */
+  
+  --sipumtech-breakpoint-sm: 768px;          /* 移动端上限 */
+  --sipumtech-breakpoint-md: 1024px;         /* 平板端上限 */
+  --sipumtech-breakpoint-lg: 1200px;         /* 桌面端起点 */
+  --sipumtech-breakpoint-xl: 1440px;         /* 大屏幕起点 */
+}
+
+/* ========== 全局基础样式 ========== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--sipumtech-font-family);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--sipumtech-font-family);
+  font-size: var(--sipumtech-font-size-body);
+  line-height: var(--sipumtech-line-height-normal);
+  color: var(--sipumtech-text-primary);
+  background-color: var(--sipumtech-bg-white);
+}
+
+/* ========== 工具类 ========== */
+
+/* 文字颜色工具类 */
+.text-primary { color: var(--sipumtech-primary-blue) !important; }
+.text-secondary { color: var(--sipumtech-text-secondary) !important; }
+.text-accent { color: var(--sipumtech-accent-green) !important; }
+.text-warning { color: var(--sipumtech-accent-orange) !important; }
+
+/* 背景色工具类 */
+.bg-primary { background-color: var(--sipumtech-primary-blue) !important; }
+.bg-secondary { background-color: var(--sipumtech-secondary-blue) !important; }
+.bg-accent { background-color: var(--sipumtech-accent-green) !important; }
+.bg-gray { background-color: var(--sipumtech-bg-gray) !important; }
+
+/* 间距工具类 */
+.p-sm { padding: var(--sipumtech-space-sm) !important; }
+.p-md { padding: var(--sipumtech-space-md) !important; }
+.p-lg { padding: var(--sipumtech-space-lg) !important; }
+.m-sm { margin: var(--sipumtech-space-sm) !important; }
+.m-md { margin: var(--sipumtech-space-md) !important; }
+.m-lg { margin: var(--sipumtech-space-lg) !important; }
+
+/* 圆角工具类 */
+.rounded-sm { border-radius: var(--sipumtech-radius-sm) !important; }
+.rounded-md { border-radius: var(--sipumtech-radius-md) !important; }
+.rounded-lg { border-radius: var(--sipumtech-radius-lg) !important; }
+
+/* 阴影工具类 */
+.shadow-sm { box-shadow: var(--sipumtech-shadow-sm) !important; }
+.shadow-md { box-shadow: var(--sipumtech-shadow-md) !important; }
+.shadow-lg { box-shadow: var(--sipumtech-shadow-lg) !important; }
+.shadow-brand { box-shadow: var(--sipumtech-shadow-brand) !important; }
+
+/* 过渡工具类 */
+.transition-fast { transition: all var(--sipumtech-transition-fast) !important; }
+.transition-normal { transition: all var(--sipumtech-transition-normal) !important; }
+.transition-slow { transition: all var(--sipumtech-transition-slow) !important; }
