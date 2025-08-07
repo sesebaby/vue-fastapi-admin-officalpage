@@ -4,11 +4,14 @@
     <n-layout-header
       position="absolute"
       :style="{
-        background: 'var(--n-color-base)',
-        borderBottom: '1px solid var(--n-border-color)',
-        boxShadow: 'var(--n-box-shadow-1)',
+        background: 'rgba(255, 255, 255, 0.85)',
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
         height: '90px',
-        zIndex: 1000
+        zIndex: 1000,
+        transition: 'all 0.3s ease'
       }"
       :content-style="{
         height: '100%',
@@ -295,6 +298,51 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* 毛玻璃效果兼容性和降级方案 */
+.n-layout-header {
+  /* 基础降级背景 - 为不支持backdrop-filter的浏览器 */
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* 支持backdrop-filter的现代浏览器 */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .n-layout-header {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(12px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+  }
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .n-layout-header {
+    background: rgba(24, 24, 28, 0.95) !important;
+  }
+
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .n-layout-header {
+      background: rgba(24, 24, 28, 0.85) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+  }
+}
+
+/* 高对比度模式适配 */
+@media (prefers-contrast: high) {
+  .n-layout-header {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* 减少动画偏好适配 */
+@media (prefers-reduced-motion: reduce) {
+  .n-layout-header {
+    transition: none !important;
+  }
+}
+
 /* 企业官网布局样式 - 遵循Naive UI框架优先原则 */
 
 /* 顶部导航栏样式已移至n-layout-header的style属性 - 遵循Naive UI框架优先原则 */
