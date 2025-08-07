@@ -3,34 +3,33 @@
     <!-- 顶部导航栏 - 使用Naive UI原生n-space组件 -->
     <n-layout-header class="website-header">
       <div class="header-container">
-        <!-- 桌面端布局 - 使用n-space实现space-between布局 -->
-        <n-space
+        <!-- 桌面端布局 - 使用n-flex实现左侧导航布局 -->
+        <n-flex
           v-if="!isMobile"
           justify="space-between"
           align="center"
-          :size="20"
           style="width: 100%; height: 100%;"
         >
-          <!-- 左侧Logo -->
-          <CompanyLogo />
-
-          <!-- 中间导航菜单 -->
-          <NavigationMenu
-            :spacing="navSpacing"
-            justify="center"
-            :active-key="currentNavKey"
-            @nav-click="handleNavClick"
-          />
+          <!-- 左侧区域：Logo + 导航菜单 -->
+          <n-flex align="center" :size="32">
+            <CompanyLogo />
+            <NavigationMenu
+              :spacing="navSpacing"
+              justify="start"
+              :active-key="currentNavKey"
+              @nav-click="handleNavClick"
+            />
+          </n-flex>
 
           <!-- 右侧操作区域 -->
-          <n-space align="center" :size="24">
+          <n-flex align="center" :size="24">
             <LanguageSwitcher @language-changed="handleLanguageChanged" />
             <AdminLoginButton @login-click="handleLoginClick" />
-          </n-space>
-        </n-space>
+          </n-flex>
+        </n-flex>
 
-        <!-- 移动端布局 - 使用n-space实现移动端布局 -->
-        <n-space
+        <!-- 移动端布局 - 使用n-flex实现移动端布局 -->
+        <n-flex
           v-else
           justify="space-between"
           align="center"
@@ -40,7 +39,7 @@
           <CompanyLogo />
 
           <!-- 移动端右侧操作 -->
-          <n-space align="center" :size="16">
+          <n-flex align="center" :size="16">
             <LanguageSwitcher @language-changed="handleLanguageChanged" />
             <n-button
               text
@@ -49,8 +48,8 @@
             >
               ☰
             </n-button>
-          </n-space>
-        </n-space>
+          </n-flex>
+        </n-flex>
       </div>
     </n-layout-header>
 
