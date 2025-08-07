@@ -57,9 +57,6 @@
       @scroll-to-section="scrollToSection"
     />
 
-    <!-- 信任建立区域 -->
-    <TrustSection />
-
     <!-- 关于我们区域 -->
     <AboutSection />
 
@@ -94,7 +91,6 @@
 <script setup>
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import TrustSection from '@/components/common/TrustSection.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import AboutSection from '@/components/sections/AboutSection.vue'
 import BusinessSection from '@/components/sections/BusinessSection.vue'
