@@ -121,13 +121,13 @@
                     type="primary"
                     @click="$emit('get-solution', 'advanced-packaging')"
                   >
-                    获取方案
+                    {{ $t('website.cta.get_solution') }}
                   </n-button>
                   <n-button
                     type="default"
                     @click="$emit('tech-consultation', 'advanced-packaging')"
                   >
-                    技术咨询
+                    {{ $t('website.cta.tech_consultation') }}
                   </n-button>
                 </n-space>
               </n-space>
@@ -196,13 +196,13 @@
                     type="primary"
                     @click="$emit('get-solution', 'hardware-solution')"
                   >
-                    获取方案
+                    {{ $t('website.cta.get_solution') }}
                   </n-button>
                   <n-button
                     type="default"
                     @click="$emit('tech-consultation', 'hardware-solution')"
                   >
-                    技术咨询
+                    {{ $t('website.cta.tech_consultation') }}
                   </n-button>
                 </n-space>
               </n-space>
@@ -237,58 +237,58 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
 }
 
 .section-container {
-  max-width: 1200px;
+  max-width: var(--sipumtech-container-max-width);
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 var(--sipumtech-container-padding-desktop);
 }
 
 /* 保留必要的品牌样式 */
 .service-nav-title {
-  font-size: 28px;
-  font-weight: bold;
-  color: #1e3a8a;
+  font-size: var(--sipumtech-font-size-h3);
+  font-weight: var(--sipumtech-font-weight-bold);
+  color: var(--sipumtech-primary-blue);
   margin: 0;
 }
 
 /* 服务导航按钮样式 */
 .service-nav-button {
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  color: #1e3a8a !important;
+  font-size: var(--sipumtech-font-size-body) !important;
+  font-weight: var(--sipumtech-font-weight-semibold) !important;
+  color: var(--sipumtech-primary-blue) !important;
 }
 
 .service-nav-button:hover {
-  color: #1e40af !important;
+  color: var(--sipumtech-secondary-blue) !important;
 }
 
 /* 核心业务展示区域 */
 .main-services-section {
-  padding: 100px 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  padding: var(--sipumtech-section-padding-desktop);
+  background: var(--sipumtech-bg-gradient-1);
 }
 
 /* 保留必要的标题样式 */
 .section-title {
-  font-size: 42px;
-  font-weight: bold;
-  color: #1e3a8a;
+  font-size: var(--sipumtech-font-size-h1);
+  font-weight: var(--sipumtech-font-weight-bold);
+  color: var(--sipumtech-primary-blue);
   margin: 0;
-  line-height: 1.2;
+  line-height: var(--sipumtech-line-height-tight);
 }
 
 .title-underline {
   width: 80px;
   height: 4px;
-  background: linear-gradient(45deg, #f59e0b, #d97706);
-  border-radius: 2px;
+  background: linear-gradient(45deg, var(--sipumtech-accent-orange), #d97706);
+  border-radius: var(--sipumtech-radius-sm);
   margin: 0 auto;
 }
 
 .section-subtitle {
   font-size: 18px;
-  color: #64748b;
+  color: var(--sipumtech-text-secondary);
   margin: 0;
-  line-height: 1.6;
+  line-height: var(--sipumtech-line-height-relaxed);
 }
 
 /*
@@ -298,9 +298,9 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
 
 /* 保留的服务内容样式 */
 .service-brand {
-  font-size: 14px;
-  font-weight: 600;
-  color: #f59e0b;
+  font-size: var(--sipumtech-font-size-small);
+  font-weight: var(--sipumtech-font-weight-semibold);
+  color: var(--sipumtech-accent-orange);
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -308,24 +308,24 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
 
 /* 保留的服务内容样式 */
 .service-subtitle {
-  font-size: 16px;
-  font-weight: 600;
-  color: #6b7280;
+  font-size: var(--sipumtech-font-size-body);
+  font-weight: var(--sipumtech-font-weight-semibold);
+  color: var(--sipumtech-text-secondary);
   margin: 0;
 }
 
 .service-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #1e3a8a;
+  font-size: var(--sipumtech-font-size-h4);
+  font-weight: var(--sipumtech-font-weight-bold);
+  color: var(--sipumtech-primary-blue);
   margin: 0;
   line-height: 1.3;
 }
 
 .service-description {
-  font-size: 16px;
-  color: #6b7280;
-  line-height: 1.6;
+  font-size: var(--sipumtech-font-size-body);
+  color: var(--sipumtech-text-secondary);
+  line-height: var(--sipumtech-line-height-relaxed);
   margin: 0;
   text-align: center;
 }
