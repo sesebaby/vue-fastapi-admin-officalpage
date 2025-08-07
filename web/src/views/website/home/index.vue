@@ -1,7 +1,43 @@
 <template>
   <div class="home-page">
+    <!-- 滚动进度指示器 -->
+    <div class="scroll-progress">
+      <div class="progress-bar" :style="{ height: scrollProgress + '%' }"></div>
+    </div>
+
+    <!-- 区域指示器 -->
+    <div class="section-indicators">
+      <div
+        v-for="(section, index) in sections"
+        :key="section"
+        :class="['indicator-dot', { active: currentSection === index }]"
+        @click="scrollToSection(section)"
+        :title="getSectionName(section)"
+      ></div>
+    </div>
+
+    <!-- 侧边导航菜单 -->
+    <nav class="side-navigation" :class="{ visible: showSideNav }">
+      <div class="nav-toggle" @click="toggleSideNav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-menu">
+        <li v-for="(section, index) in sections" :key="section">
+          <a
+            :href="`#${section}`"
+            :class="{ active: currentSection === index }"
+            @click="scrollToSection(section)"
+          >
+            {{ getSectionName(section) }}
+          </a>
+        </li>
+      </ul>
+    </nav>
+
     <!-- Hero Banner 轮播区域 - 华天科技风格 -->
-    <section id="home" class="hero-banner">
+    <section id="home" class="hero-banner section-full">
       <div class="hero-slider">
         <!-- 第一张轮播 -->
         <div class="slide active">
@@ -25,33 +61,12 @@
                 </span>
               </h1>
               <h2 class="slide-subtitle animated-text">
-                <span class="char">先</span>
-                <span class="char">进</span>
-                <span class="char">封</span>
-                <span class="char">装</span>
-                <span class="char">·</span>
-                <span class="char">一</span>
-                <span class="char">站</span>
-                <span class="char">式</span>
-                <span class="char">服</span>
-                <span class="char">务</span>
-                <span class="char">、</span>
-                <span class="char">晶</span>
-                <span class="char">圆</span>
-                <span class="char">级</span>
-                <span class="char">技</span>
-                <span class="char">术</span>
-                <span class="char">能</span>
-                <span class="char">力</span>
-                <span class="char">、</span>
-                <span class="char">系</span>
-                <span class="char">统</span>
-                <span class="char">级</span>
-                <span class="char">质</span>
-                <span class="char">量</span>
-                <span class="char">把</span>
-                <span class="char">控</span>
+                打造卓越的先进封测及软硬件开发一站式解决方案服务商
               </h2>
+              <div class="hero-actions">
+                <button class="cta-button primary" @click="scrollToSection('about')">了解更多</button>
+                <button class="cta-button secondary" @click="scrollToSection('contact')">联系我们</button>
+              </div>
             </div>
           </div>
         </div>
@@ -65,11 +80,15 @@
           <div class="slide-content">
             <div class="slide-container">
               <h1 class="slide-title">
-                <span class="company-name">专业技术</span>
+                <span class="company-name">专业技术团队</span>
               </h1>
               <h2 class="slide-subtitle">
                 快速响应 · 质量保证 · 一站式解决方案
               </h2>
+              <div class="hero-actions">
+                <button class="cta-button primary" @click="scrollToSection('technology')">技术能力</button>
+                <button class="cta-button secondary" @click="scrollToSection('business')">核心业务</button>
+              </div>
             </div>
           </div>
         </div>
@@ -88,6 +107,51 @@
             :class="['indicator', { active: currentSlide === index }]"
             @click="goToSlide(index)"
           ></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 关于我们区域 -->
+    <section id="about" class="about-section section-half">
+      <div class="section-container">
+        <div class="about-content">
+          <div class="about-text">
+            <div class="section-header">
+              <h2 class="section-title">关于思普微</h2>
+              <div class="title-underline"></div>
+            </div>
+            <div class="company-intro">
+              <p class="intro-highlight">
+                苏州思普微电子科技有限公司成立于2019年，总部位于苏州，是国内领先的先进系统级封装设计软硬件开发一站式服务综合服务供应商。
+              </p>
+              <p class="intro-description">
+                公司专注于先进封装技术和硬件方案开发，拥有专业的技术团队和完善的服务体系，为客户提供从设计到测试的全流程解决方案。
+              </p>
+              <div class="company-stats">
+                <div class="stat-item">
+                  <div class="stat-number">2019</div>
+                  <div class="stat-label">成立年份</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number">100+</div>
+                  <div class="stat-label">服务客户</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number">5+</div>
+                  <div class="stat-label">核心团队</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="about-image">
+            <img src="/images/business_office_scene.jpg" alt="办公场景" class="about-img">
+            <div class="image-overlay">
+              <div class="overlay-content">
+                <h4>专业团队</h4>
+                <p>硬件设计、SIP设计、PCB设计、软件开发、热力电仿真等专业团队</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -114,34 +178,58 @@
       </div>
     </section>
 
-    <!-- 主要服务展示 - 华天科技风格 -->
-    <section class="main-services-section">
+    <!-- 核心业务展示 - 华天科技风格 -->
+    <section id="business" class="main-services-section section-full">
       <div class="section-container">
+        <div class="section-header centered">
+          <h2 class="section-title">核心业务</h2>
+          <div class="title-underline"></div>
+          <p class="section-subtitle">专业的先进系统级封装设计软硬件开发一站式服务</p>
+        </div>
+
         <div class="services-grid">
           <div class="service-card large-card" @mouseenter="startHover" @mouseleave="endHover">
             <div class="service-content">
+              <div class="service-icon">
+                <img src="/images/icon_advanced_packaging.jpg" alt="先进封装">
+              </div>
               <h4 class="service-brand">SIPUMTECH</h4>
-              <h4 class="service-subtitle">OSAT Turnkey Service</h4>
-              <h5 class="service-title">先进封装一站式服务</h5>
+              <h4 class="service-subtitle">Advanced Packaging</h4>
+              <h5 class="service-title">先进封装</h5>
               <p class="service-description">
-                封装设计、封装仿真、引线框封装、基板封装、晶圆级封装、晶圆测试及功能测试、物流配送等一站式服务。
+                提供wafer后段bump，RDL优化及设计加工、wafer级设计封装（WLCSP）、硅转接板、硅穿孔（TSV）设计加工等服务。
               </p>
+              <ul class="service-features">
+                <li>晶圆级封装设计与制造</li>
+                <li>IC测试板设计加工</li>
+                <li>先进封装一站式方案</li>
+              </ul>
               <div class="service-more">
-                <img src="/images/icon_advanced_packaging.jpg" alt="更多" class="more-icon">
+                <span class="more-text">了解详情</span>
+                <span class="more-arrow">→</span>
               </div>
             </div>
           </div>
 
           <div class="service-card large-card" @mouseenter="startHover" @mouseleave="endHover">
             <div class="service-content">
+              <div class="service-icon">
+                <img src="/images/icon_hardware_design.jpg" alt="硬件方案">
+              </div>
               <h4 class="service-brand">SIPUMTECH</h4>
-              <h4 class="service-subtitle">OSAT Turnkey Service</h4>
-              <h5 class="service-title">先进测试服务</h5>
+              <h4 class="service-subtitle">Hardware Solutions</h4>
+              <h5 class="service-title">软硬件方案开发</h5>
               <p class="service-description">
-                思普微科技提供从程序开发、CP、FT到SLT的全流程封装产品测试。
+                硬件方案开发、原理图及PCB设计、板级及系统级仿真、嵌入式驱动程序及上位机软件开发等服务。
               </p>
+              <ul class="service-features">
+                <li>硬件设计开发</li>
+                <li>PCB产品设计制造</li>
+                <li>软件开发设计</li>
+              </ul>
               <div class="service-more">
-                <img src="/images/icon_ic_testing.jpg" alt="更多" class="more-icon">
+                <span class="more-text">了解详情</span>
+                <span class="more-arrow">→</span>
               </div>
             </div>
           </div>
@@ -149,67 +237,138 @@
       </div>
     </section>
 
-    <!-- 产品技术展示 - 华天科技风格 -->
-    <section class="products-section">
+    <!-- 技术能力展示 - 华天科技风格 -->
+    <section id="technology" class="technology-section section-full">
       <div class="section-container">
-        <div class="products-grid">
-          <div class="product-card">
-            <div class="product-image">
-              <img src="/images/icon_advanced_packaging.jpg" alt="先进封装">
+        <div class="section-header centered">
+          <h2 class="section-title">技术能力</h2>
+          <div class="title-underline"></div>
+          <p class="section-subtitle">专业的技术团队和完善的技术体系</p>
+        </div>
+
+        <div class="technology-content">
+          <div class="tech-overview">
+            <div class="tech-image">
+              <img src="/images/page4_business_scope_full.jpg" alt="业务范围" class="overview-img">
             </div>
-            <div class="product-content">
-              <h5 class="product-title">先进封装</h5>
-              <p class="product-description">
-                先进封装（Advanced Packaging）是将多种功能芯片，包括处理器、存储器等功能芯片集成在一个封装内，从而实现一个基本完整的功能。其封装效率高、系统成本低、尺寸小、应用广泛。
-              </p>
+            <div class="tech-description">
+              <h3>全方位技术服务</h3>
+              <p>思普微科技拥有专业的技术团队，包括硬件设计、SIP设计、PCB设计、软件开发、热力电仿真等多个专业领域，为客户提供全方位的技术服务。</p>
+              <div class="tech-highlights">
+                <div class="highlight-item">
+                  <div class="highlight-icon">🔬</div>
+                  <div class="highlight-text">
+                    <h4>先进工艺</h4>
+                    <p>掌握最新的封装工艺技术</p>
+                  </div>
+                </div>
+                <div class="highlight-item">
+                  <div class="highlight-icon">⚡</div>
+                  <div class="highlight-text">
+                    <h4>快速响应</h4>
+                    <p>7x24小时技术支持服务</p>
+                  </div>
+                </div>
+                <div class="highlight-item">
+                  <div class="highlight-icon">🎯</div>
+                  <div class="highlight-text">
+                    <h4>精准定制</h4>
+                    <p>根据客户需求定制解决方案</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="product-card">
-            <div class="product-image">
-              <img src="/images/icon_hardware_design.jpg" alt="硬件方案">
+          <div class="tech-capabilities">
+            <div class="capability-card">
+              <div class="capability-icon">
+                <img src="/images/icon_advanced_packaging.jpg" alt="先进封装">
+              </div>
+              <h4>先进封装技术</h4>
+              <p>WLCSP、TSV、RDL等先进封装技术，满足高密度高速度封装需求</p>
             </div>
-            <div class="product-content">
-              <h5 class="product-title">硬件方案</h5>
-              <p class="product-description">
-                思普微科技拥有完全自主知识产权的硬件方案开发解决方案，可以为客户提供原理图设计、PCB设计、系统级仿真等服务。
-              </p>
+
+            <div class="capability-card">
+              <div class="capability-icon">
+                <img src="/images/icon_hardware_design.jpg" alt="硬件设计">
+              </div>
+              <h4>硬件设计能力</h4>
+              <p>原理图设计、PCB设计、系统级仿真等硬件开发全流程服务</p>
+            </div>
+
+            <div class="capability-card">
+              <div class="capability-icon">
+                <img src="/images/icon_ic_testing.jpg" alt="测试服务">
+              </div>
+              <h4>测试验证服务</h4>
+              <p>MEMS探针卡设计、Load board测试板设计、测试板组装等</p>
+            </div>
+
+            <div class="capability-card">
+              <div class="capability-icon">
+                <img src="/images/technical_chart_circuit.jpg" alt="仿真分析">
+              </div>
+              <h4>仿真分析技术</h4>
+              <p>热力电仿真、信号完整性分析、电磁兼容性设计等</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 成功案例区域 -->
+    <section id="cases" class="cases-section section-half">
+      <div class="section-container">
+        <div class="section-header centered">
+          <h2 class="section-title">成功案例</h2>
+          <div class="title-underline"></div>
+          <p class="section-subtitle">为多个行业客户提供专业的技术解决方案</p>
+        </div>
+
+        <div class="cases-content">
+          <div class="cases-overview">
+            <div class="overview-image">
+              <img src="/images/page5_service_coverage_full.jpg" alt="服务覆盖" class="coverage-img">
+            </div>
+            <div class="overview-text">
+              <h3>广泛的服务覆盖</h3>
+              <p>思普微科技服务覆盖全国多个重点城市，为通信/服务器、科研院所、工控设备、医疗设备、高等院校等多个行业提供专业服务。</p>
             </div>
           </div>
 
-          <div class="product-card">
-            <div class="product-image">
-              <img src="/images/icon_wafer_packaging.jpg" alt="晶圆级封装">
+          <div class="industry-sectors">
+            <div class="sector-item">
+              <div class="sector-icon">📡</div>
+              <h4>通信/服务器</h4>
+              <p>为通信设备和服务器厂商提供高性能封装解决方案</p>
             </div>
-            <div class="product-content">
-              <h5 class="product-title">晶圆级封装</h5>
-              <p class="product-description">
-                思普微科技晶圆级封装包含WLCSP，TSV，RDL等封装，产品线涵盖各种先进封装技术，满足客户高密度高速度封装需求。
-              </p>
+            <div class="sector-item">
+              <div class="sector-icon">🏫</div>
+              <h4>科研院所</h4>
+              <p>支持科研院所的前沿技术研发和产业化应用</p>
+            </div>
+            <div class="sector-item">
+              <div class="sector-icon">🏭</div>
+              <h4>工控设备</h4>
+              <p>为工业控制设备提供可靠的硬件解决方案</p>
+            </div>
+            <div class="sector-item">
+              <div class="sector-icon">🏥</div>
+              <h4>医疗设备</h4>
+              <p>为医疗设备厂商提供高精度的封装技术服务</p>
+            </div>
+            <div class="sector-item">
+              <div class="sector-icon">🎓</div>
+              <h4>高等院校</h4>
+              <p>与高等院校合作开展产学研一体化项目</p>
             </div>
           </div>
 
-          <div class="product-card">
-            <div class="product-image">
-              <img src="/images/technical_chart_circuit.jpg" alt="测试服务">
-            </div>
-            <div class="product-content">
-              <h5 class="product-title">测试服务</h5>
-              <p class="product-description">
-                测试服务产品具有体积小、重量轻、功耗低、灵敏度高、价格低、易批量生产等优点。测试产品种类繁多，封装形式多样，产品应用范围广。
-              </p>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-image">
-              <img src="/images/technical_chart_performance.jpg" alt="系统仿真">
-            </div>
-            <div class="product-content">
-              <h5 class="product-title">系统仿真</h5>
-              <p class="product-description">
-                系统仿真是一种理想的芯片互连分析技术，通过仿真分析提供最优的电路设计，具有较高的电性能和热性能。思普微科技提供基于产品特性的完整的仿真解决方案。
-              </p>
+          <div class="service-process">
+            <h3>服务流程</h3>
+            <div class="process-image">
+              <img src="/images/page6_design_process_full.jpg" alt="设计流程" class="process-img">
             </div>
           </div>
         </div>
@@ -217,13 +376,13 @@
     </section>
 
     <!-- 新闻动态 - 华天科技风格 -->
-    <section class="news-section">
+    <section id="news" class="news-section section-half">
       <div class="section-container">
         <div class="news-header">
           <h3 class="news-title">新闻动态</h3>
           <a href="#" class="news-more">
-            <img src="/images/title_tech_creates_value.jpg" alt="查看更多" class="more-icon">
             <span>查看更多</span>
+            <span class="more-arrow">→</span>
           </a>
         </div>
 
@@ -258,34 +417,78 @@
       </div>
     </section>
 
-    <!-- 联系我们 - 简化版 -->
-    <section id="contact" class="contact-section">
+    <!-- 联系我们 - 华天科技风格 -->
+    <section id="contact" class="contact-section section-half">
       <div class="section-container">
-        <div class="contact-simple">
-          <h3 class="contact-title">联系方式</h3>
-          <p class="contact-address">
-            公司地址：苏州市吴江区东太湖生态旅游度假区体育路508号金鹰商业中心2,3幢3幢1911
-          </p>
-          <p class="contact-phone">联系电话：15318923490</p>
-          <p class="contact-email">邮箱：wenqiang.chang@sipumtech.com</p>
+        <div class="section-header centered">
+          <h2 class="section-title">联系我们</h2>
+          <div class="title-underline"></div>
+          <p class="section-subtitle">专业团队随时为您提供技术支持和解决方案</p>
+        </div>
+
+        <div class="contact-content">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div class="contact-details">
+                <h4>公司地址</h4>
+                <p>苏州市吴江区东太湖生态旅游度假区体育路508号金鹰商业中心2,3幢3幢1911</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div class="contact-details">
+                <h4>联系电话</h4>
+                <p>15318923490</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">📧</div>
+              <div class="contact-details">
+                <h4>邮箱地址</h4>
+                <p>wenqiang.chang@sipumtech.com</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-certifications">
+            <h4>资质认证</h4>
+            <div class="cert-images">
+              <img src="/images/ISO9001质量管理体系认证证书.png" alt="ISO9001认证" class="cert-img">
+              <img src="/images/武器装备质量管理体系证书.png" alt="军工认证" class="cert-img">
+            </div>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top" :class="{ visible: showBackToTop }" @click="scrollToTop">
+      <span>↑</span>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted, onUnmounted } from 'vue'
 
+// 滚动相关状态
+const scrollProgress = ref(0)
+const showBackToTop = ref(false)
+const showSideNav = ref(false)
+
 // 轮播功能
 const currentSlide = ref(0)
 const slides = ref([
-  { id: 1, title: 'SIPUMTECH', subtitle: '先进封装·一站式服务、晶圆级技术能力、系统级质量把控' },
-  { id: 2, title: '专业技术', subtitle: '快速响应·质量保证·一站式解决方案' }
+  { id: 1, title: 'SIPUMTECH', subtitle: '打造卓越的先进封测及软硬件开发一站式解决方案服务商' },
+  { id: 2, title: '专业技术团队', subtitle: '快速响应·质量保证·一站式解决方案' }
 ])
 
 let slideInterval = null
 
+// 轮播控制函数
 const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % slides.value.length
   updateSlideDisplay()
@@ -319,8 +522,161 @@ const stopAutoSlide = () => {
   }
 }
 
+// 滚动分段相关状态
+const currentSection = ref(0)
+const isScrolling = ref(false)
+const sections = ref(['home', 'about', 'business', 'technology', 'cases', 'news', 'contact'])
+
+// 滚动功能
+const handleScroll = () => {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
+
+  // 更新滚动进度
+  scrollProgress.value = (scrollTop / scrollHeight) * 100
+
+  // 显示/隐藏回到顶部按钮
+  showBackToTop.value = scrollTop > 300
+
+  // 更新当前区域
+  updateCurrentSection()
+}
+
+const updateCurrentSection = () => {
+  const sectionElements = sections.value.map(id => document.getElementById(id)).filter(Boolean)
+  const scrollTop = window.pageYOffset + window.innerHeight / 2
+
+  for (let i = sectionElements.length - 1; i >= 0; i--) {
+    const element = sectionElements[i]
+    if (element && element.offsetTop <= scrollTop) {
+      currentSection.value = i
+      break
+    }
+  }
+}
+
+// 鼠标滚轮事件处理
+const handleWheel = (event) => {
+  if (isScrolling.value) return
+
+  event.preventDefault()
+
+  const delta = event.deltaY
+  let targetSection = currentSection.value
+
+  if (delta > 0 && currentSection.value < sections.value.length - 1) {
+    // 向下滚动
+    targetSection = currentSection.value + 1
+  } else if (delta < 0 && currentSection.value > 0) {
+    // 向上滚动
+    targetSection = currentSection.value - 1
+  }
+
+  if (targetSection !== currentSection.value) {
+    scrollToSection(sections.value[targetSection])
+  }
+}
+
+const scrollToTop = () => {
+  scrollToSection('home')
+}
+
+const scrollToSection = (sectionId) => {
+  const element = document.getElementById(sectionId)
+  if (element) {
+    isScrolling.value = true
+
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
+
+    // 更新当前区域索引
+    const sectionIndex = sections.value.indexOf(sectionId)
+    if (sectionIndex !== -1) {
+      currentSection.value = sectionIndex
+    }
+
+    // 滚动完成后重置状态
+    setTimeout(() => {
+      isScrolling.value = false
+    }, 1000)
+  }
+  showSideNav.value = false
+}
+
+const toggleSideNav = () => {
+  showSideNav.value = !showSideNav.value
+}
+
+// 获取区域名称
+const getSectionName = (sectionId) => {
+  const names = {
+    home: '首页',
+    about: '关于我们',
+    business: '核心业务',
+    technology: '技术能力',
+    cases: '成功案例',
+    news: '新闻动态',
+    contact: '联系我们'
+  }
+  return names[sectionId] || sectionId
+}
+
+// 键盘导航
+const handleKeydown = (event) => {
+  if (isScrolling.value) return
+
+  switch (event.key) {
+    case 'ArrowDown':
+    case 'PageDown':
+      event.preventDefault()
+      if (currentSection.value < sections.value.length - 1) {
+        scrollToSection(sections.value[currentSection.value + 1])
+      }
+      break
+    case 'ArrowUp':
+    case 'PageUp':
+      event.preventDefault()
+      if (currentSection.value > 0) {
+        scrollToSection(sections.value[currentSection.value - 1])
+      }
+      break
+    case 'Home':
+      event.preventDefault()
+      scrollToSection('home')
+      break
+    case 'End':
+      event.preventDefault()
+      scrollToSection('contact')
+      break
+  }
+}
+
+// 卡片悬停效果
+const startHover = (event) => {
+  stopAutoSlide()
+}
+
+const endHover = (event) => {
+  startAutoSlide()
+}
+
 onMounted(() => {
   startAutoSlide()
+
+  // 添加滚动监听
+  window.addEventListener('scroll', handleScroll)
+
+  // 添加滚轮监听（分段滚动）
+  window.addEventListener('wheel', handleWheel, { passive: false })
+
+  // 添加键盘监听
+  window.addEventListener('keydown', handleKeydown)
+
+  // 初始化当前区域
+  updateCurrentSection()
+
   // 添加文字动画
   setTimeout(() => {
     const chars = document.querySelectorAll('.animated-text .char')
@@ -335,16 +691,10 @@ onMounted(() => {
 
 onUnmounted(() => {
   stopAutoSlide()
+  window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('wheel', handleWheel)
+  window.removeEventListener('keydown', handleKeydown)
 })
-
-// 卡片悬停效果
-const startHover = (event) => {
-  stopAutoSlide()
-}
-
-const endHover = (event) => {
-  startAutoSlide()
-}
 
 // 联系表单
 const formRef = ref(null)
@@ -401,10 +751,214 @@ const submitForm = () => {
   font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
 }
 
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 区域过渡效果 */
+section {
+  transition: all 0.6s ease-in-out;
+}
+
+section.section-full,
+section.section-half {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 滚动进度指示器 */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100vh;
+  background: rgba(30, 58, 138, 0.1);
+  z-index: 9999;
+}
+
+.progress-bar {
+  width: 100%;
+  background: linear-gradient(to bottom, #1e3a8a, #f59e0b);
+  transition: height 0.3s ease;
+}
+
+/* 区域指示器 */
+.section-indicators {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(30, 58, 138, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.indicator-dot:hover {
+  background: rgba(30, 58, 138, 0.6);
+  transform: scale(1.2);
+}
+
+.indicator-dot.active {
+  background: #1e3a8a;
+  transform: scale(1.3);
+}
+
+.indicator-dot.active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f59e0b;
+}
+
+/* 侧边导航菜单 */
+.side-navigation {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 9998;
+  transition: right 0.3s ease;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.side-navigation.visible {
+  right: 0;
+}
+
+.nav-toggle {
+  position: absolute;
+  top: 30px;
+  left: -60px;
+  width: 50px;
+  height: 50px;
+  background: #1e3a8a;
+  border-radius: 50% 0 0 50%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-toggle span {
+  width: 20px;
+  height: 2px;
+  background: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.nav-menu {
+  list-style: none;
+  padding: 100px 30px 30px;
+  margin: 0;
+}
+
+.nav-menu li {
+  margin-bottom: 20px;
+}
+
+.nav-menu a {
+  color: #1e3a8a;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 20px;
+  display: block;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+  background: #f0f9ff;
+  color: #1e40af;
+}
+
+.nav-menu a.active {
+  background: #1e3a8a;
+  color: #ffffff;
+}
+
+.nav-menu a.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #f59e0b;
+}
+
+/* 区域分段样式 */
+.section-full {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.section-half {
+  min-height: 80vh;
+  padding: 100px 0;
+}
+
+/* 回到顶部按钮 */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: #1e3a8a;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: #1e40af;
+  transform: translateY(-3px);
+}
+
 /* Hero Banner 轮播样式 - 华天科技风格 */
 .hero-banner {
   position: relative;
-  height: 600px;
+  height: 100vh;
   overflow: hidden;
   background: #f8f9fa;
 }
@@ -510,6 +1064,52 @@ const submitForm = () => {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Hero Banner CTA按钮 */
+.hero-actions {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.cta-button {
+  padding: 15px 35px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-button.primary {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.cta-button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+.cta-button.secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.cta-button.secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
 }
 
 .slider-controls {
@@ -653,6 +1253,147 @@ const submitForm = () => {
   padding: 60px 30px;
 }
 
+.section-header {
+  margin-bottom: 60px;
+}
+
+.section-header.centered {
+  text-align: center;
+}
+
+.section-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #1e3a8a;
+  margin: 0 0 16px 0;
+  position: relative;
+}
+
+.title-underline {
+  width: 60px;
+  height: 4px;
+  background: #f59e0b;
+  margin: 0 auto 20px;
+}
+
+.section-header.centered .title-underline {
+  margin: 0 auto 20px;
+}
+
+.section-header:not(.centered) .title-underline {
+  margin: 0 0 20px 0;
+}
+
+.section-subtitle {
+  font-size: 18px;
+  color: #6b7280;
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+.section-header.centered .section-subtitle {
+  margin: 0 auto;
+}
+
+/* 关于我们区域样式 */
+.about-section {
+  background: #ffffff;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-text {
+  padding-right: 20px;
+}
+
+.intro-highlight {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e3a8a;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.intro-description {
+  font-size: 16px;
+  color: #6b7280;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.company-stats {
+  display: flex;
+  gap: 40px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 32px;
+  font-weight: bold;
+  color: #f59e0b;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.about-image {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.about-img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(30, 58, 138, 0.9));
+  color: #ffffff;
+  padding: 30px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.about-image:hover .image-overlay {
+  transform: translateY(0);
+}
+
+.about-image:hover .about-img {
+  transform: scale(1.05);
+}
+
+.overlay-content h4 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 0 12px 0;
+}
+
+.overlay-content p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  opacity: 0.9;
+}
+
 /* 主要服务展示 - 华天科技风格 */
 .main-services-section {
   background: #ffffff;
@@ -704,6 +1445,24 @@ const submitForm = () => {
   z-index: 2;
 }
 
+.service-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f0f9ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-icon img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
 .service-brand {
   font-size: 20px;
   font-weight: bold;
@@ -732,33 +1491,178 @@ const submitForm = () => {
   font-size: 15px;
   color: #6b7280;
   line-height: 1.7;
+  margin: 0 0 20px 0;
+}
+
+.service-features {
+  list-style: none;
+  padding: 0;
   margin: 0 0 30px 0;
 }
 
-.service-more {
-  text-align: right;
+.service-features li {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.service-features li::before {
+  content: "✓";
   position: absolute;
-  bottom: 30px;
-  right: 30px;
+  left: 0;
+  color: #f59e0b;
+  font-weight: bold;
 }
 
-.more-icon {
-  width: 32px;
-  height: 32px;
-  opacity: 0.5;
-  transition: all 0.4s ease;
-  border-radius: 6px;
+.service-more {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1e3a8a;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.service-card:hover .more-icon {
-  opacity: 1;
-  transform: scale(1.1);
+.service-card:hover .service-more {
+  color: #f59e0b;
 }
 
-/* 产品技术展示 - 华天科技风格 */
-.products-section {
+.more-arrow {
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover .more-arrow {
+  transform: translateX(5px);
+}
+
+/* 技术能力展示 - 华天科技风格 */
+.technology-section {
   background: #f8f9fa;
-  padding: 80px 0;
+}
+
+.technology-content {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.tech-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.tech-image {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.overview-img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+}
+
+.tech-description h3 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1e3a8a;
+  margin: 0 0 20px 0;
+}
+
+.tech-description p {
+  font-size: 16px;
+  color: #6b7280;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.tech-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.highlight-icon {
+  font-size: 24px;
+  margin-top: 4px;
+}
+
+.highlight-text h4 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.highlight-text p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.tech-capabilities {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.capability-card {
+  background: #ffffff;
+  padding: 30px 24px;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.capability-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-color: #3b82f6;
+}
+
+.capability-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f0f9ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.capability-icon img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.capability-card h4 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0 0 12px 0;
+}
+
+.capability-card p {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .products-grid {
@@ -767,83 +1671,109 @@ const submitForm = () => {
   gap: 24px;
 }
 
-.product-card {
+/* 成功案例区域样式 */
+.cases-section {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  height: 320px;
+}
+
+.cases-content {
   display: flex;
   flex-direction: column;
+  gap: 60px;
 }
 
-.product-card:hover {
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  transform: translateY(-6px);
-  border-color: #3b82f6;
+.cases-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
 }
 
-.product-image {
-  width: 100%;
-  height: 140px;
+.overview-image {
+  border-radius: 12px;
   overflow: hidden;
-  position: relative;
 }
 
-.product-image::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(30, 58, 138, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.product-card:hover .product-image::after {
-  opacity: 1;
-}
-
-.product-image img {
+.coverage-img {
   width: 100%;
-  height: 100%;
+  height: 300px;
   object-fit: cover;
-  transition: transform 0.4s ease;
 }
 
-.product-card:hover .product-image img {
-  transform: scale(1.05);
-}
-
-.product-content {
-  padding: 24px 20px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.product-title {
-  font-size: 18px;
+.overview-text h3 {
+  font-size: 28px;
   font-weight: bold;
-  color: #1f2937;
-  margin: 0 0 16px 0;
-  line-height: 1.3;
+  color: #1e3a8a;
+  margin: 0 0 20px 0;
 }
 
-.product-description {
-  font-size: 13px;
+.overview-text p {
+  font-size: 16px;
   color: #6b7280;
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
+}
+
+.industry-sectors {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 30px;
+}
+
+.sector-item {
+  text-align: center;
+  padding: 30px 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.sector-item:hover {
+  background: #1e3a8a;
+  color: #ffffff;
+  transform: translateY(-5px);
+}
+
+.sector-icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.sector-item h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+}
+
+.sector-item p {
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.service-process {
+  text-align: center;
+}
+
+.service-process h3 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1e3a8a;
+  margin: 0 0 30px 0;
+}
+
+.process-image {
+  border-radius: 12px;
   overflow: hidden;
-  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.process-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 /* 新闻动态样式 - 华天科技风格 */
@@ -972,67 +1902,122 @@ const submitForm = () => {
 /* 联系我们样式 - 华天科技风格 */
 .contact-section {
   background: #f8f9fa;
-  padding: 80px 0;
-  border-top: 1px solid #e5e7eb;
 }
 
-.contact-simple {
-  text-align: center;
-  max-width: 900px;
-  margin: 0 auto;
+.contact-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 30px;
   background: #ffffff;
-  padding: 60px 50px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
 }
 
-.contact-title {
-  font-size: 32px;
+.contact-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.contact-icon {
+  font-size: 24px;
+  margin-top: 4px;
+  color: #f59e0b;
+}
+
+.contact-details h4 {
+  font-size: 18px;
   font-weight: bold;
   color: #1e3a8a;
-  margin: 0 0 40px 0;
-  position: relative;
+  margin: 0 0 8px 0;
 }
 
-.contact-title::after {
-  content: '';
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background: #f59e0b;
-}
-
-.contact-address,
-.contact-phone,
-.contact-email {
-  font-size: 17px;
-  color: #374151;
-  margin: 0 0 20px 0;
-  line-height: 1.7;
-  font-weight: 500;
-}
-
-.contact-address {
-  margin-bottom: 30px;
+.contact-details p {
   font-size: 16px;
   color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.contact-certifications {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.contact-certifications h4 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e3a8a;
+  margin: 0 0 24px 0;
+}
+
+.cert-images {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.cert-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #f8f9fa;
+  padding: 8px;
+  transition: transform 0.3s ease;
+}
+
+.cert-img:hover {
+  transform: scale(1.05);
 }
 
 /* 响应式设计 - 华天科技风格 */
 @media (max-width: 1024px) {
   .services-grid {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
 
-  .products-grid {
+  .tech-capabilities {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .industry-sectors {
     grid-template-columns: repeat(3, 1fr);
   }
 
   .service-nav-list {
     gap: 30px;
+  }
+
+  .about-content,
+  .tech-overview,
+  .cases-overview {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 }
 
@@ -1041,12 +2026,22 @@ const submitForm = () => {
     padding: 40px 20px;
   }
 
+  .section-half {
+    min-height: auto;
+    padding: 60px 0;
+  }
+
   .company-name {
     font-size: 48px;
   }
 
   .slide-subtitle {
-    font-size: 18px;
+    font-size: 20px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
   }
 
   .service-nav-list {
@@ -1055,7 +2050,11 @@ const submitForm = () => {
     align-items: center;
   }
 
-  .products-grid {
+  .tech-capabilities {
+    grid-template-columns: 1fr;
+  }
+
+  .industry-sectors {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1067,6 +2066,11 @@ const submitForm = () => {
     flex-direction: column;
     gap: 20px;
     text-align: center;
+  }
+
+  .company-stats {
+    justify-content: center;
+    gap: 30px;
   }
 
   .prev-btn,
@@ -1083,6 +2087,15 @@ const submitForm = () => {
   .next-btn {
     right: 20px;
   }
+
+  .side-navigation {
+    width: 250px;
+    right: -250px;
+  }
+
+  .section-indicators {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1091,14 +2104,18 @@ const submitForm = () => {
   }
 
   .company-name {
-    font-size: 36px;
+    font-size: 32px;
   }
 
   .slide-subtitle {
     font-size: 16px;
   }
 
-  .products-grid {
+  .section-title {
+    font-size: 28px;
+  }
+
+  .industry-sectors {
     grid-template-columns: 1fr;
   }
 
@@ -1106,18 +2123,28 @@ const submitForm = () => {
     padding: 30px 20px;
   }
 
-  .product-content {
-    padding: 16px 12px;
+  .contact-item {
+    padding: 20px;
   }
 
-  .contact-title {
-    font-size: 24px;
+  .contact-certifications {
+    padding: 30px 20px;
   }
 
-  .contact-address,
-  .contact-phone,
-  .contact-email {
-    font-size: 14px;
+  .cert-images {
+    flex-direction: column;
+  }
+
+  .cert-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .back-to-top {
+    width: 45px;
+    height: 45px;
+    bottom: 20px;
+    right: 20px;
   }
 }
 
