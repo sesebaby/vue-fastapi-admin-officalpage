@@ -1,20 +1,21 @@
 <template>
-  <n-space 
-    :size="spacing" 
-    align="center" 
+  <!-- 使用Naive UI的n-flex组件替代n-space，实现更精确的布局控制 -->
+  <n-flex
+    :size="spacing"
+    align="center"
     :justify="justify"
-    :class="containerClass"
+    :wrap="false"
   >
-    <a 
-      v-for="item in menuItems" 
+    <a
+      v-for="item in menuItems"
       :key="item.key"
-      :href="item.href" 
+      :href="item.href"
       :class="['nav-item', { active: item.active }]"
       @click="handleNavClick(item)"
     >
       {{ item.label }}
     </a>
-  </n-space>
+  </n-flex>
 </template>
 
 <script setup>
@@ -23,17 +24,13 @@ import { useI18n } from 'vue-i18n'
 
 const props = defineProps({
   spacing: {
-    type: Number,
-    default: 32
+    type: [Number, String],
+    default: 24
   },
   justify: {
     type: String,
-    default: 'center',
-    validator: (value) => ['start', 'end', 'center', 'space-around', 'space-between'].includes(value)
-  },
-  containerClass: {
-    type: String,
-    default: ''
+    default: 'start', // 默认左对齐，符合华天公司官网布局
+    validator: (value) => ['start', 'end', 'center', 'space-around', 'space-between', 'space-evenly'].includes(value)
   },
   activeKey: {
     type: String,

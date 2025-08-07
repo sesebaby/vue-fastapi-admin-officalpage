@@ -1,28 +1,43 @@
 <template>
-  <n-layout class="website-layout">
+  <n-layout :style="{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'var(--n-font-family)' }">
     <!-- 顶部导航栏 - 使用Naive UI原生n-space组件 -->
-    <n-layout-header class="website-header">
-      <div class="header-container">
-        <!-- 桌面端布局 - 使用n-flex实现左侧导航布局 -->
+    <n-layout-header :style="{
+      background: 'var(--n-color-base)',
+      borderBottom: '1px solid var(--n-border-color)',
+      boxShadow: 'var(--n-box-shadow-1)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 1000
+    }">
+      <n-flex justify="center" style="width: 100%;">
+        <n-flex
+          justify="space-between"
+          align="center"
+          :size="0"
+          style="max-width: 1200px; width: 100%; height: 90px; padding: 0 24px;"
+        >
+        <!-- 桌面端布局 - 扁平化n-flex布局，所有元素作为直接子元素 -->
         <n-flex
           v-if="!isMobile"
           justify="space-between"
           align="center"
+          :size="0"
           style="width: 100%; height: 100%;"
         >
-          <!-- 左侧区域：Logo + 导航菜单 -->
-          <n-flex align="center" :size="32">
-            <CompanyLogo />
-            <NavigationMenu
-              :spacing="navSpacing"
-              justify="start"
-              :active-key="currentNavKey"
-              @nav-click="handleNavClick"
-            />
-          </n-flex>
+          <!-- Logo -->
+          <CompanyLogo />
+
+          <!-- 导航菜单 - 占据剩余空间并左对齐 -->
+          <NavigationMenu
+            :spacing="navSpacing"
+            justify="start"
+            :active-key="currentNavKey"
+            @nav-click="handleNavClick"
+            style="flex: 1; margin-left: 24px;"
+          />
 
           <!-- 右侧操作区域 -->
-          <n-flex align="center" :size="24">
+          <n-flex align="center" :size="24" style="flex-shrink: 0;">
             <LanguageSwitcher @language-changed="handleLanguageChanged" />
             <AdminLoginButton @login-click="handleLoginClick" />
           </n-flex>
@@ -50,7 +65,8 @@
             </n-button>
           </n-flex>
         </n-flex>
-      </div>
+        </n-flex>
+      </n-flex>
     </n-layout-header>
 
       <!-- 移动端抽屉菜单 -->
@@ -267,39 +283,15 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* 企业官网布局样式 - 华天科技风格 */
-.website-layout {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: var(--n-font-family);
-}
+/* 企业官网布局样式 - 遵循Naive UI框架优先原则 */
 
-/* 顶部导航栏 - 华天科技风格 */
-.website-header {
-  background: var(--n-color-base);
-  border-bottom: 1px solid var(--n-border-color);
-  box-shadow: var(--n-box-shadow-1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
+/* 顶部导航栏样式已移至n-layout-header的style属性 - 遵循Naive UI框架优先原则 */
 
-/* 最小化自定义样式 - 主要依赖Naive UI原生组件 */
-.header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 30px;
-  height: 90px;
-}
+/* header-container样式已移至n-flex组件的style属性 - 遵循Naive UI框架优先原则 */
 
 /* Logo样式由CompanyLogo组件管理 */
 
-/* 导航菜单样式由NavigationMenu组件管理 */
-.header-nav {
-  flex-wrap: nowrap !important;
-  width: 100%;
-}
+/* 导航菜单样式由NavigationMenu组件管理 - 遵循Naive UI框架优先原则 */
 
 /*
  * 语言切换和管理员登录样式已移至对应组件
