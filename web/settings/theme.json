@@ -39,6 +39,7 @@
       "primaryColor": "#1e3a8a",
       "primaryColorHover": "#1e40af",
       "primaryColorPressed": "#1e3a8a",
+      "primaryColorSuppl": "#f0f9ff",
       "textColorBase": "#374151",
       "textColor1": "#374151",
       "textColor2": "#6b7280",
@@ -53,8 +54,9 @@
       "tableHeaderColor": "#f9fafb",
       "hoverColor": "#f8fafc",
       "pressedColor": "#f0f9ff",
+      "colorTarget": "#f8fafc",
       "opacityDisabled": "0.5",
-      "fontFamily": "inherit",
+      "fontFamily": "\"Microsoft YaHei\", \"PingFang SC\", \"Helvetica Neue\", Arial, sans-serif",
       "fontSize": "14px",
       "fontSizeMini": "12px",
       "fontSizeSmall": "14px",
@@ -69,7 +71,10 @@
       "heightSmall": "36px",
       "heightMedium": "40px",
       "heightLarge": "44px",
-      "heightHuge": "48px"
+      "heightHuge": "48px",
+      "boxShadow1": "0 2px 10px rgba(0, 0, 0, 0.08)",
+      "boxShadow2": "0 4px 12px rgba(30, 58, 138, 0.3)",
+      "accentColor": "#f59e0b"
     }
   }
 }

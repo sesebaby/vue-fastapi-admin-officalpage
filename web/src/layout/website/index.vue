@@ -1,10 +1,10 @@
 <template>
-  <div class="website-layout">
+  <n-layout class="website-layout">
     <!-- 顶部导航栏 -->
-    <header class="website-header">
-      <div class="header-container">
+    <n-layout-header class="website-header">
+      <n-grid :cols="24" class="header-container">
         <!-- 左侧Logo和公司名称 -->
-        <div class="header-left">
+        <n-grid-item :span="6" class="header-left">
           <div class="company-logo">
             <img src="/images/company_logo_watermark.jpg" alt="SIPUMTECH" class="logo-img">
             <div class="company-info">
@@ -12,55 +12,44 @@
               <p class="company-subtitle">苏州思普微电子科技有限公司</p>
             </div>
           </div>
-        </div>
+        </n-grid-item>
 
         <!-- 中间导航菜单 -->
-        <n-space :size="navSpacing" align="center" class="header-nav">
-          <a href="#home" class="nav-item active">{{ $t('navigation.home') }}</a>
-          <a href="#about" class="nav-item">{{ $t('navigation.about') }}</a>
-          <a href="#business" class="nav-item">{{ $t('navigation.business') }}</a>
-          <a href="#technology" class="nav-item">{{ $t('navigation.technology') }}</a>
-          <a href="#cases" class="nav-item">{{ $t('navigation.cases') }}</a>
-          <a href="#news" class="nav-item">{{ $t('navigation.news') }}</a>
-          <a href="#contact" class="nav-item">{{ $t('navigation.contact') }}</a>
-        </n-space>
+        <n-grid-item :span="12" class="header-nav-container">
+          <n-space :size="navSpacing" align="center" justify="center" class="header-nav">
+            <a href="#home" class="nav-item active">{{ $t('navigation.home') }}</a>
+            <a href="#about" class="nav-item">{{ $t('navigation.about') }}</a>
+            <a href="#business" class="nav-item">{{ $t('navigation.business') }}</a>
+            <a href="#technology" class="nav-item">{{ $t('navigation.technology') }}</a>
+            <a href="#cases" class="nav-item">{{ $t('navigation.cases') }}</a>
+            <a href="#news" class="nav-item">{{ $t('navigation.news') }}</a>
+            <a href="#contact" class="nav-item">{{ $t('navigation.contact') }}</a>
+          </n-space>
+        </n-grid-item>
 
         <!-- 右侧语言切换和登录入口 -->
-        <div class="header-right">
-          <n-space :size="8" align="center" class="language-switch">
+        <n-grid-item :span="6" class="header-right">
+          <n-space align="center" justify="end" :size="24">
+            <LanguageSwitcher
+              container-class="language-switch"
+              @language-changed="handleLanguageChanged"
+            />
+
+            <!-- 管理员登录图标按钮 -->
             <n-button
               text
-              :type="currentLocale === 'zh-CN' ? 'primary' : 'default'"
-              :class="['lang-item', { active: currentLocale === 'zh-CN' }]"
-              @click="switchLanguage('zh-CN')"
+              class="admin-login"
+              @click="handleLogin"
+              :title="$t('navigation.admin_login_tooltip')"
+              :aria-label="$t('navigation.admin_login_tooltip')"
             >
-              中文
-            </n-button>
-            <span class="lang-divider">|</span>
-            <n-button
-              text
-              :type="currentLocale === 'en' ? 'primary' : 'default'"
-              :class="['lang-item', { active: currentLocale === 'en' }]"
-              @click="switchLanguage('en')"
-            >
-              English
+              <svg class="login-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
             </n-button>
           </n-space>
-
-          <!-- 管理员登录图标按钮 -->
-          <n-button
-            text
-            class="admin-login"
-            @click="handleLogin"
-            :title="$t('navigation.admin_login_tooltip')"
-            :aria-label="$t('navigation.admin_login_tooltip')"
-          >
-            <svg class="login-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </n-button>
-        </div>
+        </n-grid-item>
 
         <!-- 移动端菜单按钮 -->
         <n-button
@@ -71,7 +60,8 @@
         >
           ☰
         </n-button>
-      </div>
+      </n-grid>
+    </n-layout-header>
 
       <!-- 移动端抽屉菜单 -->
       <n-drawer v-model:show="showMobileMenu" :width="280" placement="right">
@@ -83,22 +73,12 @@
           />
           <div class="mobile-actions">
             <div class="mobile-language-switch">
-              <n-button
-                :type="currentLocale === 'zh-CN' ? 'primary' : 'default'"
-                :class="['mobile-lang-item', { active: currentLocale === 'zh-CN' }]"
-                @click="switchLanguage('zh-CN')"
+              <LanguageSwitcher
                 size="small"
-              >
-                中文
-              </n-button>
-              <n-button
-                :type="currentLocale === 'en' ? 'primary' : 'default'"
-                :class="['mobile-lang-item', { active: currentLocale === 'en' }]"
-                @click="switchLanguage('en')"
-                size="small"
-              >
-                English
-              </n-button>
+                mobile
+                container-class="mobile-language-switch"
+                @language-changed="handleLanguageChanged"
+              />
             </div>
             <n-button type="primary" block @click="handleLogin">{{ t('navigation.admin_login') }}</n-button>
           </div>
@@ -107,46 +87,46 @@
     </header>
 
     <!-- 主要内容区域 -->
-    <main class="website-main">
+    <n-layout-content class="website-main">
       <router-view />
-    </main>
+    </n-layout-content>
 
     <!-- 页脚 -->
-    <footer class="website-footer">
+    <n-layout-footer class="website-footer">
       <div class="footer-container">
-        <div class="footer-content">
-          <div class="footer-section">
+        <n-grid :cols="3" :x-gap="50" class="footer-content">
+          <n-grid-item class="footer-section">
             <h3>{{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd.' }}</h3>
             <p>{{ currentLocale === 'zh-CN' ? '专业的先进系统级封装设计软硬件开发一站式服务供应商' : 'Professional advanced system-level packaging design and hardware/software development one-stop service provider' }}</p>
             <div class="certifications">
               <img src="/images/ISO9001质量管理体系认证证书.png" alt="ISO9001认证" class="cert-badge">
               <img src="/images/武器装备质量管理体系证书.png" alt="军工认证" class="cert-badge">
             </div>
-          </div>
+          </n-grid-item>
 
-          <div class="footer-section">
+          <n-grid-item class="footer-section">
             <h4>{{ $t('website.contact.title') }}</h4>
             <p><span>📍</span> {{ $t('website.contact.address') }}</p>
             <p><span>📞</span> {{ $t('website.contact.phone') }}</p>
             <p><span>📧</span> {{ $t('website.contact.email') }}</p>
-          </div>
+          </n-grid-item>
 
-          <div class="footer-section">
+          <n-grid-item class="footer-section">
             <h4>{{ $t('navigation.business') }}</h4>
             <p>• {{ $t('website.service_nav.advanced_packaging') }}</p>
             <p>• {{ $t('website.service_nav.hardware_solution') }}</p>
             <p>• {{ currentLocale === 'zh-CN' ? 'PCB设计与仿真' : 'PCB Design & Simulation' }}</p>
             <p>• {{ currentLocale === 'zh-CN' ? '系统级测试服务' : 'System-level Testing Services' }}</p>
-          </div>
-        </div>
+          </n-grid-item>
+        </n-grid>
 
         <div class="footer-bottom">
           <p>&copy; 2019-2025 {{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司 版权所有' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd. All Rights Reserved' }}</p>
           <p>{{ currentLocale === 'zh-CN' ? '专业技术 · 快速响应 · 质量保证' : 'Professional Technology · Rapid Response · Quality Assurance' }}</p>
         </div>
       </div>
-    </footer>
-  </div>
+    </n-layout-footer>
+  </n-layout>
 </template>
 
 <script setup>
@@ -155,6 +135,7 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { lStorage } from '@/utils'
 import { websiteThemeOverrides } from '~/settings'
+import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
 
 const router = useRouter()
 const { locale, t } = useI18n()
@@ -228,20 +209,16 @@ const toggleMobileMenu = () => {
 
 // 处理移动端菜单项点击
 const handleMobileMenuSelect = (key, item) => {
-  // 导航到对应的锚点
-  if (item.href) {
+  // 导航到对应的锚点 - 添加window对象安全检查
+  if (item.href && typeof window !== 'undefined') {
     window.location.href = item.href
   }
   // 关闭移动端菜单
   showMobileMenu.value = false
 }
 
-// 语言切换功能
-const switchLanguage = (lang) => {
-  const targetLang = lang === 'zh-CN' ? 'cn' : 'en'
-  locale.value = targetLang
-  lStorage.set('locale', targetLang)
-
+// 处理语言切换事件
+const handleLanguageChanged = (targetLang) => {
   // 关闭移动端菜单
   showMobileMenu.value = false
 }
@@ -255,14 +232,14 @@ const switchLanguage = (lang) => {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--n-font-family);
 }
 
 /* 顶部导航栏 - 华天科技风格 */
 .website-header {
-  background: #ffffff;
-  border-bottom: 1px solid #e0e6ed;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  background: var(--n-color-base);
+  border-bottom: 1px solid var(--n-border-color);
+  box-shadow: var(--n-box-shadow-1);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -272,16 +249,29 @@ const switchLanguage = (lang) => {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 30px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   height: 90px;
+  align-items: center;
 }
 
 /* 左侧Logo区域 - 华天科技风格 */
 .header-left {
   display: flex;
   align-items: center;
+  height: 100%;
+}
+
+/* 中间导航区域 */
+.header-nav-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* 右侧操作区域 */
+.header-right {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .company-logo {
@@ -304,7 +294,7 @@ const switchLanguage = (lang) => {
 .company-name {
   font-size: 28px;
   font-weight: bold;
-  color: #1e3a8a;
+  color: var(--n-color-primary);
   margin: 0;
   line-height: 1.2;
   letter-spacing: 1px;
@@ -312,7 +302,7 @@ const switchLanguage = (lang) => {
 
 .company-subtitle {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--n-text-color-2);
   margin: 0;
   line-height: 1.2;
   font-weight: 400;
@@ -321,10 +311,11 @@ const switchLanguage = (lang) => {
 /* 中间导航菜单 - 华天科技风格 */
 .header-nav {
   flex-wrap: nowrap !important;
+  width: 100%;
 }
 
 .nav-item {
-  color: #374151;
+  color: var(--n-text-color-base);
   text-decoration: none;
   font-weight: 500;
   font-size: 15px;
@@ -338,8 +329,8 @@ const switchLanguage = (lang) => {
 
 .nav-item:hover,
 .nav-item.active {
-  color: #1e3a8a;
-  border-bottom-color: #f59e0b;
+  color: var(--n-color-primary);
+  border-bottom-color: var(--n-accent-color);
 }
 
 .nav-item::after {
@@ -349,7 +340,7 @@ const switchLanguage = (lang) => {
   left: 0;
   width: 0;
   height: 2px;
-  background: #f59e0b;
+  background: var(--n-accent-color);
   transition: width 0.3s ease;
 }
 
@@ -358,46 +349,8 @@ const switchLanguage = (lang) => {
   width: 100%;
 }
 
-/* 右侧操作区域 - 华天科技风格 */
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
 .language-switch {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  margin-right: 20px;
-}
-
-.lang-item {
-  background: none;
-  border: none;
-  color: #6b7280;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.lang-item.active {
-  color: #1e3a8a;
-  background: #f0f9ff;
-  font-weight: 600;
-}
-
-.lang-item:hover {
-  color: #1e40af;
-  background: #f8fafc;
-}
-
-.lang-divider {
-  color: #d1d5db;
+  /* 样式由LanguageSwitcher组件管理 */
 }
 
 /* 管理员登录图标 */
@@ -405,7 +358,7 @@ const switchLanguage = (lang) => {
   width: 40px !important;
   height: 40px !important;
   border-radius: 50% !important;
-  background: rgba(30, 58, 138, 0.08) !important;
+  background: var(--n-color-primary-suppl) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -418,19 +371,19 @@ const switchLanguage = (lang) => {
 }
 
 .admin-login:hover {
-  background: rgba(30, 58, 138, 0.15) !important;
+  background: var(--n-color-pressed) !important;
   transform: scale(1.05) !important;
 }
 
 .login-icon {
   width: 20px;
   height: 20px;
-  color: #1e3a8a;
+  color: var(--n-color-primary);
   transition: color 0.3s ease;
 }
 
 .admin-login:hover .login-icon {
-  color: #1e40af;
+  color: var(--n-color-primary-hover);
 }
 
 .login-btn {
@@ -486,40 +439,7 @@ const switchLanguage = (lang) => {
 }
 
 .mobile-language-switch {
-  display: flex;
-  gap: 8px;
   margin-bottom: 16px;
-  justify-content: center;
-}
-
-.mobile-lang-item {
-  flex: 1;
-}
-
-.mobile-lang-item {
-  background: none;
-  border: 1px solid #e5e7eb;
-  color: #6b7280;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  flex: 1;
-}
-
-.mobile-lang-item.active {
-  color: #1e3a8a;
-  background: #f0f9ff;
-  border-color: #1e3a8a;
-  font-weight: 600;
-}
-
-.mobile-lang-item:hover {
-  color: #1e40af;
-  background: #f8fafc;
-  border-color: #1e40af;
 }
 
 /* 主要内容区域 */
@@ -529,8 +449,8 @@ const switchLanguage = (lang) => {
 
 /* 页脚 - 华天科技风格 */
 .website-footer {
-  background: #1e3a8a;
-  color: #ffffff;
+  background: var(--n-color-primary);
+  color: var(--n-color-base);
   padding: 50px 0 30px;
 }
 
@@ -541,28 +461,25 @@ const switchLanguage = (lang) => {
 }
 
 .footer-content {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 50px;
   margin-bottom: 40px;
 }
 
 .footer-section h3 {
-  color: #ffffff;
+  color: var(--n-color-base);
   margin-bottom: 20px;
   font-size: 22px;
   font-weight: bold;
 }
 
 .footer-section h4 {
-  color: #f59e0b;
+  color: var(--n-accent-color);
   margin-bottom: 16px;
   font-size: 18px;
   font-weight: 600;
 }
 
 .footer-section p {
-  color: #cbd5e1;
+  color: var(--n-text-color-3);
   line-height: 1.7;
   margin-bottom: 10px;
   display: flex;
@@ -683,7 +600,7 @@ const switchLanguage = (lang) => {
     font-size: 10px;
   }
 
-  .header-nav {
+  .header-nav-container {
     display: none;
   }
 
@@ -695,9 +612,9 @@ const switchLanguage = (lang) => {
     display: block;
   }
 
-  .footer-content {
-    grid-template-columns: 1fr;
-    gap: 24px;
+  .footer-content :deep(.n-grid) {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
   }
 
   .certifications {
