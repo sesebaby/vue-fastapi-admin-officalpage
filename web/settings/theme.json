@@ -33,5 +33,43 @@
       "errorColorPressed": "#AB1F3FFF",
       "errorColorSuppl": "#DE576DFF"
     }
+  },
+  "websiteThemeOverrides": {
+    "common": {
+      "primaryColor": "#1e3a8a",
+      "primaryColorHover": "#1e40af",
+      "primaryColorPressed": "#1e3a8a",
+      "textColorBase": "#374151",
+      "textColor1": "#374151",
+      "textColor2": "#6b7280",
+      "textColor3": "#9ca3af",
+      "borderColor": "#e5e7eb",
+      "dividerColor": "#f3f4f6",
+      "backgroundColor": "#ffffff",
+      "bodyColor": "#ffffff",
+      "cardColor": "#ffffff",
+      "modalColor": "#ffffff",
+      "popoverColor": "#ffffff",
+      "tableHeaderColor": "#f9fafb",
+      "hoverColor": "#f8fafc",
+      "pressedColor": "#f0f9ff",
+      "opacityDisabled": "0.5",
+      "fontFamily": "inherit",
+      "fontSize": "14px",
+      "fontSizeMini": "12px",
+      "fontSizeSmall": "14px",
+      "fontSizeMedium": "14px",
+      "fontSizeLarge": "16px",
+      "fontSizeHuge": "18px",
+      "lineHeight": "1.6",
+      "borderRadius": "6px",
+      "borderRadiusSmall": "4px",
+      "heightMini": "28px",
+      "heightTiny": "32px",
+      "heightSmall": "36px",
+      "heightMedium": "40px",
+      "heightLarge": "44px",
+      "heightHuge": "48px"
+    }
   }
 }

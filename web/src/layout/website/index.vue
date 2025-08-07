@@ -27,7 +27,7 @@
 
         <!-- 右侧语言切换和登录入口 -->
         <div class="header-right">
-          <div class="language-switch">
+          <n-space :size="8" align="center" class="language-switch">
             <n-button
               text
               :type="currentLocale === 'zh-CN' ? 'primary' : 'default'"
@@ -45,7 +45,7 @@
             >
               English
             </n-button>
-          </div>
+          </n-space>
 
           <!-- 管理员登录图标按钮 -->
           <div class="admin-login" @click="handleLogin" :title="$t('navigation.admin_login_tooltip')">
@@ -173,9 +173,11 @@ const switchLanguage = (lang) => {
 // 处理移动端菜单外部点击关闭
 const handleClickOutside = (event) => {
   const mobileMenu = document.querySelector('.mobile-menu')
-  const menuToggle = document.querySelector('.mobile-menu-toggle')
+  const menuToggle = document.querySelector('.mobile-menu-btn')
 
-  if (mobileMenu && !mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+  if (mobileMenu && menuToggle &&
+      !mobileMenu.contains(event.target) &&
+      !menuToggle.contains(event.target)) {
     showMobileMenu.value = false
   }
 }
