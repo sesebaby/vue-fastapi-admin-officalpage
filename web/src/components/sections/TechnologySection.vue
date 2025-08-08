@@ -14,10 +14,12 @@
         <!-- 技术概览区域 - 使用Naive UI Grid布局 -->
         <n-grid
           :cols="2"
+          :collapsed="true"
+          :collapsed-rows="1"
           :x-gap="60"
-          item-responsive
+          :y-gap="40"
           responsive="screen"
-          style="align-items: center;"
+          align-items="center"
         >
           <!-- 左侧图片 -->
           <n-grid-item>
@@ -26,7 +28,8 @@
               :fallback-src="PLACEHOLDER_IMAGES.technology"
               alt="业务范围"
               object-fit="cover"
-              style="width: 100%; height: 400px; border-radius: 12px;"
+              width="100%"
+              class="tech-overview-image"
             />
           </n-grid-item>
 
@@ -89,9 +92,10 @@
         <!-- 技术能力卡片区域 - 使用Naive UI Grid -->
         <n-grid
           :cols="4"
+          :collapsed="true"
+          :collapsed-rows="2"
           :x-gap="30"
           :y-gap="30"
-          item-responsive
           responsive="screen"
         >
           <!-- 先进封装技术卡片 -->
@@ -182,10 +186,7 @@
 </template>
 
 <script setup>
-import { useI18n } from 'vue-i18n'
 import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
-
-const { t } = useI18n()
 </script>
 
 <style scoped>
@@ -282,37 +283,17 @@ const { t } = useI18n()
  * n-image组件处理图片显示，n-avatar组件处理图标
  */
 
-/* 响应式设计 - 简化版，主要依赖Naive UI的响应式能力 */
-@media (max-width: 768px) {
-  .technology-section {
-    padding: 80px 0;
-  }
-
-  .section-container {
-    padding: 0 20px;
-  }
-
-  .section-title {
-    font-size: 32px;
-  }
+/* 技术概览图片样式 - 使用 Naive UI 兼容的方式 */
+.tech-overview-image {
+  aspect-ratio: 4/3;
+  border-radius: 12px;
 }
 
-
-@media (max-width: 480px) {
-  .technology-section {
-    padding: 60px 0;
-  }
-
-  .section-container {
-    padding: 0 16px;
-  }
-
-  .section-title {
-    font-size: 28px;
-  }
-
-  .tech-overview-title {
-    font-size: 20px;
-  }
-}
+/*
+ * 响应式布局完全由 Naive UI 组件处理：
+ * - n-grid 的 collapsed 属性自动处理小屏幕单列布局
+ * - n-grid 的 align-items 属性处理垂直对齐
+ * - 移除所有自定义媒体查询和 !important 覆盖
+ * - 严格遵循 Naive UI 优先原则
+ */
 </style>
