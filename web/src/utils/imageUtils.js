@@ -25,6 +25,9 @@ export const PLACEHOLDER_IMAGES = {
 export const IMAGE_RESOURCES = {
   // Hero轮播图片 - 使用实际存在的图片路径
   hero: {
+    company_hero: '/images/hero_pictore_company.png',     // 第一张轮播 - 公司主图
+    tech_background: '/images/科技背景图片.jpg',           // 第二张轮播 - 科技背景
+    // 备用图片配置
     tech_concept: '/images/商务科技概念图.png',
     circuit_background: '/images/科技电路背景图.png',
     business_office: '/images/business_office_scene.jpg'
