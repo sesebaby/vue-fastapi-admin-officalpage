@@ -103,61 +103,94 @@
           <!-- 右侧：认证展示 -->
           <n-grid-item>
             <div class="certifications-section">
-              <n-space vertical align="center" :size="24">
-                <h4 class="cert-section-title">权威认证</h4>
-
-                <n-space :size="30" justify="center" align="center">
-                  <n-tooltip trigger="hover" placement="top">
-                    <template #trigger>
-                      <div class="cert-card">
-                        <n-image
-                          :src="getImagePath('certificates', 'iso9001')"
-                          :fallback-src="PLACEHOLDER_IMAGES.certificate"
-                          alt="ISO9001认证"
-                          width="120"
-                          height="120"
-                          object-fit="contain"
-                          class="cert-image"
-                        />
-                        <div class="cert-overlay">
-                          <n-text class="cert-name">ISO9001</n-text>
-                        </div>
+              <n-space :size="30" justify="center" align="center">
+                <n-tooltip trigger="hover" placement="top">
+                  <template #trigger>
+                    <div
+                      class="cert-card"
+                      @click="openImageModal('iso9001', $t('website.stats.iso_certification'))"
+                    >
+                      <n-image
+                        :src="getImagePath('certificates', 'iso9001')"
+                        :fallback-src="PLACEHOLDER_IMAGES.certificate"
+                        alt="ISO9001认证"
+                        :width="certImageSize.width"
+                        :height="certImageSize.height"
+                        object-fit="contain"
+                        class="cert-image"
+                      />
+                      <div class="cert-overlay">
+                        <n-text class="cert-name">ISO9001</n-text>
                       </div>
-                    </template>
-                    {{ $t('website.stats.iso_certification') }}
-                  </n-tooltip>
+                    </div>
+                  </template>
+                  {{ $t('website.stats.iso_certification') }}
+                </n-tooltip>
 
-                  <n-tooltip trigger="hover" placement="top">
-                    <template #trigger>
-                      <div class="cert-card">
-                        <n-image
-                          :src="getImagePath('certificates', 'military')"
-                          :fallback-src="PLACEHOLDER_IMAGES.certificate"
-                          alt="军工认证"
-                          width="120"
-                          height="120"
-                          object-fit="contain"
-                          class="cert-image"
-                        />
-                        <div class="cert-overlay">
-                          <n-text class="cert-name">军工认证</n-text>
-                        </div>
+                <n-tooltip trigger="hover" placement="top">
+                  <template #trigger>
+                    <div
+                      class="cert-card"
+                      @click="openImageModal('military', $t('website.stats.military_certification'))"
+                    >
+                      <n-image
+                        :src="getImagePath('certificates', 'military')"
+                        :fallback-src="PLACEHOLDER_IMAGES.certificate"
+                        alt="军工认证"
+                        :width="certImageSize.width"
+                        :height="certImageSize.height"
+                        object-fit="contain"
+                        class="cert-image"
+                      />
+                      <div class="cert-overlay">
+                        <n-text class="cert-name">军工认证</n-text>
                       </div>
-                    </template>
-                    {{ $t('website.stats.military_certification') }}
-                  </n-tooltip>
-                </n-space>
+                    </div>
+                  </template>
+                  {{ $t('website.stats.military_certification') }}
+                </n-tooltip>
               </n-space>
             </div>
           </n-grid-item>
         </n-grid>
       </n-space>
     </n-card>
+
+    <!-- 认证图片大图模态框 -->
+    <n-modal
+      v-model:show="showImageModal"
+      :mask-closable="true"
+      :close-on-esc="true"
+      preset="card"
+      class="cert-modal"
+      :style="{ maxWidth: '90vw', maxHeight: '90vh' }"
+    >
+      <template #header>
+        <n-text strong>{{ currentImageTitle }}</n-text>
+      </template>
+
+      <div class="modal-image-container">
+        <n-image
+          :src="currentImageSrc"
+          :fallback-src="PLACEHOLDER_IMAGES.certificate"
+          :alt="currentImageTitle"
+          object-fit="contain"
+          class="modal-cert-image"
+          :style="{ maxWidth: '100%', maxHeight: '70vh' }"
+        />
+      </div>
+
+      <template #action>
+        <n-button @click="closeImageModal" type="primary">
+          关闭
+        </n-button>
+      </template>
+    </n-modal>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useBreakpoints } from '@vueuse/core'
 import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
@@ -192,6 +225,13 @@ const statsGridCols = computed(() => {
   return 2  // 移动端：2列
 })
 
+// 认证图片尺寸（响应式）
+const certImageSize = computed(() => {
+  if (breakpoints.lg.value) return { width: 150, height: 150 }  // 桌面端：150x150
+  if (breakpoints.md.value) return { width: 130, height: 130 }  // 平板：130x130
+  return { width: 110, height: 110 }  // 移动端：110x110
+})
+
 // 统计数字样式
 const statisticStyle = computed(() => ({
   fontSize: '36px',
@@ -199,6 +239,25 @@ const statisticStyle = computed(() => ({
   color: 'var(--sipumtech-primary-blue)',
   textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
 }))
+
+// 图片模态框状态
+const showImageModal = ref(false)
+const currentImageSrc = ref('')
+const currentImageTitle = ref('')
+
+// 打开图片模态框
+const openImageModal = (imageKey, title) => {
+  currentImageSrc.value = getImagePath('certificates', imageKey)
+  currentImageTitle.value = title
+  showImageModal.value = true
+}
+
+// 关闭图片模态框
+const closeImageModal = () => {
+  showImageModal.value = false
+  currentImageSrc.value = ''
+  currentImageTitle.value = ''
+}
 </script>
 
 <style scoped>
@@ -315,20 +374,16 @@ const statisticStyle = computed(() => ({
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   text-align: center;
-}
-
-.cert-section-title {
-  font-size: var(--sipumtech-font-size-h4);
-  font-weight: var(--sipumtech-font-weight-bold);
-  color: var(--sipumtech-primary-blue);
-  margin: 0;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
 }
 
 .cert-card {
   position: relative;
-  padding: 20px;
-  border-radius: 16px;
+  padding: 24px;
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
@@ -336,6 +391,7 @@ const statisticStyle = computed(() => ({
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .cert-card::before {
@@ -359,12 +415,12 @@ const statisticStyle = computed(() => ({
 }
 
 .cert-card:hover {
-  transform: translateY(-8px) scale(1.05);
+  transform: translateY(-12px) scale(1.08);
   border-color: var(--sipumtech-accent-green);
   box-shadow:
-    0 16px 32px rgba(0, 0, 0, 0.15),
-    0 8px 16px rgba(0, 212, 170, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    0 20px 40px rgba(0, 0, 0, 0.18),
+    0 12px 20px rgba(0, 212, 170, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .cert-image {
@@ -403,6 +459,33 @@ const statisticStyle = computed(() => ({
   display: block;
 }
 
+/* 模态框样式 */
+.cert-modal {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.modal-cert-image {
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.modal-cert-image:hover {
+  transform: scale(1.02);
+}
+
 /* 暗色模式适配 */
 @media (prefers-color-scheme: dark) {
   .stats-card {
@@ -438,12 +521,7 @@ const statisticStyle = computed(() => ({
   }
 
   .cert-card {
-    padding: 16px;
-  }
-
-  .cert-image {
-    width: 100px !important;
-    height: 100px !important;
+    padding: 20px;
   }
 }
 
@@ -473,21 +551,16 @@ const statisticStyle = computed(() => ({
   }
 
   .cert-card {
-    padding: 12px;
-    border-radius: 12px;
-  }
-
-  .cert-image {
-    width: 80px !important;
-    height: 80px !important;
-  }
-
-  .cert-section-title {
-    font-size: var(--sipumtech-font-size-body);
+    padding: 16px;
+    border-radius: 16px;
   }
 
   .cert-name {
     font-size: 12px;
+  }
+
+  .modal-image-container {
+    padding: 12px;
   }
 }
 
