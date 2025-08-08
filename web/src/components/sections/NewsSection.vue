@@ -81,7 +81,7 @@
                   :alt="$t(item.titleKey)"
                   :fallback-src="PLACEHOLDER_IMAGES.news"
                   object-fit="cover"
-                  style="height: 200px;"
+                  class="news-image"
                 />
               </template>
 
@@ -229,15 +229,7 @@ const handleRetry = () => {
   padding: 0 var(--sipumtech-container-padding-desktop);
 }
 
-/* 保留必要的品牌样式 */
-.section-title {
-  font-size: var(--sipumtech-font-size-h1);
-  font-weight: var(--sipumtech-font-weight-bold);
-  color: var(--sipumtech-primary-blue);
-  margin: 0;
-  line-height: var(--sipumtech-line-height-tight);
-}
-
+/* 保留必要的品牌装饰样式 */
 .title-underline {
   width: 80px;
   height: 4px;
@@ -245,70 +237,27 @@ const handleRetry = () => {
   border-radius: var(--sipumtech-radius-sm);
 }
 
-/*
- * 更多按钮样式已移除 !important 强制覆盖
- * 现在通过 n-button 组件的原生属性和 CSS 变量实现样式
- * 避免与 Naive UI 组件样式系统冲突
- */
-
-/* 新闻卡片内容样式 */
-.news-title {
-  font-size: 18px;
-  font-weight: var(--sipumtech-font-weight-semibold);
-  color: var(--sipumtech-primary-blue);
-  margin: 0;
-  line-height: 1.4;
-}
-
-.news-excerpt {
-  font-size: var(--sipumtech-font-size-small);
-  color: var(--sipumtech-text-secondary);
-  line-height: var(--sipumtech-line-height-relaxed);
-  margin: 0;
+/* 响应式新闻图片样式 */
+.news-image {
+  width: 100%;
+  aspect-ratio: 16/9;
 }
 
 /*
- * 新闻网格和卡片样式已移除 - 现在使用Naive UI组件
- * n-grid组件处理布局，n-card组件处理卡片样式和悬停效果
- * n-image组件处理图片显示和错误处理
- * n-tag组件处理日期标签
- * n-ellipsis组件处理文本截断
+ * 所有文本内容样式已迁移到 n-text 组件的 :style 属性
+ * - 标题样式通过 n-text 组件管理
+ * - 新闻卡片内容样式通过 n-text 和 n-ellipsis 组件管理
+ * - 移除所有 margin: 0 重置和自定义文本样式类
+ * - 完全依赖 Naive UI 组件属性管理样式
  */
 
-/* 响应式设计 - 简化版，主要依赖Naive UI的响应式能力 */
-@media (max-width: 768px) {
-  .news-section {
-    padding: 80px 0;
-  }
-
-  .section-container {
-    padding: 0 20px;
-  }
-
-  .section-title {
-    font-size: 32px;
-  }
-}
-
-@media (max-width: 480px) {
-  .news-section {
-    padding: 60px 0;
-  }
-
-  .section-container {
-    padding: 0 16px;
-  }
-
-  .section-title {
-    font-size: 28px;
-  }
-
-  .news-title {
-    font-size: 16px;
-  }
-
-  .news-excerpt {
-    font-size: 13px;
-  }
-}
+/*
+ * 响应式布局完全由 Naive UI 组件处理：
+ * - n-grid 的 item-responsive 和 responsive="screen" 自动处理响应式布局
+ * - n-card 组件自动适配不同屏幕尺寸的卡片样式
+ * - n-image 组件通过 .news-image 类实现响应式图片
+ * - n-text 组件通过 CSS 变量实现一致的字体缩放
+ * - n-ellipsis 组件自动处理文本截断和响应式
+ * - 移除所有自定义媒体查询，严格遵循 Naive UI 优先原则
+ */
 </style>

@@ -89,7 +89,7 @@
               :fallback-src="PLACEHOLDER_IMAGES.business"
               alt="办公场景"
               object-fit="cover"
-              style="width: 100%; height: 400px; border-radius: 12px;"
+              class="responsive-image"
             />
 
             <!-- 图片覆盖层信息 -->
@@ -99,8 +99,23 @@
               style="position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);"
             >
               <n-space vertical :size="8">
-                <h4 class="overlay-title">{{ $t('website.about.team_overlay_title') }}</h4>
-                <p class="overlay-description">{{ $t('website.about.team_overlay_desc') }}</p>
+                <n-text
+                  :style="{
+                    fontSize: '18px',
+                    fontWeight: 'var(--sipumtech-font-weight-semibold)',
+                    color: 'var(--sipumtech-primary-blue)'
+                  }"
+                >
+                  {{ $t('website.about.team_overlay_title') }}
+                </n-text>
+                <n-text
+                  :style="{
+                    fontSize: 'var(--sipumtech-font-size-small)',
+                    color: 'var(--sipumtech-text-secondary)'
+                  }"
+                >
+                  {{ $t('website.about.team_overlay_desc') }}
+                </n-text>
               </n-space>
             </n-card>
           </div>
@@ -180,25 +195,10 @@ const { t } = useI18n()
   50% { transform: translateX(40px); }
 }
 
-/* 保留的内容样式 */
-.intro-highlight {
-  font-size: var(--sipumtech-font-size-h5);
-  font-weight: var(--sipumtech-font-weight-semibold);
-  color: var(--sipumtech-primary-blue);
-  margin: 0;
-  line-height: var(--sipumtech-line-height-relaxed);
-}
-
-.intro-description {
-  font-size: var(--sipumtech-font-size-body);
-  color: var(--sipumtech-text-secondary);
-  margin: 0;
-  line-height: var(--sipumtech-line-height-loose);
-}
-
 /*
- * 统计数据样式已移除 - 现在使用Naive UI的n-statistic组件
- * 自动处理数字显示、标签、悬停效果等
+ * 所有文本内容样式已迁移到 n-text 组件的 :style 属性
+ * 移除所有 margin: 0 重置和自定义文本样式类
+ * 完全依赖 Naive UI 组件属性管理样式
  */
 
 /* 图片容器样式 */
@@ -206,66 +206,26 @@ const { t } = useI18n()
   position: relative;
 }
 
-/* 覆盖层卡片内容样式 */
-.overlay-title {
-  font-size: 18px;
-  font-weight: var(--sipumtech-font-weight-semibold);
-  color: var(--sipumtech-primary-blue);
-  margin: 0;
-}
-
-.overlay-description {
-  font-size: var(--sipumtech-font-size-small);
-  color: var(--sipumtech-text-secondary);
-  margin: 0;
+/* 响应式图片样式 */
+.responsive-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 12px;
 }
 
 /*
- * 图片和覆盖层样式已移除 - 现在使用Naive UI组件
- * n-image组件处理图片显示和悬停效果
- * n-card组件处理覆盖层样式和动画
+ * 图片和覆盖层样式完全由 Naive UI 组件处理：
+ * - n-image 组件处理图片显示、加载状态、错误处理
+ * - n-card 组件处理覆盖层样式、背景、边框
+ * - 使用 aspect-ratio 替代固定高度，实现响应式适配
  */
 
-/* 响应式设计 - 简化版，主要依赖Naive UI的响应式能力 */
-@media (max-width: 1024px) {
-  .section-title {
-    font-size: 36px;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-section {
-    padding: 80px 0;
-  }
-
-  .section-container {
-    padding: 0 20px;
-  }
-
-  .section-title {
-    font-size: 32px;
-  }
-
-  .intro-highlight {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 480px) {
-  .about-section {
-    padding: 60px 0;
-  }
-
-  .section-container {
-    padding: 0 16px;
-  }
-
-  .section-title {
-    font-size: 28px;
-  }
-
-  .intro-highlight {
-    font-size: 16px;
-  }
-}
+/*
+ * 响应式布局完全由 Naive UI 组件处理：
+ * - n-grid 的 collapsed 和 responsive="screen" 自动处理响应式布局
+ * - n-statistic 组件自动适配不同屏幕尺寸
+ * - n-text 组件通过 CSS 变量实现一致的字体缩放
+ * - .responsive-image 使用 aspect-ratio 实现图片响应式
+ * - 移除所有自定义媒体查询，严格遵循 Naive UI 优先原则
+ */
 </style>
