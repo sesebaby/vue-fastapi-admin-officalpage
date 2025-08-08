@@ -27,12 +27,12 @@
           height="100vh"
           style="position: absolute; top: 0; left: 0; z-index: 1; display: block;"
           :img-props="{
-            style: 'filter: brightness(1.1) contrast(1.05); object-position: center center;'
+            style: `filter: brightness(1.1) contrast(1.05); object-position: ${objectPosition};`
           }"
           @load="handleImageLoad"
           @error="handleImageLoad"
         />
-        <div class="hero-overlay"></div>
+
       </div>
 
       <!-- 第二张轮播 - 使用科技背景图片 -->
@@ -46,19 +46,19 @@
           height="100vh"
           style="position: absolute; top: 0; left: 0; z-index: 1; display: block;"
           :img-props="{
-            style: 'filter: brightness(1.2) contrast(1.1); object-position: center center;'
+            style: `filter: brightness(1.2) contrast(1.1); object-position: ${objectPosition};`
           }"
           @load="handleImageLoad"
           @error="handleImageLoad"
         />
-        <div class="hero-overlay"></div>
+
       </div>
     </n-carousel>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
 // 定义事件 - 移除滚动事件，因为没有按钮了
@@ -110,6 +110,20 @@ const goToSlide = (index) => {
     carouselRef.value.to(index)
   }
 }
+// 根据视口比例计算图片的 object-position，尽量保证主体居中显示
+const objectPosition = computed(() => {
+  const vw = window.innerWidth
+  const vh = window.innerHeight
+  const viewportRatio = vw / vh // 例：1.78 for 16:9
+
+  // 两张图的已知宽高比
+  const ratios = [1.41, 1.6]
+  // 当视口明显更宽（>1.8）时，略微向上对齐避免顶部留白；竖屏时向中心偏上
+  if (viewportRatio > 1.8) return 'center 45%'
+  if (viewportRatio < 0.75) return 'center 35%'
+  return 'center center'
+})
+
 
 // 生命周期管理 - 确保轮播正确初始化
 onMounted(() => {
@@ -141,23 +155,7 @@ onUnmounted(() => {
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); /* 加载时的背景色 */
 }
 
-/* 轮播组件优化 */
-.hero-banner :deep(.n-carousel) {
-  width: 100% !important;
-  height: 100vh !important;
-  overflow: hidden;
-}
-
-/* 轮播项容器优化 */
-.hero-banner :deep(.n-carousel__slides) {
-  width: 100% !important;
-  height: 100vh !important;
-}
-
-.hero-banner :deep(.n-carousel__slide) {
-  width: 100% !important;
-  height: 100vh !important;
-}
+/* 轮播容器尺寸由 n-carousel 的内联 style 控制为 100vh，此处不再覆盖内部结构样式（遵循 Naive UI 优先原则） */
 
 /* 轮播指示器样式优化 */
 .hero-banner :deep(.n-carousel__dots) {
@@ -189,36 +187,8 @@ onUnmounted(() => {
   overflow: hidden; /* 确保图片不会超出容器 */
 }
 
-/* 强制图片填充整个容器 */
-.hero-slide :deep(.n-image) {
-  width: 100% !important;
-  height: 100vh !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-}
+/* 遵循 Naive UI 优先原则：不覆盖 n-image 内部结构，由组件属性控制填充与对齐 */
 
-.hero-slide :deep(.n-image img) {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center center !important;
-  display: block !important;
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg,
-    rgba(30, 58, 138, 0.4) 0%,
-    rgba(59, 130, 246, 0.3) 50%,
-    rgba(0, 212, 170, 0.2) 100%
-  );
-  z-index: 2;
-}
 
 /*
  * 文字样式已移除 - Hero区域现在只显示纯净的轮播图片背景
