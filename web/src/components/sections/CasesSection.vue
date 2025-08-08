@@ -14,10 +14,12 @@
         <!-- 服务概览区域 - 使用Naive UI Grid布局 -->
         <n-grid
           :cols="2"
+          :collapsed="true"
+          :collapsed-rows="1"
           :x-gap="60"
-          item-responsive
+          :y-gap="40"
           responsive="screen"
-          style="align-items: center;"
+          align-items="center"
         >
           <!-- 左侧图片 -->
           <n-grid-item>
@@ -26,7 +28,8 @@
               :fallback-src="PLACEHOLDER_IMAGES.case"
               alt="服务覆盖"
               object-fit="cover"
-              style="width: 100%; height: 350px; border-radius: 12px;"
+              width="100%"
+              class="overview-image"
             />
           </n-grid-item>
 
@@ -42,9 +45,10 @@
         <!-- 行业领域卡片 - 使用Naive UI Grid -->
         <n-grid
           :cols="5"
+          :collapsed="true"
+          :collapsed-rows="3"
           :x-gap="24"
           :y-gap="24"
-          item-responsive
           responsive="screen"
         >
           <!-- 通信设备 -->
@@ -59,8 +63,25 @@
                   📡
                 </n-avatar>
                 <n-space vertical align="center" :size="8">
-                  <h4 class="sector-title">{{ $t('website.cases.sector_1_title') }}</h4>
-                  <p class="sector-desc">{{ $t('website.cases.sector_1_desc') }}</p>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-body)',
+                      fontWeight: 'var(--sipumtech-font-weight-bold)',
+                      color: 'var(--sipumtech-primary-blue)'
+                    }"
+                  >
+                    {{ $t('website.cases.sector_1_title') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-small)',
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: 'var(--sipumtech-line-height-normal)',
+                      textAlign: 'center'
+                    }"
+                  >
+                    {{ $t('website.cases.sector_1_desc') }}
+                  </n-text>
                 </n-space>
               </n-space>
             </n-card>
@@ -78,8 +99,25 @@
                   🏫
                 </n-avatar>
                 <n-space vertical align="center" :size="8">
-                  <h4 class="sector-title">{{ $t('website.cases.sector_2_title') }}</h4>
-                  <p class="sector-desc">{{ $t('website.cases.sector_2_desc') }}</p>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-body)',
+                      fontWeight: 'var(--sipumtech-font-weight-bold)',
+                      color: 'var(--sipumtech-primary-blue)'
+                    }"
+                  >
+                    {{ $t('website.cases.sector_2_title') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-small)',
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: 'var(--sipumtech-line-height-normal)',
+                      textAlign: 'center'
+                    }"
+                  >
+                    {{ $t('website.cases.sector_2_desc') }}
+                  </n-text>
                 </n-space>
               </n-space>
             </n-card>
@@ -97,8 +135,25 @@
                   🏭
                 </n-avatar>
                 <n-space vertical align="center" :size="8">
-                  <h4 class="sector-title">{{ $t('website.cases.sector_3_title') }}</h4>
-                  <p class="sector-desc">{{ $t('website.cases.sector_3_desc') }}</p>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-body)',
+                      fontWeight: 'var(--sipumtech-font-weight-bold)',
+                      color: 'var(--sipumtech-primary-blue)'
+                    }"
+                  >
+                    {{ $t('website.cases.sector_3_title') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-small)',
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: 'var(--sipumtech-line-height-normal)',
+                      textAlign: 'center'
+                    }"
+                  >
+                    {{ $t('website.cases.sector_3_desc') }}
+                  </n-text>
                 </n-space>
               </n-space>
             </n-card>
@@ -116,8 +171,25 @@
                   🏥
                 </n-avatar>
                 <n-space vertical align="center" :size="8">
-                  <h4 class="sector-title">{{ $t('website.cases.sector_4_title') }}</h4>
-                  <p class="sector-desc">{{ $t('website.cases.sector_4_desc') }}</p>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-body)',
+                      fontWeight: 'var(--sipumtech-font-weight-bold)',
+                      color: 'var(--sipumtech-primary-blue)'
+                    }"
+                  >
+                    {{ $t('website.cases.sector_4_title') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-small)',
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: 'var(--sipumtech-line-height-normal)',
+                      textAlign: 'center'
+                    }"
+                  >
+                    {{ $t('website.cases.sector_4_desc') }}
+                  </n-text>
                 </n-space>
               </n-space>
             </n-card>
@@ -135,8 +207,25 @@
                   🎓
                 </n-avatar>
                 <n-space vertical align="center" :size="8">
-                  <h4 class="sector-title">{{ $t('website.cases.sector_5_title') }}</h4>
-                  <p class="sector-desc">{{ $t('website.cases.sector_5_desc') }}</p>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-body)',
+                      fontWeight: 'var(--sipumtech-font-weight-bold)',
+                      color: 'var(--sipumtech-primary-blue)'
+                    }"
+                  >
+                    {{ $t('website.cases.sector_5_title') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-small)',
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: 'var(--sipumtech-line-height-normal)',
+                      textAlign: 'center'
+                    }"
+                  >
+                    {{ $t('website.cases.sector_5_desc') }}
+                  </n-text>
                 </n-space>
               </n-space>
             </n-card>
@@ -160,10 +249,7 @@
 </template>
 
 <script setup>
-import { useI18n } from 'vue-i18n'
 import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
-
-const { t } = useI18n()
 </script>
 
 <style scoped>
@@ -222,71 +308,31 @@ const { t } = useI18n()
   margin: 0;
 }
 
-/* 行业领域卡片内容样式 */
-.sector-title {
-  font-size: var(--sipumtech-font-size-body);
-  font-weight: var(--sipumtech-font-weight-bold);
-  color: var(--sipumtech-primary-blue);
-  margin: 0;
-  text-align: center;
+/* 服务概览图片样式 - 使用 Naive UI 兼容的方式 */
+.overview-image {
+  aspect-ratio: 4/3;
+  border-radius: 12px;
 }
 
-.sector-desc {
-  font-size: var(--sipumtech-font-size-small);
-  color: var(--sipumtech-text-secondary);
-  margin: 0;
-  line-height: var(--sipumtech-line-height-normal);
-  text-align: center;
-}
+/*
+ * 行业领域卡片样式已完全迁移到 Naive UI 组件
+ * - 使用 n-text 组件的 style 属性替代 .sector-title 和 .sector-desc
+ * - 使用 n-space align="center" 替代 text-align: center
+ * - 移除所有自定义 CSS 类，完全依赖 Naive UI 组件属性
+ */
 
 /* 服务流程标题样式 */
 .process-title {
   font-size: var(--sipumtech-font-size-h4);
   font-weight: var(--sipumtech-font-weight-bold);
   color: var(--sipumtech-primary-blue);
-  margin: 0;
 }
 
 /*
- * 案例概览和行业卡片样式已移除 - 现在使用Naive UI组件
- * n-grid组件处理布局，n-card组件处理卡片样式
- * n-image组件处理图片显示，n-avatar组件处理图标
+ * 响应式布局完全由 Naive UI 组件处理：
+ * - n-grid 的 collapsed 属性自动处理小屏幕单列布局
+ * - n-grid 的 align-items 属性处理垂直对齐
+ * - 移除所有自定义媒体查询和 !important 覆盖
+ * - 严格遵循 Naive UI 优先原则
  */
-
-/* 响应式设计 - 简化版，主要依赖Naive UI的响应式能力 */
-@media (max-width: 768px) {
-  .cases-section {
-    padding: 80px 0;
-  }
-
-  .section-container {
-    padding: 0 20px;
-  }
-
-  .section-title {
-    font-size: 32px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cases-section {
-    padding: 60px 0;
-  }
-
-  .section-container {
-    padding: 0 16px;
-  }
-
-  .section-title {
-    font-size: 28px;
-  }
-
-  .overview-title {
-    font-size: 20px;
-  }
-
-  .process-title {
-    font-size: 20px;
-  }
-}
 </style>
