@@ -400,14 +400,12 @@ onMounted(() => {
 .partner-logo {
   position: relative;
   z-index: 1;
-  filter: grayscale(100%);
-  opacity: 0.7;
+  opacity: 0.9;
   transition: all 0.4s ease;
   border-radius: 8px;
 }
 
 .partner-card-inner:hover .partner-logo {
-  filter: grayscale(0%);
   opacity: 1;
   transform: scale(1.05);
 }
