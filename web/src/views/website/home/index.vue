@@ -50,8 +50,9 @@
       </n-drawer-content>
     </n-drawer>
 
-    <!-- 侧边导航触发按钮 - 使用正确的 n-affix 属性 -->
+    <!-- 侧边导航触发按钮 - 使用正确的 n-affix 属性（仅小屏显示） -->
     <n-affix
+      class="side-nav-trigger"
       :trigger-top="200"
       :top="50"
       position="fixed"
@@ -405,5 +406,19 @@ section.section-half {
 
 /* 小屏幕响应式CSS已移至各个组件 */
 
+
+/* 侧边导航触发按钮响应式显示：
+ * - <=1024px 显示
+ * - >1024px 隐藏
+ */
+.side-nav-trigger {
+  display: block;
+}
+
+@media (min-width: 1025px) {
+  .side-nav-trigger {
+    display: none !important;
+  }
+}
 
 </style>
