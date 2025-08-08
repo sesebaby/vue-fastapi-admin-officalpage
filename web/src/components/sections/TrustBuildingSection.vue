@@ -249,12 +249,21 @@ const fetchPartnersData = async () => {
   await new Promise(resolve => setTimeout(resolve, 800))
 
   return [
+    // 第一行合作伙伴（6个）
     { name: '华为', logo: getImagePath('partners', 'huawei') },
     { name: '中兴', logo: getImagePath('partners', 'zte') },
     { name: '小米', logo: getImagePath('partners', 'xiaomi') },
     { name: '联想', logo: getImagePath('partners', 'lenovo') },
     { name: '海康威视', logo: getImagePath('partners', 'hikvision') },
-    { name: '大疆', logo: getImagePath('partners', 'dji') }
+    { name: '大疆', logo: getImagePath('partners', 'dji') },
+
+    // 第二行合作伙伴（6个）
+    { name: '腾讯', logo: getImagePath('business', 'advanced_packaging') },
+    { name: '阿里巴巴', logo: getImagePath('business', 'hardware_solution') },
+    { name: '百度', logo: getImagePath('technology', 'pcb_design') },
+    { name: '京东', logo: getImagePath('cases', 'automotive') },
+    { name: '美团', logo: getImagePath('cases', 'consumer') },
+    { name: '字节跳动', logo: getImagePath('cases', 'industrial') }
   ]
 }
 
