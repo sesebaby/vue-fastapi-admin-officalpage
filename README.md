@@ -273,8 +273,43 @@ pnpm dev
 
 #### 前端服务验证
 
-- 🌐 **开发服务器**：http://localhost:3000
+- 🌐 **开发服务器**：http://localhost:3060
 - 🔧 **Vite 配置**：支持热重载和快速构建
+
+## 🌐 官网开发指南
+
+> 📖 **详细文档**：[官网开发指南 (WEBSITE-DEV.md)](./WEBSITE-DEV.md)
+
+### 官网架构概览
+
+本项目包含两个主要部分：
+- **管理后台**：基于 RBAC 权限的管理系统（`/admin` 路径）
+- **企业官网**：面向公众的展示网站（根路径 `/`）
+
+### 官网快速开始
+
+```bash
+# 启动官网开发
+cd web
+pnpm install
+pnpm dev
+
+# 访问地址：http://localhost:3060
+```
+
+### 官网核心特性
+
+- **🎨 响应式设计**：PC/移动端自适应，基于 Naive UI 栅格系统
+- **🌍 国际化支持**：中英文切换，localStorage 持久化
+- **🎯 模块化架构**：首页区块组件化（Hero、About、Business 等）
+- **🚨 开发规范**：仅限修改 `web/src/views/website/`、`web/src/layout/website/`、`web/src/components/` 官网组件
+
+### 技术栈
+- **UI 框架**：Naive UI（优先使用原生组件）
+- **样式方案**：UnoCSS 原子化 CSS
+- **响应式**：@vueuse/core breakpoints
+- **国际化**：Vue I18n (cn/en)
+- **主题配置**：`web/settings/theme.json`
 
 ### 开发工具配置
 
