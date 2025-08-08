@@ -112,8 +112,25 @@
                   style="border-radius: 8px;"
                 />
                 <n-space vertical align="center" :size="12">
-                  <h4 class="capability-title">{{ $t('website.technology.capability_1_title') }}</h4>
-                  <p class="capability-desc">{{ $t('website.technology.capability_1_desc') }}</p>
+                  <n-text
+                    :style="{
+                      fontSize: '18px',
+                      fontWeight: 'var(--sipumtech-font-weight-bold)',
+                      color: 'var(--sipumtech-primary-blue)'
+                    }"
+                  >
+                    {{ $t('website.technology.capability_1_title') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-small)',
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: 'var(--sipumtech-line-height-normal)',
+                      textAlign: 'center'
+                    }"
+                  >
+                    {{ $t('website.technology.capability_1_desc') }}
+                  </n-text>
                 </n-space>
               </n-space>
             </n-card>
@@ -133,8 +150,25 @@
                   style="border-radius: 8px;"
                 />
                 <n-space vertical align="center" :size="12">
-                  <h4 class="capability-title">{{ $t('website.technology.capability_2_title') }}</h4>
-                  <p class="capability-desc">{{ $t('website.technology.capability_2_desc') }}</p>
+                  <n-text
+                    :style="{
+                      fontSize: '18px',
+                      fontWeight: 'var(--sipumtech-font-weight-bold)',
+                      color: 'var(--sipumtech-primary-blue)'
+                    }"
+                  >
+                    {{ $t('website.technology.capability_2_title') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-small)',
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: 'var(--sipumtech-line-height-normal)',
+                      textAlign: 'center'
+                    }"
+                  >
+                    {{ $t('website.technology.capability_2_desc') }}
+                  </n-text>
                 </n-space>
               </n-space>
             </n-card>
@@ -153,8 +187,25 @@
                   style="border-radius: 8px;"
                 />
                 <n-space vertical align="center" :size="12">
-                  <h4 class="capability-title">{{ $t('website.technology.capability_3_title') }}</h4>
-                  <p class="capability-desc">{{ $t('website.technology.capability_3_desc') }}</p>
+                  <n-text
+                    :style="{
+                      fontSize: '18px',
+                      fontWeight: 'var(--sipumtech-font-weight-bold)',
+                      color: 'var(--sipumtech-primary-blue)'
+                    }"
+                  >
+                    {{ $t('website.technology.capability_3_title') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-small)',
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: 'var(--sipumtech-line-height-normal)',
+                      textAlign: 'center'
+                    }"
+                  >
+                    {{ $t('website.technology.capability_3_desc') }}
+                  </n-text>
                 </n-space>
               </n-space>
             </n-card>
@@ -173,8 +224,25 @@
                   style="border-radius: 8px;"
                 />
                 <n-space vertical align="center" :size="12">
-                  <h4 class="capability-title">{{ $t('website.technology.capability_4_title') }}</h4>
-                  <p class="capability-desc">{{ $t('website.technology.capability_4_desc') }}</p>
+                  <n-text
+                    :style="{
+                      fontSize: '18px',
+                      fontWeight: 'var(--sipumtech-font-weight-bold)',
+                      color: 'var(--sipumtech-primary-blue)'
+                    }"
+                  >
+                    {{ $t('website.technology.capability_4_title') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-small)',
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: 'var(--sipumtech-line-height-normal)',
+                      textAlign: 'center'
+                    }"
+                  >
+                    {{ $t('website.technology.capability_4_desc') }}
+                  </n-text>
                 </n-space>
               </n-space>
             </n-card>
@@ -260,22 +328,12 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
   line-height: var(--sipumtech-line-height-normal);
 }
 
-/* 技术能力卡片内容样式 */
-.capability-title {
-  font-size: 18px;
-  font-weight: var(--sipumtech-font-weight-bold);
-  color: var(--sipumtech-primary-blue);
-  margin: 0;
-  text-align: center;
-}
-
-.capability-desc {
-  font-size: var(--sipumtech-font-size-small);
-  color: var(--sipumtech-text-secondary);
-  margin: 0;
-  line-height: var(--sipumtech-line-height-normal);
-  text-align: center;
-}
+/*
+ * 技术能力卡片样式已完全迁移到 Naive UI 组件
+ * - 使用 n-text 组件的 style 属性替代 .capability-title 和 .capability-desc
+ * - 使用 n-space align="center" 替代 text-align: center
+ * - 移除所有自定义 CSS 类，完全依赖 Naive UI 组件属性
+ */
 
 /*
  * 技术概览和能力卡片样式已移除 - 现在使用Naive UI组件
