@@ -104,51 +104,59 @@
           <n-grid-item>
             <div class="certifications-section">
               <n-space :size="30" justify="center" align="center">
-                <n-tooltip trigger="hover" placement="top">
-                  <template #trigger>
-                    <div
-                      class="cert-card"
-                      @click="openImageModal('iso9001', $t('website.stats.iso_certification'))"
-                    >
-                      <n-image
-                        :src="getImagePath('certificates', 'iso9001')"
-                        :fallback-src="PLACEHOLDER_IMAGES.certificate"
-                        alt="ISO9001认证"
-                        :width="certImageSize.width"
-                        :height="certImageSize.height"
-                        object-fit="contain"
-                        class="cert-image"
-                      />
-                      <div class="cert-overlay">
-                        <n-text class="cert-name">ISO9001</n-text>
+                <!-- ISO9001认证 -->
+                <div class="cert-container">
+                  <n-tooltip trigger="hover" placement="top">
+                    <template #trigger>
+                      <div
+                        class="cert-card"
+                        @mouseenter="showHoverImage('iso9001', $t('website.stats.iso_certification'), $event)"
+                        @mouseleave="hideHoverImage"
+                      >
+                        <n-image
+                          :src="getImagePath('certificates', 'iso9001')"
+                          :fallback-src="PLACEHOLDER_IMAGES.certificate"
+                          alt="ISO9001认证"
+                          :width="certImageSize.width"
+                          :height="certImageSize.height"
+                          object-fit="contain"
+                          class="cert-image"
+                        />
+                        <div class="cert-overlay">
+                          <n-text class="cert-name">ISO9001</n-text>
+                        </div>
                       </div>
-                    </div>
-                  </template>
-                  {{ $t('website.stats.iso_certification') }}
-                </n-tooltip>
+                    </template>
+                    {{ $t('website.stats.iso_certification') }}
+                  </n-tooltip>
+                </div>
 
-                <n-tooltip trigger="hover" placement="top">
-                  <template #trigger>
-                    <div
-                      class="cert-card"
-                      @click="openImageModal('military', $t('website.stats.military_certification'))"
-                    >
-                      <n-image
-                        :src="getImagePath('certificates', 'military')"
-                        :fallback-src="PLACEHOLDER_IMAGES.certificate"
-                        alt="军工认证"
-                        :width="certImageSize.width"
-                        :height="certImageSize.height"
-                        object-fit="contain"
-                        class="cert-image"
-                      />
-                      <div class="cert-overlay">
-                        <n-text class="cert-name">军工认证</n-text>
+                <!-- 军工认证 -->
+                <div class="cert-container">
+                  <n-tooltip trigger="hover" placement="top">
+                    <template #trigger>
+                      <div
+                        class="cert-card"
+                        @mouseenter="showHoverImage('military', $t('website.stats.military_certification'), $event)"
+                        @mouseleave="hideHoverImage"
+                      >
+                        <n-image
+                          :src="getImagePath('certificates', 'military')"
+                          :fallback-src="PLACEHOLDER_IMAGES.certificate"
+                          alt="军工认证"
+                          :width="certImageSize.width"
+                          :height="certImageSize.height"
+                          object-fit="contain"
+                          class="cert-image"
+                        />
+                        <div class="cert-overlay">
+                          <n-text class="cert-name">军工认证</n-text>
+                        </div>
                       </div>
-                    </div>
-                  </template>
-                  {{ $t('website.stats.military_certification') }}
-                </n-tooltip>
+                    </template>
+                    {{ $t('website.stats.military_certification') }}
+                  </n-tooltip>
+                </div>
               </n-space>
             </div>
           </n-grid-item>
@@ -156,36 +164,29 @@
       </n-space>
     </n-card>
 
-    <!-- 认证图片大图模态框 -->
-    <n-modal
-      v-model:show="showImageModal"
-      :mask-closable="true"
-      :close-on-esc="true"
-      preset="card"
-      class="cert-modal"
-      :style="{ maxWidth: '90vw', maxHeight: '90vh' }"
+    <!-- 悬停大图显示 -->
+    <div
+      v-if="showHoverImageState"
+      class="hover-image-overlay"
+      :style="hoverImagePosition"
+      @mouseenter="keepHoverImage"
+      @mouseleave="hideHoverImage"
     >
-      <template #header>
-        <n-text strong>{{ currentImageTitle }}</n-text>
-      </template>
-
-      <div class="modal-image-container">
+      <div class="hover-image-container">
+        <div class="hover-image-header">
+          <n-text strong class="hover-image-title">{{ currentImageTitle }}</n-text>
+        </div>
         <n-image
           :src="currentImageSrc"
           :fallback-src="PLACEHOLDER_IMAGES.certificate"
           :alt="currentImageTitle"
           object-fit="contain"
-          class="modal-cert-image"
-          :style="{ maxWidth: '100%', maxHeight: '70vh' }"
+          class="hover-cert-image"
+          width="300"
+          height="300"
         />
       </div>
-
-      <template #action>
-        <n-button @click="closeImageModal" type="primary">
-          关闭
-        </n-button>
-      </template>
-    </n-modal>
+    </div>
   </div>
 </template>
 
@@ -240,23 +241,73 @@ const statisticStyle = computed(() => ({
   textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
 }))
 
-// 图片模态框状态
-const showImageModal = ref(false)
+// 悬停大图状态
+const showHoverImageState = ref(false)
 const currentImageSrc = ref('')
 const currentImageTitle = ref('')
+const hoverImagePosition = ref({})
+let hoverTimer = null
 
-// 打开图片模态框
-const openImageModal = (imageKey, title) => {
+// 显示悬停大图
+const showHoverImage = (imageKey, title, event) => {
+  // 清除之前的定时器
+  if (hoverTimer) {
+    clearTimeout(hoverTimer)
+  }
+
   currentImageSrc.value = getImagePath('certificates', imageKey)
   currentImageTitle.value = title
-  showImageModal.value = true
+
+  // 计算大图显示位置
+  const rect = event.currentTarget.getBoundingClientRect()
+  const viewportWidth = window.innerWidth
+  const viewportHeight = window.innerHeight
+
+  // 大图尺寸
+  const imageWidth = 320
+  const imageHeight = 380
+
+  // 计算最佳位置（优先显示在右侧，如果空间不够则显示在左侧）
+  let left = rect.right + 20
+  let top = rect.top + (rect.height - imageHeight) / 2
+
+  // 如果右侧空间不够，显示在左侧
+  if (left + imageWidth > viewportWidth - 20) {
+    left = rect.left - imageWidth - 20
+  }
+
+  // 确保不超出视口顶部和底部
+  if (top < 20) {
+    top = 20
+  } else if (top + imageHeight > viewportHeight - 20) {
+    top = viewportHeight - imageHeight - 20
+  }
+
+  hoverImagePosition.value = {
+    position: 'fixed',
+    left: `${left}px`,
+    top: `${top}px`,
+    zIndex: 9999
+  }
+
+  showHoverImageState.value = true
 }
 
-// 关闭图片模态框
-const closeImageModal = () => {
-  showImageModal.value = false
-  currentImageSrc.value = ''
-  currentImageTitle.value = ''
+// 隐藏悬停大图
+const hideHoverImage = () => {
+  hoverTimer = setTimeout(() => {
+    showHoverImageState.value = false
+    currentImageSrc.value = ''
+    currentImageTitle.value = ''
+  }, 100) // 100ms延迟，避免鼠标快速移动时闪烁
+}
+
+// 保持悬停大图显示（当鼠标移到大图上时）
+const keepHoverImage = () => {
+  if (hoverTimer) {
+    clearTimeout(hoverTimer)
+    hoverTimer = null
+  }
 }
 </script>
 
@@ -459,31 +510,68 @@ const closeImageModal = () => {
   display: block;
 }
 
-/* 模态框样式 */
-.cert-modal {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+/* 悬停大图样式 */
+.cert-container {
+  position: relative;
 }
 
-.modal-image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.hover-image-overlay {
+  position: fixed;
+  pointer-events: auto;
+  z-index: 9999;
+  animation: fadeInScale 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-image-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 212, 170, 0.2);
+  border: 2px solid rgba(0, 212, 170, 0.3);
+  max-width: 320px;
 }
 
-.modal-cert-image {
+.hover-image-header {
+  text-align: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(0, 212, 170, 0.2);
+}
+
+.hover-image-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--sipumtech-primary-blue);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.hover-cert-image {
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 280px;
 }
 
-.modal-cert-image:hover {
+.hover-cert-image:hover {
   transform: scale(1.02);
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* 暗色模式适配 */
@@ -559,8 +647,17 @@ const closeImageModal = () => {
     font-size: 12px;
   }
 
-  .modal-image-container {
-    padding: 12px;
+  .hover-image-container {
+    padding: 16px;
+    max-width: 280px;
+  }
+
+  .hover-cert-image {
+    max-width: 240px;
+  }
+
+  .hover-image-title {
+    font-size: 14px;
   }
 }
 
