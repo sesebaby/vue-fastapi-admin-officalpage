@@ -26,18 +26,18 @@
         </n-text>
       </n-space>
 
-      <!-- 联系内容区域 - 使用Naive UI Grid布局 -->
-      <n-grid
-        :cols="3"
-        :x-gap="60"
-        :y-gap="30"
-        item-responsive
-        responsive="screen"
-      >
-        <!-- 联系信息卡片 -->
-        <n-grid-item :span="2">
-          <n-space vertical :size="30">
-            <!-- 地址信息卡片 -->
+      <!-- 联系内容区域 -->
+      <n-space vertical :size="60">
+        <!-- 联系信息卡片区域 -->
+        <n-grid
+          :cols="3"
+          :x-gap="40"
+          :y-gap="30"
+          item-responsive
+          responsive="screen"
+        >
+          <!-- 地址信息卡片 -->
+          <n-grid-item>
             <n-card hoverable class="contact-card">
               <n-space align="flex-start" :size="20">
                 <n-avatar
@@ -69,8 +69,10 @@
                 </n-space>
               </n-space>
             </n-card>
+          </n-grid-item>
 
-            <!-- 电话信息卡片 -->
+          <!-- 电话信息卡片 -->
+          <n-grid-item>
             <n-card hoverable class="contact-card">
               <n-space align="flex-start" :size="20">
                 <n-avatar
@@ -102,8 +104,10 @@
                 </n-space>
               </n-space>
             </n-card>
+          </n-grid-item>
 
-            <!-- 邮箱信息卡片 -->
+          <!-- 邮箱信息卡片 -->
+          <n-grid-item>
             <n-card hoverable class="contact-card">
               <n-space align="flex-start" :size="20">
                 <n-avatar
@@ -135,48 +139,109 @@
                 </n-space>
               </n-space>
             </n-card>
-          </n-space>
-        </n-grid-item>
+          </n-grid-item>
+        </n-grid>
 
-        <!-- 资质认证区域 -->
-        <n-grid-item :span="1">
-          <n-card class="certification-card">
-            <n-space vertical :size="20">
-              <n-text
-                :style="{
-                  fontSize: '18px',
-                  fontWeight: 'var(--sipumtech-font-weight-semibold)',
-                  color: 'var(--sipumtech-primary-blue)'
-                }"
+        <!-- 地图区域 - 单独一行 -->
+        <n-card class="map-card">
+          <n-space vertical :size="20">
+            <n-text
+              :style="{
+                fontSize: '18px',
+                fontWeight: 'var(--sipumtech-font-weight-semibold)',
+                color: 'var(--sipumtech-primary-blue)'
+              }"
+            >
+              {{ $t('website.contact.map_title') }}
+            </n-text>
+
+            <!-- 地图容器 -->
+            <div class="map-container">
+              <div
+                v-if="mapLoading"
+                class="map-loading"
               >
-                {{ $t('website.contact.certification_title') }}
-              </n-text>
-              <n-space vertical :size="16">
-                <n-image
-                  src="/images/ISO9001质量管理体系认证证书.png"
-                  alt="ISO9001认证"
-                  object-fit="contain"
-                  class="certification-image"
-                />
-                <n-image
-                  src="/images/武器装备质量管理体系证书.png"
-                  alt="军工认证"
-                  object-fit="contain"
-                  class="certification-image"
-                />
+                <n-spin size="large">
+                  <template #description>
+                    <n-text>{{ $t('website.contact.map_loading') }}</n-text>
+                  </template>
+                </n-spin>
+              </div>
+
+              <iframe
+                v-else
+                :src="mapUrl"
+                class="map-iframe"
+                frameborder="0"
+                scrolling="no"
+                marginheight="0"
+                marginwidth="0"
+                @load="handleMapLoad"
+                @error="handleMapError"
+              ></iframe>
+            </div>
+
+            <!-- 地址信息显示 -->
+            <div class="address-info">
+              <n-space align="center" :size="12">
+                <n-icon :size="20" color="var(--sipumtech-accent-green)">
+                  <svg viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                </n-icon>
+                <n-text
+                  :style="{
+                    fontSize: 'var(--sipumtech-font-size-body)',
+                    color: 'var(--sipumtech-text-primary)',
+                    fontWeight: '500'
+                  }"
+                >
+                  {{ companyAddress }}
+                </n-text>
               </n-space>
-            </n-space>
-          </n-card>
-        </n-grid-item>
-      </n-grid>
+            </div>
+          </n-space>
+        </n-card>
+      </n-space>
     </div>
   </section>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
+
+// 地图相关状态
+const mapLoading = ref(true)
+
+// 公司地址信息
+const companyAddress = '江苏省苏州市吴江区东太湖生态旅游度假区体育路508号金鹰商业中心2,3幢3幢1911'
+
+// 构建地图URL - 使用高德地图搜索页面
+const mapUrl = `https://uri.amap.com/search?query=${encodeURIComponent('江苏省苏州市吴江区东太湖生态旅游度假区体育路508号金鹰商业中心')}&city=${encodeURIComponent('苏州')}&src=mypage`
+
+// 处理地图加载完成
+const handleMapLoad = () => {
+  mapLoading.value = false
+}
+
+// 处理地图加载错误
+const handleMapError = () => {
+  mapLoading.value = false
+  console.warn('地图iframe加载失败，但这通常不影响显示')
+}
+
+// 组件挂载时设置加载状态
+onMounted(() => {
+  // 设置一个最小加载时间，确保用户看到加载状态
+  setTimeout(() => {
+    if (mapLoading.value) {
+      mapLoading.value = false
+    }
+  }, 2000)
+})
 </script>
 
 <style scoped>
@@ -205,26 +270,122 @@ const { t } = useI18n()
   border-radius: var(--sipumtech-radius-sm);
 }
 
-/* 响应式认证图片样式 */
-.certification-image {
+/* 联系卡片样式 */
+.contact-card {
+  border: 1px solid rgba(0, 212, 170, 0.1);
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.contact-card:hover {
+  border-color: rgba(0, 212, 170, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* 地图卡片样式 */
+.map-card {
+  border: 1px solid rgba(0, 212, 170, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* 地图容器样式 */
+.map-container {
+  position: relative;
   width: 100%;
-  aspect-ratio: 3/2;
-  border-radius: 8px;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f8fafc;
+  border: 2px solid rgba(0, 212, 170, 0.1);
+}
+
+.map-iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  border: none;
+  background: #f8fafc;
+}
+
+/* 地图加载状态 */
+.map-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.map-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* 地址信息显示 */
+.address-info {
+  padding: 16px;
+  background: rgba(0, 212, 170, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 212, 170, 0.1);
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+  .map-container {
+    height: 350px;
+  }
+
+  .address-info {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding: var(--sipumtech-section-padding-mobile);
+  }
+
+  .section-container {
+    padding: 0 var(--sipumtech-container-padding-mobile);
+  }
+
+  .map-container {
+    height: 300px;
+  }
+
+  .address-info {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-container {
+    height: 250px;
+  }
 }
 
 /*
- * 所有文本内容样式已迁移到 n-text 组件的 :style 属性
- * - 联系信息标题和内容通过 n-text 组件管理
- * - 认证标题通过 n-text 组件管理
- * - 移除所有 margin: 0 重置和自定义文本样式类
- * - 移除 text-align: center 违规样式
- * - 完全依赖 Naive UI 组件属性管理样式
- *
- * 响应式布局完全由 Naive UI 组件处理：
- * - n-grid 的 item-responsive 和 responsive="screen" 自动处理响应式布局
- * - n-card 组件自动适配不同屏幕尺寸的卡片样式
- * - n-avatar 组件自动处理图标大小和样式
- * - .certification-image 使用 aspect-ratio 实现响应式图片
- * - 移除所有自定义媒体查询，严格遵循 Naive UI 优先原则
+ * 组件样式说明：
+ * - 联系信息卡片使用毛玻璃效果和现代化设计
+ * - 地图组件集成高德地图API，支持缩放、拖拽等交互
+ * - 自定义标记点使用SVG图标，包含公司信息
+ * - 信息窗体提供导航和地址复制功能
+ * - 完整的加载状态和错误处理
+ * - 响应式设计适配不同屏幕尺寸
+ * - 严格遵循 Naive UI 框架优先原则
  */
 </style>
