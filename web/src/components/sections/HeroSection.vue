@@ -23,8 +23,10 @@
           :fallback-src="PLACEHOLDER_IMAGES.business"
           alt="公司主图"
           object-fit="cover"
-          style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1; object-position: center center;"
-          :img-props="{ style: 'filter: brightness(1.1) contrast(1.05);' }"
+          style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1;"
+          :img-props="{
+            style: 'filter: brightness(1.1) contrast(1.05); object-fit: cover; object-position: center center; width: 100%; height: 100%;'
+          }"
           @load="handleImageLoad"
           @error="handleImageLoad"
         />
@@ -70,8 +72,10 @@
           :fallback-src="PLACEHOLDER_IMAGES.technology"
           alt="科技背景"
           object-fit="cover"
-          style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1; object-position: center center;"
-          :img-props="{ style: 'filter: brightness(1.2) contrast(1.1);' }"
+          style="width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1;"
+          :img-props="{
+            style: 'filter: brightness(1.2) contrast(1.1); object-fit: cover; object-position: center center; width: 100%; height: 100%;'
+          }"
           @load="handleImageLoad"
           @error="handleImageLoad"
         />
@@ -231,7 +235,20 @@ onUnmounted(() => {
 
 /* 轮播组件优化 */
 .hero-banner :deep(.n-carousel) {
-  height: 100vh;
+  width: 100% !important;
+  height: 100vh !important;
+  overflow: hidden;
+}
+
+/* 轮播项容器优化 */
+.hero-banner :deep(.n-carousel__slides) {
+  width: 100% !important;
+  height: 100vh !important;
+}
+
+.hero-banner :deep(.n-carousel__slide) {
+  width: 100% !important;
+  height: 100vh !important;
 }
 
 /* 轮播指示器样式优化 */
@@ -261,6 +278,24 @@ onUnmounted(() => {
   position: relative;
   width: 100%;
   height: 100vh;
+  overflow: hidden; /* 确保图片不会超出容器 */
+}
+
+/* 强制图片填充整个容器 */
+.hero-slide :deep(.n-image) {
+  width: 100% !important;
+  height: 100vh !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.hero-slide :deep(.n-image img) {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  display: block !important;
 }
 
 .hero-overlay {
@@ -367,6 +402,29 @@ onUnmounted(() => {
 @media (min-width: 1920px) {
   .hero-description {
     max-width: 900px;
+  }
+}
+
+/* 图片布局响应式优化 */
+@media (max-width: 768px) {
+  .hero-slide :deep(.n-image img) {
+    /* 移动端优化：确保图片在小屏幕上也能完全填充 */
+    min-width: 100vw !important;
+    min-height: 100vh !important;
+  }
+}
+
+@media (orientation: portrait) {
+  .hero-slide :deep(.n-image img) {
+    /* 竖屏模式优化 */
+    object-position: center top !important;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  .hero-slide :deep(.n-image img) {
+    /* 横屏低高度设备优化 */
+    object-position: center center !important;
   }
 }
 </style>
