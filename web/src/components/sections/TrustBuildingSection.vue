@@ -147,27 +147,35 @@
               </template>
             </n-result>
 
-            <!-- 合作伙伴内容 -->
-            <n-grid
+            <!-- 合作伙伴内容 - 瀑布流布局 -->
+            <div
               v-else-if="partners && partners.length"
-              :cols="partnerCols"
-              :x-gap="40"
-              :y-gap="20"
+              class="partners-masonry"
+              :class="`partners-cols-${partnerCols}`"
             >
-              <n-grid-item v-for="partner in partners" :key="partner.name">
-                <n-space justify="center">
+              <div
+                v-for="(partner, index) in partners"
+                :key="partner.name"
+                class="partner-card"
+                :class="`partner-card-${(index % 3) + 1}`"
+                :style="{ animationDelay: `${index * 0.1}s` }"
+              >
+                <div class="partner-card-inner">
                   <n-image
                     :src="partner.logo"
                     :alt="partner.name"
-                    width="120"
-                    height="60"
+                    :width="partnerImageSize.width"
+                    :height="partnerImageSize.height"
                     object-fit="contain"
                     class="partner-logo"
                     :fallback-src="PLACEHOLDER_IMAGES.logo"
                   />
-                </n-space>
-              </n-grid-item>
-            </n-grid>
+                  <div class="partner-overlay">
+                    <n-text class="partner-name">{{ partner.name }}</n-text>
+                  </div>
+                </div>
+              </div>
+            </div>
           </ErrorBoundary>
         </n-space>
       </n-space>
@@ -201,10 +209,17 @@ const testimonialCols = computed(() => {
 })
 
 const partnerCols = computed(() => {
-  if (breakpoints.lg.value) return 6  // 大屏幕：6列
-  if (breakpoints.md.value) return 4  // 中等屏幕：4列
-  if (breakpoints.sm.value) return 3  // 平板：3列
-  return 2  // 移动端：2列
+  if (breakpoints.lg.value) return 4  // 大屏幕：4列
+  if (breakpoints.md.value) return 3  // 中等屏幕：3列
+  if (breakpoints.sm.value) return 2  // 平板：2列
+  return 1  // 移动端：1列
+})
+
+// 合作伙伴图片尺寸（响应式）
+const partnerImageSize = computed(() => {
+  if (breakpoints.lg.value) return { width: 160, height: 80 }  // 桌面端：160x80
+  if (breakpoints.md.value) return { width: 140, height: 70 }  // 平板：140x70
+  return { width: 120, height: 60 }  // 移动端：120x60
 })
 
 // 模拟异步加载合作伙伴数据
@@ -299,16 +314,142 @@ onMounted(() => {
   padding: var(--sipumtech-space-lg);
 }
 
-.partner-logo {
-  filter: grayscale(100%);
-  opacity: 0.6;
-  transition: var(--sipumtech-transition-normal);
+/* 瀑布流布局样式 */
+.partners-masonry {
+  display: grid;
+  gap: 24px;
+  width: 100%;
 }
 
-.partner-logo:hover {
+.partners-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.partners-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.partners-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.partners-cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.partner-card {
+  position: relative;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.partner-card-inner {
+  position: relative;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 2px solid rgba(0, 212, 170, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.partner-card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg,
+    rgba(0, 212, 170, 0.02) 0%,
+    rgba(30, 58, 138, 0.02) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.partner-card-inner:hover::before {
+  opacity: 1;
+}
+
+.partner-card-inner:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 212, 170, 0.3);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.12),
+    0 6px 16px rgba(0, 212, 170, 0.15);
+}
+
+/* 不同高度的卡片 */
+.partner-card-1 .partner-card-inner {
+  min-height: 120px;
+}
+
+.partner-card-2 .partner-card-inner {
+  min-height: 140px;
+}
+
+.partner-card-3 .partner-card-inner {
+  min-height: 100px;
+}
+
+.partner-logo {
+  position: relative;
+  z-index: 1;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.4s ease;
+  border-radius: 8px;
+}
+
+.partner-card-inner:hover .partner-logo {
   filter: grayscale(0%);
   opacity: 1;
   transform: scale(1.05);
+}
+
+.partner-overlay {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 8px;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.partner-card-inner:hover .partner-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.partner-name {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  display: block;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 响应式设计 */
@@ -328,6 +469,25 @@ onMounted(() => {
   .testimonials-title,
   .partners-title {
     font-size: var(--sipumtech-font-size-h4);
+  }
+
+  .partners-masonry {
+    gap: 16px;
+  }
+
+  .partner-card-inner {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .partner-card-1 .partner-card-inner,
+  .partner-card-2 .partner-card-inner,
+  .partner-card-3 .partner-card-inner {
+    min-height: 100px;
+  }
+
+  .partner-name {
+    font-size: 12px;
   }
 }
 </style>
