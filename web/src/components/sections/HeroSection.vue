@@ -22,12 +22,10 @@
           :src="getImagePath('hero', 'company_hero')"
           :fallback-src="PLACEHOLDER_IMAGES.business"
           alt="公司主图"
-          object-fit="cover"
-          width="100%"
-          height="100vh"
-          style="position: absolute; top: 0; left: 0; z-index: 1; display: block;"
+          :object-fit="adaptiveImageStyle.objectFit"
+          :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: 100vh; ${adaptiveImageStyle.additionalStyles}`"
           :img-props="{
-            style: `filter: brightness(1.1) contrast(1.05); object-position: ${objectPosition};`
+            style: `width: 100%; height: 100%; object-fit: ${adaptiveImageStyle.objectFit}; object-position: ${adaptiveImageStyle.objectPosition}; filter: brightness(1.1) contrast(1.05);`
           }"
           @load="handleImageLoad"
           @error="handleImageLoad"
@@ -41,12 +39,10 @@
           :src="getImagePath('hero', 'tech_background')"
           :fallback-src="PLACEHOLDER_IMAGES.technology"
           alt="科技背景"
-          object-fit="cover"
-          width="100%"
-          height="100vh"
-          style="position: absolute; top: 0; left: 0; z-index: 1; display: block;"
+          :object-fit="adaptiveImageStyle.objectFit"
+          :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: 100vh; ${adaptiveImageStyle.additionalStyles}`"
           :img-props="{
-            style: `filter: brightness(1.2) contrast(1.1); object-position: ${objectPosition};`
+            style: `width: 100%; height: 100%; object-fit: ${adaptiveImageStyle.objectFit}; object-position: ${adaptiveImageStyle.objectPosition}; filter: brightness(1.2) contrast(1.1);`
           }"
           @load="handleImageLoad"
           @error="handleImageLoad"
@@ -59,6 +55,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useWindowSize } from '@vueuse/core'
 import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
 // 定义事件 - 移除滚动事件，因为没有按钮了
@@ -73,6 +70,9 @@ const carouselInterval = ref(6000) // 增加到6秒，确保有足够展示时�
 const currentSlideIndex = ref(0)
 const imagesLoaded = ref(0) // 跟踪已加载的图片数量
 const totalImages = ref(2) // 总图片数量
+
+// 响应式窗口尺寸监听
+const { width: windowWidth, height: windowHeight } = useWindowSize()
 
 // 移除了响应式字体大小计算逻辑，因为已经没有文字内容
 
@@ -110,18 +110,44 @@ const goToSlide = (index) => {
     carouselRef.value.to(index)
   }
 }
-// 根据视口比例计算图片的 object-position，尽量保证主体居中显示
-const objectPosition = computed(() => {
-  const vw = window.innerWidth
-  const vh = window.innerHeight
-  const viewportRatio = vw / vh // 例：1.78 for 16:9
+// 智能图片适配策略 - 根据屏幕比例动态调整显示方式
+const adaptiveImageStyle = computed(() => {
+  const viewportRatio = windowWidth.value / windowHeight.value
 
-  // 两张图的已知宽高比
-  const ratios = [1.41, 1.6]
-  // 当视口明显更宽（>1.8）时，略微向上对齐避免顶部留白；竖屏时向中心偏上
-  if (viewportRatio > 1.8) return 'center 45%'
-  if (viewportRatio < 0.75) return 'center 35%'
-  return 'center center'
+  // 图片宽高比信息
+  const imageRatios = [1.41, 1.6] // 两张轮播图的宽高比
+
+  let objectFit = 'cover'
+  let objectPosition = 'center center'
+  let additionalStyles = ''
+
+  // 超宽屏策略 (比例 > 2.2) - 避免过度裁剪
+  if (viewportRatio > 2.2) {
+    objectFit = 'contain'
+    objectPosition = 'center center'
+    additionalStyles = 'background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);'
+  }
+  // 宽屏策略 (比例 1.6-2.2) - 标准显示
+  else if (viewportRatio > 1.6) {
+    objectFit = 'cover'
+    objectPosition = 'center 45%'
+  }
+  // 标准屏策略 (比例 1.2-1.6) - 居中显示
+  else if (viewportRatio > 1.2) {
+    objectFit = 'cover'
+    objectPosition = 'center center'
+  }
+  // 竖屏/窄屏策略 (比例 < 1.2) - 顶部对齐保持重要内容
+  else {
+    objectFit = 'cover'
+    objectPosition = 'center 30%'
+  }
+
+  return {
+    objectFit,
+    objectPosition,
+    additionalStyles
+  }
 })
 
 
@@ -200,26 +226,9 @@ onUnmounted(() => {
  * Hero区域现在专注于图片展示，无需文字布局优化
  */
 
-/* 图片布局响应式优化 */
-@media (max-width: 768px) {
-  .hero-slide :deep(.n-image img) {
-    /* 移动端优化：确保图片在小屏幕上也能完全填充 */
-    min-width: 100vw !important;
-    min-height: 100vh !important;
-  }
-}
-
-@media (orientation: portrait) {
-  .hero-slide :deep(.n-image img) {
-    /* 竖屏模式优化 */
-    object-position: center top !important;
-  }
-}
-
-@media (orientation: landscape) and (max-height: 600px) {
-  .hero-slide :deep(.n-image img) {
-    /* 横屏低高度设备优化 */
-    object-position: center center !important;
-  }
-}
+/*
+ * 响应式图片适配现在通过 JavaScript 智能控制
+ * 移除静态媒体查询，使用动态计算的适配策略
+ * 确保在所有设备和分辨率下都有最佳显示效果
+ */
 </style>
