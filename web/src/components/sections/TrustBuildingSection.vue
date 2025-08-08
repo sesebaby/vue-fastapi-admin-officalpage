@@ -147,35 +147,38 @@
               </template>
             </n-result>
 
-            <!-- 合作伙伴内容 - 瀑布流布局 -->
-            <div
+            <!-- 合作伙伴内容 - 紧密网格布局 -->
+            <n-grid
               v-else-if="partners && partners.length"
-              class="partners-masonry"
-              :class="`partners-cols-${partnerCols}`"
+              :cols="partnerCols"
+              :x-gap="10"
+              :y-gap="10"
+              class="partners-grid"
             >
-              <div
+              <n-grid-item
                 v-for="(partner, index) in partners"
                 :key="partner.name"
-                class="partner-card"
-                :class="`partner-card-${(index % 3) + 1}`"
-                :style="{ animationDelay: `${index * 0.1}s` }"
+                class="partner-grid-item"
+                :style="{ animationDelay: `${index * 0.05}s` }"
               >
-                <div class="partner-card-inner">
-                  <n-image
-                    :src="partner.logo"
-                    :alt="partner.name"
-                    :width="partnerImageSize.width"
-                    :height="partnerImageSize.height"
-                    object-fit="contain"
-                    class="partner-logo"
-                    :fallback-src="PLACEHOLDER_IMAGES.logo"
-                  />
-                  <div class="partner-overlay">
-                    <n-text class="partner-name">{{ partner.name }}</n-text>
+                <div class="partner-card">
+                  <div class="partner-card-inner">
+                    <n-image
+                      :src="partner.logo"
+                      :alt="partner.name"
+                      :width="partnerImageSize.width"
+                      :height="partnerImageSize.height"
+                      object-fit="contain"
+                      class="partner-logo"
+                      :fallback-src="PLACEHOLDER_IMAGES.logo"
+                    />
+                    <div class="partner-overlay">
+                      <n-text class="partner-name">{{ partner.name }}</n-text>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </n-grid-item>
+            </n-grid>
           </ErrorBoundary>
         </n-space>
       </n-space>
@@ -209,10 +212,10 @@ const testimonialCols = computed(() => {
 })
 
 const partnerCols = computed(() => {
-  if (breakpoints.lg.value) return 4  // 大屏幕：4列
-  if (breakpoints.md.value) return 3  // 中等屏幕：3列
-  if (breakpoints.sm.value) return 2  // 平板：2列
-  return 1  // 移动端：1列
+  if (breakpoints.lg.value) return 6  // 大屏幕：6列
+  if (breakpoints.md.value) return 4  // 中等屏幕：4列
+  if (breakpoints.sm.value) return 3  // 平板：3列
+  return 2  // 移动端：2列
 })
 
 // 合作伙伴图片尺寸（响应式）
@@ -314,46 +317,40 @@ onMounted(() => {
   padding: var(--sipumtech-space-lg);
 }
 
-/* 瀑布流布局样式 */
-.partners-masonry {
-  display: grid;
-  gap: 24px;
+/* 紧密网格布局样式 */
+.partners-grid {
   width: 100%;
 }
 
-.partners-cols-4 {
-  grid-template-columns: repeat(4, 1fr);
-}
-
-.partners-cols-3 {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.partners-cols-2 {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.partners-cols-1 {
-  grid-template-columns: 1fr;
+.partner-grid-item {
+  opacity: 0;
+  animation: fadeInUp 0.4s ease-out forwards;
 }
 
 .partner-card {
-  position: relative;
-  opacity: 0;
-  animation: fadeInUp 0.6s ease-out forwards;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .partner-card-inner {
   position: relative;
-  padding: 20px;
-  border-radius: 16px;
+  padding: 12px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border: 2px solid rgba(0, 212, 170, 0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 212, 170, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  height: 100%;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .partner-card-inner::before {
@@ -377,24 +374,11 @@ onMounted(() => {
 }
 
 .partner-card-inner:hover {
-  transform: translateY(-8px);
+  transform: translateY(-4px);
   border-color: rgba(0, 212, 170, 0.3);
   box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.12),
-    0 6px 16px rgba(0, 212, 170, 0.15);
-}
-
-/* 不同高度的卡片 */
-.partner-card-1 .partner-card-inner {
-  min-height: 120px;
-}
-
-.partner-card-2 .partner-card-inner {
-  min-height: 140px;
-}
-
-.partner-card-3 .partner-card-inner {
-  min-height: 100px;
+    0 8px 20px rgba(0, 0, 0, 0.1),
+    0 4px 12px rgba(0, 212, 170, 0.12);
 }
 
 .partner-logo {
@@ -469,19 +453,10 @@ onMounted(() => {
     font-size: var(--sipumtech-font-size-h4);
   }
 
-  .partners-masonry {
-    gap: 16px;
-  }
-
   .partner-card-inner {
-    padding: 16px;
-    border-radius: 12px;
-  }
-
-  .partner-card-1 .partner-card-inner,
-  .partner-card-2 .partner-card-inner,
-  .partner-card-3 .partner-card-inner {
-    min-height: 100px;
+    padding: 8px;
+    border-radius: 8px;
+    min-height: 70px;
   }
 
   .partner-name {
