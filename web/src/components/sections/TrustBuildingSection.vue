@@ -147,38 +147,48 @@
               </template>
             </n-result>
 
-            <!-- 合作伙伴内容 - 紧密网格布局 -->
-            <n-grid
-              v-else-if="partners && partners.length"
-              :cols="partnerCols"
-              :x-gap="10"
-              :y-gap="10"
-              class="partners-grid"
-            >
-              <n-grid-item
-                v-for="(partner, index) in partners"
-                :key="partner.name"
-                class="partner-grid-item"
-                :style="{ animationDelay: `${index * 0.05}s` }"
+            <!-- 合作伙伴内容 - 2行预览网格布局 -->
+            <div v-else-if="partners && partners.length" class="partners-container">
+              <n-grid
+                :cols="partnerCols"
+                :x-gap="10"
+                :y-gap="10"
+                class="partners-grid"
               >
-                <div class="partner-card">
-                  <div class="partner-card-inner">
-                    <n-image
-                      :src="partner.logo"
-                      :alt="partner.name"
-                      :width="partnerImageSize.width"
-                      :height="partnerImageSize.height"
-                      object-fit="contain"
-                      class="partner-logo"
-                      :fallback-src="PLACEHOLDER_IMAGES.logo"
-                    />
-                    <div class="partner-overlay">
-                      <n-text class="partner-name">{{ partner.name }}</n-text>
+                <n-grid-item
+                  v-for="(partner, index) in displayedPartners"
+                  :key="partner.name"
+                  class="partner-grid-item"
+                  :style="{ animationDelay: `${index * 0.05}s` }"
+                >
+                  <div class="partner-card">
+                    <div class="partner-card-inner">
+                      <div class="partner-logo-container">
+                        <n-image
+                          :src="partner.logo"
+                          :alt="partner.name"
+                          :width="partnerImageSize.width"
+                          :height="partnerImageSize.height"
+                          object-fit="contain"
+                          class="partner-logo"
+                          :fallback-src="PLACEHOLDER_IMAGES.logo"
+                        />
+                      </div>
+                      <div class="partner-overlay">
+                        <n-text class="partner-name">{{ partner.name }}</n-text>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </n-grid-item>
-            </n-grid>
+                </n-grid-item>
+              </n-grid>
+
+              <!-- 显示更多提示 -->
+              <div v-if="partners.length > displayedPartners.length" class="more-partners-hint">
+                <n-text class="more-text">
+                  还有 {{ partners.length - displayedPartners.length }} 个合作伙伴...
+                </n-text>
+              </div>
+            </div>
           </ErrorBoundary>
         </n-space>
       </n-space>
@@ -218,11 +228,19 @@ const partnerCols = computed(() => {
   return 2  // 移动端：2列
 })
 
-// 合作伙伴图片尺寸（响应式）
+// 合作伙伴图片尺寸（统一尺寸）
 const partnerImageSize = computed(() => {
-  if (breakpoints.lg.value) return { width: 160, height: 80 }  // 桌面端：160x80
-  if (breakpoints.md.value) return { width: 140, height: 70 }  // 平板：140x70
-  return { width: 120, height: 60 }  // 移动端：120x60
+  if (breakpoints.lg.value) return { width: 140, height: 70 }  // 桌面端：140x70
+  if (breakpoints.md.value) return { width: 120, height: 60 }  // 平板：120x60
+  return { width: 100, height: 50 }  // 移动端：100x50
+})
+
+// 限制显示的合作伙伴数量（2行预览）
+const displayedPartners = computed(() => {
+  if (!partners.value || !partners.value.length) return []
+
+  const maxItems = partnerCols.value * 2  // 2行的容量
+  return partners.value.slice(0, maxItems)
 })
 
 // 模拟异步加载合作伙伴数据
@@ -317,7 +335,11 @@ onMounted(() => {
   padding: var(--sipumtech-space-lg);
 }
 
-/* 紧密网格布局样式 */
+/* 2行预览网格布局样式 */
+.partners-container {
+  width: 100%;
+}
+
 .partners-grid {
   width: 100%;
 }
@@ -349,8 +371,35 @@ onMounted(() => {
   height: 100%;
   min-height: 80px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.partner-logo-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.more-partners-hint {
+  margin-top: 16px;
+  text-align: center;
+  padding: 8px 16px;
+  background: rgba(0, 212, 170, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 212, 170, 0.2);
+}
+
+.more-text {
+  font-size: 14px;
+  color: var(--sipumtech-accent-green);
+  font-weight: 500;
 }
 
 .partner-card-inner::before {
@@ -387,6 +436,9 @@ onMounted(() => {
   opacity: 0.9;
   transition: all 0.4s ease;
   border-radius: 8px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .partner-card-inner:hover .partner-logo {
@@ -456,10 +508,19 @@ onMounted(() => {
   .partner-card-inner {
     padding: 8px;
     border-radius: 8px;
-    min-height: 70px;
+    min-height: 60px;
   }
 
   .partner-name {
+    font-size: 12px;
+  }
+
+  .more-partners-hint {
+    margin-top: 12px;
+    padding: 6px 12px;
+  }
+
+  .more-text {
     font-size: 12px;
   }
 }
