@@ -4,9 +4,26 @@
     <div class="section-container">
       <!-- 标题区域 -->
       <n-space vertical align="center" :size="20" style="margin-bottom: 80px;">
-        <h2 class="section-title">{{ $t('website.contact.title') }}</h2>
+        <n-text
+          :style="{
+            fontSize: 'var(--sipumtech-font-size-h1)',
+            fontWeight: 'var(--sipumtech-font-weight-bold)',
+            color: 'var(--sipumtech-primary-blue)',
+            lineHeight: 'var(--sipumtech-line-height-tight)'
+          }"
+        >
+          {{ $t('website.contact.title') }}
+        </n-text>
         <div class="title-underline"></div>
-        <p class="section-subtitle">{{ $t('website.contact.subtitle') }}</p>
+        <n-text
+          :style="{
+            fontSize: '18px',
+            color: 'var(--sipumtech-text-secondary)',
+            lineHeight: 'var(--sipumtech-line-height-relaxed)'
+          }"
+        >
+          {{ $t('website.contact.subtitle') }}
+        </n-text>
       </n-space>
 
       <!-- 联系内容区域 - 使用Naive UI Grid布局 -->

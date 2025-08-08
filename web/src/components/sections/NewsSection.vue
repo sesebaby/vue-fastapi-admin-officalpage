@@ -5,7 +5,16 @@
       <!-- 标题区域 - 使用Naive UI Space组件 -->
       <n-space justify="space-between" align="center" style="margin-bottom: 60px;">
         <n-space vertical :size="20">
-          <h2 class="section-title">{{ $t('website.news.title') }}</h2>
+          <n-text
+            :style="{
+              fontSize: 'var(--sipumtech-font-size-h1)',
+              fontWeight: 'var(--sipumtech-font-weight-bold)',
+              color: 'var(--sipumtech-primary-blue)',
+              lineHeight: 'var(--sipumtech-line-height-tight)'
+            }"
+          >
+            {{ $t('website.news.title') }}
+          </n-text>
           <div class="title-underline"></div>
         </n-space>
         <n-button
@@ -86,8 +95,24 @@
               </n-tag>
 
               <n-space vertical :size="12">
-                <h4 class="news-title">{{ $t(item.titleKey) }}</h4>
-                <n-ellipsis :line-clamp="3" class="news-excerpt">
+                <n-text
+                  :style="{
+                    fontSize: '18px',
+                    fontWeight: 'var(--sipumtech-font-weight-semibold)',
+                    color: 'var(--sipumtech-primary-blue)',
+                    lineHeight: '1.4'
+                  }"
+                >
+                  {{ $t(item.titleKey) }}
+                </n-text>
+                <n-ellipsis
+                  :line-clamp="3"
+                  :style="{
+                    fontSize: 'var(--sipumtech-font-size-small)',
+                    color: 'var(--sipumtech-text-secondary)',
+                    lineHeight: 'var(--sipumtech-line-height-relaxed)'
+                  }"
+                >
                   {{ $t(item.excerptKey) }}
                 </n-ellipsis>
               </n-space>
@@ -220,16 +245,11 @@ const handleRetry = () => {
   border-radius: var(--sipumtech-radius-sm);
 }
 
-/* 更多按钮样式 */
-.news-more-button {
-  font-size: var(--sipumtech-font-size-body) !important;
-  font-weight: var(--sipumtech-font-weight-medium) !important;
-  color: var(--sipumtech-text-secondary) !important;
-}
-
-.news-more-button:hover {
-  color: var(--sipumtech-primary-blue) !important;
-}
+/*
+ * 更多按钮样式已移除 !important 强制覆盖
+ * 现在通过 n-button 组件的原生属性和 CSS 变量实现样式
+ * 避免与 Naive UI 组件样式系统冲突
+ */
 
 /* 新闻卡片内容样式 */
 .news-title {

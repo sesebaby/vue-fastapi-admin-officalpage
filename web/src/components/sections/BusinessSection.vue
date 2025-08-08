@@ -5,9 +5,26 @@
       <div class="section-container">
         <!-- 标题区域 -->
         <n-space vertical align="center" :size="20" style="margin-bottom: 60px;">
-          <h2 class="section-title">{{ $t('website.business.title') }}</h2>
+          <n-text
+            :style="{
+              fontSize: 'var(--sipumtech-font-size-h1)',
+              fontWeight: 'var(--sipumtech-font-weight-bold)',
+              color: 'var(--sipumtech-primary-blue)',
+              lineHeight: 'var(--sipumtech-line-height-tight)'
+            }"
+          >
+            {{ $t('website.business.title') }}
+          </n-text>
           <div class="title-underline"></div>
-          <p class="section-subtitle">{{ $t('website.business.subtitle') }}</p>
+          <n-text
+            :style="{
+              fontSize: '18px',
+              color: 'var(--sipumtech-text-secondary)',
+              lineHeight: 'var(--sipumtech-line-height-relaxed)'
+            }"
+          >
+            {{ $t('website.business.subtitle') }}
+          </n-text>
         </n-space>
 
         <!-- 服务卡片网格 - 使用Naive UI Grid -->
@@ -42,12 +59,46 @@
 
                 <!-- 服务信息 -->
                 <n-space vertical align="center" :size="12">
-                  <h4 class="service-brand">{{ $t('website.business.advanced_packaging.brand') }}</h4>
-                  <h4 class="service-subtitle">{{ $t('website.business.advanced_packaging.subtitle') }}</h4>
-                  <h5 class="service-title">{{ $t('website.business.advanced_packaging.title') }}</h5>
-                  <p class="service-description">
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-small)',
+                      fontWeight: 'var(--sipumtech-font-weight-semibold)',
+                      color: 'var(--sipumtech-accent-orange)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1px'
+                    }"
+                  >
+                    {{ $t('website.business.advanced_packaging.brand') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-body)',
+                      fontWeight: 'var(--sipumtech-font-weight-semibold)',
+                      color: 'var(--sipumtech-text-secondary)'
+                    }"
+                  >
+                    {{ $t('website.business.advanced_packaging.subtitle') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-h4)',
+                      fontWeight: 'var(--sipumtech-font-weight-bold)',
+                      color: 'var(--sipumtech-primary-blue)',
+                      lineHeight: '1.3'
+                    }"
+                  >
+                    {{ $t('website.business.advanced_packaging.title') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-body)',
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: 'var(--sipumtech-line-height-relaxed)',
+                      textAlign: 'center'
+                    }"
+                  >
                     {{ $t('website.business.advanced_packaging.description') }}
-                  </p>
+                  </n-text>
                 </n-space>
 
                 <!-- 服务特性列表 -->
@@ -118,12 +169,46 @@
 
                 <!-- 服务信息 -->
                 <n-space vertical align="center" :size="12">
-                  <h4 class="service-brand">{{ $t('website.business.hardware_solution.brand') }}</h4>
-                  <h4 class="service-subtitle">{{ $t('website.business.hardware_solution.subtitle') }}</h4>
-                  <h5 class="service-title">{{ $t('website.business.hardware_solution.title') }}</h5>
-                  <p class="service-description">
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-small)',
+                      fontWeight: 'var(--sipumtech-font-weight-semibold)',
+                      color: 'var(--sipumtech-accent-orange)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1px'
+                    }"
+                  >
+                    {{ $t('website.business.hardware_solution.brand') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-body)',
+                      fontWeight: 'var(--sipumtech-font-weight-semibold)',
+                      color: 'var(--sipumtech-text-secondary)'
+                    }"
+                  >
+                    {{ $t('website.business.hardware_solution.subtitle') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-h4)',
+                      fontWeight: 'var(--sipumtech-font-weight-bold)',
+                      color: 'var(--sipumtech-primary-blue)',
+                      lineHeight: '1.3'
+                    }"
+                  >
+                    {{ $t('website.business.hardware_solution.title') }}
+                  </n-text>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-body)',
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: 'var(--sipumtech-line-height-relaxed)',
+                      textAlign: 'center'
+                    }"
+                  >
                     {{ $t('website.business.hardware_solution.description') }}
-                  </p>
+                  </n-text>
                 </n-space>
 
                 <!-- 服务特性列表 -->
@@ -204,15 +289,7 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
   background: var(--sipumtech-bg-gradient-1);
 }
 
-/* 保留必要的标题样式 */
-.section-title {
-  font-size: var(--sipumtech-font-size-h1);
-  font-weight: var(--sipumtech-font-weight-bold);
-  color: var(--sipumtech-primary-blue);
-  margin: 0;
-  line-height: var(--sipumtech-line-height-tight);
-}
-
+/* 保留必要的品牌装饰样式 */
 .title-underline {
   width: 80px;
   height: 4px;
@@ -221,87 +298,19 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
   margin: 0 auto;
 }
 
-.section-subtitle {
-  font-size: 18px;
-  color: var(--sipumtech-text-secondary);
-  margin: 0;
-  line-height: var(--sipumtech-line-height-relaxed);
-}
-
 /*
- * 服务卡片样式已移除 - 现在使用Naive UI的n-card组件
- * 只保留必要的内容样式
+ * 服务卡片内容样式已完全迁移到 Naive UI 组件
+ * - 使用 n-text 组件的 style 属性替代所有 HTML 标签样式
+ * - 使用 n-space align="center" 替代 text-align: center
+ * - 移除所有自定义 CSS 类和 margin: 0 重置
+ * - 完全依赖 Naive UI 组件属性管理样式
  */
 
-/* 保留的服务内容样式 */
-.service-brand {
-  font-size: var(--sipumtech-font-size-small);
-  font-weight: var(--sipumtech-font-weight-semibold);
-  color: var(--sipumtech-accent-orange);
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* 保留的服务内容样式 */
-.service-subtitle {
-  font-size: var(--sipumtech-font-size-body);
-  font-weight: var(--sipumtech-font-weight-semibold);
-  color: var(--sipumtech-text-secondary);
-  margin: 0;
-}
-
-.service-title {
-  font-size: var(--sipumtech-font-size-h4);
-  font-weight: var(--sipumtech-font-weight-bold);
-  color: var(--sipumtech-primary-blue);
-  margin: 0;
-  line-height: 1.3;
-}
-
-.service-description {
-  font-size: var(--sipumtech-font-size-body);
-  color: var(--sipumtech-text-secondary);
-  line-height: var(--sipumtech-line-height-relaxed);
-  margin: 0;
-  text-align: center;
-}
-
 /*
- * 服务特性列表和CTA按钮样式已移除 - 现在使用Naive UI组件
- * n-list组件处理特性列表，n-button组件处理按钮样式
+ * 响应式布局完全由 Naive UI 组件处理：
+ * - n-grid 的 item-responsive 和 responsive="screen" 自动处理响应式布局
+ * - n-space 的 align="center" 处理内容对齐
+ * - n-text 组件的 style 属性管理所有文本样式
+ * - 移除所有自定义媒体查询，严格遵循 Naive UI 优先原则
  */
-
-/* 响应式设计 - 简化版，主要依赖Naive UI的响应式能力 */
-@media (max-width: 768px) {
-  .main-services-section {
-    padding: 80px 0;
-  }
-
-  .section-container {
-    padding: 0 20px;
-  }
-
-  .section-title {
-    font-size: 32px;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-services-section {
-    padding: 60px 0;
-  }
-
-  .section-container {
-    padding: 0 16px;
-  }
-
-  .section-title {
-    font-size: 28px;
-  }
-
-  .service-title {
-    font-size: 20px;
-  }
-}
 </style>

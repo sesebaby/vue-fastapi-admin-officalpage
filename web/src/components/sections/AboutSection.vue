@@ -5,28 +5,52 @@
       <!-- 使用Naive UI Grid布局 -->
       <n-grid
         :cols="2"
+        :collapsed="true"
+        :collapsed-rows="1"
         :x-gap="80"
-        item-responsive
+        :y-gap="40"
         responsive="screen"
-        style="align-items: center;"
+        align-items="center"
       >
         <!-- 左侧文本内容 -->
         <n-grid-item>
           <n-space vertical :size="40">
             <!-- 标题区域 -->
             <n-space vertical :size="20">
-              <h2 class="section-title">{{ $t('website.about.title') }}</h2>
+              <n-text
+                :style="{
+                  fontSize: 'var(--sipumtech-font-size-h1)',
+                  fontWeight: 'var(--sipumtech-font-weight-bold)',
+                  color: 'var(--sipumtech-primary-blue)',
+                  lineHeight: 'var(--sipumtech-line-height-tight)'
+                }"
+              >
+                {{ $t('website.about.title') }}
+              </n-text>
               <div class="title-underline"></div>
             </n-space>
 
             <!-- 公司介绍 -->
             <n-space vertical :size="24">
-              <p class="intro-highlight">
+              <n-text
+                :style="{
+                  fontSize: 'var(--sipumtech-font-size-h4)',
+                  fontWeight: 'var(--sipumtech-font-weight-semibold)',
+                  color: 'var(--sipumtech-primary-blue)',
+                  lineHeight: 'var(--sipumtech-line-height-relaxed)'
+                }"
+              >
                 {{ $t('website.about.intro_highlight') }}
-              </p>
-              <p class="intro-description">
+              </n-text>
+              <n-text
+                :style="{
+                  fontSize: 'var(--sipumtech-font-size-body)',
+                  color: 'var(--sipumtech-text-secondary)',
+                  lineHeight: 'var(--sipumtech-line-height-relaxed)'
+                }"
+              >
                 {{ $t('website.about.intro_description') }}
-              </p>
+              </n-text>
             </n-space>
 
             <!-- 公司统计数据 - 使用Naive UI Statistic组件 -->
