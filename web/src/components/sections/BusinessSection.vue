@@ -1,46 +1,5 @@
 <template>
   <div>
-    <!-- 服务导航区域 - 使用Naive UI原生组件 -->
-    <section class="service-nav-section">
-      <div class="section-container">
-        <n-space vertical align="center" :size="30">
-          <h3 class="service-nav-title">
-            {{ $t('website.service_nav.title') }}
-          </h3>
-
-          <n-space :size="40" justify="center">
-            <n-button
-              text
-              tag="a"
-              href="#advanced-packaging"
-              size="large"
-              class="service-nav-button"
-            >
-              {{ $t('website.service_nav.advanced_packaging') }}
-            </n-button>
-            <n-button
-              text
-              tag="a"
-              href="#hardware-solution"
-              size="large"
-              class="service-nav-button"
-            >
-              {{ $t('website.service_nav.hardware_solution') }}
-            </n-button>
-            <n-button
-              text
-              tag="a"
-              href="#testing-service"
-              size="large"
-              class="service-nav-button"
-            >
-              {{ $t('website.service_nav.testing_service') }}
-            </n-button>
-          </n-space>
-        </n-space>
-      </div>
-    </section>
-
     <!-- 核心业务展示 - 使用Naive UI原生组件 -->
     <section id="business" class="main-services-section section-full">
       <div class="section-container">
@@ -232,36 +191,11 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
  * 大部分样式已由n-card、n-grid、n-button等组件自动处理
  */
 
-/* 服务导航区域 - 简化样式 */
-.service-nav-section {
-  padding: 60px 0;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
-}
-
+/* 容器样式保留 */
 .section-container {
   max-width: var(--sipumtech-container-max-width);
   margin: 0 auto;
   padding: 0 var(--sipumtech-container-padding-desktop);
-}
-
-/* 保留必要的品牌样式 */
-.service-nav-title {
-  font-size: var(--sipumtech-font-size-h3);
-  font-weight: var(--sipumtech-font-weight-bold);
-  color: var(--sipumtech-primary-blue);
-  margin: 0;
-}
-
-/* 服务导航按钮样式 */
-.service-nav-button {
-  font-size: var(--sipumtech-font-size-body) !important;
-  font-weight: var(--sipumtech-font-weight-semibold) !important;
-  color: var(--sipumtech-primary-blue) !important;
-}
-
-.service-nav-button:hover {
-  color: var(--sipumtech-secondary-blue) !important;
 }
 
 /* 核心业务展示区域 */
@@ -354,10 +288,6 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
 }
 
 @media (max-width: 480px) {
-  .service-nav-section {
-    padding: 40px 0;
-  }
-
   .main-services-section {
     padding: 60px 0;
   }
