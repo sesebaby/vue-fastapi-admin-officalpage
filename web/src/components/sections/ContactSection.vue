@@ -506,7 +506,7 @@ onUnmounted(() => {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   padding: 32px 24px;
-  min-height: 200px;
+  height: 200px; /* 使用固定高度而不是最小高度 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -646,16 +646,20 @@ onUnmounted(() => {
   }
 
   .modern-glass-card {
-    min-height: 220px;
+    height: 240px; /* 固定高度，以地址卡片内容为基准 */
     padding: 36px 28px;
   }
 
   .card-title {
     font-size: 19px;
+    margin-bottom: 12px;
   }
 
   .card-text {
     font-size: 15px;
+    line-height: 1.5;
+    word-break: break-word;
+    hyphens: auto;
   }
 }
 
@@ -801,7 +805,7 @@ onUnmounted(() => {
   }
 
   .modern-glass-card {
-    min-height: 180px;
+    height: 200px; /* 固定高度，确保平板端卡片高度一致 */
     padding: 28px 20px;
     border-radius: 16px;
   }
@@ -819,10 +823,14 @@ onUnmounted(() => {
 
   .card-title {
     font-size: 17px;
+    margin-bottom: 10px;
   }
 
   .card-text {
     font-size: 14px;
+    line-height: 1.4;
+    word-break: break-word;
+    hyphens: auto;
   }
 
   .map-info-overlay {
@@ -849,7 +857,7 @@ onUnmounted(() => {
   }
 
   .modern-glass-card {
-    min-height: 160px;
+    height: 180px; /* 固定高度，确保手机端卡片高度一致 */
     padding: 24px 18px;
     border-radius: 14px;
     margin-bottom: 16px;
@@ -874,7 +882,9 @@ onUnmounted(() => {
 
   .card-text {
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.4;
+    word-break: break-word;
+    hyphens: auto;
   }
 
   .map-background {
