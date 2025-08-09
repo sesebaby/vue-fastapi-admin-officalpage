@@ -12,7 +12,7 @@
       <!-- 技术内容区域 -->
       <n-space vertical :size="80">
         <!-- KPI 数据带：展示关键技术指标 -->
-        <n-grid :cols="'1200:4 1024:4 768:2 0:1'" :x-gap="24" :y-gap="24" responsive="screen" class="technology-kpi-band">
+        <n-grid :cols="'xs:1 s:2 m:4 l:4 xl:4'" :x-gap="24" :y-gap="24" responsive="screen" class="technology-kpi-band">
           <!-- 交付项目数 -->
           <n-grid-item>
             <n-card size="small" class="kpi-card" hoverable>
@@ -356,6 +356,9 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
   background: #ffffff;
   border: 1px solid rgba(15, 23, 42, 0.06);
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
+  min-height: 120px; /* 卡片等高，避免不齐 */
+  display: flex;
+  align-items: center;
 }
 
 /* 步骤区域基础留白 */
