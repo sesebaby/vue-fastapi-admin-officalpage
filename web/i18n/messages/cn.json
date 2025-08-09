@@ -117,7 +117,7 @@
       "capability_3_title": "测试验证服务",
       "capability_3_desc": "功能测试、性能验证、可靠性测试",
       "capability_4_title": "技术咨询服务",
-      "capability_4_desc": "技术方案咨询、工艺优化建议"
+      "capability_4_desc": "技术方案咨询、工艺优化建议",
       "kpi_projects_label": "累计交付项目",
       "kpi_lead_time_label": "平均交付周期",
       "kpi_lead_time_unit": "周",
@@ -130,7 +130,7 @@
       "step_validate_title": "测试验证",
       "step_validate_desc": "功能、性能与可靠性测试",
       "step_delivery_title": "量产交付",
-      "step_delivery_desc": "工程化与持续优化",
+      "step_delivery_desc": "工程化与持续优化"
 
     },
     "cases": {
