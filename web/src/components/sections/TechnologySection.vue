@@ -11,6 +11,77 @@
 
       <!-- 技术内容区域 -->
       <n-space vertical :size="80">
+        <!-- KPI 数据带：展示关键技术指标 -->
+        <n-grid :cols="'1024:4 768:2 0:1'" :x-gap="24" :y-gap="24" responsive="screen" class="technology-kpi-band">
+          <!-- 交付项目数 -->
+          <n-grid-item>
+            <n-card size="small" class="kpi-card" hoverable>
+              <n-statistic :tabular-nums="true">
+                <template #label>
+                  {{ $t('website.technology.kpi_projects_label') }}
+                </template>
+                <template #default>
+                  120
+                </template>
+                <template #suffix>
+                  +
+                </template>
+              </n-statistic>
+            </n-card>
+          </n-grid-item>
+          <!-- 平均交付周期 -->
+          <n-grid-item>
+            <n-card size="small" class="kpi-card" hoverable>
+              <n-statistic :tabular-nums="true">
+                <template #label>
+                  {{ $t('website.technology.kpi_lead_time_label') }}
+                </template>
+                <template #prefix>
+                  ≤
+                </template>
+                <template #default>
+                  4
+                </template>
+                <template #suffix>
+                  {{ $t('website.technology.kpi_lead_time_unit') }}
+                </template>
+              </n-statistic>
+            </n-card>
+          </n-grid-item>
+          <!-- 客户满意度 -->
+          <n-grid-item>
+            <n-card size="small" class="kpi-card" hoverable>
+              <n-statistic :tabular-nums="true">
+                <template #label>
+                  {{ $t('website.technology.kpi_csat_label') }}
+                </template>
+                <template #default>
+                  98
+                </template>
+                <template #suffix>
+                  %
+                </template>
+              </n-statistic>
+            </n-card>
+          </n-grid-item>
+          <!-- 专利/研发成果 -->
+          <n-grid-item>
+            <n-card size="small" class="kpi-card" hoverable>
+              <n-statistic :tabular-nums="true">
+                <template #label>
+                  {{ $t('website.technology.kpi_patents_label') }}
+                </template>
+                <template #default>
+                  30
+                </template>
+                <template #suffix>
+                  +
+                </template>
+              </n-statistic>
+            </n-card>
+          </n-grid-item>
+        </n-grid>
+
         <!-- 技术概览区域 - 使用Naive UI Grid布局 -->
         <n-grid
           :cols="2"
@@ -88,6 +159,16 @@
             </n-space>
           </n-grid-item>
         </n-grid>
+
+        <!-- 方法论 / 研发流程（横向步骤） -->
+        <div class="technology-steps">
+          <n-steps :current="2" size="medium">
+            <n-step :title="$t('website.technology.step_discover_title')" :description="$t('website.technology.step_discover_desc')" />
+            <n-step :title="$t('website.technology.step_design_title')" :description="$t('website.technology.step_design_desc')" />
+            <n-step :title="$t('website.technology.step_validate_title')" :description="$t('website.technology.step_validate_desc')" />
+            <n-step :title="$t('website.technology.step_delivery_title')" :description="$t('website.technology.step_delivery_desc')" />
+          </n-steps>
+        </div>
 
         <!-- 技术能力卡片区域 - 使用Naive UI Grid -->
         <n-grid
@@ -265,8 +346,39 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
 /* 技术能力展示区域 */
 .technology-section {
-  background: var(--sipumtech-bg-gray);
+  /* 深色科技感背景：渐变 + 细网格 */
+  background:
+    radial-gradient(1200px 400px at 10% -10%, rgba(77,163,255,0.12), transparent 60%),
+    radial-gradient(1000px 600px at 90% 10%, rgba(127,86,217,0.12), transparent 60%),
+    linear-gradient(180deg, #0b1020 0%, #111a2e 100%);
   padding: var(--sipumtech-section-padding-desktop);
+  position: relative;
+}
+
+/* KPI卡片与步骤区域样式 */
+.technology-kpi-band .kpi-card {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #d6e4ff;
+}
+
+.technology-kpi-band :deep(.n-statistic-label) {
+  color: #9fb3c8;
+}
+.technology-kpi-band :deep(.n-statistic-value) {
+  color: #e6f0ff;
+  font-weight: 700;
+}
+
+.technology-steps {
+  padding: 8px 4px;
+}
+.technology-steps :deep(.n-step)
+{ color: #dbeafe; }
+.technology-steps :deep(.n-step-status-process .n-step-indicator) {
+  background-color: #4DA3FF;
 }
 
 .section-container {
