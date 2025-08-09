@@ -93,8 +93,15 @@
 
         <!-- 地图区域 - 大屏端单独一行 -->
         <div class="map-section">
-          <n-card class="map-card map-container-card">
-              <n-space vertical :size="20">
+          <n-card
+            key="map-container-card"
+            class="map-card map-container-card"
+          >
+              <n-space
+                key="map-card-content"
+                vertical
+                :size="20"
+              >
                 <n-text
                   :style="{
                     fontSize: '18px',
@@ -108,7 +115,12 @@
             <!-- 位置展示容器 -->
             <div class="location-display-container">
               <!-- 百度地图容器 -->
-              <div id="baidu-map-container" class="map-container">
+              <div
+                v-if="shouldShowMap"
+                id="baidu-map-container"
+                key="baidu-map-container"
+                class="map-container"
+              >
                 <!-- 地图加载状态 -->
                 <div v-if="mapLoading" class="map-loading">
                   <n-spin size="large">
@@ -248,7 +260,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -340,10 +352,23 @@ const initBaiduMap = async () => {
     // 加载百度地图API
     const BMap = await loadBaiduMapAPI()
 
+    // 等待DOM完全渲染
+    await nextTick()
+
     // 创建地图实例
     const mapContainer = document.getElementById('baidu-map-container')
     if (!mapContainer) {
       throw new Error('地图容器未找到')
+    }
+
+    // 确保容器没有被其他地图实例占用
+    if (baiduMap.value) {
+      try {
+        baiduMap.value.clearOverlays()
+        mapContainer.innerHTML = ''
+      } catch (e) {
+        console.warn('清理旧地图实例时出错:', e)
+      }
     }
 
     baiduMap.value = new BMap.Map(mapContainer)
@@ -429,19 +454,32 @@ const copyAddress = async () => {
 // 组件挂载时初始化地图
 onMounted(() => {
   // 延迟初始化，确保DOM完全渲染
-  setTimeout(() => {
-    initBaiduMap()
-  }, 100)
+  nextTick(() => {
+    setTimeout(() => {
+      initBaiduMap()
+    }, 200)
+  })
 })
 
 // 组件卸载时清理资源
 onUnmounted(() => {
-  if (baiduMap.value) {
-    baiduMap.value.clearOverlays()
-    baiduMap.value = null
-  }
-  if (mapMarker.value) {
-    mapMarker.value = null
+  try {
+    if (baiduMap.value) {
+      // 清理地图事件监听器
+      baiduMap.value.removeEventListener('click')
+      baiduMap.value.clearOverlays()
+      // 销毁地图实例
+      const mapContainer = document.getElementById('baidu-map-container')
+      if (mapContainer) {
+        mapContainer.innerHTML = ''
+      }
+      baiduMap.value = null
+    }
+    if (mapMarker.value) {
+      mapMarker.value = null
+    }
+  } catch (error) {
+    console.warn('地图清理时出现错误:', error)
   }
 })
 
