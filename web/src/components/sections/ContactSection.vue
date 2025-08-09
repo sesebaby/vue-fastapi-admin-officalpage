@@ -28,132 +28,82 @@
 
       <!-- 联系内容区域 -->
       <n-space vertical :size="60">
-        <!-- 联系信息卡片区域 -->
-        <n-grid
-          :cols="3"
-          :x-gap="40"
-          :y-gap="30"
-          item-responsive
-          responsive="screen"
-        >
-          <!-- 地址信息卡片 -->
-          <n-grid-item>
-            <n-card hoverable class="contact-card">
-              <n-space align="flex-start" :size="20">
-                <n-avatar
-                  :size="50"
-                  color="#f0f9ff"
-                  style="background: #f0f9ff; color: #1e3a8a; font-size: 24px;"
-                >
-                  📍
-                </n-avatar>
-                <n-space vertical :size="8">
-                  <n-text
-                    :style="{
-                      fontSize: '18px',
-                      fontWeight: 'var(--sipumtech-font-weight-semibold)',
-                      color: 'var(--sipumtech-primary-blue)'
-                    }"
-                  >
-                    {{ $t('website.contact.address_title') }}
-                  </n-text>
-                  <n-text
-                    :style="{
-                      fontSize: 'var(--sipumtech-font-size-body)',
-                      color: 'var(--sipumtech-text-secondary)',
-                      lineHeight: 'var(--sipumtech-line-height-relaxed)'
-                    }"
-                  >
-                    {{ $t('website.contact.address') }}
-                  </n-text>
-                </n-space>
-              </n-space>
-            </n-card>
-          </n-grid-item>
+        <!-- 大屏端：联系信息卡片水平排列 -->
+        <div class="contact-info-section">
+          <!-- 联系信息卡片网格 - 大屏3列水平排列，平板和手机垂直排列 -->
+          <n-grid
+            :cols="'1024:3 768:1 480:1'"
+            :x-gap="24"
+            :y-gap="20"
+            item-responsive
+            responsive="screen"
+          >
+            <!-- 地址信息卡片 -->
+            <n-grid-item>
+              <div class="contact-info-card modern-glass-card">
+                <div class="card-icon-wrapper">
+                  <div class="card-icon address-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">{{ $t('website.contact.address_title') }}</h3>
+                  <p class="card-text">{{ $t('website.contact.address') }}</p>
+                </div>
+              </div>
+            </n-grid-item>
 
-          <!-- 电话信息卡片 -->
-          <n-grid-item>
-            <n-card hoverable class="contact-card">
-              <n-space align="flex-start" :size="20">
-                <n-avatar
-                  :size="50"
-                  color="#f0f9ff"
-                  style="background: #f0f9ff; color: #1e3a8a; font-size: 24px;"
-                >
-                  📞
-                </n-avatar>
-                <n-space vertical :size="8">
-                  <n-text
-                    :style="{
-                      fontSize: '18px',
-                      fontWeight: 'var(--sipumtech-font-weight-semibold)',
-                      color: 'var(--sipumtech-primary-blue)'
-                    }"
-                  >
-                    {{ $t('website.contact.phone_title') }}
-                  </n-text>
-                  <n-text
-                    :style="{
-                      fontSize: 'var(--sipumtech-font-size-body)',
-                      color: 'var(--sipumtech-text-secondary)',
-                      lineHeight: 'var(--sipumtech-line-height-relaxed)'
-                    }"
-                  >
-                    {{ $t('website.contact.phone') }}
-                  </n-text>
-                </n-space>
-              </n-space>
-            </n-card>
-          </n-grid-item>
+            <!-- 电话信息卡片 -->
+            <n-grid-item>
+              <div class="contact-info-card modern-glass-card">
+                <div class="card-icon-wrapper">
+                  <div class="card-icon phone-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">{{ $t('website.contact.phone_title') }}</h3>
+                  <p class="card-text">{{ $t('website.contact.phone') }}</p>
+                </div>
+              </div>
+            </n-grid-item>
 
-          <!-- 邮箱信息卡片 -->
-          <n-grid-item>
-            <n-card hoverable class="contact-card">
-              <n-space align="flex-start" :size="20">
-                <n-avatar
-                  :size="50"
-                  color="#f0f9ff"
-                  style="background: #f0f9ff; color: #1e3a8a; font-size: 24px;"
-                >
-                  📧
-                </n-avatar>
-                <n-space vertical :size="8">
-                  <n-text
-                    :style="{
-                      fontSize: '18px',
-                      fontWeight: 'var(--sipumtech-font-weight-semibold)',
-                      color: 'var(--sipumtech-primary-blue)'
-                    }"
-                  >
-                    {{ $t('website.contact.email_title') }}
-                  </n-text>
-                  <n-text
-                    :style="{
-                      fontSize: 'var(--sipumtech-font-size-body)',
-                      color: 'var(--sipumtech-text-secondary)',
-                      lineHeight: 'var(--sipumtech-line-height-relaxed)'
-                    }"
-                  >
-                    wenqiang.chang@sipumtech.com
-                  </n-text>
-                </n-space>
-              </n-space>
-            </n-card>
-          </n-grid-item>
-        </n-grid>
+            <!-- 邮箱信息卡片 -->
+            <n-grid-item>
+              <div class="contact-info-card modern-glass-card">
+                <div class="card-icon-wrapper">
+                  <div class="card-icon email-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">{{ $t('website.contact.email_title') }}</h3>
+                  <p class="card-text">{{ $t('website.contact.email') }}</p>
+                </div>
+              </div>
+            </n-grid-item>
+          </n-grid>
+        </div>
 
-        <!-- 地图区域 - 单独一行 -->
-        <n-card class="map-card">
-          <n-space vertical :size="20">
-            <n-text
-              :style="{
-                fontSize: '18px',
-                fontWeight: 'var(--sipumtech-font-weight-semibold)',
-                color: 'var(--sipumtech-primary-blue)'
-              }"
-            >
-              {{ $t('website.contact.map_title') }}
-            </n-text>
+        <!-- 地图区域 - 大屏端单独一行 -->
+        <div class="map-section">
+          <n-card class="map-card map-container-card">
+              <n-space vertical :size="20">
+                <n-text
+                  :style="{
+                    fontSize: '18px',
+                    fontWeight: 'var(--sipumtech-font-weight-semibold)',
+                    color: 'var(--sipumtech-primary-blue)'
+                  }"
+                >
+                  {{ $t('website.contact.map_title') }}
+                </n-text>
 
             <!-- 位置展示容器 -->
             <div class="location-display-container">
@@ -270,27 +220,28 @@
               </div>
             </div>
 
-            <!-- 地址信息显示 -->
-            <div class="address-info">
-              <n-space align="center" :size="12">
-                <n-icon :size="20" color="var(--sipumtech-accent-green)">
-                  <svg viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                  </svg>
-                </n-icon>
-                <n-text
-                  :style="{
-                    fontSize: 'var(--sipumtech-font-size-body)',
-                    color: 'var(--sipumtech-text-primary)',
-                    fontWeight: '500'
-                  }"
-                >
-                  {{ companyAddress }}
-                </n-text>
-              </n-space>
-            </div>
-          </n-space>
-        </n-card>
+                <!-- 地址信息显示 -->
+                <div class="address-info">
+                  <n-space align="center" :size="12">
+                    <n-icon :size="20" color="var(--sipumtech-accent-green)">
+                      <svg viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                      </svg>
+                    </n-icon>
+                    <n-text
+                      :style="{
+                        fontSize: 'var(--sipumtech-font-size-body)',
+                        color: 'var(--sipumtech-text-primary)',
+                        fontWeight: '500'
+                      }"
+                    >
+                      {{ companyAddress }}
+                    </n-text>
+                  </n-space>
+                </div>
+            </n-space>
+          </n-card>
+        </div>
       </n-space>
     </div>
   </section>
@@ -535,6 +486,179 @@ onUnmounted(() => {
   box-shadow: 0 4px 16px rgba(0, 212, 170, 0.2);
 }
 
+/* 联系信息区域样式 */
+.contact-info-section {
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+/* 地图区域样式 */
+.map-section {
+  width: 100%;
+}
+
+/* 现代化毛玻璃卡片设计 */
+.modern-glass-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 32px 24px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+
+/* 卡片悬停效果 */
+.modern-glass-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 卡片背景渐变装饰 */
+.modern-glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+/* 图标容器 */
+.card-icon-wrapper {
+  margin-bottom: 20px;
+}
+
+/* 图标样式 */
+.card-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.card-icon svg {
+  width: 28px;
+  height: 28px;
+  transition: all 0.3s ease;
+}
+
+/* 地址图标样式 */
+.address-icon {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* 电话图标样式 */
+.phone-icon {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  box-shadow: 0 8px 20px rgba(240, 147, 251, 0.3);
+}
+
+/* 邮箱图标样式 */
+.email-icon {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
+}
+
+/* 图标悬停效果 */
+.modern-glass-card:hover .card-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.modern-glass-card:hover .card-icon svg {
+  transform: scale(1.1);
+}
+
+/* 卡片内容 */
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 卡片标题 */
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--sipumtech-primary-blue, #1e3a8a);
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+/* 卡片文本 */
+.card-text {
+  font-size: 14px;
+  color: var(--sipumtech-text-secondary, #64748b);
+  line-height: 1.6;
+  margin: 0;
+  word-wrap: break-word;
+  hyphens: auto;
+  transition: color 0.3s ease;
+}
+
+/* 卡片悬停时的文字效果 */
+.modern-glass-card:hover .card-title {
+  color: var(--sipumtech-primary-blue, #1e40af);
+}
+
+.modern-glass-card:hover .card-text {
+  color: var(--sipumtech-text-primary, #374151);
+}
+
+/* 大屏端确保3个卡片等宽等高 */
+@media (min-width: 1024px) {
+  .contact-info-section .n-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+  }
+
+  .modern-glass-card {
+    min-height: 220px;
+    padding: 36px 28px;
+  }
+
+  .card-title {
+    font-size: 19px;
+  }
+
+  .card-text {
+    font-size: 15px;
+  }
+}
+
 /* 地图卡片样式 - 简洁清晰设计 */
 .map-card {
   border: 2px solid #e8f4fd;
@@ -542,6 +666,14 @@ onUnmounted(() => {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 地图容器卡片 - 大屏端独立高度 */
+.map-container-card {
+  width: 100%;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 位置展示容器样式 - 完全透明 */
@@ -558,9 +690,11 @@ onUnmounted(() => {
   position: relative;
   width: 100%;
   height: 400px;
+  min-height: 400px;
   border-radius: 12px;
   overflow: hidden;
   background: #f5f5f5;
+  flex: 1;
 }
 
 /* 地图加载状态样式 */
@@ -612,6 +746,15 @@ onUnmounted(() => {
 @media (max-width: 768px) {
   .map-container {
     height: 300px;
+    min-height: 300px;
+  }
+
+  .map-container-card {
+    min-height: 400px;
+  }
+
+  .contact-info-card {
+    min-height: 100px;
   }
 
   .map-loading,
@@ -648,8 +791,38 @@ onUnmounted(() => {
     padding: 0 var(--sipumtech-container-padding-tablet);
   }
 
-  .map-background {
-    height: 350px;
+  /* 平板端布局调整 */
+  .contact-info-section {
+    margin-bottom: 40px;
+  }
+
+  .map-container-card {
+    min-height: 400px;
+  }
+
+  .modern-glass-card {
+    min-height: 180px;
+    padding: 28px 20px;
+    border-radius: 16px;
+  }
+
+  .card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+  }
+
+  .card-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .card-title {
+    font-size: 17px;
+  }
+
+  .card-text {
+    font-size: 14px;
   }
 
   .map-info-overlay {
@@ -669,6 +842,39 @@ onUnmounted(() => {
 
   .section-container {
     padding: 0 var(--sipumtech-container-padding-mobile);
+  }
+
+  .contact-info-section {
+    margin-bottom: 30px;
+  }
+
+  .modern-glass-card {
+    min-height: 160px;
+    padding: 24px 18px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+
+  .card-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .card-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .card-text {
+    font-size: 13px;
+    line-height: 1.5;
   }
 
   .map-background {
