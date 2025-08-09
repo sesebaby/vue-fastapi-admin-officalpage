@@ -12,7 +12,7 @@
       <!-- 技术内容区域 -->
       <n-space vertical :size="80">
         <!-- KPI 数据带：展示关键技术指标 -->
-        <n-grid :cols="{ xs: 1, s: 2, m: 4, l: 4, xl: 4 }" :x-gap="24" :y-gap="24" responsive="screen" class="technology-kpi-band">
+        <n-grid :cols="'xs:1 s:2 m:4 l:4 xl:4'" :x-gap="24" :y-gap="24" responsive="screen" class="technology-kpi-band">
           <!-- 交付项目数 -->
           <n-grid-item>
             <n-card size="small" class="kpi-card" hoverable>
