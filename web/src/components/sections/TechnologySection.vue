@@ -12,7 +12,7 @@
       <!-- 技术内容区域 -->
       <n-space vertical :size="80">
         <!-- KPI 数据带：展示关键技术指标 -->
-        <n-grid :cols="'1024:4 768:2 0:1'" :x-gap="24" :y-gap="24" responsive="screen" class="technology-kpi-band">
+        <n-grid :cols="'1200:4 1024:4 768:2 0:1'" :x-gap="24" :y-gap="24" responsive="screen" class="technology-kpi-band">
           <!-- 交付项目数 -->
           <n-grid-item>
             <n-card size="small" class="kpi-card" hoverable>
@@ -346,37 +346,24 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
 /* 技术能力展示区域 */
 .technology-section {
-  /* 深色科技感背景：渐变 + 细网格 */
-  background:
-    radial-gradient(1200px 400px at 10% -10%, rgba(77,163,255,0.12), transparent 60%),
-    radial-gradient(1000px 600px at 90% 10%, rgba(127,86,217,0.12), transparent 60%),
-    linear-gradient(180deg, #0b1020 0%, #111a2e 100%);
+  /* 恢复浅色背景以与其他 section 保持一致 */
+  background: var(--sipumtech-bg-white);
   padding: var(--sipumtech-section-padding-desktop);
-  position: relative;
 }
 
-/* KPI卡片与步骤区域样式 */
+/* KPI 卡片样式（浅色背景下） */
 .technology-kpi-band .kpi-card {
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #d6e4ff;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
 }
 
-.technology-kpi-band :deep(.n-statistic-label) {
-  color: #9fb3c8;
-}
-.technology-kpi-band :deep(.n-statistic-value) {
-  color: #e6f0ff;
-  font-weight: 700;
-}
-
+/* 步骤区域基础留白 */
 .technology-steps {
   padding: 8px 4px;
 }
-.technology-steps :deep(.n-step)
-{ color: #dbeafe; }
+
+/* 当前步骤高亮色保持品牌蓝 */
 .technology-steps :deep(.n-step-status-process .n-step-indicator) {
   background-color: #4DA3FF;
 }
