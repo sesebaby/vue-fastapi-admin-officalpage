@@ -33,24 +33,49 @@ fi
 # 方法3: 手动拉取镜像后构建
 if [ "$BUILD_SUCCESS" = false ]; then
     echo "📦 方法3: 尝试手动拉取镜像..."
-    
+
+    # 定义多个镜像源
+    MIRRORS=(
+        "hub-mirror.c.163.com"
+        "docker.mirrors.ustc.edu.cn"
+        "mirror.baidubce.com"
+        "dockerproxy.com"
+    )
+
+    NODE_SUCCESS=false
+    PYTHON_SUCCESS=false
+
     # 尝试从不同源拉取Node.js镜像
     echo "拉取Node.js镜像..."
-    if docker pull hub-mirror.c.163.com/library/node:18.12.0-alpine; then
-        docker tag hub-mirror.c.163.com/library/node:18.12.0-alpine node:18.12.0-alpine3.16
-        echo "✅ Node.js镜像拉取成功"
-    else
-        echo "❌ Node.js镜像拉取失败"
-        exit 1
-    fi
-    
+    for mirror in "${MIRRORS[@]}"; do
+        echo "尝试镜像源: $mirror"
+        if docker pull $mirror/library/node:18.12.0-alpine; then
+            docker tag $mirror/library/node:18.12.0-alpine node:18.12.0-alpine3.16
+            echo "✅ Node.js镜像从 $mirror 拉取成功"
+            NODE_SUCCESS=true
+            break
+        else
+            echo "❌ 从 $mirror 拉取Node.js镜像失败，尝试下一个..."
+        fi
+    done
+
     # 尝试从不同源拉取Python镜像
     echo "拉取Python镜像..."
-    if docker pull hub-mirror.c.163.com/library/python:3.11-slim; then
-        docker tag hub-mirror.c.163.com/library/python:3.11-slim python:3.11-slim-bullseye
-        echo "✅ Python镜像拉取成功"
-    else
-        echo "❌ Python镜像拉取失败"
+    for mirror in "${MIRRORS[@]}"; do
+        echo "尝试镜像源: $mirror"
+        if docker pull $mirror/library/python:3.11-slim; then
+            docker tag $mirror/library/python:3.11-slim python:3.11-slim-bullseye
+            echo "✅ Python镜像从 $mirror 拉取成功"
+            PYTHON_SUCCESS=true
+            break
+        else
+            echo "❌ 从 $mirror 拉取Python镜像失败，尝试下一个..."
+        fi
+    done
+
+    # 检查是否都拉取成功
+    if [ "$NODE_SUCCESS" = false ] || [ "$PYTHON_SUCCESS" = false ]; then
+        echo "❌ 无法从任何镜像源拉取所需镜像"
         exit 1
     fi
     

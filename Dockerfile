@@ -1,5 +1,5 @@
-# 使用公开可访问的Node.js基础镜像
-FROM node:18.12.0-alpine3.16 AS web-builder
+# 使用中国镜像源的Node.js基础镜像（解决网络超时问题）
+FROM hub-mirror.c.163.com/library/node:18.12.0-alpine AS web-builder
 
 WORKDIR /opt/vue-fastapi-admin/web
 
@@ -16,8 +16,8 @@ RUN npm install
 COPY web/ ./
 RUN npm run build
 
-# 使用公开可访问的Python基础镜像
-FROM python:3.11-slim-bullseye
+# 使用中国镜像源的Python基础镜像（解决网络超时问题）
+FROM hub-mirror.c.163.com/library/python:3.11-slim
 
 WORKDIR /opt/vue-fastapi-admin
 
