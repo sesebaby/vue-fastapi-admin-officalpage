@@ -1,9 +1,12 @@
-# 使用公开可访问的Node.js基础镜像
-FROM node:18.12.0-alpine3.16 AS web-builder
+# 备用Dockerfile - 使用网易云镜像源
+# 如果官方镜像拉取失败，可以使用这个版本
+
+# 使用网易云镜像的Node.js基础镜像
+FROM hub-mirror.c.163.com/library/node:18.12.0-alpine AS web-builder
 
 WORKDIR /opt/vue-fastapi-admin/web
 
-# 配置npm使用国内镜像源并设置超时
+# 配置npm使用国内镜像源
 RUN npm config set registry https://registry.npmmirror.com && \
     npm config set timeout 60000 && \
     npm config set network-timeout 60000
@@ -16,8 +19,8 @@ RUN npm install
 COPY web/ ./
 RUN npm run build
 
-# 使用公开可访问的Python基础镜像
-FROM python:3.11-slim-bullseye
+# 使用网易云镜像的Python基础镜像
+FROM hub-mirror.c.163.com/library/python:3.11-slim
 
 WORKDIR /opt/vue-fastapi-admin
 
