@@ -348,6 +348,35 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
   margin: 0 auto;
 }
 
+/* 服务卡片样式 - 确保高度一致 */
+.service-card {
+  min-height: 600px; /* 设置统一的最小高度，确保两个卡片高度一致 */
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+}
+
+/* 确保卡片内容垂直分布 */
+.service-card :deep(.n-card__content) {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 确保卡片内的 n-space 填满整个高度并合理分布内容 */
+.service-card :deep(.n-space) {
+  height: 100%;
+  justify-content: space-between;
+}
+
 /*
  * 服务卡片内容样式已完全迁移到 Naive UI 组件
  * - 使用 n-text 组件的 style 属性替代所有 HTML 标签样式
@@ -356,11 +385,38 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
  * - 完全依赖 Naive UI 组件属性管理样式
  */
 
+/* 响应式设计 - 服务卡片高度适配 */
+@media (max-width: 1024px) {
+  /* 平板端：调整卡片高度 */
+  .service-card {
+    min-height: 550px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 移动端：单列布局时调整卡片高度 */
+  .service-card {
+    min-height: 500px;
+  }
+
+  /* 移动端优化：调整内容间距 */
+  .service-card :deep(.n-space) {
+    gap: 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* 小屏幕：进一步优化高度 */
+  .service-card {
+    min-height: 450px;
+  }
+}
+
 /*
  * 响应式布局完全由 Naive UI 组件处理：
  * - n-grid 的 item-responsive 和 responsive="screen" 自动处理响应式布局
  * - n-space 的 align="center" 处理内容对齐
  * - n-text 组件的 style 属性管理所有文本样式
- * - 移除所有自定义媒体查询，严格遵循 Naive UI 优先原则
+ * - 保留必要的卡片高度控制以确保视觉一致性
  */
 </style>
