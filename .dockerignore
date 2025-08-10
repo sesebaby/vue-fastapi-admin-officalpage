@@ -1,1 +1,86 @@
+# Git相关
+.git
+.gitignore
+.gitattributes
+
+# 开发工具
+.vscode
+.vs
+.idea
+*.swp
+*.swo
+*~
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 依赖目录
+node_modules
 web/node_modules
+
+# 构建输出
+web/dist
+web/build
+dist
+build
+
+# Python相关
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache
+.coverage
+.nyc_output
+coverage
+
+# 环境文件
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+db.sqlite3
+
+# Docker相关
+Dockerfile.backup
+docker-compose*
+
+# 文档
+README.md
+*.md
+docs/
+
+# 临时文件
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDE配置
+.vscode/
+.idea/
+
+# 测试相关
+test/
+tests/
+*.test.js
+*.spec.js
+
+# 其他
+.nyc_output
+coverage/
+.sass-cache/
+connect.lock
+typings/
+.angular/
