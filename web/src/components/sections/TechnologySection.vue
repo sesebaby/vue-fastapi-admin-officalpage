@@ -319,35 +319,40 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
 /* 步骤样式优化 - 所有激活步骤使用品牌色 */
 .technology-steps :deep(.n-step-status-process .n-step-indicator) {
-  background-color: var(--sipumtech-primary-blue);
-  border-color: var(--sipumtech-primary-blue);
+  background-color: var(--sipumtech-primary-blue) !important;
+  border-color: var(--sipumtech-primary-blue) !important;
 }
 
 .technology-steps :deep(.n-step-status-finish .n-step-indicator) {
-  background-color: var(--sipumtech-primary-blue);
-  border-color: var(--sipumtech-primary-blue);
+  background-color: var(--sipumtech-primary-blue) !important;
+  border-color: var(--sipumtech-primary-blue) !important;
 }
 
 .technology-steps :deep(.n-step-status-finish .n-step-indicator .n-icon) {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
-.technology-steps :deep(.n-step-status-process .n-step-title) {
-  color: var(--sipumtech-text-primary);
-  font-weight: var(--sipumtech-font-weight-semibold);
-}
-
+/* 强制覆盖步骤文字颜色 - 确保与网站其他部分一致 */
+.technology-steps :deep(.n-step .n-step-title),
+.technology-steps :deep(.n-step-status-process .n-step-title),
 .technology-steps :deep(.n-step-status-finish .n-step-title) {
-  color: var(--sipumtech-text-primary);
-  font-weight: var(--sipumtech-font-weight-semibold);
+  color: var(--sipumtech-text-primary) !important;
+  font-weight: var(--sipumtech-font-weight-semibold) !important;
 }
 
-.technology-steps :deep(.n-step-status-process .n-step-description) {
-  color: var(--sipumtech-text-secondary);
-}
-
+.technology-steps :deep(.n-step .n-step-description),
+.technology-steps :deep(.n-step-status-process .n-step-description),
 .technology-steps :deep(.n-step-status-finish .n-step-description) {
-  color: var(--sipumtech-text-secondary);
+  color: var(--sipumtech-text-secondary) !important;
+}
+
+/* 额外确保所有步骤文字都使用正确颜色 */
+.technology-steps :deep(.n-step-content .n-step-title) {
+  color: var(--sipumtech-text-primary) !important;
+}
+
+.technology-steps :deep(.n-step-content .n-step-description) {
+  color: var(--sipumtech-text-secondary) !important;
 }
 
 .section-container {
