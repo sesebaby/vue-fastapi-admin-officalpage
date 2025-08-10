@@ -243,6 +243,19 @@ const handleContactUs = () => {
   padding: 0 var(--sipumtech-container-padding-desktop);
 }
 
+/* 响应式容器padding - 修复移动端内容区域过窄问题 */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .section-container {
+    padding: 0 var(--sipumtech-container-padding-tablet);
+  }
+}
+
+@media (max-width: 768px) {
+  .section-container {
+    padding: 0 var(--sipumtech-container-padding-mobile);
+  }
+}
+
 /* 网格容器样式 - 确保高度对齐 */
 .about-grid-container {
   min-height: 600px; /* 设置最小高度 */

@@ -229,6 +229,19 @@ const handleRetry = () => {
   padding: 0 var(--sipumtech-container-padding-desktop);
 }
 
+/* 响应式容器padding - 修复移动端内容区域过窄问题 */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .section-container {
+    padding: 0 var(--sipumtech-container-padding-tablet);
+  }
+}
+
+@media (max-width: 768px) {
+  .section-container {
+    padding: 0 var(--sipumtech-container-padding-mobile);
+  }
+}
+
 /* 保留必要的品牌装饰样式 */
 .title-underline {
   width: 80px;
