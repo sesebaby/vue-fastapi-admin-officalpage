@@ -430,12 +430,30 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
   line-height: var(--sipumtech-line-height-normal);
 }
 
-/*
- * 技术能力卡片样式已完全迁移到 Naive UI 组件
- * - 使用 n-text 组件的 style 属性替代 .capability-title 和 .capability-desc
- * - 使用 n-space align="center" 替代 text-align: center
- * - 移除所有自定义 CSS 类，完全依赖 Naive UI 组件属性
- */
+/* 技术能力卡片样式 - 确保高度一致 */
+.capability-card {
+  min-height: 280px; /* 以"先进封装技术"卡片为基准设置统一高度 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
+  transition: all 0.3s ease;
+}
+
+.capability-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+}
+
+/* 确保卡片内容垂直居中 */
+.capability-card :deep(.n-card__content) {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /*
  * 技术概览和能力卡片样式已移除 - 现在使用Naive UI组件
@@ -449,11 +467,38 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
   border-radius: 12px;
 }
 
+/* 响应式设计 - 技术能力卡片高度适配 */
+@media (max-width: 1024px) {
+  /* 平板端：调整卡片高度 */
+  .capability-card {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 移动端：单列布局时调整卡片高度 */
+  .capability-card {
+    min-height: 240px;
+  }
+
+  /* 移动端优化：调整内容间距 */
+  .capability-card :deep(.n-space) {
+    gap: 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* 小屏幕：进一步优化高度 */
+  .capability-card {
+    min-height: 220px;
+  }
+}
+
 /*
- * 响应式布局完全由 Naive UI 组件处理：
+ * 响应式布局由 Naive UI 组件和自定义样式结合处理：
  * - n-grid 的 collapsed 属性自动处理小屏幕单列布局
- * - n-grid 的 align-items 属性处理垂直对齐
- * - 移除所有自定义媒体查询和 !important 覆盖
- * - 严格遵循 Naive UI 优先原则
+ * - .capability-card 样式确保不同屏幕下的高度一致性
+ * - 使用 min-height 而非固定 height，保持内容适应性
+ * - 严格遵循 Naive UI 优先原则，仅添加必要的高度控制
  */
 </style>
