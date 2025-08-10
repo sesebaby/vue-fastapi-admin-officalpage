@@ -151,7 +151,12 @@
                     </template>
                     <template #footer>
                       <n-space>
-                        <n-button @click="initBaiduMap" type="primary">重新加载</n-button>
+                        <n-button @click="retryMapInit" type="primary" :loading="mapLoading">
+                          重新加载
+                          <template v-if="mapRetryCount > 0" #icon>
+                            <span style="font-size: 12px;">({{ mapRetryCount }}/{{ maxRetries }})</span>
+                          </template>
+                        </n-button>
                         <n-button @click="() => window.open('https://lbsyun.baidu.com/', '_blank')" type="default">
                           申请API密钥
                         </n-button>
@@ -273,6 +278,9 @@ const mapLoading = ref(true)
 const mapError = ref(false)
 const baiduMap = ref(null)
 const mapMarker = ref(null)
+const shouldShowMap = ref(true) // 控制地图容器显示
+const mapRetryCount = ref(0) // 重试计数器
+const maxRetries = 3 // 最大重试次数
 
 // 公司位置坐标 (百度地图BD09坐标系)
 const companyLocation = {
@@ -282,7 +290,37 @@ const companyLocation = {
   address: companyAddress
 }
 
+// 等待DOM元素出现的工具函数
+const waitForElement = (selector, timeout = 5000) => {
+  return new Promise((resolve, reject) => {
+    // 首先检查元素是否已经存在
+    const element = document.querySelector(selector)
+    if (element) {
+      resolve(element)
+      return
+    }
 
+    // 使用MutationObserver监听DOM变化
+    const observer = new MutationObserver(() => {
+      const element = document.querySelector(selector)
+      if (element) {
+        observer.disconnect()
+        resolve(element)
+      }
+    })
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    })
+
+    // 设置超时
+    setTimeout(() => {
+      observer.disconnect()
+      reject(new Error(`DOM元素 ${selector} 在 ${timeout}ms 内未找到`))
+    }, timeout)
+  })
+}
 
 // 加载百度地图API
 const loadBaiduMapAPI = () => {
@@ -335,8 +373,8 @@ const loadBaiduMapAPI = () => {
   })
 }
 
-// 初始化百度地图
-const initBaiduMap = async () => {
+// 初始化百度地图（带重试机制）
+const initBaiduMap = async (retryCount = 0) => {
   try {
     mapLoading.value = true
     mapError.value = false
@@ -346,8 +384,12 @@ const initBaiduMap = async () => {
     console.log('读取到的API密钥:', apiKey, '长度:', apiKey?.length)
 
     if (!apiKey || apiKey === 'your_api_key_here' || apiKey === 'YOUR_ACTUAL_API_KEY') {
+      shouldShowMap.value = false
       throw new Error(`请先配置百度地图API密钥。当前值: ${apiKey}`)
     }
+
+    // 确保地图容器显示
+    shouldShowMap.value = true
 
     // 加载百度地图API
     const BMap = await loadBaiduMapAPI()
@@ -355,11 +397,10 @@ const initBaiduMap = async () => {
     // 等待DOM完全渲染
     await nextTick()
 
-    // 创建地图实例
-    const mapContainer = document.getElementById('baidu-map-container')
-    if (!mapContainer) {
-      throw new Error('地图容器未找到')
-    }
+    // 使用改进的DOM元素等待机制
+    console.log('等待地图容器DOM元素...')
+    const mapContainer = await waitForElement('#baidu-map-container', 3000)
+    console.log('地图容器找到:', mapContainer)
 
     // 确保容器没有被其他地图实例占用
     if (baiduMap.value) {
@@ -416,17 +457,43 @@ const initBaiduMap = async () => {
     mapLoading.value = false
 
   } catch (error) {
-    console.error('百度地图初始化失败:', error)
+    console.error(`百度地图初始化失败 (尝试 ${retryCount + 1}/${maxRetries}):`, error)
+
+    // 如果是DOM元素未找到且还有重试机会，则重试
+    if (error.message.includes('DOM元素') && retryCount < maxRetries - 1) {
+      mapRetryCount.value = retryCount + 1
+      console.log(`将在 ${(retryCount + 1) * 1000}ms 后重试...`)
+
+      setTimeout(() => {
+        initBaiduMap(retryCount + 1)
+      }, (retryCount + 1) * 1000) // 递增延迟重试
+
+      return
+    }
+
+    // 重试次数用完或其他错误，显示错误状态
     mapError.value = true
     mapLoading.value = false
+    mapRetryCount.value = 0
 
     // 根据错误类型显示不同的提示信息
     if (error.message.includes('API密钥')) {
+      shouldShowMap.value = false
       window.$message?.warning('请先配置百度地图API密钥')
+    } else if (error.message.includes('DOM元素')) {
+      window.$message?.error('地图容器加载失败，请刷新页面重试')
+    } else if (error.message.includes('超时')) {
+      window.$message?.error('地图API加载超时，请检查网络连接')
     } else {
       window.$message?.error('地图加载失败，请检查网络连接或API密钥配置')
     }
   }
+}
+
+// 手动重试地图初始化
+const retryMapInit = () => {
+  mapRetryCount.value = 0
+  initBaiduMap()
 }
 
 // 在地图中打开位置
