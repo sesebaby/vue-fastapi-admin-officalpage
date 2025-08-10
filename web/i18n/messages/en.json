@@ -53,8 +53,13 @@
     },
     "about": {
       "title": "About SIPUMTECH",
+      "tag_founded": "Founded in 2019",
+      "tag_location": "Headquartered in Suzhou",
+      "tag_positioning": "One-Stop Service Provider",
       "intro_highlight": "Suzhou SIPUMTECH Electronic Technology Co., Ltd. was established in 2019, headquartered in Suzhou, as a leading domestic comprehensive service provider for advanced system-level packaging design and hardware/software development one-stop solutions.",
       "intro_description": "The company focuses on advanced packaging technology and hardware solution development, with professional technical teams and comprehensive service systems, providing customers with full-process solutions from design to testing.",
+      "cta_learn_more": "Learn More",
+      "cta_contact": "Contact Us",
       "stat_founded": "Founded",
       "stat_clients": "Clients Served",
       "stat_team": "Core Team",

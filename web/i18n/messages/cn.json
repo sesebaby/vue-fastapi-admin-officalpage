@@ -61,8 +61,13 @@
     },
     "about": {
       "title": "关于思普微",
+      "tag_founded": "成立于2019年",
+      "tag_location": "总部苏州",
+      "tag_positioning": "一站式服务商",
       "intro_highlight": "苏州思普微电子科技有限公司成立于2019年，总部位于苏州，是国内领先的先进系统级封装设计软硬件开发一站式服务综合服务供应商。",
       "intro_description": "公司专注于先进封装技术和硬件方案开发，拥有专业的技术团队和完善的服务体系，为客户提供从设计到测试的全流程解决方案。",
+      "cta_learn_more": "了解更多",
+      "cta_contact": "联系我们",
       "stat_founded": "成立年份",
       "stat_clients": "服务客户",
       "stat_team": "核心团队",

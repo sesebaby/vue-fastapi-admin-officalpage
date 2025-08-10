@@ -2,7 +2,7 @@
   <!-- 关于我们区域 - 使用Naive UI原生组件 -->
   <section id="about" class="about-section section-half">
     <div class="section-container">
-      <!-- 使用Naive UI Grid布局 -->
+      <!-- 使用Naive UI Grid布局 - 优化高度对齐 -->
       <n-grid
         :cols="2"
         :collapsed="true"
@@ -10,7 +10,8 @@
         :x-gap="80"
         :y-gap="40"
         responsive="screen"
-        align-items="center"
+        align-items="stretch"
+        class="about-grid-container"
       >
         <!-- 左侧文本内容 -->
         <n-grid-item>
@@ -30,7 +31,35 @@
               <div class="title-underline"></div>
             </n-space>
 
-            <!-- 公司介绍 -->
+            <!-- 公司核心信息标签 - 使用Naive UI Tag组件突出显示 -->
+            <n-space :size="12" wrap>
+              <n-tag
+                type="info"
+                size="large"
+                :bordered="false"
+                style="background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; font-weight: 600; padding: 8px 16px;"
+              >
+                {{ $t('website.about.tag_founded') }}
+              </n-tag>
+              <n-tag
+                type="info"
+                size="large"
+                :bordered="false"
+                style="background: linear-gradient(135deg, #059669, #10b981); color: white; font-weight: 600; padding: 8px 16px;"
+              >
+                {{ $t('website.about.tag_location') }}
+              </n-tag>
+              <n-tag
+                type="info"
+                size="large"
+                :bordered="false"
+                style="background: linear-gradient(135deg, #dc2626, #ef4444); color: white; font-weight: 600; padding: 8px 16px;"
+              >
+                {{ $t('website.about.tag_positioning') }}
+              </n-tag>
+            </n-space>
+
+            <!-- 公司介绍 - 重新组织内容层次 -->
             <n-space vertical :size="24">
               <n-text
                 :style="{
@@ -53,11 +82,34 @@
               </n-text>
             </n-space>
 
+            <!-- 添加分隔线 - 使用Naive UI Divider组件 -->
+            <n-divider style="margin: 20px 0;" />
+
+            <!-- "了解更多"按钮 - 使用Naive UI Button组件 -->
+            <n-space>
+              <n-button
+                type="primary"
+                size="large"
+                @click="handleLearnMore"
+                style="padding: 12px 32px; font-size: 16px; font-weight: 600;"
+              >
+                {{ $t('website.about.cta_learn_more') }}
+              </n-button>
+              <n-button
+                type="default"
+                size="large"
+                @click="handleContactUs"
+                style="padding: 12px 32px; font-size: 16px;"
+              >
+                {{ $t('website.about.cta_contact') }}
+              </n-button>
+            </n-space>
+
             <!-- 公司统计数据 - 使用Naive UI Statistic组件 -->
             <n-grid :cols="3" :x-gap="30">
               <n-grid-item>
                 <n-statistic
-                  label="成立年份"
+                  :label="$t('website.about.stat_founded')"
                   :value="2019"
                   :value-style="{ fontSize: '32px', fontWeight: 'bold', color: '#1e3a8a' }"
                 />
@@ -82,21 +134,24 @@
 
         <!-- 右侧图片内容 -->
         <n-grid-item>
-          <div class="about-image-container">
-            <!-- 使用Naive UI Image组件 -->
+          <div class="about-image-container height-match-container">
+            <!-- 使用Naive UI Image组件 - 高度自适应左侧内容 -->
             <n-image
               :src="getImagePath('about', 'office_scene')"
               :fallback-src="PLACEHOLDER_IMAGES.business"
               alt="办公场景"
               object-fit="cover"
-              class="responsive-image"
+              class="responsive-image height-adaptive-image"
+              :img-props="{
+                style: 'width: 100%; height: 100%; object-fit: cover; object-position: center;'
+              }"
             />
 
             <!-- 图片覆盖层信息 -->
             <n-card
               class="image-overlay-card"
               :bordered="false"
-              style="position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);"
+              style="position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); z-index: 2;"
             >
               <n-space vertical :size="8">
                 <n-text
@@ -127,9 +182,36 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
 const { t } = useI18n()
+const router = useRouter()
+
+// 按钮点击事件处理
+const handleLearnMore = () => {
+  // 跳转到关于我们详细页面
+  // 如果有独立的关于我们页面路由，使用router.push('/about')
+  // 目前先滚动到页面顶部，后续可以根据实际路由配置调整
+  const aboutElement = document.getElementById('about')
+  if (aboutElement) {
+    aboutElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  // 可以在这里添加埋点统计
+  console.log('用户点击了解更多按钮')
+}
+
+const handleContactUs = () => {
+  // 滚动到联系我们区域
+  const contactElement = document.getElementById('contact')
+  if (contactElement) {
+    contactElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  // 可以在这里添加埋点统计
+  console.log('用户点击联系我们按钮')
+}
 </script>
 
 <style scoped>
@@ -159,6 +241,18 @@ const { t } = useI18n()
   max-width: var(--sipumtech-container-max-width);
   margin: 0 auto;
   padding: 0 var(--sipumtech-container-padding-desktop);
+}
+
+/* 网格容器样式 - 确保高度对齐 */
+.about-grid-container {
+  min-height: 600px; /* 设置最小高度 */
+}
+
+/* 确保网格项目高度一致 */
+.about-grid-container .n-grid-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* 保留必要的品牌样式 */
@@ -201,16 +295,34 @@ const { t } = useI18n()
  * 完全依赖 Naive UI 组件属性管理样式
  */
 
-/* 图片容器样式 */
+/* 图片容器样式 - 高度匹配优化 */
 .about-image-container {
   position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-/* 响应式图片样式 */
+/* 高度匹配容器 - 关键样式 */
+.height-match-container {
+  height: 100%;
+  min-height: 500px; /* 设置最小高度确保在内容较少时有合理的显示 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 响应式图片样式 - 高度自适应 */
 .responsive-image {
   width: 100%;
-  aspect-ratio: 4/3;
   border-radius: 12px;
+  flex: 1; /* 让图片占据剩余空间 */
+}
+
+/* 高度自适应图片 */
+.height-adaptive-image {
+  height: 100% !important;
+  min-height: 500px;
+  max-height: none; /* 移除最大高度限制 */
 }
 
 /*
@@ -221,11 +333,44 @@ const { t } = useI18n()
  */
 
 /*
- * 响应式布局完全由 Naive UI 组件处理：
- * - n-grid 的 collapsed 和 responsive="screen" 自动处理响应式布局
- * - n-statistic 组件自动适配不同屏幕尺寸
- * - n-text 组件通过 CSS 变量实现一致的字体缩放
- * - .responsive-image 使用 aspect-ratio 实现图片响应式
- * - 移除所有自定义媒体查询，严格遵循 Naive UI 优先原则
+ * 响应式布局优化 - 高度对齐适配：
+ * - n-grid 的 align-items="stretch" 确保左右列高度一致
+ * - 大屏幕：左右两列等高显示，图片自适应内容高度
+ * - 中等屏幕：保持两列布局，调整最小高度
+ * - 小屏幕：切换为单列布局，图片使用固定比例
  */
+
+/* 响应式高度对齐优化 */
+@media (max-width: 1024px) {
+  .about-grid-container {
+    min-height: 500px;
+  }
+
+  .height-adaptive-image {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 小屏幕下切换为单列布局时，恢复固定比例 */
+  .about-grid-container {
+    min-height: auto;
+  }
+
+  .height-match-container {
+    min-height: auto;
+  }
+
+  .height-adaptive-image {
+    min-height: 300px;
+    aspect-ratio: 16/9; /* 小屏幕下使用更适合的比例 */
+  }
+}
+
+@media (max-width: 480px) {
+  .height-adaptive-image {
+    min-height: 250px;
+    aspect-ratio: 4/3;
+  }
+}
 </style>
