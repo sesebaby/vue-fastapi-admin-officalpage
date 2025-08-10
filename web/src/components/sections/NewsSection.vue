@@ -242,6 +242,43 @@ const handleRetry = () => {
   }
 }
 
+/* 响应式字体大小优化 - 应用TrustBuildingSection最佳实践 */
+/* 平板端字体优化 (768px-1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  /* 主标题适度缩小 */
+  .news-section h2 {
+    font-size: var(--sipumtech-font-size-h2) !important;
+  }
+
+  /* 新闻卡片标题 */
+  .news-section h3 {
+    font-size: var(--sipumtech-font-size-h4) !important;
+  }
+}
+
+/* 移动端字体优化 (≤768px) */
+@media (max-width: 768px) {
+  /* 主标题进一步缩小 */
+  .news-section h2 {
+    font-size: var(--sipumtech-font-size-h3) !important;
+  }
+
+  /* 新闻卡片标题 */
+  .news-section h3 {
+    font-size: var(--sipumtech-font-size-h5) !important;
+  }
+
+  /* 新闻描述文字 */
+  .news-section p {
+    font-size: var(--sipumtech-font-size-small) !important;
+  }
+
+  /* 日期文字 */
+  .news-section .date {
+    font-size: var(--sipumtech-font-size-xs) !important;
+  }
+}
+
 /* 保留必要的品牌装饰样式 */
 .title-underline {
   width: 80px;
