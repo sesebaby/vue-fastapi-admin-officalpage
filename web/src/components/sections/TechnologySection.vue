@@ -10,7 +10,7 @@
       </n-space>
 
       <!-- 技术内容区域 -->
-      <n-space vertical :size="80">
+      <n-space vertical :size="60" class="technology-content">
         <!-- KPI 数据带：展示关键技术指标 -->
         <n-grid :cols="'xs:1 s:2 m:4 l:4 xl:4'" :x-gap="24" :y-gap="24" responsive="screen" class="technology-kpi-band">
           <!-- 交付项目数 -->
@@ -84,11 +84,9 @@
 
         <!-- 技术概览区域 - 使用Naive UI Grid布局 -->
         <n-grid
-          :cols="2"
-          :collapsed="true"
-          :collapsed-rows="1"
-          :x-gap="60"
-          :y-gap="40"
+          :cols="'xs:1 s:1 m:2 l:2 xl:2'"
+          :x-gap="'xs:20 s:30 m:40 l:60 xl:60'"
+          :y-gap="'xs:30 s:30 m:40 l:40 xl:40'"
           responsive="screen"
           align-items="center"
         >
@@ -106,51 +104,54 @@
 
           <!-- 右侧技术描述 -->
           <n-grid-item>
-            <n-space vertical :size="30">
-              <n-space vertical :size="16">
+            <n-space vertical :size="25" class="tech-overview-content">
+              <n-space vertical :size="14">
                 <h3 class="tech-overview-title">{{ $t('website.technology.overview_title') }}</h3>
                 <p class="tech-overview-desc">{{ $t('website.technology.overview_description') }}</p>
               </n-space>
 
               <!-- 技术亮点 - 使用Naive UI Space和Avatar -->
-              <n-space vertical :size="20">
-                <n-space align="flex-start" :size="16">
+              <n-space vertical :size="18" class="tech-highlights">
+                <n-space align="flex-start" :size="14" class="highlight-item">
                   <n-avatar
-                    :size="40"
+                    :size="36"
                     color="#f0f9ff"
-                    style="background: #f0f9ff; color: #1e3a8a; font-size: 20px;"
+                    style="background: #f0f9ff; color: #1e3a8a;"
+                    class="highlight-avatar"
                   >
                     🔬
                   </n-avatar>
-                  <n-space vertical :size="4">
+                  <n-space vertical :size="3">
                     <h4 class="highlight-title">{{ $t('website.technology.highlight_1_title') }}</h4>
                     <p class="highlight-desc">{{ $t('website.technology.highlight_1_desc') }}</p>
                   </n-space>
                 </n-space>
 
-                <n-space align="flex-start" :size="16">
+                <n-space align="flex-start" :size="14" class="highlight-item">
                   <n-avatar
-                    :size="40"
+                    :size="36"
                     color="#f0f9ff"
-                    style="background: #f0f9ff; color: #1e3a8a; font-size: 20px;"
+                    style="background: #f0f9ff; color: #1e3a8a;"
+                    class="highlight-avatar"
                   >
                     ⚡
                   </n-avatar>
-                  <n-space vertical :size="4">
+                  <n-space vertical :size="3">
                     <h4 class="highlight-title">{{ $t('website.technology.highlight_2_title') }}</h4>
                     <p class="highlight-desc">{{ $t('website.technology.highlight_2_desc') }}</p>
                   </n-space>
                 </n-space>
 
-                <n-space align="flex-start" :size="16">
+                <n-space align="flex-start" :size="14" class="highlight-item">
                   <n-avatar
-                    :size="40"
+                    :size="36"
                     color="#f0f9ff"
-                    style="background: #f0f9ff; color: #1e3a8a; font-size: 20px;"
+                    style="background: #f0f9ff; color: #1e3a8a;"
+                    class="highlight-avatar"
                   >
                     🎯
                   </n-avatar>
-                  <n-space vertical :size="4">
+                  <n-space vertical :size="3">
                     <h4 class="highlight-title">{{ $t('website.technology.highlight_3_title') }}</h4>
                     <p class="highlight-desc">{{ $t('website.technology.highlight_3_desc') }}</p>
                   </n-space>
@@ -162,7 +163,7 @@
 
         <!-- 方法论 / 研发流程（横向步骤） -->
         <div class="technology-steps">
-          <n-steps :current="2" size="medium">
+          <n-steps :current="3" size="medium">
             <n-step :title="$t('website.technology.step_discover_title')" :description="$t('website.technology.step_discover_desc')" />
             <n-step :title="$t('website.technology.step_design_title')" :description="$t('website.technology.step_design_desc')" />
             <n-step :title="$t('website.technology.step_validate_title')" :description="$t('website.technology.step_validate_desc')" />
@@ -172,11 +173,9 @@
 
         <!-- 技术能力卡片区域 - 使用Naive UI Grid -->
         <n-grid
-          :cols="4"
-          :collapsed="true"
-          :collapsed-rows="2"
-          :x-gap="30"
-          :y-gap="30"
+          :cols="'xs:1 s:2 m:2 l:4 xl:4'"
+          :x-gap="'xs:16 s:20 m:24 l:30 xl:30'"
+          :y-gap="'xs:20 s:24 m:24 l:30 xl:30'"
           responsive="screen"
         >
           <!-- 先进封装技术卡片 -->
@@ -191,25 +190,13 @@
                   height="80"
                   object-fit="cover"
                   style="border-radius: 8px;"
+                  class="capability-icon"
                 />
                 <n-space vertical align="center" :size="12">
-                  <n-text
-                    :style="{
-                      fontSize: '18px',
-                      fontWeight: 'var(--sipumtech-font-weight-bold)',
-                      color: 'var(--sipumtech-primary-blue)'
-                    }"
-                  >
+                  <n-text class="capability-title">
                     {{ $t('website.technology.capability_1_title') }}
                   </n-text>
-                  <n-text
-                    :style="{
-                      fontSize: 'var(--sipumtech-font-size-small)',
-                      color: 'var(--sipumtech-text-secondary)',
-                      lineHeight: 'var(--sipumtech-line-height-normal)',
-                      textAlign: 'center'
-                    }"
-                  >
+                  <n-text class="capability-desc">
                     {{ $t('website.technology.capability_1_desc') }}
                   </n-text>
                 </n-space>
@@ -229,25 +216,13 @@
                   height="80"
                   object-fit="cover"
                   style="border-radius: 8px;"
+                  class="capability-icon"
                 />
                 <n-space vertical align="center" :size="12">
-                  <n-text
-                    :style="{
-                      fontSize: '18px',
-                      fontWeight: 'var(--sipumtech-font-weight-bold)',
-                      color: 'var(--sipumtech-primary-blue)'
-                    }"
-                  >
+                  <n-text class="capability-title">
                     {{ $t('website.technology.capability_2_title') }}
                   </n-text>
-                  <n-text
-                    :style="{
-                      fontSize: 'var(--sipumtech-font-size-small)',
-                      color: 'var(--sipumtech-text-secondary)',
-                      lineHeight: 'var(--sipumtech-line-height-normal)',
-                      textAlign: 'center'
-                    }"
-                  >
+                  <n-text class="capability-desc">
                     {{ $t('website.technology.capability_2_desc') }}
                   </n-text>
                 </n-space>
@@ -266,25 +241,13 @@
                   height="80"
                   object-fit="cover"
                   style="border-radius: 8px;"
+                  class="capability-icon"
                 />
                 <n-space vertical align="center" :size="12">
-                  <n-text
-                    :style="{
-                      fontSize: '18px',
-                      fontWeight: 'var(--sipumtech-font-weight-bold)',
-                      color: 'var(--sipumtech-primary-blue)'
-                    }"
-                  >
+                  <n-text class="capability-title">
                     {{ $t('website.technology.capability_3_title') }}
                   </n-text>
-                  <n-text
-                    :style="{
-                      fontSize: 'var(--sipumtech-font-size-small)',
-                      color: 'var(--sipumtech-text-secondary)',
-                      lineHeight: 'var(--sipumtech-line-height-normal)',
-                      textAlign: 'center'
-                    }"
-                  >
+                  <n-text class="capability-desc">
                     {{ $t('website.technology.capability_3_desc') }}
                   </n-text>
                 </n-space>
@@ -303,25 +266,13 @@
                   height="80"
                   object-fit="cover"
                   style="border-radius: 8px;"
+                  class="capability-icon"
                 />
                 <n-space vertical align="center" :size="12">
-                  <n-text
-                    :style="{
-                      fontSize: '18px',
-                      fontWeight: 'var(--sipumtech-font-weight-bold)',
-                      color: 'var(--sipumtech-primary-blue)'
-                    }"
-                  >
+                  <n-text class="capability-title">
                     {{ $t('website.technology.capability_4_title') }}
                   </n-text>
-                  <n-text
-                    :style="{
-                      fontSize: 'var(--sipumtech-font-size-small)',
-                      color: 'var(--sipumtech-text-secondary)',
-                      lineHeight: 'var(--sipumtech-line-height-normal)',
-                      textAlign: 'center'
-                    }"
-                  >
+                  <n-text class="capability-desc">
                     {{ $t('website.technology.capability_4_desc') }}
                   </n-text>
                 </n-space>
@@ -366,9 +317,29 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
   padding: 8px 4px;
 }
 
-/* 当前步骤高亮色保持品牌蓝 */
+/* 步骤样式优化 - 所有激活步骤使用品牌色 */
 .technology-steps :deep(.n-step-status-process .n-step-indicator) {
-  background-color: #4DA3FF;
+  background-color: var(--sipumtech-primary-blue);
+  border-color: var(--sipumtech-primary-blue);
+}
+
+.technology-steps :deep(.n-step-status-finish .n-step-indicator) {
+  background-color: var(--sipumtech-primary-blue);
+  border-color: var(--sipumtech-primary-blue);
+}
+
+.technology-steps :deep(.n-step-status-finish .n-step-indicator .n-icon) {
+  color: #ffffff;
+}
+
+.technology-steps :deep(.n-step-status-process .n-step-title) {
+  color: var(--sipumtech-primary-blue);
+  font-weight: var(--sipumtech-font-weight-semibold);
+}
+
+.technology-steps :deep(.n-step-status-finish .n-step-title) {
+  color: var(--sipumtech-primary-blue);
+  font-weight: var(--sipumtech-font-weight-semibold);
 }
 
 .section-container {
@@ -480,30 +451,220 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
   border-radius: 12px;
 }
 
+/* 技术概览标题和描述样式 */
+.tech-overview-title {
+  font-size: var(--sipumtech-font-size-h3);
+  font-weight: var(--sipumtech-font-weight-bold);
+  color: var(--sipumtech-primary-blue);
+  margin: 0;
+  line-height: var(--sipumtech-line-height-tight);
+}
+
+.tech-overview-desc {
+  font-size: var(--sipumtech-font-size-body);
+  color: var(--sipumtech-text-secondary);
+  line-height: var(--sipumtech-line-height-normal);
+  margin: 0;
+}
+
+/* 技术亮点样式 */
+.highlight-title {
+  font-size: var(--sipumtech-font-size-h5);
+  font-weight: var(--sipumtech-font-weight-semibold);
+  color: var(--sipumtech-text-primary);
+  margin: 0;
+}
+
+.highlight-desc {
+  font-size: var(--sipumtech-font-size-small);
+  color: var(--sipumtech-text-secondary);
+  line-height: var(--sipumtech-line-height-normal);
+  margin: 0;
+}
+
+/* 技术能力卡片内容样式 */
+.capability-title {
+  font-size: 18px !important;
+  font-weight: var(--sipumtech-font-weight-bold) !important;
+  color: var(--sipumtech-primary-blue) !important;
+  text-align: center !important;
+}
+
+.capability-desc {
+  font-size: var(--sipumtech-font-size-small) !important;
+  color: var(--sipumtech-text-secondary) !important;
+  line-height: var(--sipumtech-line-height-normal) !important;
+  text-align: center !important;
+}
+
+.capability-icon {
+  flex-shrink: 0;
+}
+
+/* 技术亮点样式 */
+.highlight-avatar {
+  flex-shrink: 0;
+}
+
+.highlight-item {
+  align-items: flex-start;
+}
+
+.tech-overview-content {
+  width: 100%;
+}
+
+.tech-highlights {
+  width: 100%;
+}
+
 /* 响应式设计 - 技术能力卡片高度适配 */
 @media (max-width: 1024px) {
-  /* 平板端：调整卡片高度 */
+  /* 平板端：调整卡片高度和字体 */
   .capability-card {
     min-height: 260px;
+  }
+
+  .tech-overview-title {
+    font-size: var(--sipumtech-font-size-h4);
   }
 }
 
 @media (max-width: 768px) {
   /* 移动端：单列布局时调整卡片高度 */
   .capability-card {
-    min-height: 240px;
+    min-height: 200px;
   }
 
   /* 移动端优化：调整内容间距 */
   .capability-card :deep(.n-space) {
     gap: 16px !important;
   }
+
+  /* 移动端字体优化 */
+  .tech-overview-title {
+    font-size: var(--sipumtech-font-size-h4);
+    text-align: center;
+  }
+
+  .tech-overview-desc {
+    font-size: var(--sipumtech-font-size-body);
+    text-align: center;
+  }
+
+  .capability-title {
+    font-size: 16px !important;
+  }
+
+  .capability-desc {
+    font-size: 13px !important;
+  }
+
+  /* 移动端图标尺寸调整 */
+  .capability-icon {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  /* 技术概览区域移动端优化 */
+  .tech-overview-image {
+    aspect-ratio: 16/9;
+    max-height: 200px;
+  }
+
+  /* 技术亮点移动端优化 */
+  .highlight-avatar :deep(.n-avatar) {
+    font-size: 16px !important;
+  }
+
+  /* 技术概览内容移动端居中 */
+  .tech-overview-content {
+    text-align: center;
+  }
+
+  .tech-highlights {
+    text-align: left;
+  }
 }
 
 @media (max-width: 480px) {
-  /* 小屏幕：进一步优化高度 */
+  /* 小屏幕：进一步优化 */
   .capability-card {
-    min-height: 220px;
+    min-height: 180px;
+  }
+
+  .technology-section {
+    padding: var(--sipumtech-section-padding-mobile);
+  }
+
+  .capability-title {
+    font-size: 15px !important;
+  }
+
+  .capability-desc {
+    font-size: 12px !important;
+  }
+
+  .capability-icon {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  /* 技术亮点移动端优化 */
+  .highlight-title {
+    font-size: var(--sipumtech-font-size-body);
+  }
+
+  .highlight-desc {
+    font-size: var(--sipumtech-font-size-xs);
+  }
+
+  /* KPI卡片移动端优化 */
+  .technology-kpi-band .kpi-card {
+    min-height: 100px;
+  }
+
+  /* 技术步骤移动端优化 */
+  .technology-steps {
+    padding: 4px 2px;
+  }
+
+  /* 整体内容区域移动端优化 */
+  .technology-content {
+    width: 100%;
+  }
+}
+
+/* 超小屏幕优化 (≤375px) */
+@media (max-width: 375px) {
+  .capability-card {
+    min-height: 160px;
+  }
+
+  .capability-title {
+    font-size: 14px !important;
+  }
+
+  .capability-desc {
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+  }
+
+  .capability-icon {
+    width: 45px !important;
+    height: 45px !important;
+  }
+
+  .tech-overview-title {
+    font-size: var(--sipumtech-font-size-h5);
+  }
+
+  .tech-overview-desc {
+    font-size: var(--sipumtech-font-size-small);
+  }
+
+  .highlight-avatar :deep(.n-avatar) {
+    font-size: 14px !important;
   }
 }
 
