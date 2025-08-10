@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  # 主应用服务
+  vue-fastapi-admin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # 构建参数，可以传递镜像源配置
+        NODE_REGISTRY: "https://registry.npmmirror.com"
+        PIP_INDEX_URL: "https://pypi.tuna.tsinghua.edu.cn/simple"
+    container_name: vue-fastapi-admin
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      # 应用环境变量
+      - LANG=zh_CN.UTF-8
+      - TZ=Asia/Shanghai
+      - DEBUG=false
+    volumes:
+      # 数据持久化
+      - ./db.sqlite3:/opt/vue-fastapi-admin/db.sqlite3
+      - ./logs:/opt/vue-fastapi-admin/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - app-network
+
+  # 可选：独立的Nginx服务（如果需要更复杂的配置）
+  nginx:
+    image: hub-mirror.c.163.com/library/nginx:alpine
+    container_name: vue-fastapi-admin-nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./web/dist:/usr/share/nginx/html:ro
+    depends_on:
+      - vue-fastapi-admin
+    networks:
+      - app-network
+    profiles:
+      - nginx-separate
+
+  # 可选：Redis缓存服务
+  redis:
+    image: hub-mirror.c.163.com/library/redis:alpine
+    container_name: vue-fastapi-admin-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - app-network
+    profiles:
+      - with-redis
+
+  # 可选：PostgreSQL数据库（替代SQLite）
+  postgres:
+    image: hub-mirror.c.163.com/library/postgres:13-alpine
+    container_name: vue-fastapi-admin-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=vue_fastapi_admin
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=your_secure_password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    profiles:
+      - with-postgres
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  postgres-data:
