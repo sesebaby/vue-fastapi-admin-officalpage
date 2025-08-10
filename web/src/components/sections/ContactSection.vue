@@ -900,6 +900,15 @@ onUnmounted(() => {
     padding: 0 var(--sipumtech-container-padding-tablet);
   }
 
+  /* 平板端字体优化 - 应用TrustBuildingSection最佳实践 */
+  .contact-section h2 {
+    font-size: var(--sipumtech-font-size-h2) !important;
+  }
+
+  .contact-section h3 {
+    font-size: var(--sipumtech-font-size-h4) !important;
+  }
+
   /* 平板端布局调整 */
   .contact-info-section {
     margin-bottom: 40px;
@@ -955,6 +964,19 @@ onUnmounted(() => {
 
   .section-container {
     padding: 0 var(--sipumtech-container-padding-mobile);
+  }
+
+  /* 移动端字体优化 - 应用TrustBuildingSection最佳实践 */
+  .contact-section h2 {
+    font-size: var(--sipumtech-font-size-h3) !important;
+  }
+
+  .contact-section h3 {
+    font-size: var(--sipumtech-font-size-h5) !important;
+  }
+
+  .contact-section p {
+    font-size: var(--sipumtech-font-size-small) !important;
   }
 
   .contact-info-section {
