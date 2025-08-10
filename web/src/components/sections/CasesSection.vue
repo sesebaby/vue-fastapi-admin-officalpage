@@ -16,22 +16,25 @@
           <div class="center-content">
             <n-text
               :style="{
-                fontSize: '28px',
+                fontSize: '24px',
                 fontWeight: 'var(--sipumtech-font-weight-bold)',
                 color: '#ffffff',
-                lineHeight: '1.2',
-                textAlign: 'center'
+                lineHeight: '1.3',
+                textAlign: 'center',
+                textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
               }"
             >
               {{ $t('website.cases.center_title') }}
             </n-text>
             <n-text
               :style="{
-                fontSize: '16px',
+                fontSize: '14px',
                 color: '#ffffff',
-                opacity: '0.9',
-                marginTop: '8px',
-                textAlign: 'center'
+                opacity: '0.95',
+                marginTop: '6px',
+                textAlign: 'center',
+                fontWeight: 'var(--sipumtech-font-weight-medium)',
+                letterSpacing: '1px'
               }"
             >
               {{ $t('website.cases.center_subtitle') }}
@@ -208,36 +211,39 @@ onUnmounted(() => {
   line-height: var(--sipumtech-line-height-relaxed);
 }
 
-/* 圆形服务展示容器 */
+/* 圆形服务展示容器 - 优化响应式布局 */
 .circular-services-container {
   position: relative;
-  width: 600px;
-  height: 600px;
+  width: 800px; /* 增大桌面端容器尺寸 */
+  height: 800px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* 中心圆形区域 */
+/* 中心圆形区域 - 优化样式，移除装饰后更加简洁 */
 .center-circle {
   position: absolute;
-  width: 200px;
-  height: 200px;
-  background: linear-gradient(135deg, var(--sipumtech-primary-blue), var(--sipumtech-accent-blue));
+  width: 220px; /* 稍微增大尺寸 */
+  height: 220px;
+  background: linear-gradient(135deg, var(--sipumtech-primary-blue), var(--sipumtech-secondary-blue));
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
-  box-shadow: 0 8px 32px rgba(30, 58, 138, 0.3);
+  box-shadow: 0 12px 40px rgba(30, 58, 138, 0.4); /* 增强阴影效果 */
   transform: scale(0) rotate(-180deg);
   opacity: 0;
   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.2); /* 添加微妙的边框 */
 }
 
+/* 移除装饰线条 - 注释掉原有的::before伪元素 */
+/*
 .center-circle::before {
   content: '';
   position: absolute;
@@ -257,6 +263,7 @@ onUnmounted(() => {
   opacity: 0;
   transition: opacity 0.5s ease;
 }
+*/
 
 .center-circle.animate-in {
   transform: scale(1) rotate(0deg);
@@ -264,10 +271,13 @@ onUnmounted(() => {
   transition-delay: 0.3s;
 }
 
+/* 移除装饰线条动画触发 */
+/*
 .center-circle.animate-in::before {
   opacity: 1;
   transition-delay: 1s;
 }
+*/
 
 /* 持续旋转动画 */
 @keyframes rotate-continuous {
@@ -286,7 +296,8 @@ onUnmounted(() => {
   z-index: 2;
 }
 
-/* 中心圆形脉冲效果 */
+/* 移除中心圆形脉冲效果 */
+/*
 .center-circle::after {
   content: '';
   position: absolute;
@@ -315,6 +326,7 @@ onUnmounted(() => {
     opacity: 0;
   }
 }
+*/
 
 /* 环形服务项目 */
 .service-item {
@@ -334,7 +346,7 @@ onUnmounted(() => {
 .service-item.animate-in {
   transform:
     rotate(var(--angle))
-    translateY(-250px)
+    translateY(-320px) /* 增大距离适配更大的容器 */
     rotate(calc(-1 * var(--angle)))
     scale(1);
   opacity: 1;
@@ -439,6 +451,23 @@ onUnmounted(() => {
 }
 
 /* 响应式设计 */
+/* 平板端优化 (768px-1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .circular-services-container {
+    width: 650px;
+    height: 650px;
+  }
+
+  .service-item.animate-in {
+    transform:
+      rotate(var(--angle))
+      translateY(-260px) /* 平板端适中距离 */
+      rotate(calc(-1 * var(--angle)))
+      scale(1);
+  }
+}
+
+/* 移动端优化 (≤768px) */
 @media (max-width: 768px) {
   .cases-section {
     padding: 60px 0;
@@ -451,8 +480,8 @@ onUnmounted(() => {
   }
 
   .center-circle {
-    width: 140px;
-    height: 140px;
+    width: 150px; /* 稍微增大移动端中心圆 */
+    height: 150px;
   }
 
   .center-content {
