@@ -97,29 +97,29 @@
             key="map-container-card"
             class="map-card map-container-card"
           >
-              <n-space
-                key="map-card-content"
-                vertical
-                :size="20"
+            <n-space
+              key="map-card-content"
+              vertical
+              :size="20"
+            >
+              <n-text
+                :style="{
+                  fontSize: '18px',
+                  fontWeight: 'var(--sipumtech-font-weight-semibold)',
+                  color: 'var(--sipumtech-primary-blue)'
+                }"
               >
-                <n-text
-                  :style="{
-                    fontSize: '18px',
-                    fontWeight: 'var(--sipumtech-font-weight-semibold)',
-                    color: 'var(--sipumtech-primary-blue)'
-                  }"
-                >
-                  {{ $t('website.contact.map_title') }}
-                </n-text>
+                {{ $t('website.contact.map_title') }}
+              </n-text>
 
-            <!-- 位置展示容器 -->
-            <div class="location-display-container">
-              <!-- 百度地图容器 - 使用v-html完全隔离DOM操作 -->
-              <div
-                v-show="shouldShowMap"
-                v-html="mapContainerHtml"
-                class="map-wrapper"
-              ></div>
+              <!-- 位置展示容器 -->
+              <div class="location-display-container">
+                <!-- 百度地图容器 - 使用v-html完全隔离DOM操作 -->
+                <div
+                  v-show="shouldShowMap"
+                  v-html="mapContainerHtml"
+                  class="map-wrapper"
+                ></div>
                 <!-- 地图加载状态 -->
                 <div v-if="mapLoading" class="map-loading">
                   <n-spin size="large">
@@ -234,27 +234,26 @@
                   </n-space>
                 </n-card>
               </div>
-            </div>
 
-                <!-- 地址信息显示 -->
-                <div class="address-info">
-                  <n-space align="center" :size="12">
-                    <n-icon :size="20" color="var(--sipumtech-accent-green)">
-                      <svg viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                      </svg>
-                    </n-icon>
-                    <n-text
-                      :style="{
-                        fontSize: 'var(--sipumtech-font-size-body)',
-                        color: 'var(--sipumtech-text-primary)',
-                        fontWeight: '500'
-                      }"
-                    >
-                      {{ companyAddress }}
-                    </n-text>
-                  </n-space>
-                </div>
+              <!-- 地址信息显示 -->
+              <div class="address-info">
+                <n-space align="center" :size="12">
+                  <n-icon :size="20" color="var(--sipumtech-accent-green)">
+                    <svg viewBox="0 0 24 24">
+                      <path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                  </n-icon>
+                  <n-text
+                    :style="{
+                      fontSize: 'var(--sipumtech-font-size-body)',
+                      color: 'var(--sipumtech-text-primary)',
+                      fontWeight: '500'
+                    }"
+                  >
+                    {{ companyAddress }}
+                  </n-text>
+                </n-space>
+              </div>
             </n-space>
           </n-card>
         </div>
