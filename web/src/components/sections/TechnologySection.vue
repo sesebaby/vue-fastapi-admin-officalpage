@@ -161,14 +161,73 @@
           </n-grid-item>
         </n-grid>
 
-        <!-- 方法论 / 研发流程（横向步骤） -->
+        <!-- 方法论 / 研发流程（横向步骤） - 自定义实现 -->
         <div class="technology-steps">
-          <n-steps size="medium">
-            <n-step status="finish" :title="$t('website.technology.step_discover_title')" :description="$t('website.technology.step_discover_desc')" />
-            <n-step status="finish" :title="$t('website.technology.step_design_title')" :description="$t('website.technology.step_design_desc')" />
-            <n-step status="finish" :title="$t('website.technology.step_validate_title')" :description="$t('website.technology.step_validate_desc')" />
-            <n-step status="finish" :title="$t('website.technology.step_delivery_title')" :description="$t('website.technology.step_delivery_desc')" />
-          </n-steps>
+          <div class="custom-steps">
+            <!-- 步骤1：需求洞察 -->
+            <div class="step-item">
+              <div class="step-indicator">
+                <div class="step-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="step-content">
+                <div class="step-title">{{ $t('website.technology.step_discover_title') }}</div>
+                <div class="step-description">{{ $t('website.technology.step_discover_desc') }}</div>
+              </div>
+              <div class="step-connector"></div>
+            </div>
+
+            <!-- 步骤2：方案设计 -->
+            <div class="step-item">
+              <div class="step-indicator">
+                <div class="step-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="step-content">
+                <div class="step-title">{{ $t('website.technology.step_design_title') }}</div>
+                <div class="step-description">{{ $t('website.technology.step_design_desc') }}</div>
+              </div>
+              <div class="step-connector"></div>
+            </div>
+
+            <!-- 步骤3：测试验证 -->
+            <div class="step-item">
+              <div class="step-indicator">
+                <div class="step-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="step-content">
+                <div class="step-title">{{ $t('website.technology.step_validate_title') }}</div>
+                <div class="step-description">{{ $t('website.technology.step_validate_desc') }}</div>
+              </div>
+              <div class="step-connector"></div>
+            </div>
+
+            <!-- 步骤4：量产交付 -->
+            <div class="step-item">
+              <div class="step-indicator">
+                <div class="step-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="step-content">
+                <div class="step-title">{{ $t('website.technology.step_delivery_title') }}</div>
+                <div class="step-description">{{ $t('website.technology.step_delivery_desc') }}</div>
+              </div>
+              <!-- 最后一个步骤不需要连接线 -->
+            </div>
+          </div>
         </div>
 
         <!-- 技术能力卡片区域 - 使用Naive UI Grid -->
@@ -312,47 +371,85 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
   align-items: center;
 }
 
-/* 步骤区域基础留白 */
+/* 自定义步骤组件样式 */
 .technology-steps {
-  padding: 8px 4px;
+  padding: 20px 0;
 }
 
-/* 步骤样式优化 - 所有激活步骤使用品牌色 */
-.technology-steps :deep(.n-step-status-process .n-step-indicator) {
-  background-color: var(--sipumtech-primary-blue) !important;
-  border-color: var(--sipumtech-primary-blue) !important;
+.custom-steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  max-width: 100%;
 }
 
-.technology-steps :deep(.n-step-status-finish .n-step-indicator) {
-  background-color: var(--sipumtech-primary-blue) !important;
-  border-color: var(--sipumtech-primary-blue) !important;
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  text-align: center;
 }
 
-.technology-steps :deep(.n-step-status-finish .n-step-indicator .n-icon) {
-  color: #ffffff !important;
+/* 步骤指示器 */
+.step-indicator {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 16px;
 }
 
-/* 强制覆盖步骤文字颜色 - 确保与网站其他部分一致 */
-.technology-steps :deep(.n-step .n-step-title),
-.technology-steps :deep(.n-step-status-process .n-step-title),
-.technology-steps :deep(.n-step-status-finish .n-step-title) {
-  color: var(--sipumtech-text-primary) !important;
-  font-weight: var(--sipumtech-font-weight-semibold) !important;
+.step-icon {
+  width: 40px;
+  height: 40px;
+  background-color: var(--sipumtech-primary-blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.2);
 }
 
-.technology-steps :deep(.n-step .n-step-description),
-.technology-steps :deep(.n-step-status-process .n-step-description),
-.technology-steps :deep(.n-step-status-finish .n-step-description) {
-  color: var(--sipumtech-text-secondary) !important;
+.step-icon svg {
+  width: 20px;
+  height: 20px;
 }
 
-/* 额外确保所有步骤文字都使用正确颜色 */
-.technology-steps :deep(.n-step-content .n-step-title) {
-  color: var(--sipumtech-text-primary) !important;
+/* 步骤内容 */
+.step-content {
+  max-width: 200px;
 }
 
-.technology-steps :deep(.n-step-content .n-step-description) {
-  color: var(--sipumtech-text-secondary) !important;
+.step-title {
+  font-size: var(--sipumtech-font-size-h6);
+  font-weight: var(--sipumtech-font-weight-semibold);
+  color: var(--sipumtech-text-primary);
+  margin-bottom: 8px;
+  line-height: var(--sipumtech-line-height-tight);
+}
+
+.step-description {
+  font-size: var(--sipumtech-font-size-small);
+  color: var(--sipumtech-text-secondary);
+  line-height: var(--sipumtech-line-height-normal);
+}
+
+/* 连接线 */
+.step-connector {
+  position: absolute;
+  top: 20px;
+  left: calc(50% + 20px);
+  right: calc(-50% + 20px);
+  height: 2px;
+  background-color: var(--sipumtech-primary-blue);
+  z-index: 1;
+}
+
+/* 最后一个步骤不显示连接线 */
+.step-item:last-child .step-connector {
+  display: none;
 }
 
 .section-container {
@@ -637,14 +734,96 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
     min-height: 100px;
   }
 
-  /* 技术步骤移动端优化 */
+  /* 自定义步骤移动端优化 */
   .technology-steps {
-    padding: 4px 2px;
+    padding: 16px 0;
+  }
+
+  .custom-steps {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  .step-item {
+    flex-direction: row;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .step-indicator {
+    margin-bottom: 0;
+    margin-right: 16px;
+    flex-shrink: 0;
+  }
+
+  .step-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .step-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .step-content {
+    max-width: none;
+    flex: 1;
+  }
+
+  .step-title {
+    font-size: var(--sipumtech-font-size-body);
+    margin-bottom: 6px;
+  }
+
+  .step-description {
+    font-size: var(--sipumtech-font-size-xs);
+  }
+
+  /* 移动端连接线改为垂直 */
+  .step-connector {
+    position: absolute;
+    top: calc(100% - 12px);
+    left: 18px;
+    right: auto;
+    width: 2px;
+    height: 24px;
+    background-color: var(--sipumtech-primary-blue);
+  }
+
+  /* 最后一个步骤不显示连接线 */
+  .step-item:last-child .step-connector {
+    display: none;
   }
 
   /* 整体内容区域移动端优化 */
   .technology-content {
     width: 100%;
+  }
+
+  /* 自定义步骤小屏幕优化 */
+  .step-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .step-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .step-title {
+    font-size: var(--sipumtech-font-size-small);
+  }
+
+  .step-description {
+    font-size: var(--sipumtech-font-size-xs);
+    line-height: 1.4;
+  }
+
+  .step-connector {
+    left: 16px;
   }
 }
 
