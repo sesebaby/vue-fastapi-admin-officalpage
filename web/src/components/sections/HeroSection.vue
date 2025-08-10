@@ -10,7 +10,7 @@
       :show-arrow="true"
       :keyboard="false"
       :mousewheel="false"
-      :trigger="'click'"
+      :trigger="'hover'"
       :transition-style="{ transitionDuration: '500ms' }"
       effect="slide"
       style="height: 100vh;"
@@ -23,6 +23,7 @@
           :fallback-src="PLACEHOLDER_IMAGES.business"
           alt="公司主图"
           :object-fit="adaptiveImageStyle.objectFit"
+          :preview-disabled="true"
           :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: 100vh; ${adaptiveImageStyle.additionalStyles}`"
           :img-props="{
             style: `width: 100%; height: 100%; object-fit: ${adaptiveImageStyle.objectFit}; object-position: ${adaptiveImageStyle.objectPosition}; filter: brightness(1.1) contrast(1.05);`
@@ -40,6 +41,7 @@
           :fallback-src="PLACEHOLDER_IMAGES.technology"
           alt="科技背景"
           :object-fit="adaptiveImageStyle.objectFit"
+          :preview-disabled="true"
           :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: 100vh; ${adaptiveImageStyle.additionalStyles}`"
           :img-props="{
             style: `width: 100%; height: 100%; object-fit: ${adaptiveImageStyle.objectFit}; object-position: ${adaptiveImageStyle.objectPosition}; filter: brightness(1.2) contrast(1.1);`
