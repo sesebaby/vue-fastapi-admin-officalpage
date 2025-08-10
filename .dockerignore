@@ -21,8 +21,7 @@ yarn-error.log*
 node_modules
 web/node_modules
 
-# 构建输出
-web/dist
+# 构建输出 (注意：web/dist会在Docker构建过程中生成，不需要排除)
 web/build
 dist
 build

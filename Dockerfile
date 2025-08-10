@@ -48,8 +48,11 @@ COPY requirements.txt ./
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install --no-cache-dir -r requirements.txt
 
-# 复制应用代码
-COPY . ./
+# 复制应用代码（按优先级复制，提高缓存效率）
+COPY app/ ./app/
+COPY run.py ./
+COPY pyproject.toml ./
+COPY deploy/ ./deploy/
 
 # 复制前端构建文件
 COPY --from=web-builder /opt/vue-fastapi-admin/web/dist ./web/dist
