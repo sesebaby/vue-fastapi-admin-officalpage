@@ -196,3 +196,33 @@ body {
 .transition-fast { transition: all var(--sipumtech-transition-fast) !important; }
 .transition-normal { transition: all var(--sipumtech-transition-normal) !important; }
 .transition-slow { transition: all var(--sipumtech-transition-slow) !important; }
+
+/* ========== 响应式字体大小 ========== */
+
+/* 平板端字体大小优化 (768px-1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  :root {
+    --sipumtech-font-size-h1: 36px;            /* 主标题 */
+    --sipumtech-font-size-h2: 28px;            /* 二级标题 */
+    --sipumtech-font-size-h3: 24px;            /* 三级标题 */
+    --sipumtech-font-size-h4: 20px;            /* 四级标题 */
+    --sipumtech-font-size-h5: 18px;            /* 五级标题 */
+    --sipumtech-font-size-body: 15px;          /* 正文 */
+    --sipumtech-font-size-small: 13px;         /* 小字 */
+    --sipumtech-font-size-xs: 11px;            /* 极小字 */
+  }
+}
+
+/* 移动端字体大小优化 (≤768px) */
+@media (max-width: 768px) {
+  :root {
+    --sipumtech-font-size-h1: 28px;            /* 主标题 */
+    --sipumtech-font-size-h2: 24px;            /* 二级标题 */
+    --sipumtech-font-size-h3: 20px;            /* 三级标题 */
+    --sipumtech-font-size-h4: 18px;            /* 四级标题 */
+    --sipumtech-font-size-h5: 16px;            /* 五级标题 */
+    --sipumtech-font-size-body: 14px;          /* 正文 */
+    --sipumtech-font-size-small: 12px;         /* 小字 */
+    --sipumtech-font-size-xs: 10px;            /* 极小字 */
+  }
+}
