@@ -354,6 +354,18 @@ const handleContactUs = () => {
  */
 
 /* 响应式高度对齐优化 */
+/* 平板端专门适配 (768px-1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .about-grid-container {
+    min-height: 550px; /* 平板端适中高度 */
+  }
+
+  .height-adaptive-image {
+    min-height: 450px; /* 平板端图片高度 */
+  }
+}
+
+/* 小平板和大手机 (≤1024px) */
 @media (max-width: 1024px) {
   .about-grid-container {
     min-height: 500px;
