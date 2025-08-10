@@ -114,10 +114,11 @@
 
             <!-- 位置展示容器 -->
             <div class="location-display-container">
-              <!-- 百度地图容器 -->
+              <!-- 百度地图容器 - 使用v-show避免DOM节点被Vue管理 -->
               <div
-                v-if="shouldShowMap"
+                v-show="shouldShowMap"
                 id="baidu-map-container"
+                ref="mapContainerRef"
                 key="baidu-map-container"
                 class="map-container"
               >
@@ -281,6 +282,8 @@ const mapMarker = ref(null)
 const shouldShowMap = ref(true) // 控制地图容器显示
 const mapRetryCount = ref(0) // 重试计数器
 const maxRetries = 3 // 最大重试次数
+const mapContainerRef = ref(null) // 地图容器DOM引用
+const isMapInitializing = ref(false) // 防止重复初始化标志
 
 // 公司位置坐标 (百度地图BD09坐标系)
 const companyLocation = {
@@ -375,6 +378,14 @@ const loadBaiduMapAPI = () => {
 
 // 初始化百度地图（带重试机制）
 const initBaiduMap = async (retryCount = 0) => {
+  // 防止重复初始化
+  if (isMapInitializing.value) {
+    console.log('地图正在初始化中，跳过重复请求')
+    return
+  }
+
+  isMapInitializing.value = true
+
   try {
     mapLoading.value = true
     mapError.value = false
@@ -406,7 +417,10 @@ const initBaiduMap = async (retryCount = 0) => {
     if (baiduMap.value) {
       try {
         baiduMap.value.clearOverlays()
-        mapContainer.innerHTML = ''
+        // 安全地清理DOM内容，避免与Vue的DOM管理冲突
+        if (mapContainer && mapContainer.parentNode) {
+          mapContainer.innerHTML = ''
+        }
       } catch (e) {
         console.warn('清理旧地图实例时出错:', e)
       }
@@ -455,6 +469,7 @@ const initBaiduMap = async (retryCount = 0) => {
     }, 1000)
 
     mapLoading.value = false
+    isMapInitializing.value = false // 成功时重置初始化标志
 
   } catch (error) {
     console.error(`百度地图初始化失败 (尝试 ${retryCount + 1}/${maxRetries}):`, error)
@@ -463,6 +478,9 @@ const initBaiduMap = async (retryCount = 0) => {
     if (error.message.includes('DOM元素') && retryCount < maxRetries - 1) {
       mapRetryCount.value = retryCount + 1
       console.log(`将在 ${(retryCount + 1) * 1000}ms 后重试...`)
+
+      // 重置初始化标志，允许重试
+      isMapInitializing.value = false
 
       setTimeout(() => {
         initBaiduMap(retryCount + 1)
@@ -474,6 +492,7 @@ const initBaiduMap = async (retryCount = 0) => {
     // 重试次数用完或其他错误，显示错误状态
     mapError.value = true
     mapLoading.value = false
+    isMapInitializing.value = false // 失败时重置初始化标志
     mapRetryCount.value = 0
 
     // 根据错误类型显示不同的提示信息
@@ -493,6 +512,7 @@ const initBaiduMap = async (retryCount = 0) => {
 // 手动重试地图初始化
 const retryMapInit = () => {
   mapRetryCount.value = 0
+  isMapInitializing.value = false // 重置初始化标志
   initBaiduMap()
 }
 
@@ -531,14 +551,23 @@ onMounted(() => {
 // 组件卸载时清理资源
 onUnmounted(() => {
   try {
+    // 重置初始化标志
+    isMapInitializing.value = false
+
     if (baiduMap.value) {
       // 清理地图事件监听器
       baiduMap.value.removeEventListener('click')
       baiduMap.value.clearOverlays()
-      // 销毁地图实例
+
+      // 安全地销毁地图实例，避免DOM操作冲突
       const mapContainer = document.getElementById('baidu-map-container')
-      if (mapContainer) {
-        mapContainer.innerHTML = ''
+      if (mapContainer && mapContainer.parentNode) {
+        // 使用try-catch包装DOM操作，防止insertBefore错误
+        try {
+          mapContainer.innerHTML = ''
+        } catch (domError) {
+          console.warn('清理地图容器DOM时出错:', domError)
+        }
       }
       baiduMap.value = null
     }
