@@ -345,16 +345,18 @@ section.section-half {
 /* 组件相关的CSS已移至各自的组件文件中 */
 
 /* 大量CSS样式已移至各个组件文件中，保持代码整洁 */
-/* 区域分段样式 */
+/* 区域分段样式 - 统一间距管理 */
 .section-full {
   min-height: 100vh;
   display: flex;
   align-items: center;
+  /* Hero Section 不需要额外padding，由组件内部控制 */
 }
 
 .section-half {
-  min-height: 80vh;
-  padding: 100px 0;
+  /* 移除重复的padding设置，由各个section组件内部统一管理 */
+  /* padding: 100px 0; - 已移除，避免双重间距 */
+  /* min-height: 80vh; - 移除固定高度，让内容自然撑开 */
 }
 
 /* Hero Banner相关样式已移至HeroSection组件 */

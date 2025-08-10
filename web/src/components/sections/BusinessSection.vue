@@ -286,7 +286,19 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
 /* 核心业务展示区域 */
 .main-services-section {
   padding: var(--sipumtech-section-padding-desktop);
-  background: var(--sipumtech-bg-gradient-1);
+  background: var(--sipumtech-bg-white);
+  position: relative;
+}
+
+/* 添加顶部分隔线，与AboutSection形成明显分界 */
+.main-services-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sipumtech-divider), transparent);
 }
 
 /* 保留必要的品牌装饰样式 */

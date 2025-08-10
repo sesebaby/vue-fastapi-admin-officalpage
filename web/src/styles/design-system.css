@@ -84,10 +84,15 @@
   --sipumtech-container-padding-desktop: 30px;
   --sipumtech-container-max-width: 1200px;
   
-  /* 区域间距 */
+  /* 区域间距 - 统一section垂直间距管理 */
   --sipumtech-section-padding-mobile: 60px 0;
   --sipumtech-section-padding-tablet: 80px 0;
   --sipumtech-section-padding-desktop: 100px 0;
+
+  /* section间距统一标准 */
+  --sipumtech-section-gap-mobile: 40px;
+  --sipumtech-section-gap-tablet: 60px;
+  --sipumtech-section-gap-desktop: 80px;
   
   /* ========== 圆角系统 ========== */
   
