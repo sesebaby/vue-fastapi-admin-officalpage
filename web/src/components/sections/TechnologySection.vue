@@ -163,11 +163,11 @@
 
         <!-- 方法论 / 研发流程（横向步骤） -->
         <div class="technology-steps">
-          <n-steps :current="3" size="medium">
-            <n-step :title="$t('website.technology.step_discover_title')" :description="$t('website.technology.step_discover_desc')" />
-            <n-step :title="$t('website.technology.step_design_title')" :description="$t('website.technology.step_design_desc')" />
-            <n-step :title="$t('website.technology.step_validate_title')" :description="$t('website.technology.step_validate_desc')" />
-            <n-step :title="$t('website.technology.step_delivery_title')" :description="$t('website.technology.step_delivery_desc')" />
+          <n-steps size="medium">
+            <n-step status="finish" :title="$t('website.technology.step_discover_title')" :description="$t('website.technology.step_discover_desc')" />
+            <n-step status="finish" :title="$t('website.technology.step_design_title')" :description="$t('website.technology.step_design_desc')" />
+            <n-step status="finish" :title="$t('website.technology.step_validate_title')" :description="$t('website.technology.step_validate_desc')" />
+            <n-step status="finish" :title="$t('website.technology.step_delivery_title')" :description="$t('website.technology.step_delivery_desc')" />
           </n-steps>
         </div>
 
@@ -333,13 +333,21 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 }
 
 .technology-steps :deep(.n-step-status-process .n-step-title) {
-  color: var(--sipumtech-primary-blue);
+  color: var(--sipumtech-text-primary);
   font-weight: var(--sipumtech-font-weight-semibold);
 }
 
 .technology-steps :deep(.n-step-status-finish .n-step-title) {
-  color: var(--sipumtech-primary-blue);
+  color: var(--sipumtech-text-primary);
   font-weight: var(--sipumtech-font-weight-semibold);
+}
+
+.technology-steps :deep(.n-step-status-process .n-step-description) {
+  color: var(--sipumtech-text-secondary);
+}
+
+.technology-steps :deep(.n-step-status-finish .n-step-description) {
+  color: var(--sipumtech-text-secondary);
 }
 
 .section-container {
