@@ -411,6 +411,17 @@ const initBaiduMap = async (retryCount = 0) => {
     const mapContainer = await waitForElement('#baidu-map-container', 3000)
     console.log('地图容器找到:', mapContainer)
 
+    // 强制设置地图容器高度，确保地图正常显示
+    mapContainer.style.height = '400px'
+    mapContainer.style.minHeight = '400px'
+
+    // 确保父容器也有正确的高度
+    const mapWrapper = document.querySelector('.map-wrapper')
+    if (mapWrapper) {
+      mapWrapper.style.height = '400px'
+      mapWrapper.style.minHeight = '400px'
+    }
+
     // 确保容器没有被其他地图实例占用
     if (baiduMap.value) {
       try {
@@ -821,12 +832,24 @@ onUnmounted(() => {
   background: transparent;
 }
 
-/* 百度地图容器样式 */
-.map-container {
+/* 地图包装器样式 - 确保高度正确 */
+.map-wrapper {
   position: relative;
   width: 100%;
   height: 400px;
   min-height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f5f5;
+  flex: 1;
+}
+
+/* 百度地图容器样式 */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 400px !important;
+  min-height: 400px !important;
   border-radius: 12px;
   overflow: hidden;
   background: #f5f5f5;
@@ -880,9 +903,14 @@ onUnmounted(() => {
 
 /* 响应式设计 - 移动端地图适配 */
 @media (max-width: 768px) {
-  .map-container {
+  .map-wrapper {
     height: 300px;
     min-height: 300px;
+  }
+
+  .map-container {
+    height: 100%;
+    min-height: 100%;
   }
 
   .map-container-card {
