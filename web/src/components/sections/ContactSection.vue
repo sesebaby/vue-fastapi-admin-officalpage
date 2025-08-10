@@ -114,14 +114,12 @@
 
             <!-- 位置展示容器 -->
             <div class="location-display-container">
-              <!-- 百度地图容器 - 使用v-show避免DOM节点被Vue管理 -->
+              <!-- 百度地图容器 - 使用v-html完全隔离DOM操作 -->
               <div
                 v-show="shouldShowMap"
-                id="baidu-map-container"
-                ref="mapContainerRef"
-                key="baidu-map-container"
-                class="map-container"
-              >
+                v-html="mapContainerHtml"
+                class="map-wrapper"
+              ></div>
                 <!-- 地图加载状态 -->
                 <div v-if="mapLoading" class="map-loading">
                   <n-spin size="large">
@@ -284,6 +282,7 @@ const mapRetryCount = ref(0) // 重试计数器
 const maxRetries = 3 // 最大重试次数
 const mapContainerRef = ref(null) // 地图容器DOM引用
 const isMapInitializing = ref(false) // 防止重复初始化标志
+const mapContainerHtml = ref('<div id="baidu-map-container" class="map-container"></div>') // 地图容器HTML
 
 // 公司位置坐标 (百度地图BD09坐标系)
 const companyLocation = {
