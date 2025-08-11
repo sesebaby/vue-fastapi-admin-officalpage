@@ -1,5 +1,5 @@
-# 使用中国镜像源的Node.js基础镜像（解决网络超时问题）
-FROM hub-mirror.c.163.com/library/node:18.12.0-alpine AS web-builder
+# 使用本地已拉取的Node.js基础镜像
+FROM node:18.12.0-alpine AS web-builder
 
 WORKDIR /opt/vue-fastapi-admin/web
 
@@ -14,20 +14,24 @@ RUN npm install
 
 # 复制源码并构建
 COPY web/ ./
+
+# 调试：检查文件结构
+RUN echo "=== 检查根目录 ===" && ls -la
+RUN echo "=== 检查build目录 ===" && ls -la build/
+RUN echo "=== 检查build子目录 ===" && find build/ -type f
+
+# 设置NODE_ENV并构建
+ENV NODE_ENV=production
 RUN npm run build
 
-# 使用中国镜像源的Python基础镜像（解决网络超时问题）
-FROM hub-mirror.c.163.com/library/python:3.11-slim
+# 使用本地已拉取的Python基础镜像
+FROM python:3.11-slim
 
 WORKDIR /opt/vue-fastapi-admin
 
 # 系统配置和依赖安装
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked,id=core-apt \
     --mount=type=cache,target=/var/lib/apt,sharing=locked,id=core-apt \
-    # 替换为国内apt源
-    sed -i "s@http://deb.debian.org@http://mirrors.ustc.edu.cn@g" /etc/apt/sources.list && \
-    sed -i "s@http://security.debian.org@http://mirrors.ustc.edu.cn@g" /etc/apt/sources.list && \
-    rm -f /etc/apt/apt.conf.d/docker-clean && \
     # 设置时区
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "Asia/Shanghai" > /etc/timezone && \
@@ -77,3 +81,5 @@ EXPOSE 80
 
 # 启动脚本
 ENTRYPOINT ["sh", "deploy/entrypoint.sh"]
+
+

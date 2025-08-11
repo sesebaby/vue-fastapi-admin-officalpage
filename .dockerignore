@@ -22,9 +22,9 @@ node_modules
 web/node_modules
 
 # 构建输出 (注意：web/dist会在Docker构建过程中生成，不需要排除)
-web/build
+# web/build 包含Vite配置文件，不应该被排除
+web/dist
 dist
-build
 
 # Python相关
 __pycache__
