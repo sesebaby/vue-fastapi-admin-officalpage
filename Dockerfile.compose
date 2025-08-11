@@ -1,0 +1,93 @@
+# Docker Compose专用Dockerfile - 支持构建参数
+# 使用中国镜像源解决网络问题
+
+# 构建参数
+ARG NODE_REGISTRY=https://registry.npmmirror.com
+ARG PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 前端构建阶段
+FROM hub-mirror.c.163.com/library/node:18.12.0-alpine AS web-builder
+
+WORKDIR /opt/vue-fastapi-admin/web
+
+# 使用构建参数配置npm
+ARG NODE_REGISTRY
+RUN npm config set registry ${NODE_REGISTRY} && \
+    npm config set timeout 60000 && \
+    npm config set network-timeout 60000
+
+# 复制package文件并安装依赖
+COPY web/package*.json ./
+RUN npm install
+
+# 复制源码并构建
+COPY web/ ./
+RUN npm run build
+
+# 后端运行阶段
+FROM hub-mirror.c.163.com/library/python:3.11-slim
+
+WORKDIR /opt/vue-fastapi-admin
+
+# 构建参数
+ARG PIP_INDEX_URL
+
+# 系统配置和依赖安装
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked,id=core-apt \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked,id=core-apt \
+    # 替换为国内apt源
+    sed -i "s@http://deb.debian.org@http://mirrors.ustc.edu.cn@g" /etc/apt/sources.list && \
+    sed -i "s@http://security.debian.org@http://mirrors.ustc.edu.cn@g" /etc/apt/sources.list && \
+    rm -f /etc/apt/apt.conf.d/docker-clean && \
+    # 设置时区
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    echo "Asia/Shanghai" > /etc/timezone && \
+    # 更新并安装系统依赖
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        gcc python3-dev bash nginx vim curl procps net-tools && \
+    # 清理apt缓存
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# 配置pip使用构建参数指定的源
+RUN pip config set global.index-url ${PIP_INDEX_URL} && \
+    pip config set global.trusted-host $(echo ${PIP_INDEX_URL} | sed 's|https\?://||' | sed 's|/.*||')
+
+# 复制并安装Python依赖
+COPY requirements.txt ./
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --no-cache-dir -r requirements.txt
+
+# 复制应用代码
+COPY app/ ./app/
+COPY run.py ./
+COPY pyproject.toml ./
+COPY deploy/ ./deploy/
+
+# 复制前端构建文件
+COPY --from=web-builder /opt/vue-fastapi-admin/web/dist ./web/dist
+
+# 配置Nginx
+COPY deploy/web.conf /etc/nginx/sites-available/web.conf
+RUN rm -f /etc/nginx/sites-enabled/default && \
+    ln -s /etc/nginx/sites-available/web.conf /etc/nginx/sites-enabled/ && \
+    # 设置entrypoint权限
+    chmod +x deploy/entrypoint.sh
+
+# 创建日志目录
+RUN mkdir -p /opt/vue-fastapi-admin/logs
+
+# 环境变量
+ENV LANG=zh_CN.UTF-8
+ENV TZ=Asia/Shanghai
+
+# 健康检查
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost/ || exit 1
+
+# 暴露端口
+EXPOSE 80
+
+# 启动脚本
+ENTRYPOINT ["sh", "deploy/entrypoint.sh"]
