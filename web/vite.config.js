@@ -1,5 +1,4 @@
 import { defineConfig, loadEnv } from 'vite'
-import { resolve } from 'path'
 
 import { convertEnv, getSrcPath, getRootPath } from './build/utils'
 import { viteDefine } from './build/config'
