@@ -88,6 +88,7 @@
 
               <!-- 服务描述 -->
               <n-text
+                class="service-description"
                 :style="{
                   fontSize: '12px',
                   color: 'var(--sipumtech-text-secondary)',
@@ -502,11 +503,11 @@ onUnmounted(() => {
   }
 
   .service-item {
-    width: 120px;
-    height: 120px;
+    width: 100px; /* 减小服务项目卡片尺寸 */
+    height: 100px;
     transform:
       rotate(var(--angle))
-      translateY(-180px)
+      translateY(-190px) /* 增加距离避免重叠 */
       rotate(calc(-1 * var(--angle)))
       scale(0);
   }
@@ -514,9 +515,21 @@ onUnmounted(() => {
   .service-item.animate-in {
     transform:
       rotate(var(--angle))
-      translateY(-180px)
+      translateY(-190px) /* 增加距离避免重叠 */
       rotate(calc(-1 * var(--angle)))
       scale(1);
+  }
+
+  /* 移动端服务项目图标和文字大小调整 */
+  .service-item .n-avatar {
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 20px !important;
+  }
+
+  .service-item .n-text {
+    font-size: 11px !important;
+    line-height: 1.2 !important;
   }
 
   .connection-line {
@@ -535,6 +548,11 @@ onUnmounted(() => {
       rotate(var(--line-angle))
       scaleY(1);
   }
+
+  /* 移动端隐藏服务描述文字以避免重叠 */
+  .service-description {
+    display: none !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -544,16 +562,29 @@ onUnmounted(() => {
   }
 
   .center-circle {
-    width: 120px;
-    height: 120px;
+    width: 110px; /* 稍微减小中心圆 */
+    height: 110px;
+  }
+
+  .center-content {
+    padding: 10px;
+  }
+
+  /* 超小屏幕中心文字调整 */
+  .center-content .n-text:first-child {
+    font-size: 18px !important;
+  }
+
+  .center-content .n-text:last-child {
+    font-size: 12px !important;
   }
 
   .service-item {
-    width: 100px;
-    height: 100px;
+    width: 80px; /* 进一步减小服务项目卡片 */
+    height: 80px;
     transform:
       rotate(var(--angle))
-      translateY(-140px)
+      translateY(-150px) /* 调整距离 */
       rotate(calc(-1 * var(--angle)))
       scale(0);
   }
@@ -561,9 +592,26 @@ onUnmounted(() => {
   .service-item.animate-in {
     transform:
       rotate(var(--angle))
-      translateY(-140px)
+      translateY(-150px) /* 调整距离 */
       rotate(calc(-1 * var(--angle)))
       scale(1);
+  }
+
+  /* 超小屏幕服务项目图标和文字进一步缩小 */
+  .service-item .n-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 16px !important;
+  }
+
+  .service-item .n-text {
+    font-size: 10px !important;
+    line-height: 1.1 !important;
+  }
+
+  /* 移动端隐藏服务描述文字以避免重叠 */
+  .service-description {
+    display: none !important;
   }
 }
 </style>

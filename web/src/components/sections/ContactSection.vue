@@ -124,7 +124,7 @@
                 <div v-if="mapLoading" class="map-loading">
                   <n-spin size="large">
                     <template #description>
-                      正在加载地图...
+                      {{ $t('website.contact.map_loading_text') }}
                     </template>
                   </n-spin>
                 </div>
@@ -151,13 +151,13 @@
                     <template #footer>
                       <n-space>
                         <n-button @click="retryMapInit" type="primary" :loading="mapLoading">
-                          重新加载
+                          {{ $t('website.contact.retry_map') }}
                           <template v-if="mapRetryCount > 0" #icon>
                             <span style="font-size: 12px;">({{ mapRetryCount }}/{{ maxRetries }})</span>
                           </template>
                         </n-button>
                         <n-button @click="() => window.open('https://lbsyun.baidu.com/', '_blank')" type="default">
-                          申请API密钥
+                          {{ $t('website.contact.apply_api_key') }}
                         </n-button>
                       </n-space>
                     </template>
@@ -179,7 +179,7 @@
                         color: 'var(--sipumtech-primary-blue)'
                       }"
                     >
-                      苏州思普微电子科技有限公司
+                      {{ $t('company.name') }}
                     </n-text>
 
                     <n-text
@@ -189,46 +189,52 @@
                         lineHeight: '1.5'
                       }"
                     >
-                      {{ companyAddress }}
+                      {{ $t('website.contact.address') }}
                     </n-text>
 
                     <!-- 操作按钮 -->
-                    <n-space :size="12">
+                    <n-space :size="8" class="contact-action-buttons">
                       <n-button
                         type="primary"
-                        size="small"
+                        size="tiny"
                         @click="openInMap"
                         :style="{
                           background: 'linear-gradient(135deg, var(--sipumtech-accent-green), var(--sipumtech-primary-blue))',
-                          border: 'none'
+                          border: 'none',
+                          fontSize: '12px',
+                          padding: '4px 8px',
+                          height: '28px'
                         }"
                       >
                         <template #icon>
-                          <n-icon>
+                          <n-icon :size="14">
                             <svg viewBox="0 0 24 24">
                               <path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                             </svg>
                           </n-icon>
                         </template>
-                        在地图中查看
+                        {{ $t('website.contact.view_in_map') }}
                       </n-button>
 
                       <n-button
-                        size="small"
+                        size="tiny"
                         @click="copyAddress"
                         :style="{
                           borderColor: 'var(--sipumtech-accent-green)',
-                          color: 'var(--sipumtech-accent-green)'
+                          color: 'var(--sipumtech-accent-green)',
+                          fontSize: '12px',
+                          padding: '4px 8px',
+                          height: '28px'
                         }"
                       >
                         <template #icon>
-                          <n-icon>
+                          <n-icon :size="14">
                             <svg viewBox="0 0 24 24">
                               <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
                             </svg>
                           </n-icon>
                         </template>
-                        复制地址
+                        {{ $t('website.contact.copy_address') }}
                       </n-button>
                     </n-space>
                   </n-space>
@@ -250,7 +256,7 @@
                       fontWeight: '500'
                     }"
                   >
-                    {{ companyAddress }}
+                    {{ $t('website.contact.address') }}
                   </n-text>
                 </n-space>
               </div>
@@ -263,13 +269,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
-
-// 公司地址信息
-const companyAddress = '江苏省苏州市吴江区东太湖生态旅游度假区体育路508号金鹰商业中心2,3幢3幢1911'
 
 // 百度地图相关状态
 const mapLoading = ref(true)
@@ -286,9 +289,7 @@ const mapContainerHtml = ref('<div id="baidu-map-container" class="map-container
 // 公司位置坐标 (百度地图BD09坐标系)
 const companyLocation = {
   lng: 120.6357, // 经度
-  lat: 31.1515,  // 纬度
-  name: '苏州思普微电子科技有限公司',
-  address: companyAddress
+  lat: 31.1515   // 纬度
 }
 
 // 等待DOM元素出现的工具函数
@@ -459,8 +460,8 @@ const initBaiduMap = async (retryCount = 0) => {
     // 创建信息窗口
     const infoWindow = new BMap.InfoWindow(`
       <div style="padding: 10px; line-height: 1.5;">
-        <h4 style="margin: 0 0 8px 0; color: #1890ff;">${companyLocation.name}</h4>
-        <p style="margin: 0; color: #666; font-size: 13px;">${companyLocation.address}</p>
+        <h4 style="margin: 0 0 8px 0; color: #1890ff;">${t('company.name')}</h4>
+        <p style="margin: 0; color: #666; font-size: 13px;">${t('website.contact.address')}</p>
       </div>
     `, {
       width: 300,
@@ -527,23 +528,25 @@ const retryMapInit = () => {
 
 // 在地图中打开位置
 const openInMap = () => {
-  const baiduMapUrl = `https://map.baidu.com/search/${encodeURIComponent(companyAddress)}/@13515782.17,3665847.89,19z?querytype=s&da_src=shareurl&wd=${encodeURIComponent(companyAddress)}&c=224&src=0&pn=0&sug=0&l=19&b=(13515662,3665727;13515902,3665967)&from=webmap&biz_forward=%7B%22scaler%22:1,%22styles%22:%22pl%22%7D`
+  const addressText = t('website.contact.address')
+  const baiduMapUrl = `https://map.baidu.com/search/${encodeURIComponent(addressText)}/@13515782.17,3665847.89,19z?querytype=s&da_src=shareurl&wd=${encodeURIComponent(addressText)}&c=224&src=0&pn=0&sug=0&l=19&b=(13515662,3665727;13515902,3665967)&from=webmap&biz_forward=%7B%22scaler%22:1,%22styles%22:%22pl%22%7D`
   window.open(baiduMapUrl, '_blank')
 }
 
 // 复制地址到剪贴板
 const copyAddress = async () => {
+  const addressText = t('website.contact.address')
   try {
-    await navigator.clipboard.writeText(companyAddress)
-    window.$message?.success('地址已复制到剪贴板')
+    await navigator.clipboard.writeText(addressText)
+    window.$message?.success(t('website.contact.address_copied'))
   } catch (err) {
     const textArea = document.createElement('textarea')
-    textArea.value = companyAddress
+    textArea.value = addressText
     document.body.appendChild(textArea)
     textArea.select()
     document.execCommand('copy')
     document.body.removeChild(textArea)
-    window.$message?.success('地址已复制到剪贴板')
+    window.$message?.success(t('website.contact.address_copied'))
   }
 }
 
@@ -1012,6 +1015,19 @@ onUnmounted(() => {
   }
 }
 
+/* 按钮容器样式 */
+.contact-action-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.contact-action-buttons .n-button {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 @media (max-width: 768px) {
   .contact-section {
     padding: var(--sipumtech-section-padding-mobile);
@@ -1116,6 +1132,18 @@ onUnmounted(() => {
   .area-label {
     font-size: 10px;
     padding: 3px 6px;
+  }
+
+  .contact-action-buttons {
+    flex-wrap: nowrap !important;
+  }
+
+  .contact-action-buttons .n-button {
+    font-size: 11px !important;
+    padding: 3px 6px !important;
+    height: 26px !important;
+    min-width: auto !important;
+    flex-shrink: 1;
   }
 }
 

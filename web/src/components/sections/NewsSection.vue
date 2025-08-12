@@ -63,9 +63,9 @@
         <!-- 新闻内容 -->
         <n-grid
           v-else-if="news && news.length"
-          :cols="3"
-          :x-gap="30"
-          :y-gap="30"
+          :cols="responsiveCols"
+          :x-gap="responsiveXGap"
+          :y-gap="responsiveYGap"
           item-responsive
           responsive="screen"
         >
@@ -85,19 +85,10 @@
                 />
               </template>
 
-              <!-- 日期标签 -->
-              <n-tag
-                type="primary"
-                size="small"
-                style="position: absolute; top: 16px; right: 16px; z-index: 1;"
-              >
-                {{ item.date }}
-              </n-tag>
-
               <n-space vertical :size="12">
                 <n-text
+                  class="news-card-title"
                   :style="{
-                    fontSize: '18px',
                     fontWeight: 'var(--sipumtech-font-weight-semibold)',
                     color: 'var(--sipumtech-primary-blue)',
                     lineHeight: '1.4'
@@ -133,7 +124,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 import { useAsyncState } from '@/composables/useAsyncState'
@@ -141,6 +132,11 @@ import LoadingState from '@/components/common/LoadingState.vue'
 import ErrorBoundary from '@/components/common/ErrorBoundary.vue'
 
 const { t } = useI18n()
+
+// 响应式Grid配置 - 使用简单的数值，通过CSS媒体查询来实现响应式
+const responsiveCols = ref(3)
+const responsiveXGap = ref(30)
+const responsiveYGap = ref(30)
 
 // 新闻数据状态
 const newsData = ref([
@@ -291,6 +287,44 @@ const handleRetry = () => {
 .news-image {
   width: 100%;
   aspect-ratio: 16/9;
+}
+
+/* 新闻卡片标题样式 */
+.news-card-title {
+  font-size: 18px;
+}
+
+/* 移动端新闻卡片标题字体优化 */
+@media (max-width: 480px) {
+  .news-card-title {
+    font-size: 12px !important;
+  }
+}
+
+/* 超小屏幕优化 */
+@media (max-width: 375px) {
+  .news-card-title {
+    font-size: 11px !important;
+  }
+}
+
+/* 响应式Grid布局 - 移动端垂直排列 */
+@media (max-width: 768px) {
+  :deep(.n-grid) {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  :deep(.n-grid) {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .news-section {
+    padding: var(--sipumtech-section-padding-mobile);
+  }
 }
 
 /*
