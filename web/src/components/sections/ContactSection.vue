@@ -774,6 +774,21 @@ onUnmounted(() => {
   transition: color 0.3s ease;
 }
 
+/* 地址卡片特殊样式 - 针对长文本优化 */
+.contact-info-card:first-child {
+  height: auto;
+  min-height: 220px;
+  padding: 28px 20px;
+}
+
+.contact-info-card:first-child .card-text {
+  font-size: 12px;
+  line-height: 1.3;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
 /* 卡片悬停时的文字效果 */
 .modern-glass-card:hover .card-title {
   color: var(--sipumtech-primary-blue, #1e40af);
@@ -805,6 +820,21 @@ onUnmounted(() => {
     font-size: 15px;
     line-height: 1.5;
     word-break: break-word;
+    hyphens: auto;
+  }
+
+  /* 大屏端地址卡片特殊样式 */
+  .contact-info-card:first-child {
+    height: auto;
+    min-height: 260px;
+    padding: 32px 24px;
+  }
+
+  .contact-info-card:first-child .card-text {
+    font-size: 12px;
+    line-height: 1.25;
+    word-break: break-word;
+    overflow-wrap: break-word;
     hyphens: auto;
   }
 }
@@ -1005,6 +1035,21 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
+  /* 平板端地址卡片特殊样式 */
+  .contact-info-card:first-child {
+    height: auto;
+    min-height: 220px;
+    padding: 24px 18px;
+  }
+
+  .contact-info-card:first-child .card-text {
+    font-size: 11px;
+    line-height: 1.25;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
   .map-info-overlay {
     max-width: 280px;
   }
@@ -1082,6 +1127,21 @@ onUnmounted(() => {
     font-size: 13px;
     line-height: 1.4;
     word-break: break-word;
+    hyphens: auto;
+  }
+
+  /* 移动端地址卡片特殊样式 */
+  .contact-info-card:first-child {
+    height: auto;
+    min-height: 200px;
+    padding: 20px 16px;
+  }
+
+  .contact-info-card:first-child .card-text {
+    font-size: 10px;
+    line-height: 1.2;
+    word-break: break-word;
+    overflow-wrap: break-word;
     hyphens: auto;
   }
 
