@@ -22,29 +22,49 @@
         alignItems: 'center'
       }"
     >
-      <!-- 桌面端布局 - 使用 n-grid 栅格系统 -->
-      <n-grid v-if="!isMobile" :cols="24" :y-gap="0" style="width: 100%; align-items: center; padding: 0 48px; box-sizing: border-box;">
-        <!-- Logo 区域 - 固定宽度 -->
-        <n-gi :span="4">
-          <CompanyLogo />
+      <!-- 桌面端布局 - 使用 n-grid 栅格系统，针对平板设备优化 -->
+      <n-grid
+        v-if="!isMobile"
+        :cols="24"
+        :y-gap="0"
+        :style="{
+          width: '100%',
+          alignItems: 'center',
+          padding: isTablet ? '0 24px' : '0 48px',  // 平板设备减少内边距
+          boxSizing: 'border-box'
+        }"
+      >
+        <!-- Logo 区域 - 响应式宽度 -->
+        <n-gi :span="isTablet ? 5 : 4">
+          <CompanyLogo :compact="isTablet" />
         </n-gi>
 
-        <!-- 导航菜单区域 - 占据剩余空间 -->
-        <n-gi :span="16">
+        <!-- 导航菜单区域 - 响应式宽度，平板设备给予更多空间 -->
+        <n-gi :span="isTablet ? 15 : 16">
           <NavigationMenu
             :spacing="navSpacing"
             justify="start"
             :active-key="currentNavKey"
             @nav-click="handleNavClick"
-            style="margin-left: 24px;"
+            :style="{ marginLeft: isTablet ? '12px' : '24px' }"
           />
         </n-gi>
 
-        <!-- 右侧操作区域 - 固定宽度 -->
+        <!-- 右侧操作区域 - 响应式宽度 -->
         <n-gi :span="4" style="display: flex; justify-content: flex-end;">
-          <div style="display: flex; align-items: center; gap: 24px;">
-            <LanguageSwitcher @language-changed="handleLanguageChanged" />
-            <AdminLoginButton @login-click="handleLoginClick" />
+          <div :style="{
+            display: 'flex',
+            alignItems: 'center',
+            gap: isTablet ? '12px' : '24px'  // 平板设备减少间距
+          }">
+            <LanguageSwitcher
+              :size="isTablet ? 'small' : 'medium'"
+              @language-changed="handleLanguageChanged"
+            />
+            <AdminLoginButton
+              :size="isTablet ? 'small' : 'medium'"
+              @login-click="handleLoginClick"
+            />
           </div>
         </n-gi>
       </n-grid>
@@ -140,27 +160,34 @@ const currentNavKey = ref('home') // 当前激活的导航项
 // 当前语言状态
 const currentLocale = computed(() => locale.value === 'cn' ? 'zh-CN' : 'en')
 
-// 使用 VueUse 的 breakpoints 进行响应式设计
+// 使用 VueUse 的 breakpoints 进行响应式设计 - 优化平板设备支持
 const breakpoints = useBreakpoints({
-  sm: 769,
-  md: 900,
-  lg: 1024,
-  xl: 1200,
+  sm: 769,    // 小屏幕/大手机
+  md: 900,    // 平板竖屏
+  lg: 1024,   // 平板横屏
+  xl: 1200,   // 桌面端
+  xxl: 1440,  // 大桌面端
 })
 
-// 优化的响应式导航间距 - 使用 breakpoints 减少重新计算
+// 优化的响应式导航间距 - 针对平板设备优化
 const navSpacing = computed(() => {
-  if (breakpoints.xl.value) return 40      // 大屏幕 (>=1200px)
-  if (breakpoints.lg.value) return 28      // 中等屏幕 (>=1024px)
-  if (breakpoints.md.value) return 16      // 平板端 (>=900px)
-  if (breakpoints.sm.value) return 12      // 小平板端 (>=769px)
+  if (breakpoints.xxl.value) return 40     // 大桌面端 (>=1440px)
+  if (breakpoints.xl.value) return 32      // 桌面端 (>=1200px)
+  if (breakpoints.lg.value) return 20      // 平板横屏 (>=1024px) - 减少间距
+  if (breakpoints.md.value) return 12      // 平板竖屏 (>=900px) - 进一步减少间距
+  if (breakpoints.sm.value) return 8       // 小平板端 (>=769px)
   return 32                                // 默认值 (<769px)
 })
 
-// 使用Naive UI原生响应式能力 - 移动端检测
+// 使用Naive UI原生响应式能力 - 设备类型检测
 const isMobile = computed(() => {
   // 使用breakpoints判断是否为移动端
   return !breakpoints.md.value  // 小于900px视为移动端
+})
+
+// 平板设备检测 - 用于特殊布局处理
+const isTablet = computed(() => {
+  return breakpoints.md.value && !breakpoints.xl.value  // 900px-1200px为平板设备
 })
 
 // 移动端菜单选项

@@ -1,6 +1,7 @@
 <template>
   <n-button
     text
+    :size="size"
     class="admin-login"
     @click="handleLogin"
     :title="tooltip"
@@ -29,6 +30,11 @@ const props = defineProps({
   loginPath: {
     type: String,
     default: '/login'
+  },
+  size: {
+    type: String,
+    default: 'medium',
+    validator: (value) => ['small', 'medium', 'large'].includes(value)
   }
 })
 
