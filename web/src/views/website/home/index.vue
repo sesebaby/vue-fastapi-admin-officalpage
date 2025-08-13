@@ -12,7 +12,7 @@
       />
     </n-affix>
 
-    <!-- 区域指示器 - 使用正确的 n-affix 属性 -->
+    <!-- 右侧页面导航指示器 - 使用Intersection Observer API -->
     <n-affix
       :trigger-top="100"
       :top="50"
@@ -111,7 +111,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
+import { ref, reactive, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import AboutSection from '@/components/sections/AboutSection.vue'
@@ -134,7 +134,7 @@ const heroRef = ref(null)
 
 // 轮播相关函数已移至HeroSection组件
 
-// 滚动相关状态（简化版）
+// 页面section配置和当前激活状态
 const currentSection = ref(0)
 const sections = ref(['home', 'about', 'business', 'technology', 'cases', 'news', 'contact'])
 
@@ -187,17 +187,91 @@ const handleTechConsultation = (serviceType) => {
   scrollToSection('contact')
 }
 
-// 节流函数
-let scrollTimer = null
-const throttledUpdateCurrentSection = () => {
-  if (scrollTimer) return
-  scrollTimer = setTimeout(() => {
-    updateCurrentSection()
-    scrollTimer = null
-  }, 50) // 50ms节流，平衡性能和响应性
+// Intersection Observer API - 现代滚动检测方案
+let intersectionObserver = null
+const visibleSections = new Map() // 存储当前可见的sections
+
+const initIntersectionObserver = () => {
+  // 创建Intersection Observer实例
+  intersectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const sectionId = entry.target.id
+        const sectionIndex = sections.value.indexOf(sectionId)
+
+        if (entry.isIntersecting) {
+          // section进入视窗
+          visibleSections.set(sectionId, {
+            index: sectionIndex,
+            intersectionRatio: entry.intersectionRatio,
+            boundingRect: entry.boundingClientRect
+          })
+        } else {
+          // section离开视窗
+          visibleSections.delete(sectionId)
+        }
+
+        // 更新当前激活的section
+        updateCurrentSection()
+      })
+    },
+    {
+      // 配置选项
+      root: null, // 使用视窗作为根
+      rootMargin: '-20% 0px -20% 0px', // 上下各留20%的边距，确保section充分进入视窗才激活
+      threshold: [0, 0.1, 0.5, 0.9, 1.0] // 多个阈值，提供更精确的检测
+    }
+  )
+
+  // 观察所有section元素
+  sections.value.forEach(sectionId => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      intersectionObserver.observe(element)
+    }
+  })
 }
 
-// 滚动功能
+const updateCurrentSection = () => {
+  if (visibleSections.size === 0) {
+    return
+  }
+
+  // 如果只有一个可见section，直接激活它
+  if (visibleSections.size === 1) {
+    const [sectionData] = visibleSections.values()
+    currentSection.value = sectionData.index
+    return
+  }
+
+  // 如果有多个可见section，选择最靠近视窗中心的
+  let bestSection = null
+  let bestScore = -1
+
+  visibleSections.forEach((sectionData, sectionId) => {
+    const rect = sectionData.boundingRect
+    const viewportHeight = window.innerHeight
+    const viewportCenter = viewportHeight / 2
+
+    // 计算section中心点与视窗中心的距离
+    const sectionCenter = rect.top + rect.height / 2
+    const distanceFromCenter = Math.abs(sectionCenter - viewportCenter)
+
+    // 综合考虑intersection ratio和距离中心的远近
+    const score = sectionData.intersectionRatio * (1 - distanceFromCenter / viewportHeight)
+
+    if (score > bestScore) {
+      bestScore = score
+      bestSection = sectionData
+    }
+  })
+
+  if (bestSection) {
+    currentSection.value = bestSection.index
+  }
+}
+
+// 简化的滚动功能 - 主要处理进度条和回到顶部按钮
 const handleScroll = () => {
   const scrollTop = window.pageYOffset || document.documentElement.scrollTop
   const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
@@ -207,58 +281,6 @@ const handleScroll = () => {
 
   // 显示/隐藏回到顶部按钮
   showBackToTop.value = scrollTop > 300
-
-  // 更新当前区域（使用节流）
-  throttledUpdateCurrentSection()
-}
-
-const updateCurrentSection = () => {
-  const sectionElements = sections.value.map(id => document.getElementById(id)).filter(Boolean)
-
-  if (sectionElements.length === 0) return
-
-  const scrollTop = window.pageYOffset
-  const windowHeight = window.innerHeight
-  const viewportCenter = scrollTop + windowHeight / 2
-
-  let newCurrentSection = 0
-  let minDistance = Infinity
-
-  // 找到距离视窗中心最近的section
-  for (let i = 0; i < sectionElements.length; i++) {
-    const element = sectionElements[i]
-    if (element) {
-      const elementTop = element.offsetTop
-      const elementHeight = element.offsetHeight
-      const elementCenter = elementTop + elementHeight / 2
-
-      // 计算section中心点与视窗中心点的距离
-      const distance = Math.abs(elementCenter - viewportCenter)
-
-      // 如果这个section更接近视窗中心，并且section至少有一部分在视窗内
-      const elementBottom = elementTop + elementHeight
-      const isInViewport = elementBottom > scrollTop && elementTop < scrollTop + windowHeight
-
-      if (distance < minDistance && isInViewport) {
-        minDistance = distance
-        newCurrentSection = i
-      }
-    }
-  }
-
-  // 特殊处理：如果滚动到页面顶部，确保第一个section被激活
-  if (scrollTop < 100) {
-    newCurrentSection = 0
-  }
-
-  // 特殊处理：如果滚动到页面底部，确保最后一个section被激活
-  const documentHeight = document.documentElement.scrollHeight
-  const windowBottom = scrollTop + windowHeight
-  if (windowBottom >= documentHeight - 100) {
-    newCurrentSection = sectionElements.length - 1
-  }
-
-  currentSection.value = newCurrentSection
 }
 
 // 滚动劫持功能已移除，改用自然滚动
@@ -275,7 +297,7 @@ const scrollToSection = (sectionId) => {
       block: 'start'
     })
 
-    // 更新当前区域索引
+    // 手动更新当前section（点击时立即更新，不等待Intersection Observer）
     const sectionIndex = sections.value.indexOf(sectionId)
     if (sectionIndex !== -1) {
       currentSection.value = sectionIndex
@@ -299,12 +321,24 @@ onMounted(() => {
   // 添加滚动监听
   window.addEventListener('scroll', handleScroll)
 
-  // 初始化当前区域
-  updateCurrentSection()
+  // 初始化Intersection Observer
+  nextTick(() => {
+    initIntersectionObserver()
+  })
 })
 
 onUnmounted(() => {
+  // 移除滚动监听
   window.removeEventListener('scroll', handleScroll)
+
+  // 清理Intersection Observer
+  if (intersectionObserver) {
+    intersectionObserver.disconnect()
+    intersectionObserver = null
+  }
+
+  // 清理可见sections记录
+  visibleSections.clear()
 })
 
 // 联系表单
@@ -467,6 +501,48 @@ section.section-half {
   .side-nav-trigger {
     display: none !important;
   }
+}
+
+/* 页面导航指示器样式 - 自定义Anchor组件外观 */
+.page-navigation-anchor {
+  /* 移除默认样式 */
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.page-navigation-anchor :deep(.n-anchor-link) {
+  /* 隐藏默认的文字链接 */
+  font-size: 0;
+  line-height: 0;
+  padding: 0;
+  margin: 8px 0;
+  position: relative;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.page-navigation-anchor :deep(.n-anchor-link:hover) {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 1);
+  transform: scale(1.2);
+}
+
+.page-navigation-anchor :deep(.n-anchor-link.n-anchor-link--active) {
+  background-color: #18a058;
+  border-color: #18a058;
+  box-shadow: 0 0 8px rgba(24, 160, 88, 0.4);
+}
+
+/* 隐藏Anchor组件的默认文字内容 */
+.page-navigation-link {
+  display: none;
 }
 
 </style>
