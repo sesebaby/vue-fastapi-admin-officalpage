@@ -15,13 +15,7 @@
           {{ $t('website.contact.title') }}
         </n-text>
         <div class="title-underline"></div>
-        <n-text
-          :style="{
-            fontSize: '18px',
-            color: 'var(--sipumtech-text-secondary)',
-            lineHeight: 'var(--sipumtech-line-height-relaxed)'
-          }"
-        >
+        <n-text class="contact-subtitle">
           {{ $t('website.contact.subtitle') }}
         </n-text>
       </n-space>
@@ -619,6 +613,13 @@ onUnmounted(() => {
   border-radius: var(--sipumtech-radius-sm);
 }
 
+/* 联系副标题样式 */
+.contact-subtitle {
+  font-size: 18px;
+  color: var(--sipumtech-text-secondary);
+  line-height: var(--sipumtech-line-height-relaxed);
+}
+
 /* 联系卡片样式 - 简洁设计 */
 .contact-card {
   border: 2px solid #e8f4fd;
@@ -1080,6 +1081,12 @@ onUnmounted(() => {
 
   .section-container {
     padding: 0 var(--sipumtech-container-padding-mobile);
+  }
+
+  /* 移动端副标题字体优化 */
+  .contact-subtitle {
+    font-size: 14px;
+    line-height: 1.4;
   }
 
   /* 移动端字体优化 - 应用TrustBuildingSection最佳实践 */
