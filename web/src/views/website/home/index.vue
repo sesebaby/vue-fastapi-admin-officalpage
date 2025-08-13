@@ -187,6 +187,16 @@ const handleTechConsultation = (serviceType) => {
   scrollToSection('contact')
 }
 
+// 节流函数
+let scrollTimer = null
+const throttledUpdateCurrentSection = () => {
+  if (scrollTimer) return
+  scrollTimer = setTimeout(() => {
+    updateCurrentSection()
+    scrollTimer = null
+  }, 50) // 50ms节流，平衡性能和响应性
+}
+
 // 滚动功能
 const handleScroll = () => {
   const scrollTop = window.pageYOffset || document.documentElement.scrollTop
@@ -198,21 +208,57 @@ const handleScroll = () => {
   // 显示/隐藏回到顶部按钮
   showBackToTop.value = scrollTop > 300
 
-  // 更新当前区域
-  updateCurrentSection()
+  // 更新当前区域（使用节流）
+  throttledUpdateCurrentSection()
 }
 
 const updateCurrentSection = () => {
   const sectionElements = sections.value.map(id => document.getElementById(id)).filter(Boolean)
-  const scrollTop = window.pageYOffset + window.innerHeight / 2
 
-  for (let i = sectionElements.length - 1; i >= 0; i--) {
+  if (sectionElements.length === 0) return
+
+  const scrollTop = window.pageYOffset
+  const windowHeight = window.innerHeight
+  const viewportCenter = scrollTop + windowHeight / 2
+
+  let newCurrentSection = 0
+  let minDistance = Infinity
+
+  // 找到距离视窗中心最近的section
+  for (let i = 0; i < sectionElements.length; i++) {
     const element = sectionElements[i]
-    if (element && element.offsetTop <= scrollTop) {
-      currentSection.value = i
-      break
+    if (element) {
+      const elementTop = element.offsetTop
+      const elementHeight = element.offsetHeight
+      const elementCenter = elementTop + elementHeight / 2
+
+      // 计算section中心点与视窗中心点的距离
+      const distance = Math.abs(elementCenter - viewportCenter)
+
+      // 如果这个section更接近视窗中心，并且section至少有一部分在视窗内
+      const elementBottom = elementTop + elementHeight
+      const isInViewport = elementBottom > scrollTop && elementTop < scrollTop + windowHeight
+
+      if (distance < minDistance && isInViewport) {
+        minDistance = distance
+        newCurrentSection = i
+      }
     }
   }
+
+  // 特殊处理：如果滚动到页面顶部，确保第一个section被激活
+  if (scrollTop < 100) {
+    newCurrentSection = 0
+  }
+
+  // 特殊处理：如果滚动到页面底部，确保最后一个section被激活
+  const documentHeight = document.documentElement.scrollHeight
+  const windowBottom = scrollTop + windowHeight
+  if (windowBottom >= documentHeight - 100) {
+    newCurrentSection = sectionElements.length - 1
+  }
+
+  currentSection.value = newCurrentSection
 }
 
 // 滚动劫持功能已移除，改用自然滚动
