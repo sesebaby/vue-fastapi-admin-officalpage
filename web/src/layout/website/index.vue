@@ -35,12 +35,12 @@
         }"
       >
         <!-- Logo 区域 - 响应式宽度 -->
-        <n-gi :span="isTablet ? 5 : 4">
+        <n-gi :span="isSmallTablet ? 3 : isTablet ? 5 : 4">
           <CompanyLogo :compact="isTablet" />
         </n-gi>
 
-        <!-- 导航菜单区域 - 响应式宽度，平板设备给予更多空间 -->
-        <n-gi :span="isTablet ? 15 : 16">
+        <!-- 导航菜单区域 - 响应式宽度，小平板设备给予更多空间 -->
+        <n-gi :span="isSmallTablet ? 16 : isTablet ? 15 : 16">
           <NavigationMenu
             :spacing="navSpacing"
             justify="start"
@@ -50,15 +50,18 @@
           />
         </n-gi>
 
-        <!-- 右侧操作区域 - 响应式宽度 -->
-        <n-gi :span="4" style="display: flex; justify-content: flex-end;">
+        <!-- 右侧操作区域 - 响应式宽度和布局优化 -->
+        <n-gi :span="isSmallTablet ? 5 : 4" style="display: flex; justify-content: flex-end;">
           <div :style="{
             display: 'flex',
             alignItems: 'center',
-            gap: isTablet ? '12px' : '24px'  // 平板设备减少间距
+            gap: isSmallTablet ? '4px' : isTablet ? '6px' : '12px',  // 小平板设备使用最小间距
+            flexWrap: 'nowrap',  // 防止换行
+            minWidth: 0  // 允许收缩
           }">
             <LanguageSwitcher
               :size="isTablet ? 'small' : 'medium'"
+              :mobile="isSmallTablet"
               @language-changed="handleLanguageChanged"
             />
             <AdminLoginButton
@@ -188,6 +191,11 @@ const isMobile = computed(() => {
 // 平板设备检测 - 用于特殊布局处理
 const isTablet = computed(() => {
   return breakpoints.md.value && !breakpoints.xl.value  // 900px-1200px为平板设备
+})
+
+// 小平板设备检测 - 用于更紧凑的布局
+const isSmallTablet = computed(() => {
+  return breakpoints.md.value && !breakpoints.lg.value  // 900px-1024px为小平板设备
 })
 
 // 移动端菜单选项
