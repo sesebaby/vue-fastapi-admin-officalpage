@@ -15,10 +15,8 @@
     <!-- 右侧页面导航指示器 - 使用Intersection Observer API -->
     <n-affix
       :trigger-top="100"
-      :top="50"
       position="fixed"
       style="
-        position: fixed;
         right: 30px;
         top: 50%;
         transform: translateY(-50%);
@@ -54,10 +52,8 @@
     <n-affix
       class="side-nav-trigger"
       :trigger-top="200"
-      :top="50"
       position="fixed"
       style="
-        position: fixed;
         right: 30px;
         bottom: 120px;
         z-index: 1000;
@@ -111,7 +107,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import AboutSection from '@/components/sections/AboutSection.vue'
@@ -126,7 +122,6 @@ const { t } = useI18n()
 
 // 滚动相关状态
 const scrollProgress = ref(0)
-const showBackToTop = ref(false)
 const showSideNav = ref(false)
 
 // 组件引用
@@ -170,7 +165,6 @@ const endHover = () => {
 
 // P1-5: CTA按钮事件处理
 const handleGetSolution = (serviceType) => {
-  console.log('获取方案:', serviceType)
   // 这里可以添加具体的业务逻辑，比如：
   // - 跳转到方案详情页
   // - 打开联系表单
@@ -179,7 +173,6 @@ const handleGetSolution = (serviceType) => {
 }
 
 const handleTechConsultation = (serviceType) => {
-  console.log('技术咨询:', serviceType)
   // 这里可以添加具体的业务逻辑，比如：
   // - 打开在线客服
   // - 跳转到技术支持页面
@@ -278,16 +271,10 @@ const handleScroll = () => {
 
   // 更新滚动进度
   scrollProgress.value = (scrollTop / scrollHeight) * 100
-
-  // 显示/隐藏回到顶部按钮
-  showBackToTop.value = scrollTop > 300
 }
 
 // 滚动劫持功能已移除，改用自然滚动
 
-const scrollToTop = () => {
-  scrollToSection('home')
-}
 
 const scrollToSection = (sectionId) => {
   const element = document.getElementById(sectionId)
@@ -306,9 +293,6 @@ const scrollToSection = (sectionId) => {
   showSideNav.value = false
 }
 
-const toggleSideNav = () => {
-  showSideNav.value = !showSideNav.value
-}
 
 // 获取区域名称
 const getSectionName = (sectionId) => {
@@ -341,52 +325,6 @@ onUnmounted(() => {
   visibleSections.clear()
 })
 
-// 联系表单
-const formRef = ref(null)
-const contactForm = reactive({
-  name: '',
-  phone: '',
-  email: '',
-  message: ''
-})
-
-const formRules = computed(() => ({
-  name: {
-    required: true,
-    message: t('website.form_validation.name_required'),
-    trigger: 'blur'
-  },
-  phone: {
-    required: true,
-    message: t('website.form_validation.phone_required'),
-    trigger: 'blur'
-  },
-  email: {
-    required: true,
-    message: t('website.form_validation.email_required'),
-    trigger: 'blur'
-  },
-  message: {
-    required: true,
-    message: t('website.form_validation.message_required'),
-    trigger: 'blur'
-  }
-}))
-
-const submitForm = () => {
-  formRef.value?.validate((errors) => {
-    if (!errors) {
-      // 这里可以调用API提交表单
-      console.log('提交表单:', contactForm)
-      // 显示成功消息
-      window.$message?.success(t('website.contact.form.submit_success'))
-      // 重置表单
-      Object.keys(contactForm).forEach(key => {
-        contactForm[key] = ''
-      })
-    }
-  })
-}
 </script>
 
 <style scoped>
@@ -503,46 +441,5 @@ section.section-half {
   }
 }
 
-/* 页面导航指示器样式 - 自定义Anchor组件外观 */
-.page-navigation-anchor {
-  /* 移除默认样式 */
-  background: none !important;
-  border: none !important;
-  padding: 0 !important;
-}
-
-.page-navigation-anchor :deep(.n-anchor-link) {
-  /* 隐藏默认的文字链接 */
-  font-size: 0;
-  line-height: 0;
-  padding: 0;
-  margin: 8px 0;
-  position: relative;
-  display: block;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.6);
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.page-navigation-anchor :deep(.n-anchor-link:hover) {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-color: rgba(255, 255, 255, 1);
-  transform: scale(1.2);
-}
-
-.page-navigation-anchor :deep(.n-anchor-link.n-anchor-link--active) {
-  background-color: #18a058;
-  border-color: #18a058;
-  box-shadow: 0 0 8px rgba(24, 160, 88, 0.4);
-}
-
-/* 隐藏Anchor组件的默认文字内容 */
-.page-navigation-link {
-  display: none;
-}
 
 </style>

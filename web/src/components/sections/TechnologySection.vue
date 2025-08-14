@@ -167,11 +167,7 @@
             <!-- 步骤1：需求洞察 -->
             <div class="step-item">
               <div class="step-indicator">
-                <div class="step-icon">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
+                <div class="step-icon"></div>
               </div>
               <div class="step-content">
                 <div class="step-title">{{ $t('website.technology.step_discover_title') }}</div>
@@ -183,11 +179,7 @@
             <!-- 步骤2：方案设计 -->
             <div class="step-item">
               <div class="step-indicator">
-                <div class="step-icon">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
+                <div class="step-icon"></div>
               </div>
               <div class="step-content">
                 <div class="step-title">{{ $t('website.technology.step_design_title') }}</div>
@@ -199,11 +191,7 @@
             <!-- 步骤3：测试验证 -->
             <div class="step-item">
               <div class="step-indicator">
-                <div class="step-icon">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
+                <div class="step-icon"></div>
               </div>
               <div class="step-content">
                 <div class="step-title">{{ $t('website.technology.step_validate_title') }}</div>
@@ -215,11 +203,7 @@
             <!-- 步骤4：量产交付 -->
             <div class="step-item">
               <div class="step-indicator">
-                <div class="step-icon">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
+                <div class="step-icon"></div>
               </div>
               <div class="step-content">
                 <div class="step-title">{{ $t('website.technology.step_delivery_title') }}</div>
