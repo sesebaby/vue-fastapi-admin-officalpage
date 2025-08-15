@@ -278,23 +278,23 @@
             <n-form ref="contactFormRef" :model="contactForm" :rules="contactRules" label-placement="top">
               <n-grid :cols="'xs:1 s:1 m:2 l:2 xl:2'" :x-gap="24" :y-gap="12" responsive="screen">
                 <n-grid-item>
-                  <n-form-item path="name" :label="$t('website.contact.form.name_placeholder')">
-                    <n-input v-model:value="contactForm.name" :maxlength="50" show-count clearable />
+                  <n-form-item path="name" :label="$t('website.contact.form.name_label')">
+                    <n-input v-model:value="contactForm.name" :placeholder="$t('website.contact.form.name_placeholder')" :maxlength="50" show-count clearable />
                   </n-form-item>
                 </n-grid-item>
                 <n-grid-item>
-                  <n-form-item path="phone" :label="$t('website.contact.form.phone_placeholder')">
-                    <n-input v-model:value="contactForm.phone" :maxlength="30" show-count clearable />
+                  <n-form-item path="phone" :label="$t('website.contact.form.phone_label')">
+                    <n-input v-model:value="contactForm.phone" :placeholder="$t('website.contact.form.phone_placeholder')" :maxlength="30" show-count clearable />
                   </n-form-item>
                 </n-grid-item>
                 <n-grid-item>
-                  <n-form-item path="email" :label="$t('website.contact.form.email_placeholder')">
-                    <n-input v-model:value="contactForm.email" :maxlength="255" clearable />
+                  <n-form-item path="email" :label="$t('website.contact.form.email_label')">
+                    <n-input v-model:value="contactForm.email" :placeholder="$t('website.contact.form.email_placeholder')" :maxlength="255" clearable />
                   </n-form-item>
                 </n-grid-item>
                 <n-grid-item span="2">
-                  <n-form-item path="message" :label="$t('website.contact.form.message_placeholder')">
-                    <n-input v-model:value="contactForm.message" type="textarea" :autosize="{ minRows: 4, maxRows: 8 }" :maxlength="500" show-count />
+                  <n-form-item path="message" :label="$t('website.contact.form.message_label')">
+                    <n-input v-model:value="contactForm.message" type="textarea" :placeholder="$t('website.contact.form.message_placeholder')" :autosize="{ minRows: 4, maxRows: 8 }" :maxlength="500" show-count />
                   </n-form-item>
                 </n-grid-item>
               </n-grid>
@@ -326,20 +326,20 @@ const phoneRegex = /^(\+?\d[\d\s\-()]{6,20})$/
 
 const contactRules = {
   name: [
-    { required: true, message: t('website.contact.form.name_placeholder'), trigger: ['input', 'blur'] },
-    { validator: (_r, v) => (!v || v.length < 2 || v.length > 50 ? new Error('2-50') : true), trigger: ['input', 'blur'] }
+    { required: true, message: t('website.contact.form.name_required'), trigger: ['input', 'blur'] },
+    { validator: (_r, v) => (!v || v.length < 2 || v.length > 50 ? new Error(t('website.contact.form.name_length_error')) : true), trigger: ['input', 'blur'] }
   ],
   phone: [
-    { required: true, message: t('website.contact.form.phone_placeholder'), trigger: ['input', 'blur'] },
-    { validator: (_r, v) => (v && phoneRegex.test(v) ? true : new Error('invalid')), trigger: ['input', 'blur'] }
+    { required: true, message: t('website.contact.form.phone_required'), trigger: ['input', 'blur'] },
+    { validator: (_r, v) => (v && phoneRegex.test(v) ? true : new Error(t('website.contact.form.phone_format_error'))), trigger: ['input', 'blur'] }
   ],
   email: [
-    { required: true, message: t('website.contact.form.email_placeholder'), trigger: ['input', 'blur'] },
-    { type: 'email', message: 'invalid', trigger: ['blur', 'input'] }
+    { required: true, message: t('website.contact.form.email_required'), trigger: ['input', 'blur'] },
+    { type: 'email', message: t('website.contact.form.email_format_error'), trigger: ['blur', 'input'] }
   ],
   message: [
-    { required: true, message: t('website.contact.form.message_placeholder'), trigger: ['input', 'blur'] },
-    { validator: (_r, v) => (!v || v.length < 10 || v.length > 500 ? new Error('10-500') : true), trigger: ['input', 'blur'] }
+    { required: true, message: t('website.contact.form.message_required'), trigger: ['input', 'blur'] },
+    { validator: (_r, v) => (!v || v.length < 10 || v.length > 500 ? new Error(t('website.contact.form.message_length_error')) : true), trigger: ['input', 'blur'] }
   ]
 }
 
@@ -689,7 +689,19 @@ onUnmounted(() => {
  */
 
 /* 在线联系表单样式 */
-.contact-form-card { border: 2px solid #e8f4fd; }
+.contact-form-section {
+  margin-top: 40px;
+}
+
+.contact-form-card {
+  border: 2px solid #e8f4fd;
+  transition: all 0.3s ease;
+}
+
+.contact-form-card:hover {
+  border-color: var(--sipumtech-primary-blue);
+  box-shadow: 0 4px 16px rgba(30, 58, 138, 0.1);
+}
 
 /* 联系我们区域 */
 .contact-section {
@@ -1310,11 +1322,35 @@ onUnmounted(() => {
     min-width: auto !important;
     flex-shrink: 1;
   }
+
+  /* 移动端表单适配 */
+  .contact-form-section {
+    margin-top: 24px;
+  }
+
+  .contact-form-card {
+    border-radius: 12px;
+  }
+
+  /* 移动端表单标题字体调整 */
+  .contact-form-card .n-card-header {
+    padding: 16px 16px 12px 16px;
+  }
+
+  .contact-form-card .n-card-header .n-text {
+    font-size: var(--sipumtech-font-size-h4) !important;
+  }
+
+  /* 移动端表单内容间距优化 */
+  .contact-form-card .n-card__content {
+    padding: 16px;
+  }
 }
 
 /*
  * 组件样式说明：
  * - 联系信息卡片使用毛玻璃效果和现代化设计
+ * - 在线联系表单支持完整的中英文切换和移动端适配
  * - 简洁的地址信息展示，包含位置图标和公司信息
  * - 提供地图查看和地址复制功能
  * - 响应式设计适配不同屏幕尺寸
