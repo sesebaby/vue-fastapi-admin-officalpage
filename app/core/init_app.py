@@ -164,13 +164,13 @@ async def init_menus():
         await Menu.bulk_create(children_menu)
         await Menu.create(
             menu_type=MenuType.MENU,
-            name="一级菜单",
-            path="/top-menu",
+            name="客户咨询",
+            path="/contact",
             order=2,
             parent_id=0,
-            icon="material-symbols:featured-play-list-outline",
+            icon="mdi:account-voice",
             is_hidden=False,
-            component="/top-menu",
+            component="/system/contact",
             keepalive=False,
             redirect="",
         )

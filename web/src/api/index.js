@@ -39,4 +39,9 @@ export default {
   deleteDept: (params = {}) => request.delete('/dept/delete', { params }),
   // auditlog
   getAuditLogList: (params = {}) => request.get('/auditlog/list', { params }),
+  // contact (website customer inquiries)
+  createContactMessage: (data = {}) => request.post('/contact/create', data, { noNeedToken: true }),
+  getContactList: (params = {}) => request.get('/contact/list', { params }),
+  markContactRead: (data = {}) => request.post('/contact/mark_read', data),
+
 }

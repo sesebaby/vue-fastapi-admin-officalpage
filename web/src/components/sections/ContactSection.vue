@@ -85,6 +85,40 @@
           </n-grid>
         </div>
 
+        <!-- 在线联系表单（官网） -->
+        <div class="contact-form-section">
+          <n-card class="contact-form-card" :bordered="true">
+            <n-form ref="contactFormRef" :model="contactForm" :rules="contactRules" label-placement="top">
+              <n-grid :cols="'xs:1 s:1 m:2 l:2 xl:2'" :x-gap="24" :y-gap="12" responsive="screen">
+                <n-grid-item>
+                  <n-form-item path="name" :label="$t('website.contact.form.name_placeholder')">
+                    <n-input v-model:value="contactForm.name" :maxlength="50" show-count clearable />
+                  </n-form-item>
+                </n-grid-item>
+                <n-grid-item>
+                  <n-form-item path="phone" :label="$t('website.contact.form.phone_placeholder')">
+                    <n-input v-model:value="contactForm.phone" :maxlength="30" show-count clearable />
+                  </n-form-item>
+                </n-grid-item>
+                <n-grid-item>
+                  <n-form-item path="email" :label="$t('website.contact.form.email_placeholder')">
+                    <n-input v-model:value="contactForm.email" :maxlength="255" clearable />
+                  </n-form-item>
+                </n-grid-item>
+                <n-grid-item span="2">
+                  <n-form-item path="message" :label="$t('website.contact.form.message_placeholder')">
+                    <n-input v-model:value="contactForm.message" type="textarea" :autosize="{ minRows: 4, maxRows: 8 }" :maxlength="500" show-count />
+                  </n-form-item>
+                </n-grid-item>
+              </n-grid>
+              <n-space justify="end">
+                <n-button type="primary" :loading="submitting" @click="handleSubmit">{{ $t('website.contact.form.submit_button') }}</n-button>
+              </n-space>
+            </n-form>
+          </n-card>
+        </div>
+
+
         <!-- 地图区域 - 大屏端单独一行 -->
         <div class="map-section">
           <n-card
@@ -267,6 +301,52 @@ import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
+
+// 在线联系表单状态
+const contactFormRef = ref(null)
+const contactForm = ref({ name: '', phone: '', email: '', message: '' })
+const submitting = ref(false)
+
+// 电话校验：宽松支持（国际与座机）；避免过严限制
+const phoneRegex = /^(\+?\d[\d\s\-()]{6,20})$/
+
+const contactRules = {
+  name: [
+    { required: true, message: t('website.contact.form.name_placeholder'), trigger: ['input', 'blur'] },
+    { validator: (_r, v) => (!v || v.length < 2 || v.length > 50 ? new Error('2-50') : true), trigger: ['input', 'blur'] }
+  ],
+  phone: [
+    { required: true, message: t('website.contact.form.phone_placeholder'), trigger: ['input', 'blur'] },
+    { validator: (_r, v) => (v && phoneRegex.test(v) ? true : new Error('invalid')), trigger: ['input', 'blur'] }
+  ],
+  email: [
+    { required: true, message: t('website.contact.form.email_placeholder'), trigger: ['input', 'blur'] },
+    { type: 'email', message: 'invalid', trigger: ['blur', 'input'] }
+  ],
+  message: [
+    { required: true, message: t('website.contact.form.message_placeholder'), trigger: ['input', 'blur'] },
+    { validator: (_r, v) => (!v || v.length < 10 || v.length > 500 ? new Error('10-500') : true), trigger: ['input', 'blur'] }
+  ]
+}
+
+async function handleSubmit() {
+  if (submitting.value) return
+  contactFormRef.value?.validate(async (err) => {
+    if (err) return
+    try {
+      submitting.value = true
+      await (await import('@/api')).default.createContactMessage({ ...contactForm.value })
+      window.$message?.success(t('website.contact.form.submit_success'))
+      contactForm.value = { name: '', phone: '', email: '', message: '' }
+      contactFormRef.value?.restoreValidation()
+    } catch (e) {
+      window.$message?.error(t('website.contact.form.submit_error'))
+    } finally {
+      submitting.value = false
+    }
+  })
+}
+
 
 // 百度地图相关状态
 const mapLoading = ref(true)
@@ -524,6 +604,7 @@ const retryMapInit = () => {
 const openInMap = () => {
   const addressText = t('website.contact.address')
   const baiduMapUrl = `https://map.baidu.com/search/${encodeURIComponent(addressText)}/@13515782.17,3665847.89,19z?querytype=s&da_src=shareurl&wd=${encodeURIComponent(addressText)}&c=224&src=0&pn=0&sug=0&l=19&b=(13515662,3665727;13515902,3665967)&from=webmap&biz_forward=%7B%22scaler%22:1,%22styles%22:%22pl%22%7D`
+
   window.open(baiduMapUrl, '_blank')
 }
 
@@ -589,6 +670,10 @@ onUnmounted(() => {
 
 <style scoped>
 /*
+
+  /* 在线联系表单样式（正确位置） */
+  .contact-form-card { border: 2px solid #e8f4fd; }
+
  * ContactSection样式 - 使用Naive UI原生组件
  * 大部分样式已由n-card、n-grid、n-avatar、n-image等组件自动处理
  */
