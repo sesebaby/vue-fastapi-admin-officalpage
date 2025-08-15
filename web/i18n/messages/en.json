@@ -31,7 +31,8 @@
     "contact": "Contact",
     "language": "Language",
     "admin_login": "Admin Login",
-    "admin_login_tooltip": "Admin Login"
+    "admin_login_tooltip": "Admin Login",
+    "mobile_menu_toggle": "Menu"
   },
   "website": {
     "hero": {

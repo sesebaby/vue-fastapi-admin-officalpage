@@ -39,7 +39,8 @@
     "contact": "联系我们",
     "language": "语言",
     "admin_login": "管理员登录",
-    "admin_login_tooltip": "管理员登录"
+    "admin_login_tooltip": "管理员登录",
+    "mobile_menu_toggle": "菜单"
   },
   "website": {
     "hero": {
