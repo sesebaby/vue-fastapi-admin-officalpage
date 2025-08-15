@@ -85,39 +85,6 @@
           </n-grid>
         </div>
 
-        <!-- 在线联系表单（官网） -->
-        <div class="contact-form-section">
-          <n-card class="contact-form-card" :bordered="true">
-            <n-form ref="contactFormRef" :model="contactForm" :rules="contactRules" label-placement="top">
-              <n-grid :cols="'xs:1 s:1 m:2 l:2 xl:2'" :x-gap="24" :y-gap="12" responsive="screen">
-                <n-grid-item>
-                  <n-form-item path="name" :label="$t('website.contact.form.name_placeholder')">
-                    <n-input v-model:value="contactForm.name" :maxlength="50" show-count clearable />
-                  </n-form-item>
-                </n-grid-item>
-                <n-grid-item>
-                  <n-form-item path="phone" :label="$t('website.contact.form.phone_placeholder')">
-                    <n-input v-model:value="contactForm.phone" :maxlength="30" show-count clearable />
-                  </n-form-item>
-                </n-grid-item>
-                <n-grid-item>
-                  <n-form-item path="email" :label="$t('website.contact.form.email_placeholder')">
-                    <n-input v-model:value="contactForm.email" :maxlength="255" clearable />
-                  </n-form-item>
-                </n-grid-item>
-                <n-grid-item span="2">
-                  <n-form-item path="message" :label="$t('website.contact.form.message_placeholder')">
-                    <n-input v-model:value="contactForm.message" type="textarea" :autosize="{ minRows: 4, maxRows: 8 }" :maxlength="500" show-count />
-                  </n-form-item>
-                </n-grid-item>
-              </n-grid>
-              <n-space justify="end">
-                <n-button type="primary" :loading="submitting" @click="handleSubmit">{{ $t('website.contact.form.submit_button') }}</n-button>
-              </n-space>
-            </n-form>
-          </n-card>
-        </div>
-
 
         <!-- 地图区域 - 大屏端单独一行 -->
         <div class="map-section">
@@ -291,6 +258,52 @@
             </n-space>
           </n-card>
         </div>
+
+        <!-- 在线联系表单（官网） - 移动到地图下方 -->
+        <div class="contact-form-section">
+          <n-card class="contact-form-card" :bordered="true">
+            <template #header>
+              <n-text
+                :style="{
+                  fontSize: 'var(--sipumtech-font-size-h3)',
+                  fontWeight: 'var(--sipumtech-font-weight-bold)',
+                  color: 'var(--sipumtech-primary-blue)',
+                  textAlign: 'center',
+                  display: 'block'
+                }"
+              >
+                {{ $t('website.contact.form.title') || '在线咨询' }}
+              </n-text>
+            </template>
+            <n-form ref="contactFormRef" :model="contactForm" :rules="contactRules" label-placement="top">
+              <n-grid :cols="'xs:1 s:1 m:2 l:2 xl:2'" :x-gap="24" :y-gap="12" responsive="screen">
+                <n-grid-item>
+                  <n-form-item path="name" :label="$t('website.contact.form.name_placeholder')">
+                    <n-input v-model:value="contactForm.name" :maxlength="50" show-count clearable />
+                  </n-form-item>
+                </n-grid-item>
+                <n-grid-item>
+                  <n-form-item path="phone" :label="$t('website.contact.form.phone_placeholder')">
+                    <n-input v-model:value="contactForm.phone" :maxlength="30" show-count clearable />
+                  </n-form-item>
+                </n-grid-item>
+                <n-grid-item>
+                  <n-form-item path="email" :label="$t('website.contact.form.email_placeholder')">
+                    <n-input v-model:value="contactForm.email" :maxlength="255" clearable />
+                  </n-form-item>
+                </n-grid-item>
+                <n-grid-item span="2">
+                  <n-form-item path="message" :label="$t('website.contact.form.message_placeholder')">
+                    <n-input v-model:value="contactForm.message" type="textarea" :autosize="{ minRows: 4, maxRows: 8 }" :maxlength="500" show-count />
+                  </n-form-item>
+                </n-grid-item>
+              </n-grid>
+              <n-space justify="end" style="margin-top: 16px;">
+                <n-button type="primary" :loading="submitting" @click="handleSubmit">{{ $t('website.contact.form.submit_button') }}</n-button>
+              </n-space>
+            </n-form>
+          </n-card>
+        </div>
       </n-space>
     </div>
   </section>
@@ -299,6 +312,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
+import api from '@/api'
 
 const { t } = useI18n()
 
@@ -335,7 +349,7 @@ async function handleSubmit() {
     if (err) return
     try {
       submitting.value = true
-      await (await import('@/api')).default.createContactMessage({ ...contactForm.value })
+      await api.createContactMessage({ ...contactForm.value })
       window.$message?.success(t('website.contact.form.submit_success'))
       contactForm.value = { name: '', phone: '', email: '', message: '' }
       contactFormRef.value?.restoreValidation()
@@ -670,13 +684,12 @@ onUnmounted(() => {
 
 <style scoped>
 /*
-
-  /* 在线联系表单样式（正确位置） */
-  .contact-form-card { border: 2px solid #e8f4fd; }
-
  * ContactSection样式 - 使用Naive UI原生组件
  * 大部分样式已由n-card、n-grid、n-avatar、n-image等组件自动处理
  */
+
+/* 在线联系表单样式 */
+.contact-form-card { border: 2px solid #e8f4fd; }
 
 /* 联系我们区域 */
 .contact-section {

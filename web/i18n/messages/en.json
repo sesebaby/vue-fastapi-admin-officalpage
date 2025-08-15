@@ -178,6 +178,7 @@
       "retry_map": "Reload",
       "apply_api_key": "Apply for API Key",
       "form": {
+        "title": "Online Inquiry",
         "name_placeholder": "Please enter your name",
         "phone_placeholder": "Please enter your phone number",
         "email_placeholder": "Please enter your email address",

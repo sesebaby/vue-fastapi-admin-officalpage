@@ -187,6 +187,7 @@
       "retry_map": "重新加载",
       "apply_api_key": "申请API密钥",
       "form": {
+        "title": "在线咨询",
         "name_placeholder": "请输入您的姓名",
         "phone_placeholder": "请输入您的联系电话",
         "email_placeholder": "请输入您的邮箱地址",
