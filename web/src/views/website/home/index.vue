@@ -23,7 +23,7 @@
         z-index: 1000;
       "
     >
-      <n-space vertical :size="8" :class="{ 'anchor-intro': showAnchorIntro }">
+      <n-space vertical :size="8">
         <n-button
           v-for="(section, index) in sections"
           :key="section"
@@ -39,9 +39,6 @@
             padding: 6px;
           "
         />
-        <!-- 首次访问引导动画样式钩子 -->
-        <div v-if="showAnchorIntro" class="sr-only" aria-hidden="true"></div>
-
       </n-space>
     </n-affix>
 
@@ -124,9 +121,6 @@ import BusinessSection from '@/components/sections/BusinessSection.vue'
 import TechnologySection from '@/components/sections/TechnologySection.vue'
 import CasesSection from '@/components/sections/CasesSection.vue'
 import TrustBuildingSection from '@/components/sections/TrustBuildingSection.vue'
-// 首次访问锚点导航引导动画（2~3秒）
-const showAnchorIntro = ref(false)
-
 import NewsSection from '@/components/sections/NewsSection.vue'
 import ContactSection from '@/components/sections/ContactSection.vue'
 import { useActiveSection } from '@/views/website/_shared/useActiveSection'
@@ -190,18 +184,10 @@ const endHover = () => {
 
 // P1-5: CTA按钮事件处理
 const handleGetSolution = (serviceType) => {
-  try {
-    const msg = t('website.ui.cta_jump_to_contact') || '已为您跳转到联系表单'
-    window.$message?.success(msg)
-  } catch (e) {}
   scrollToSection('contact')
 }
 
 const handleTechConsultation = (serviceType) => {
-  try {
-    const msg = t('website.ui.cta_jump_to_contact') || '已为您跳转到联系表单'
-    window.$message?.success(msg)
-  } catch (e) {}
   scrollToSection('contact')
 }
 
@@ -338,18 +324,6 @@ onMounted(() => {
     initIntersectionObserver()
   })
 
-  // 首次访问锚点引导动画：仅一次
-  try {
-    const key = 'website_nav_intro_done'
-    const done = window.localStorage.getItem(key)
-    if (!done) {
-      showAnchorIntro.value = true
-      setTimeout(() => {
-        showAnchorIntro.value = false
-        window.localStorage.setItem(key, '1')
-      }, 2200)
-    }
-  } catch (e) {}
 
 })
 
@@ -438,14 +412,6 @@ section.section-half {
 /* 主要服务展示相关样式已移至BusinessSection组件 */
 /* 继续移除业务服务相关CSS */
 
-/* 右侧锚点 - 首次访问引导动画 */
-.anchor-intro .n-button {
-  animation: anchorPulse 0.8s ease-in-out 0.2s 2 alternate;
-}
-@keyframes anchorPulse {
-  0% { transform: scale(1); box-shadow: 0 0 0 rgba(30, 58, 138, 0); }
-  100% { transform: scale(1.2); box-shadow: 0 0 8px rgba(30, 58, 138, 0.4); }
-}
 
 /* 技术能力展示相关样式已移至TechnologySection组件 */
 
