@@ -14,29 +14,10 @@
         <!-- 中心圆形区域 -->
         <div class="center-circle" :class="{ 'animate-in': isVisible }">
           <div class="center-content">
-            <n-text
-              :style="{
-                fontSize: '24px',
-                fontWeight: 'var(--sipumtech-font-weight-bold)',
-                color: '#ffffff',
-                lineHeight: '1.3',
-                textAlign: 'center',
-                textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
-              }"
-            >
+            <n-text class="center-title">
               {{ $t('website.cases.center_title') }}
             </n-text>
-            <n-text
-              :style="{
-                fontSize: '14px',
-                color: '#ffffff',
-                opacity: '0.95',
-                marginTop: '6px',
-                textAlign: 'center',
-                fontWeight: 'var(--sipumtech-font-weight-medium)',
-                letterSpacing: '1px'
-              }"
-            >
+            <n-text class="center-subtitle">
               {{ $t('website.cases.center_subtitle') }}
             </n-text>
           </div>
@@ -305,9 +286,39 @@ onUnmounted(() => {
 
 .center-content {
   text-align: center;
-  padding: 20px;
+  padding: 14px 12px;
   position: relative;
   z-index: 2;
+  max-width: 90%;
+}
+
+.center-title {
+  font-size: clamp(16px, 5vw, 22px);
+  font-weight: var(--sipumtech-font-weight-bold);
+  color: #fff;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  word-break: keep-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.center-subtitle {
+  font-size: clamp(12px, 3.2vw, 14px);
+  color: #fff;
+  opacity: 0.95;
+  margin-top: 6px;
+  text-align: center;
+  font-weight: var(--sipumtech-font-weight-medium);
+  letter-spacing: 0.5px;
+  word-break: keep-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* 移除中心圆形脉冲效果 */
@@ -530,6 +541,10 @@ onUnmounted(() => {
   .service-item .n-text {
     font-size: 11px !important;
     line-height: 1.2 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 90px !important;
   }
 
   .connection-line {
@@ -607,6 +622,10 @@ onUnmounted(() => {
   .service-item .n-text {
     font-size: 10px !important;
     line-height: 1.1 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 76px !important;
   }
 
   /* 移动端隐藏服务描述文字以避免重叠 */
