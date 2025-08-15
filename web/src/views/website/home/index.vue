@@ -59,8 +59,8 @@
       :trigger-top="200"
       position="fixed"
       style="
-        right: 30px;
-        bottom: 120px;
+        right: 16px;
+        bottom: 24px;
         z-index: 1000;
       "
     >
