@@ -216,9 +216,9 @@
 
         <!-- 技术能力卡片区域 - 使用Naive UI Grid -->
         <n-grid
-          :cols="'xs:1 s:2 m:2 l:4 xl:4'"
-          :x-gap="'xs:16 s:20 m:24 l:30 xl:30'"
-          :y-gap="'xs:20 s:24 m:24 l:30 xl:30'"
+          :cols="'xs:2 s:2 m:2 l:4 xl:4'"
+          :x-gap="'xs:12 s:16 m:20 l:30 xl:30'"
+          :y-gap="'xs:12 s:16 m:20 l:30 xl:30'"
           responsive="screen"
         >
           <!-- 先进封装技术卡片 -->
@@ -616,7 +616,7 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 @media (max-width: 1024px) {
   /* 平板端：调整卡片高度和字体 */
   .capability-card {
-    min-height: 260px;
+    min-height: 240px;
   }
 
   .tech-overview-title {
@@ -627,7 +627,7 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 @media (max-width: 768px) {
   /* 移动端：单列布局时调整卡片高度 */
   .capability-card {
-    min-height: 200px;
+    min-height: 180px;
   }
 
   /* 移动端优化：调整内容间距 */
@@ -656,8 +656,8 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
   /* 移动端图标尺寸调整 */
   .capability-icon {
-    width: 60px !important;
-    height: 60px !important;
+    width: 56px !important;
+    height: 56px !important;
   }
 
   /* 技术概览区域移动端优化 */
@@ -684,7 +684,7 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 @media (max-width: 480px) {
   /* 小屏幕：进一步优化 */
   .capability-card {
-    min-height: 180px;
+    min-height: 160px;
   }
 
   .technology-section {
