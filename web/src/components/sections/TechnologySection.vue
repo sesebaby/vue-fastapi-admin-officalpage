@@ -12,7 +12,7 @@
       <!-- 技术内容区域 -->
       <n-space vertical :size="60" class="technology-content">
         <!-- KPI 数据带：展示关键技术指标 -->
-        <n-grid :cols="'xs:1 s:2 m:4 l:4 xl:4'" :x-gap="24" :y-gap="24" responsive="screen" class="technology-kpi-band">
+        <n-grid cols="xs:2 s:2 m:4 l:4 xl:4" :x-gap="16" :y-gap="16" responsive="screen" class="technology-kpi-band">
           <!-- 交付项目数 -->
           <n-grid-item>
             <n-card size="small" class="kpi-card" hoverable>
@@ -216,9 +216,9 @@
 
         <!-- 技术能力卡片区域 - 使用Naive UI Grid -->
         <n-grid
-          :cols="'xs:2 s:2 m:2 l:4 xl:4'"
-          :x-gap="'xs:12 s:16 m:20 l:30 xl:30'"
-          :y-gap="'xs:12 s:16 m:20 l:30 xl:30'"
+          cols="xs:2 s:2 m:2 l:4 xl:4"
+          x-gap="xs:12 s:16 m:20 l:30 xl:30"
+          y-gap="xs:12 s:16 m:20 l:30 xl:30"
           responsive="screen"
         >
           <!-- 先进封装技术卡片 -->
