@@ -4,17 +4,15 @@
     <div class="section-container">
       <!-- 使用Naive UI Grid布局 - 优化高度对齐 -->
       <n-grid
-        :cols="2"
-        :collapsed="true"
-        :collapsed-rows="1"
-        :x-gap="80"
-        :y-gap="40"
+        cols="xs:1 s:1 m:2 l:2 xl:2"
+        x-gap="xs:16 s:24 m:40 l:80 xl:80"
+        y-gap="xs:20 s:24 m:40 l:40 xl:40"
         responsive="screen"
         align-items="stretch"
         class="about-grid-container"
       >
         <!-- 左侧文本内容 -->
-        <n-grid-item>
+        <n-grid-item class="about-text-col">
           <n-space vertical :size="40">
             <!-- 标题区域 -->
             <n-space vertical :size="20">
@@ -133,7 +131,7 @@
         </n-grid-item>
 
         <!-- 右侧图片内容 -->
-        <n-grid-item>
+        <n-grid-item class="about-image-col">
           <div class="about-image-container height-match-container">
             <!-- 使用Naive UI Image组件 - 高度自适应左侧内容 -->
             <n-image
@@ -382,8 +380,16 @@ const handleContactUs = () => {
     min-height: auto;
   }
 
+  /* 调整 1 列时的项目顺序：图片在上、文字在下 */
+  .about-image-col { grid-row: 1; }
+  .about-text-col { grid-row: 2; }
+
   .height-match-container {
     min-height: auto;
+  }
+
+  .about-image-container {
+    margin-bottom: 12px; /* 上下堆叠时增加分隔 */
   }
 
   .height-adaptive-image {
