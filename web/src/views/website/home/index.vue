@@ -454,6 +454,12 @@ section.section-half {
  */
 .side-nav-trigger {
   display: block;
+  position: fixed !important;
+  right: 16px !important;
+  bottom: 24px !important;
+  left: auto !important;
+  top: auto !important;
+  z-index: 1000;
 }
 
 @media (min-width: 1025px) {
