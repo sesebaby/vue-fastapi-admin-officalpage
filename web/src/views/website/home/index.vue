@@ -23,7 +23,7 @@
         z-index: 1000;
       "
     >
-      <n-space vertical :size="8">
+      <n-space vertical :size="8" :class="{ 'anchor-intro': showAnchorIntro }">
         <n-button
           v-for="(section, index) in sections"
           :key="section"
@@ -32,8 +32,16 @@
           :type="currentSection === index ? 'primary' : 'default'"
           @click="scrollToSection(section)"
           :title="getSectionName(section)"
-          style="width: 12px; height: 12px; min-width: 12px;"
+          style="
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            padding: 6px;
+          "
         />
+        <!-- 首次访问引导动画样式钩子 -->
+        <div v-if="showAnchorIntro" class="sr-only" aria-hidden="true"></div>
+
       </n-space>
     </n-affix>
 
@@ -62,6 +70,7 @@
       <n-button
         circle
         type="primary"
+        aria-label="打开导航菜单"
         @click="showSideNav = true"
         style="width: 48px; height: 48px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);"
       >
@@ -107,7 +116,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import AboutSection from '@/components/sections/AboutSection.vue'
@@ -115,10 +124,15 @@ import BusinessSection from '@/components/sections/BusinessSection.vue'
 import TechnologySection from '@/components/sections/TechnologySection.vue'
 import CasesSection from '@/components/sections/CasesSection.vue'
 import TrustBuildingSection from '@/components/sections/TrustBuildingSection.vue'
+// 首次访问锚点导航引导动画（2~3秒）
+const showAnchorIntro = ref(false)
+
 import NewsSection from '@/components/sections/NewsSection.vue'
 import ContactSection from '@/components/sections/ContactSection.vue'
+import { useActiveSection } from '@/views/website/_shared/useActiveSection'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+const { activeSection, setActiveSection } = useActiveSection()
 
 // 滚动相关状态
 const scrollProgress = ref(0)
@@ -144,6 +158,17 @@ const menuOptions = computed(() =>
   }))
 )
 
+// 语言切换时，为首页添加淡入过渡效果
+watch(() => locale.value, async () => {
+  const root = document.querySelector('.home-page')
+  if (root) {
+    root.classList.add('locale-switching')
+    // 短暂等待下一帧再移除，触发过渡
+    await nextTick()
+    setTimeout(() => root.classList.remove('locale-switching'), 300)
+  }
+})
+
 // 菜单选择处理
 const handleMenuSelect = (key) => {
   scrollToSection(key)
@@ -165,18 +190,18 @@ const endHover = () => {
 
 // P1-5: CTA按钮事件处理
 const handleGetSolution = (serviceType) => {
-  // 这里可以添加具体的业务逻辑，比如：
-  // - 跳转到方案详情页
-  // - 打开联系表单
-  // - 发送埋点数据
+  try {
+    const msg = t('website.ui.cta_jump_to_contact') || '已为您跳转到联系表单'
+    window.$message?.success(msg)
+  } catch (e) {}
   scrollToSection('contact')
 }
 
 const handleTechConsultation = (serviceType) => {
-  // 这里可以添加具体的业务逻辑，比如：
-  // - 打开在线客服
-  // - 跳转到技术支持页面
-  // - 显示联系方式弹窗
+  try {
+    const msg = t('website.ui.cta_jump_to_contact') || '已为您跳转到联系表单'
+    window.$message?.success(msg)
+  } catch (e) {}
   scrollToSection('contact')
 }
 
@@ -234,6 +259,7 @@ const updateCurrentSection = () => {
   if (visibleSections.size === 1) {
     const [sectionData] = visibleSections.values()
     currentSection.value = sectionData.index
+    setActiveSection(sections.value[currentSection.value])
     return
   }
 
@@ -261,6 +287,7 @@ const updateCurrentSection = () => {
 
   if (bestSection) {
     currentSection.value = bestSection.index
+    setActiveSection(sections.value[currentSection.value])
   }
 }
 
@@ -288,6 +315,7 @@ const scrollToSection = (sectionId) => {
     const sectionIndex = sections.value.indexOf(sectionId)
     if (sectionIndex !== -1) {
       currentSection.value = sectionIndex
+      setActiveSection(sections.value[currentSection.value])
     }
   }
   showSideNav.value = false
@@ -309,6 +337,20 @@ onMounted(() => {
   nextTick(() => {
     initIntersectionObserver()
   })
+
+  // 首次访问锚点引导动画：仅一次
+  try {
+    const key = 'website_nav_intro_done'
+    const done = window.localStorage.getItem(key)
+    if (!done) {
+      showAnchorIntro.value = true
+      setTimeout(() => {
+        showAnchorIntro.value = false
+        window.localStorage.setItem(key, '1')
+      }, 2200)
+    }
+  } catch (e) {}
+
 })
 
 onUnmounted(() => {
@@ -332,6 +374,10 @@ onUnmounted(() => {
 .home-page {
   width: 100%;
   font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  transition: opacity 0.3s ease;
+}
+.home-page.locale-switching {
+  opacity: 0;
 }
 
 /* 平滑滚动 */
@@ -391,6 +437,15 @@ section.section-half {
 /* 继续移除关于我们区域的CSS */
 /* 主要服务展示相关样式已移至BusinessSection组件 */
 /* 继续移除业务服务相关CSS */
+
+/* 右侧锚点 - 首次访问引导动画 */
+.anchor-intro .n-button {
+  animation: anchorPulse 0.8s ease-in-out 0.2s 2 alternate;
+}
+@keyframes anchorPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 rgba(30, 58, 138, 0); }
+  100% { transform: scale(1.2); box-shadow: 0 0 8px rgba(30, 58, 138, 0.4); }
+}
 
 /* 技术能力展示相关样式已移至TechnologySection组件 */
 

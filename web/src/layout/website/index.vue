@@ -44,7 +44,7 @@
           <NavigationMenu
             :spacing="navSpacing"
             justify="start"
-            :active-key="currentNavKey"
+            :active-key="activeSection"
             @nav-click="handleNavClick"
             :style="{ marginLeft: isTablet ? '12px' : '24px' }"
           />
@@ -87,6 +87,7 @@
               text
               @click="toggleMobileMenu"
               :aria-label="$t('navigation.mobile_menu_toggle')"
+              :aria-expanded="showMobileMenu"
             >
               ☰
             </n-button>
@@ -154,11 +155,12 @@ import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
 import CompanyLogo from '@/components/common/CompanyLogo.vue'
 import NavigationMenu from '@/components/common/NavigationMenu.vue'
 import AdminLoginButton from '@/components/common/AdminLoginButton.vue'
+import { useActiveSection } from '@/views/website/_shared/useActiveSection'
 
 const { locale, t } = useI18n()
 
 const showMobileMenu = ref(false)
-const currentNavKey = ref('home') // 当前激活的导航项
+const { activeSection, setActiveSection } = useActiveSection()
 
 // 当前语言状态
 const currentLocale = computed(() => locale.value === 'cn' ? 'zh-CN' : 'en')
@@ -239,7 +241,7 @@ const mobileMenuOptions = computed(() => [
 
 // 处理导航点击
 const handleNavClick = (navItem) => {
-  currentNavKey.value = navItem.key
+  setActiveSection(navItem.key)
   // 可以在这里添加页面滚动逻辑或其他导航处理
 }
 
@@ -259,7 +261,7 @@ const handleMobileMenuSelect = (key, item) => {
     // 导航到对应的锚点 - 添加window对象安全检查
     if (item.href && typeof window !== 'undefined') {
       // 更新当前导航状态
-      currentNavKey.value = key
+      setActiveSection(key)
 
       // 平滑滚动到目标位置
       const targetElement = document.querySelector(item.href)
