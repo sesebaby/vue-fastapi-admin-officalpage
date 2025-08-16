@@ -61,7 +61,16 @@
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">{{ $t('website.contact.phone_title') }}</h3>
-                  <p class="card-text">{{ $t('website.contact.phone') }}</p>
+                  <div class="contact-details">
+                    <p class="contact-person">
+                      <span class="contact-label">{{ $t('website.contact.contact_person_title') }}：</span>
+                      <span class="contact-value">{{ $t('website.contact.contact_person') }}</span>
+                    </p>
+                    <p class="contact-phone">
+                      <span class="contact-label">{{ $t('website.contact.phone_title') }}：</span>
+                      <span class="contact-value">{{ $t('website.contact.phone') }}</span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </n-grid-item>
@@ -939,6 +948,34 @@ onUnmounted(() => {
   transition: color 0.3s ease;
 }
 
+/* 联系详情样式 */
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-person,
+.contact-phone {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-label {
+  font-weight: 600;
+  color: var(--sipumtech-primary-blue, #1e3a8a);
+  font-size: 12px;
+}
+
+.contact-value {
+  color: var(--sipumtech-text-secondary, #64748b);
+  font-weight: 500;
+}
+
 /* 地址卡片特殊样式 - 针对长文本优化 */
 .contact-info-card:first-child {
   height: auto;
@@ -1001,6 +1038,16 @@ onUnmounted(() => {
     word-break: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
+  }
+
+  /* 大屏端联系详情样式 */
+  .contact-person,
+  .contact-phone {
+    font-size: 14px;
+  }
+
+  .contact-label {
+    font-size: 13px;
   }
 }
 
@@ -1236,6 +1283,16 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
+  /* 平板端联系详情样式 */
+  .contact-person,
+  .contact-phone {
+    font-size: 13px;
+  }
+
+  .contact-label {
+    font-size: 12px;
+  }
+
   .map-info-overlay {
     max-width: 280px;
   }
@@ -1335,6 +1392,21 @@ onUnmounted(() => {
     word-break: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
+  }
+
+  /* 移动端联系详情样式 */
+  .contact-person,
+  .contact-phone {
+    font-size: 12px;
+    gap: 1px;
+  }
+
+  .contact-label {
+    font-size: 11px;
+  }
+
+  .contact-value {
+    font-size: 12px;
   }
 
   .map-background {
