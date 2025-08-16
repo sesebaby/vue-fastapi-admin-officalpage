@@ -88,14 +88,14 @@ export const IMAGE_RESOURCES = {
     avatar_4: '/images/ISO9001质量管理体系认证证书.png'
   },
 
-  // 合作伙伴logo - 使用实际存在的图片路径（暂时使用现有图片）
+  // 合作伙伴logo - 使用正确的官方PNG logo
   partners: {
-    huawei: '/images/ISO9001质量管理体系认证证书.png',
-    zte: '/images/武器装备质量管理体系证书.png',
-    xiaomi: '/images/business_office_scene.jpg',
-    lenovo: '/images/modern_buildings_night_scene.jpg',
-    hikvision: '/images/product_development_cycle_chart.jpg',
-    dji: '/images/icon_advanced_packaging.jpg'
+    huawei: '/images/logo_huawei.png',           // 华为官方logo
+    zte: '/images/ZTE.png',                      // 中兴官方logo
+    xiaomi: '/images/logo_xiaomi.png',           // 小米官方logo
+    lenovo: '/images/logo_lenovo.png',           // 联想官方logo
+    hikvision: '/images/logo_hikvision.png',     // 海康威视官方logo
+    dji: '/images/logo_dji.png'                  // 大疆官方logo
   }
 }
 
