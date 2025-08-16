@@ -23,48 +23,54 @@ export const PLACEHOLDER_IMAGES = {
 
 // 图片资源映射表 - 基于实际存在的图片文件路径
 export const IMAGE_RESOURCES = {
-  // Hero轮播图片 - 使用实际存在的图片路径
+  // Hero轮播图片 - 使用新的公司实景图片
   hero: {
-    company_hero: '/images/hero_pictore_company.png',     // 第一张轮播 - 公司主图
-    tech_background: '/images/科技背景图片.jpg',           // 第二张轮播 - 科技背景
+    company_hero: '/images/company_scene_01.jpg',        // 第一张轮播 - 公司实景图1
+    tech_background: '/images/company_scene_02.jpg',     // 第二张轮播 - 公司实景图2
+    third_slide: '/images/company_scene_03.jpg',         // 第三张轮播 - 公司实景图3
     // 备用图片配置
     tech_concept: '/images/商务科技概念图.png',
     circuit_background: '/images/科技电路背景图.png',
     business_office: '/images/business_office_scene.jpg'
   },
 
-  // 关于我们图片 - 使用实际存在的图片路径
+  // 关于我们图片 - 使用新的公司场景图片
   about: {
-    office_scene: '/images/business_office_scene.jpg',
-    team_photo: '/images/business_office_scene.jpg'  // 暂时使用同一张图片
+    office_scene: '/images/company_scene_04.jpg',        // 办公环境实景
+    team_photo: '/images/company_scene_05.jpg',          // 团队工作场景
+    company_culture: '/images/company_scene_06.jpg'      // 公司文化展示
   },
 
-  // 业务展示图片 - 使用实际存在的图片路径
+  // 业务展示图片 - 使用新的业务相关图片
   business: {
-    advanced_packaging: '/images/icon_advanced_packaging.jpg',
-    hardware_solution: '/images/icon_hardware_design.jpg',
-    testing_service: '/images/icon_hardware_design.jpg'  // 暂时使用同一张图片
+    advanced_packaging: '/images/company_scene_07.jpg',  // 先进封装业务
+    hardware_solution: '/images/company_scene_08.jpg',   // 硬件解决方案
+    testing_service: '/images/company_scene_09.jpg',     // 测试服务
+    production_line: '/images/company_scene_10.jpg'      // 生产线展示
   },
 
-  // 技术能力图片 - 使用实际存在的图片路径
+  // 技术能力图片 - 使用新的技术相关图片
   technology: {
-    lab_equipment: '/images/business_office_scene.jpg',  // 暂时使用现有图片
-    pcb_design: '/images/icon_advanced_packaging.jpg',
-    testing_facility: '/images/icon_hardware_design.jpg'
+    lab_equipment: '/images/company_scene_11.jpg',      // 实验室设备
+    pcb_design: '/images/company_scene_12.jpg',         // PCB设计工艺
+    testing_facility: '/images/icon_hardware_design.jpg', // 保留原有测试设施图
+    advanced_tech: '/images/technical_chart_circuit.jpg'  // 技术电路图
   },
 
-  // 案例展示图片 - 使用实际存在的图片路径
+  // 案例展示图片 - 使用新的案例相关图片
   cases: {
-    automotive: '/images/business_office_scene.jpg',  // 暂时使用现有图片
-    consumer: '/images/modern_buildings_night_scene.jpg',
-    industrial: '/images/product_development_cycle_chart.jpg'
+    automotive: '/images/company_scene_07.jpg',         // 汽车电子案例
+    consumer: '/images/company_scene_08.jpg',           // 消费电子案例
+    industrial: '/images/company_scene_09.jpg',         // 工业控制案例
+    communication: '/images/company_scene_10.jpg'       // 通信设备案例
   },
 
-  // 新闻动态图片 - 使用实际存在的图片路径
+  // 新闻动态图片 - 使用新的公司活动图片
   news: {
-    news_1: '/images/business_office_scene.jpg',
-    news_2: '/images/modern_buildings_night_scene.jpg',
-    news_3: '/images/product_development_cycle_chart.jpg'
+    news_1: '/images/company_scene_04.jpg',             // 公司新闻1
+    news_2: '/images/company_scene_05.jpg',             // 公司新闻2
+    news_3: '/images/company_scene_06.jpg',             // 公司新闻3
+    company_event: '/images/company_scene_11.jpg'       // 公司活动
   },
 
   // 认证证书图片 - 使用实际存在的图片路径
