@@ -70,7 +70,7 @@ export const IMAGE_RESOURCES = {
   news: {
     news_1: '/images/company_scene_04.jpg',             // 公司新闻1
     news_2: '/images/company_scene_05.jpg',             // 公司新闻2
-    news_3: '/images/company_scene_06.jpg',             // 公司新闻3
+    news_3: '/images/ICEPT2024.png',                    // 2024年电子封装技术大会
     company_event: '/images/company_scene_11.jpg'       // 公司活动
   },
 
