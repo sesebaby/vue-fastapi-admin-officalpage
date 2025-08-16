@@ -91,7 +91,7 @@ export const IMAGE_RESOURCES = {
   // 合作伙伴logo - 使用正确的官方PNG logo
   partners: {
     huawei: '/images/logo_huawei.png',           // 华为官方logo
-    zte: '/images/ZTE.png',                      // 中兴官方logo
+    zte: '/images/logo_zte.png',                 // 中兴官方logo
     xiaomi: '/images/logo_xiaomi.png',           // 小米官方logo
     lenovo: '/images/logo_lenovo.png',           // 联想官方logo
     hikvision: '/images/logo_hikvision.png',     // 海康威视官方logo
