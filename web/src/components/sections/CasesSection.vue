@@ -156,7 +156,7 @@ onUnmounted(() => {
 
 /* 成功案例区域 */
 .cases-section {
-  background: var(--sipumtech-bg-white);
+  background: var(--sipumtech-bg-tech);
   padding: var(--sipumtech-section-padding-desktop);
   min-height: 100vh;
   display: flex;
