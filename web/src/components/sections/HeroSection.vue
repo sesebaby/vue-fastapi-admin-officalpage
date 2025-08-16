@@ -28,7 +28,7 @@
           :preview-disabled="true"
           :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: ${carouselHeight}; ${adaptiveImageStyle.additionalStyles}`"
           :img-props="{
-            style: `width: 100%; height: 100%; object-fit: ${adaptiveImageStyle.objectFit}; object-position: ${adaptiveImageStyle.objectPosition}; filter: brightness(1.1) contrast(1.05);`
+            style: `width: 100%; height: 100%; object-fit: ${adaptiveImageStyle.objectFit}; object-position: ${companyHeroObjectPosition}; filter: brightness(1.1) contrast(1.05);`
           }"
           @load="handleImageLoad"
           @error="handleImageLoad"
@@ -187,6 +187,13 @@ const adaptiveImageStyle = computed(() => {
     additionalStyles
   }
 })
+// 仅针对第一张公司主图：为了保证左上角公司 logo 不被 cover 裁切，锚点定位到左上角
+const companyHeroObjectPosition = computed(() => {
+  // 如需更精细的适配，可基于 viewport 比例返回不同值
+  // 例如：超宽屏使用 'left center'，竖屏使用 'left 10%'
+  return 'left top'
+})
+
 
 
 // 生命周期管理 - 确保轮播正确初始化
