@@ -13,6 +13,8 @@
       :trigger="'hover'"
       :transition-style="{ transitionDuration: '500ms' }"
       effect="slide"
+      dot-type="line"
+      dot-placement="bottom"
       :style="`height: ${carouselHeight};`"
       @update:current-index="handleSlideChange"
     >
@@ -223,22 +225,95 @@ onUnmounted(() => {
 
 /* 轮播容器尺寸由 n-carousel 的内联 style 控制为 100vh，此处不再覆盖内部结构样式（遵循 Naive UI 优先原则） */
 
-/* 轮播指示器样式优化 */
+/* 轮播指示器样式优化 - 增强可见性和对比度 */
 .hero-banner :deep(.n-carousel__dots) {
-  bottom: 30px;
+  bottom: 40px;
   z-index: 10;
+  /* 为指示器区域添加背景遮罩，增强对比度 */
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+  padding: 20px 0 10px 0;
+  border-radius: 8px 8px 0 0;
+  backdrop-filter: blur(4px);
 }
 
-/* 轮播箭头样式优化 */
+/* 线条样式指示器优化 */
+.hero-banner :deep(.n-carousel__dot) {
+  width: 40px !important;
+  height: 4px !important;
+  border-radius: 2px !important;
+  margin: 0 6px !important;
+  background: rgba(255, 255, 255, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    0 1px 3px rgba(0, 0, 0, 0.5) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+}
+
+/* 激活状态的指示器 */
+.hero-banner :deep(.n-carousel__dot--active) {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid #ffffff !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    0 2px 6px rgba(0, 0, 0, 0.6),
+    0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+  transform: scale(1.1) !important;
+}
+
+/* 悬停状态的指示器 */
+.hero-banner :deep(.n-carousel__dot:hover) {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  transform: scale(1.05) !important;
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.35),
+    0 1px 4px rgba(0, 0, 0, 0.55) !important;
+}
+
+/* 轮播箭头样式优化 - 在浅色背景下提升对比度与可见性 */
 .hero-banner :deep(.n-carousel__arrow) {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  /* 深色半透明背景，搭配白色描边，保证任何背景下都有清晰对比 */
+  background: rgba(0, 0, 0, 0.45);
+  color: #ffffff; /* 确保箭头图标为白色 */
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
   z-index: 10;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+/* 兼容某些图标实现需显式设置 fill */
+.hero-banner :deep(.n-carousel__arrow svg) {
+  color: #ffffff;
+  fill: currentColor;
 }
 
 .hero-banner :deep(.n-carousel__arrow:hover) {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.65);
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.5),
+    0 3px 8px rgba(0, 0, 0, 0.3),
+    0 0 0 2px rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.hero-banner :deep(.n-carousel__arrow:active) {
+  background: rgba(0, 0, 0, 0.75);
+  transform: translateY(0);
 }
 
 /*
@@ -258,15 +333,40 @@ onUnmounted(() => {
 
 /* 移动端响应式优化 */
 @media (max-width: 768px) {
-  /* 移动端轮播指示器位置调整 */
+  /* 移动端轮播指示器位置和样式调整 */
   .hero-banner :deep(.n-carousel__dots) {
-    bottom: 20px;
+    bottom: 25px;
+    padding: 15px 0 8px 0;
+  }
+
+  /* 移动端指示器尺寸调整 */
+  .hero-banner :deep(.n-carousel__dot) {
+    width: 32px !important;
+    height: 3px !important;
+    margin: 0 4px !important;
   }
 
   /* 移动端轮播箭头样式调整 */
   .hero-banner :deep(.n-carousel__arrow) {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+}
+
+/* 小屏幕设备进一步优化 */
+@media (max-width: 480px) {
+  .hero-banner :deep(.n-carousel__dots) {
+    bottom: 20px;
+    padding: 12px 0 6px 0;
+  }
+
+  .hero-banner :deep(.n-carousel__dot) {
+    width: 28px !important;
+    height: 3px !important;
+    margin: 0 3px !important;
   }
 }
 
