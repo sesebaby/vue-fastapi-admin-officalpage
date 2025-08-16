@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Body, Query, Depends
 from tortoise.expressions import Q
 
-from app.core.dependency import DependPermission
+from app.core.dependency import PermissionControl
 from app.schemas import Success, SuccessExtra
 from app.schemas.contact import ContactCreate, ContactListQuery, ContactMarkRead
 from app.controllers.contact import contact_controller
@@ -21,7 +21,7 @@ async def list_contact(
     page_size: int = Query(10, ge=1, le=100, description="每页数量"),
     is_read: bool | None = Query(None, description="是否已读过滤"),
     keyword: str | None = Query(None, description="关键词：姓名/电话/邮箱/内容"),
-    dep: None = Depends(DependPermission),
+    dep: None = Depends(PermissionControl.has_permission),
 ):
     total, items = await contact_controller.list_by(page=page, page_size=page_size, is_read=is_read, keyword=keyword)
     data = [await item.to_dict() for item in items]
@@ -29,7 +29,7 @@ async def list_contact(
 
 
 @router.post("/mark_read", summary="标记已读")
-async def mark_read(payload: ContactMarkRead, dep: None = Depends(DependPermission)):
+async def mark_read(payload: ContactMarkRead, dep: None = Depends(PermissionControl.has_permission)):
     if not payload.ids:
         return Success(msg="OK")
     await contact_controller.model.filter(id__in=payload.ids).update(is_read=True)
