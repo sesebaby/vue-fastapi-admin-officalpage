@@ -108,15 +108,10 @@ const totalImages = ref(4) // 总图片数量
 // 响应式窗口尺寸监听
 const { width: windowWidth, height: windowHeight } = useWindowSize()
 
-// 响应式轮播高度计算
+// 响应式轮播高度计算 - 使用100vh确保完全填充容器，消除空白区域
 const carouselHeight = computed(() => {
-  if (windowWidth.value <= 768) {
-    return '70vh' // 移动端
-  } else if (windowWidth.value <= 1024) {
-    return '80vh' // 平板端
-  } else {
-    return '85vh' // 桌面端
-  }
+  // 统一使用100vh，确保轮播图完全填充section-full容器
+  return '100vh'
 })
 
 // 图片加载完成处理
@@ -219,6 +214,11 @@ onUnmounted(() => {
   position: relative;
   overflow: hidden;
   background: #000000; /* 使用黑色背景，避免蓝色空白区域 */
+  /* 确保Hero Section完全填充，消除空白区域 */
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch; /* 让子元素完全填充 */
 }
 
 /* 轮播容器尺寸由 n-carousel 的内联 style 控制为 100vh，此处不再覆盖内部结构样式（遵循 Naive UI 优先原则） */
