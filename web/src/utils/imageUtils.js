@@ -23,11 +23,12 @@ export const PLACEHOLDER_IMAGES = {
 
 // 图片资源映射表 - 基于实际存在的图片文件路径
 export const IMAGE_RESOURCES = {
-  // Hero轮播图片 - 使用新的公司实景图片
+  // Hero轮播图片 - 使用原版图片+新增公司实景图片
   hero: {
-    company_hero: '/images/company_scene_01.jpg',        // 第一张轮播 - 公司实景图1
-    tech_background: '/images/company_scene_02.jpg',     // 第二张轮播 - 公司实景图2
-    third_slide: '/images/company_scene_03.jpg',         // 第三张轮播 - 公司实景图3
+    company_hero: '/images/hero_pictore_company.png',    // 第一张轮播 - 原版公司主图
+    tech_background: '/images/科技背景图片.jpg',           // 第二张轮播 - 原版科技背景
+    third_slide: '/images/company_scene_02.jpg',         // 第三张轮播 - 公司实景图2
+    fourth_slide: '/images/company_scene_03.jpg',        // 第四张轮播 - 公司实景图3
     // 备用图片配置
     tech_concept: '/images/商务科技概念图.png',
     circuit_background: '/images/科技电路背景图.png',
