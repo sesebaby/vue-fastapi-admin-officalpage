@@ -13,7 +13,7 @@
       :trigger="'hover'"
       :transition-style="{ transitionDuration: '500ms' }"
       effect="slide"
-      style="height: 85vh;"
+      :style="`height: ${carouselHeight};`"
       @update:current-index="handleSlideChange"
     >
       <!-- 第一张轮播 - 使用原版公司主图 -->
@@ -24,7 +24,7 @@
           alt="公司主图"
           :object-fit="adaptiveImageStyle.objectFit"
           :preview-disabled="true"
-          :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: 85vh; ${adaptiveImageStyle.additionalStyles}`"
+          :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: ${carouselHeight}; ${adaptiveImageStyle.additionalStyles}`"
           :img-props="{
             style: `width: 100%; height: 100%; object-fit: ${adaptiveImageStyle.objectFit}; object-position: ${adaptiveImageStyle.objectPosition}; filter: brightness(1.1) contrast(1.05);`
           }"
@@ -41,7 +41,7 @@
           alt="科技背景"
           :object-fit="adaptiveImageStyle.objectFit"
           :preview-disabled="true"
-          :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: 85vh; ${adaptiveImageStyle.additionalStyles}`"
+          :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: ${carouselHeight}; ${adaptiveImageStyle.additionalStyles}`"
           :img-props="{
             style: `width: 100%; height: 100%; object-fit: ${adaptiveImageStyle.objectFit}; object-position: ${adaptiveImageStyle.objectPosition}; filter: brightness(1.2) contrast(1.1);`
           }"
@@ -58,7 +58,7 @@
           alt="公司实景2"
           :object-fit="adaptiveImageStyle.objectFit"
           :preview-disabled="true"
-          :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: 85vh; ${adaptiveImageStyle.additionalStyles}`"
+          :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: ${carouselHeight}; ${adaptiveImageStyle.additionalStyles}`"
           :img-props="{
             style: `width: 100%; height: 100%; object-fit: ${adaptiveImageStyle.objectFit}; object-position: ${adaptiveImageStyle.objectPosition}; filter: brightness(1.1) contrast(1.05);`
           }"
@@ -75,7 +75,7 @@
           alt="公司实景3"
           :object-fit="adaptiveImageStyle.objectFit"
           :preview-disabled="true"
-          :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: 85vh; ${adaptiveImageStyle.additionalStyles}`"
+          :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: ${carouselHeight}; ${adaptiveImageStyle.additionalStyles}`"
           :img-props="{
             style: `width: 100%; height: 100%; object-fit: ${adaptiveImageStyle.objectFit}; object-position: ${adaptiveImageStyle.objectPosition}; filter: brightness(1.1) contrast(1.05);`
           }"
@@ -108,7 +108,16 @@ const totalImages = ref(4) // 总图片数量
 // 响应式窗口尺寸监听
 const { width: windowWidth, height: windowHeight } = useWindowSize()
 
-// 移除了响应式字体大小计算逻辑，因为已经没有文字内容
+// 响应式轮播高度计算
+const carouselHeight = computed(() => {
+  if (windowWidth.value <= 768) {
+    return '70vh' // 移动端
+  } else if (windowWidth.value <= 1024) {
+    return '80vh' // 平板端
+  } else {
+    return '85vh' // 桌面端
+  }
+})
 
 // 图片加载完成处理
 const handleImageLoad = () => {
@@ -148,33 +157,31 @@ const goToSlide = (index) => {
 const adaptiveImageStyle = computed(() => {
   const viewportRatio = windowWidth.value / windowHeight.value
 
-  // 图片宽高比信息
-  const imageRatios = [1.41, 1.6] // 两张轮播图的宽高比
-
+  // 统一使用cover模式确保图片完全填充容器，避免空白区域
   let objectFit = 'cover'
   let objectPosition = 'center center'
   let additionalStyles = ''
 
-  // 超宽屏策略 (比例 > 2.2) - 避免过度裁剪
+  // 超宽屏策略 (比例 > 2.2) - 使用cover确保填充
   if (viewportRatio > 2.2) {
-    objectFit = 'contain'
+    objectFit = 'cover'
     objectPosition = 'center center'
-    additionalStyles = 'background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);'
+    additionalStyles = ''
   }
   // 宽屏策略 (比例 1.6-2.2) - 标准显示
   else if (viewportRatio > 1.6) {
     objectFit = 'cover'
-    objectPosition = 'center 45%'
+    objectPosition = 'center center'
   }
   // 标准屏策略 (比例 1.2-1.6) - 居中显示
   else if (viewportRatio > 1.2) {
     objectFit = 'cover'
     objectPosition = 'center center'
   }
-  // 竖屏/窄屏策略 (比例 < 1.2) - 顶部对齐保持重要内容
+  // 竖屏/窄屏策略 (比例 < 1.2) - 居中显示保持完整填充
   else {
     objectFit = 'cover'
-    objectPosition = 'center 30%'
+    objectPosition = 'center center'
   }
 
   return {
@@ -210,9 +217,8 @@ onUnmounted(() => {
  */
 .hero-banner {
   position: relative;
-  height: 85vh;
   overflow: hidden;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); /* 加载时的背景色 */
+  background: #000000; /* 使用黑色背景，避免蓝色空白区域 */
 }
 
 /* 轮播容器尺寸由 n-carousel 的内联 style 控制为 100vh，此处不再覆盖内部结构样式（遵循 Naive UI 优先原则） */
@@ -243,22 +249,15 @@ onUnmounted(() => {
 .hero-slide {
   position: relative;
   width: 100%;
-  height: 85vh;
+  height: 100%; /* 使用100%高度，由父容器控制 */
   overflow: hidden; /* 确保图片不会超出容器 */
+  background: #000000; /* 黑色背景，避免任何空白区域 */
 }
 
-/* 遵循 Naive UI 优先原则：不覆盖 n-image 内部结构，由组件属性控制填充与对齐 */
+/* 遵循Naive UI优先原则：所有样式通过n-image组件的官方属性设置，不使用深度选择器覆盖内部样式 */
 
 /* 移动端响应式优化 */
 @media (max-width: 768px) {
-  .hero-banner {
-    height: 70vh; /* 移动端使用更小的高度 */
-  }
-
-  .hero-slide {
-    height: 70vh;
-  }
-
   /* 移动端轮播指示器位置调整 */
   .hero-banner :deep(.n-carousel__dots) {
     bottom: 20px;
@@ -271,27 +270,7 @@ onUnmounted(() => {
   }
 }
 
-/* 平板端响应式优化 */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .hero-banner {
-    height: 80vh; /* 平板端使用中等高度 */
-  }
-
-  .hero-slide {
-    height: 80vh;
-  }
-}
-
-/* 大屏幕优化 */
-@media (min-width: 1025px) {
-  .hero-banner {
-    height: 85vh; /* 桌面端使用标准高度 */
-  }
-
-  .hero-slide {
-    height: 85vh;
-  }
-}
+/* 平板端和桌面端响应式优化 - 高度现在由JavaScript动态控制 */
 
 
 /*

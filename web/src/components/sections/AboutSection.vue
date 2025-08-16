@@ -140,6 +140,7 @@
               alt="办公场景"
               object-fit="cover"
               class="responsive-image height-adaptive-image"
+              style="height: 100%; min-height: 500px;"
               :img-props="{
                 style: 'width: 100%; height: 100%; object-fit: cover; object-position: center;'
               }"
@@ -329,9 +330,8 @@ const handleContactUs = () => {
   flex: 1; /* 让图片占据剩余空间 */
 }
 
-/* 高度自适应图片 */
+/* 遵循Naive UI优先原则：通过n-image组件的style属性设置高度，不使用!important覆盖 */
 .height-adaptive-image {
-  height: 100% !important;
   min-height: 500px;
   max-height: none; /* 移除最大高度限制 */
 }

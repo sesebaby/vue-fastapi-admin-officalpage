@@ -37,7 +37,7 @@ export const IMAGE_RESOURCES = {
 
   // 关于我们图片 - 使用新的公司场景图片
   about: {
-    office_scene: '/images/company_scene_04.jpg',        // 办公环境实景
+    office_scene: '/images/company_scene_01.jpg',        // 办公环境实景 - 更新为company_scene_01.jpg
     team_photo: '/images/company_scene_05.jpg',          // 团队工作场景
     company_culture: '/images/company_scene_06.jpg'      // 公司文化展示
   },
