@@ -377,9 +377,10 @@ const isMapInitializing = ref(false) // 防止重复初始化标志
 const mapContainerHtml = ref('<div id="baidu-map-container" class="map-container"></div>') // 地图容器HTML
 
 // 公司位置坐标 (百度地图BD09坐标系)
+// 地址：江苏省苏州市吴江区东太湖生态旅游度假区体育路508号金鹰商业中心
 const companyLocation = {
-  lng: 120.6357, // 经度
-  lat: 31.1515   // 纬度
+  lng: 120.6357, // 经度 - 苏州市吴江区
+  lat: 31.1515   // 纬度 - 苏州市吴江区
 }
 
 // 等待DOM元素出现的工具函数
@@ -531,8 +532,14 @@ const initBaiduMap = async (retryCount = 0) => {
     // 创建公司位置点
     const point = new BMap.Point(companyLocation.lng, companyLocation.lat)
 
+    // 根据设备类型设置不同的缩放级别
+    const isMobile = window.innerWidth <= 768
+    const zoomLevel = isMobile ? 15 : 16  // 移动端使用稍小的缩放级别以显示更多周边环境
+
+    console.log(`地图初始化 - 设备类型: ${isMobile ? '移动端' : '桌面端'}, 缩放级别: ${zoomLevel}, 坐标: (${companyLocation.lng}, ${companyLocation.lat})`)
+
     // 设置地图中心点和缩放级别
-    baiduMap.value.centerAndZoom(point, 16)
+    baiduMap.value.centerAndZoom(point, zoomLevel)
 
     // 启用地图功能
     baiduMap.value.enableScrollWheelZoom(true) // 启用滚轮缩放
@@ -547,15 +554,22 @@ const initBaiduMap = async (retryCount = 0) => {
     mapMarker.value = new BMap.Marker(point)
     baiduMap.value.addOverlay(mapMarker.value)
 
+    console.log('地图标记已创建并添加到地图')
+
+    // 根据设备类型创建不同尺寸的信息窗口
+    const infoWindowWidth = isMobile ? 250 : 300
+    const infoWindowHeight = isMobile ? 100 : 80
+    const fontSize = isMobile ? '12px' : '13px'
+
     // 创建信息窗口
     const infoWindow = new BMap.InfoWindow(`
-      <div style="padding: 10px; line-height: 1.5;">
-        <h4 style="margin: 0 0 8px 0; color: #1890ff;">${t('company.name')}</h4>
-        <p style="margin: 0; color: #666; font-size: 13px;">${t('website.contact.address')}</p>
+      <div style="padding: ${isMobile ? '8px' : '10px'}; line-height: 1.5;">
+        <h4 style="margin: 0 0 8px 0; color: #1890ff; font-size: ${isMobile ? '14px' : '16px'};">${t('company.name')}</h4>
+        <p style="margin: 0; color: #666; font-size: ${fontSize}; word-wrap: break-word;">${t('website.contact.address')}</p>
       </div>
     `, {
-      width: 300,
-      height: 80
+      width: infoWindowWidth,
+      height: infoWindowHeight
     })
 
     // 点击标记显示信息窗口
@@ -567,6 +581,28 @@ const initBaiduMap = async (retryCount = 0) => {
     setTimeout(() => {
       baiduMap.value.openInfoWindow(infoWindow, point)
     }, 1000)
+
+    // 移动端额外的居中处理
+    if (isMobile) {
+      // 延迟执行，确保地图完全加载后重新居中
+      setTimeout(() => {
+        baiduMap.value.panTo(point)
+        // 确保标记可见
+        if (mapMarker.value) {
+          baiduMap.value.setCenter(point)
+        }
+      }, 1500)
+    }
+
+    // 监听窗口大小变化，重新调整地图中心
+    const handleResize = () => {
+      if (baiduMap.value && point) {
+        setTimeout(() => {
+          baiduMap.value.setCenter(point)
+        }, 100)
+      }
+    }
+    window.addEventListener('resize', handleResize)
 
     mapLoading.value = false
     isMapInitializing.value = false // 成功时重置初始化标志
@@ -614,6 +650,22 @@ const retryMapInit = () => {
   mapRetryCount.value = 0
   isMapInitializing.value = false // 重置初始化标志
   initBaiduMap()
+}
+
+// 重新定位到公司位置（移动端优化）
+const recenterMap = () => {
+  if (baiduMap.value) {
+    const point = new window.BMap.Point(companyLocation.lng, companyLocation.lat)
+    const isMobile = window.innerWidth <= 768
+    const zoomLevel = isMobile ? 15 : 16
+
+    baiduMap.value.centerAndZoom(point, zoomLevel)
+
+    // 确保标记可见
+    if (mapMarker.value) {
+      baiduMap.value.panTo(point)
+    }
+  }
 }
 
 // 在地图中打开位置
@@ -1050,17 +1102,20 @@ onUnmounted(() => {
 /* 响应式设计 - 移动端地图适配 */
 @media (max-width: 768px) {
   .map-wrapper {
-    height: 300px;
-    min-height: 300px;
+    height: 350px;  /* 增加移动端地图高度 */
+    min-height: 350px;
+    position: relative;
   }
 
   .map-container {
-    height: 100%;
-    min-height: 100%;
+    height: 100% !important;
+    min-height: 100% !important;
+    width: 100% !important;
+    position: relative;
   }
 
   .map-container-card {
-    min-height: 400px;
+    min-height: 450px;  /* 增加卡片高度以适应更大的地图 */
   }
 
   .contact-info-card {
@@ -1070,6 +1125,24 @@ onUnmounted(() => {
   .map-loading,
   .map-error {
     padding: 20px;
+  }
+
+  /* 移动端地图信息覆盖层调整 */
+  .map-info-overlay {
+    position: static;  /* 移动端改为静态定位 */
+    max-width: none;
+    margin-top: 16px;
+  }
+
+  /* 移动端百度地图控件优化 */
+  .map-container .anchorBL {
+    left: 5px !important;
+    bottom: 5px !important;
+  }
+
+  .map-container .anchorTL {
+    top: 5px !important;
+    left: 5px !important;
   }
 }
 
