@@ -185,7 +185,7 @@
               <!-- 显示更多提示 -->
               <div v-if="partners.length > displayedPartners.length" class="more-partners-hint">
                 <n-text class="more-text">
-                  还有 {{ partners.length - displayedPartners.length }} 个合作伙伴...
+                  {{ morePartnersText }}
                 </n-text>
               </div>
             </div>
@@ -241,6 +241,20 @@ const displayedPartners = computed(() => {
 
   const maxItems = partnerCols.value * 1  // 1行的容量
   return partners.value.slice(0, maxItems)
+})
+
+// 更多合作伙伴提示文本（移动端优化）
+const morePartnersText = computed(() => {
+  const remainingCount = partners.value.length - displayedPartners.value.length
+
+  // 移动端显示通用文本，桌面端显示具体数量
+  if (breakpoints.sm.value) {
+    // 桌面端和平板端：显示具体数量
+    return `还有 ${remainingCount} 个合作伙伴...`
+  } else {
+    // 移动端：显示通用文本
+    return '还有更多合作伙伴...'
+  }
 })
 
 // 模拟异步加载合作伙伴数据
