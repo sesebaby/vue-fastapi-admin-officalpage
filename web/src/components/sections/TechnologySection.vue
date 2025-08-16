@@ -95,7 +95,7 @@
             <n-image
               :src="getImagePath('technology', 'lab_equipment')"
               :fallback-src="PLACEHOLDER_IMAGES.technology"
-              alt="业务范围"
+              alt="商务办公场景"
               object-fit="cover"
               width="100%"
               class="tech-overview-image"

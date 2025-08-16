@@ -52,7 +52,7 @@ export const IMAGE_RESOURCES = {
 
   // 技术能力图片 - 使用新的技术相关图片
   technology: {
-    lab_equipment: '/images/company_scene_11.jpg',      // 实验室设备
+    lab_equipment: '/images/business_office_scene.jpg', // 商务办公场景 - 更新为指定图片
     pcb_design: '/images/company_scene_12.jpg',         // PCB设计工艺
     testing_facility: '/images/icon_hardware_design.jpg', // 保留原有测试设施图
     advanced_tech: '/images/technical_chart_circuit.jpg'  // 技术电路图
