@@ -260,6 +260,7 @@
         </div>
 
         <!-- 在线联系表单（官网） - 移动到地图下方 -->
+        <!--
         <div class="contact-form-section">
           <n-card class="contact-form-card" :bordered="true">
             <template #header>
@@ -304,6 +305,7 @@
             </n-form>
           </n-card>
         </div>
+        -->
       </n-space>
     </div>
   </section>
