@@ -336,7 +336,7 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
 /* 核心业务展示区域 */
 .main-services-section {
   padding: var(--sipumtech-section-padding-desktop);
-  background: var(--sipumtech-bg-gradient-1);
+  background: var(--sipumtech-bg-tech);
 }
 
 /* 保留必要的品牌装饰样式 */

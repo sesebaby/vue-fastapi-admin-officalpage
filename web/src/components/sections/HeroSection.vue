@@ -213,7 +213,7 @@ onUnmounted(() => {
 .hero-banner {
   position: relative;
   overflow: hidden;
-  background: #000000; /* 使用黑色背景，避免蓝色空白区域 */
+  background: var(--sipumtech-bg-tech); /* 统一使用科技蓝背景 */
   /* 确保Hero Section完全填充，消除空白区域 */
   height: 100vh;
   min-height: 100vh;
@@ -251,7 +251,7 @@ onUnmounted(() => {
   width: 100%;
   height: 100%; /* 使用100%高度，由父容器控制 */
   overflow: hidden; /* 确保图片不会超出容器 */
-  background: #000000; /* 黑色背景，避免任何空白区域 */
+  background: var(--sipumtech-bg-tech); /* 统一使用科技蓝背景 */
 }
 
 /* 遵循Naive UI优先原则：所有样式通过n-image组件的官方属性设置，不使用深度选择器覆盖内部样式 */

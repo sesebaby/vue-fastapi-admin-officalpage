@@ -759,7 +759,7 @@ onUnmounted(() => {
 
 /* 联系我们区域 */
 .contact-section {
-  background: var(--sipumtech-bg-gradient-1);
+  background: var(--sipumtech-bg-tech);
   padding: var(--sipumtech-section-padding-desktop);
 }
 

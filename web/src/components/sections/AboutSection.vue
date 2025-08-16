@@ -222,7 +222,7 @@ const handleContactUs = () => {
 /* 关于我们区域 */
 .about-section {
   padding: var(--sipumtech-section-padding-desktop);
-  background: var(--sipumtech-bg-gradient-1);
+  background: var(--sipumtech-bg-tech);
   position: relative;
 }
 

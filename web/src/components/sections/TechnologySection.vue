@@ -340,8 +340,8 @@ import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 
 /* 技术能力展示区域 */
 .technology-section {
-  /* 恢复浅色背景以与其他 section 保持一致 */
-  background: var(--sipumtech-bg-white);
+  /* 统一使用科技蓝背景以与其他 section 保持一致 */
+  background: var(--sipumtech-bg-tech);
   padding: var(--sipumtech-section-padding-desktop);
 }
 

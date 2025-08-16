@@ -215,7 +215,7 @@ const handleRetry = () => {
 
 /* 新闻动态区域 */
 .news-section {
-  background: var(--sipumtech-bg-white);
+  background: var(--sipumtech-bg-tech);
   padding: var(--sipumtech-section-padding-desktop);
 }
 
