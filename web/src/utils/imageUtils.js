@@ -88,14 +88,19 @@ export const IMAGE_RESOURCES = {
     avatar_4: '/images/ISO9001质量管理体系认证证书.png'
   },
 
-  // 合作伙伴logo - 使用正确的官方PNG logo
+  // 合作伙伴logo - 基于实际资料文件的合作伙伴logo
   partners: {
-    huawei: '/images/logo_huawei.png',           // 华为官方logo
-    zte: '/images/logo_zte.png',                 // 中兴官方logo
-    xiaomi: '/images/logo_xiaomi.png',           // 小米官方logo
-    lenovo: '/images/logo_lenovo.png',           // 联想官方logo
-    hikvision: '/images/logo_hikvision.png',     // 海康威视官方logo
-    dji: '/images/logo_dji.png'                  // 大疆官方logo
+    // 高等院校
+    sjtu: '/images/logo_sjtu.png',                       // 上海交通大学logo
+    zju: '/images/logo_zju.png',                         // 浙江大学logo
+    fzu: '/images/logo_fzu.png',                         // 福州大学logo
+    xidian: '/images/logo_xidian.png',                   // 西安电子科技大学logo
+
+    // 科研院所和国有企业
+    ihep_cas: '/images/logo_ihep_cas.png',               // 中国科学院高能物理研究所logo
+    norinco: '/images/logo_norinco.png',                 // 中国兵器工业集团logo
+    cetc: '/images/logo_cetc.png',                       // 中国电子科技集团logo
+    casc: '/images/logo_casc.png'                        // 中国航天科技集团logo
   }
 }
 

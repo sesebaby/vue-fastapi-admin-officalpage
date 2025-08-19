@@ -222,10 +222,10 @@ const testimonialCols = computed(() => {
 })
 
 const partnerCols = computed(() => {
-  if (breakpoints.lg.value) return 6  // 大屏幕：6列
-  if (breakpoints.md.value) return 4  // 中等屏幕：4列
-  if (breakpoints.sm.value) return 3  // 平板：3列
-  return 2  // 移动端：2列
+  if (breakpoints.lg.value) return 4  // 大屏幕：4列（2行显示8个）
+  if (breakpoints.md.value) return 4  // 中等屏幕：4列（2行显示8个）
+  if (breakpoints.sm.value) return 2  // 平板：2列（4行显示8个）
+  return 2  // 移动端：2列（4行显示8个）
 })
 
 // 合作伙伴图片尺寸（统一尺寸）
@@ -235,12 +235,12 @@ const partnerImageSize = computed(() => {
   return { width: 100, height: 50 }  // 移动端：100x50
 })
 
-// 限制显示的合作伙伴数量（1行显示）
+// 显示所有合作伙伴（8个合作伙伴，响应式布局）
 const displayedPartners = computed(() => {
   if (!partners.value || !partners.value.length) return []
 
-  const maxItems = partnerCols.value * 1  // 1行的容量
-  return partners.value.slice(0, maxItems)
+  // 显示所有合作伙伴，不限制数量
+  return partners.value
 })
 
 // 更多合作伙伴提示文本（移动端优化）
@@ -263,21 +263,17 @@ const fetchPartnersData = async () => {
   await new Promise(resolve => setTimeout(resolve, 800))
 
   return [
-    // 第一行合作伙伴（6个）- 只显示官方logo合作伙伴
-    { name: '华为', logo: getImagePath('partners', 'huawei') },
-    { name: '中兴', logo: getImagePath('partners', 'zte') },
-    { name: '小米', logo: getImagePath('partners', 'xiaomi') },
-    { name: '联想', logo: getImagePath('partners', 'lenovo') },
-    { name: '海康威视', logo: getImagePath('partners', 'hikvision') },
-    { name: '大疆', logo: getImagePath('partners', 'dji') }
+    // 第一行合作伙伴 - 高等院校
+    { name: '上海交通大学', logo: getImagePath('partners', 'sjtu') },
+    { name: '浙江大学', logo: getImagePath('partners', 'zju') },
+    { name: '福州大学', logo: getImagePath('partners', 'fzu') },
+    { name: '西安电子科技大学', logo: getImagePath('partners', 'xidian') },
 
-    // 第二行合作伙伴已移除 - 只显示一行6个主要合作伙伴
-    // { name: '腾讯', logo: getImagePath('business', 'advanced_packaging') },
-    // { name: '阿里巴巴', logo: getImagePath('business', 'hardware_solution') },
-    // { name: '百度', logo: getImagePath('technology', 'pcb_design') },
-    // { name: '京东', logo: getImagePath('cases', 'automotive') },
-    // { name: '美团', logo: getImagePath('cases', 'consumer') },
-    // { name: '字节跳动', logo: getImagePath('cases', 'industrial') }
+    // 第二行合作伙伴 - 科研院所和国有企业
+    { name: '中国科学院高能物理研究所', logo: getImagePath('partners', 'ihep_cas') },
+    { name: '中国兵器工业集团', logo: getImagePath('partners', 'norinco') },
+    { name: '中国电子科技集团', logo: getImagePath('partners', 'cetc') },
+    { name: '中国航天科技集团', logo: getImagePath('partners', 'casc') }
   ]
 }
 
