@@ -283,7 +283,7 @@
                   width="80"
                   height="80"
                   object-fit="contain"
-                  style="border-radius: 8px;"
+                  style="border-radius: 8px; background-color: #f8f9fa;"
                   class="capability-icon"
                 />
                 <n-space vertical align="center" :size="12">
@@ -303,7 +303,7 @@
             <n-card hoverable class="capability-card">
               <n-space vertical align="center" :size="20">
                 <n-image
-                  src="/images/technical_chart_circuit.jpg"
+                  src="/images/technical_chart_performance.jpg"
                   :alt="$t('website.technology.capability_4_title')"
                   width="80"
                   height="80"

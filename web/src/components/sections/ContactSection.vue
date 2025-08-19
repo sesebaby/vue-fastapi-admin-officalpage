@@ -61,15 +61,9 @@
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">{{ $t('website.contact.phone_title') }}</h3>
-                  <div class="contact-details">
-                    <p class="contact-person">
-                      <span class="contact-label">{{ $t('website.contact.contact_person_title') }}：</span>
-                      <span class="contact-value">{{ $t('website.contact.contact_person') }}</span>
-                    </p>
-                    <p class="contact-phone">
-                      <span class="contact-label">{{ $t('website.contact.phone_title') }}：</span>
-                      <span class="contact-value">{{ $t('website.contact.phone') }}</span>
-                    </p>
+                  <div class="contact-info-single">
+                    <span class="contact-person-name">{{ $t('website.contact.contact_person') }}</span>
+                    <span class="contact-phone-number">{{ $t('website.contact.phone') }}</span>
                   </div>
                 </div>
               </div>
@@ -948,38 +942,52 @@ onUnmounted(() => {
   transition: color 0.3s ease;
 }
 
-/* 联系详情样式 */
-.contact-details {
+/* 联系方式信息样式 - 优化的单行布局 */
+.contact-info-single {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
+  align-items: center;
+  text-align: center;
 }
 
-.contact-person,
-.contact-phone {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.4;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.contact-label {
+.contact-person-name {
+  font-size: 16px;
   font-weight: 600;
   color: var(--sipumtech-primary-blue, #1e3a8a);
-  font-size: 12px;
+  background: linear-gradient(135deg, #f0f7ff, #e8f4fd);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 2px solid #e8f4fd;
+  transition: all 0.3s ease;
 }
 
-.contact-value {
-  color: var(--sipumtech-text-secondary, #64748b);
-  font-weight: 500;
+.contact-person-name:hover {
+  background: linear-gradient(135deg, #e8f4fd, #dbeafe);
+  border-color: #bfdbfe;
+  transform: scale(1.05);
 }
 
-/* 地址卡片特殊样式 - 针对长文本优化 */
+.contact-phone-number {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--sipumtech-text-primary, #1e40af);
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.contact-phone-number:hover {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+/* 地址卡片特殊样式 - 针对长文本优化，统一高度 */
 .contact-info-card:first-child {
-  height: auto;
-  min-height: 220px;
+  height: 200px; /* 统一固定高度 */
+  min-height: 200px;
   padding: 28px 20px;
 }
 
@@ -1025,10 +1033,10 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
-  /* 大屏端地址卡片特殊样式 */
+  /* 大屏端地址卡片特殊样式 - 统一高度 */
   .contact-info-card:first-child {
-    height: auto;
-    min-height: 260px;
+    height: 240px; /* 统一固定高度 */
+    min-height: 240px;
     padding: 32px 24px;
   }
 
@@ -1040,14 +1048,15 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
-  /* 大屏端联系详情样式 */
-  .contact-person,
-  .contact-phone {
-    font-size: 14px;
+  /* 大屏端联系方式样式 */
+  .contact-person-name {
+    font-size: 17px;
+    padding: 10px 18px;
   }
 
-  .contact-label {
-    font-size: 13px;
+  .contact-phone-number {
+    font-size: 19px;
+    letter-spacing: 1.5px;
   }
 }
 
@@ -1268,10 +1277,10 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
-  /* 平板端地址卡片特殊样式 */
+  /* 平板端地址卡片特殊样式 - 统一高度 */
   .contact-info-card:first-child {
-    height: auto;
-    min-height: 220px;
+    height: 200px; /* 统一固定高度 */
+    min-height: 200px;
     padding: 24px 18px;
   }
 
@@ -1283,14 +1292,15 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
-  /* 平板端联系详情样式 */
-  .contact-person,
-  .contact-phone {
-    font-size: 13px;
+  /* 平板端联系方式样式 */
+  .contact-person-name {
+    font-size: 15px;
+    padding: 8px 14px;
   }
 
-  .contact-label {
-    font-size: 12px;
+  .contact-phone-number {
+    font-size: 17px;
+    letter-spacing: 1px;
   }
 
   .map-info-overlay {
@@ -1379,10 +1389,10 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
-  /* 移动端地址卡片特殊样式 */
+  /* 移动端地址卡片特殊样式 - 统一高度 */
   .contact-info-card:first-child {
-    height: auto;
-    min-height: 200px;
+    height: 180px; /* 统一固定高度 */
+    min-height: 180px;
     padding: 20px 16px;
   }
 
@@ -1394,19 +1404,21 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
-  /* 移动端联系详情样式 */
-  .contact-person,
-  .contact-phone {
-    font-size: 12px;
-    gap: 1px;
+  /* 移动端联系方式样式 - 优化适配 */
+  .contact-info-single {
+    gap: 8px;
+  }
+  
+  .contact-person-name {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 16px;
   }
 
-  .contact-label {
-    font-size: 11px;
-  }
-
-  .contact-value {
-    font-size: 12px;
+  .contact-phone-number {
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    padding: 2px 4px;
   }
 
   .map-background {
@@ -1436,6 +1448,18 @@ onUnmounted(() => {
 }
 
 @media (max-width: 480px) {
+  /* 超小屏幕联系方式样式 */
+  .contact-person-name {
+    font-size: 13px !important;
+    padding: 5px 10px !important;
+    border-radius: 14px !important;
+  }
+
+  .contact-phone-number {
+    font-size: 15px !important;
+    letter-spacing: 0.3px !important;
+  }
+
   .map-background {
     height: 250px;
   }
