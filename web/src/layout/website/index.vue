@@ -128,8 +128,8 @@
 
     <!-- 页脚 -->
     <n-layout-footer :style="{
-      background: 'var(--n-color-primary)',
-      color: 'var(--n-color-base)',
+      background: 'var(--sipumtech-bg-tech, #f0f9ff)',
+      color: 'var(--sipumtech-text-primary)',
       padding: '50px 0 30px'
     }">
       <n-flex justify="center" style="width: 100%;">
@@ -137,10 +137,11 @@
           vertical
           align="center"
           :size="6"
-          style="max-width: 1200px; width: 100%; padding: 0 30px; border-top: 1px solid #3b82f6; padding-top: 25px; text-align: center; color: #cbd5e1;"
+          style="max-width: 1200px; width: 100%; padding: 0 30px; border-top: 1px solid var(--sipumtech-divider, #e2e8f0); padding-top: 25px; text-align: center; color: var(--sipumtech-text-secondary, #6b7280);"
         >
           <p style="margin: 6px 0; font-size: 14px;">&copy; 2019-2025 {{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司 版权所有' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd. All Rights Reserved' }}</p>
           <p style="margin: 6px 0; font-size: 14px;">{{ currentLocale === 'zh-CN' ? '专业技术 · 快速响应 · 质量保证' : 'Professional Technology · Rapid Response · Quality Assurance' }}</p>
+          <p style="margin: 6px 0; font-size: 14px;">苏ICP备2025201169号</p>
         </n-flex>
       </n-flex>
     </n-layout-footer>

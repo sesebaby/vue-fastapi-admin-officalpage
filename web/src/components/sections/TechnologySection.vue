@@ -278,11 +278,11 @@
             <n-card hoverable class="capability-card">
               <n-space vertical align="center" :size="20">
                 <n-image
-                  src="/images/icon_ic_testing.jpg"
+                  src="/images/技术能力_测试验证服务.png"
                   :alt="$t('website.technology.capability_3_title')"
                   width="80"
                   height="80"
-                  object-fit="cover"
+                  object-fit="contain"
                   style="border-radius: 8px;"
                   class="capability-icon"
                 />
