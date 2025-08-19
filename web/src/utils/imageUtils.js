@@ -91,16 +91,16 @@ export const IMAGE_RESOURCES = {
   // 合作伙伴logo - 基于实际资料文件的合作伙伴logo
   partners: {
     // 高等院校
-    sjtu: '/images/logo_sjtu.png',                       // 上海交通大学logo
-    zju: '/images/logo_zju.png',                         // 浙江大学logo
-    fzu: '/images/logo_fzu.png',                         // 福州大学logo
-    xidian: '/images/logo_xidian.png',                   // 西安电子科技大学logo
+    sjtu: '/images/partner_sjtu.png',                    // 上海交通大学logo
+    zju: '/images/partner_zju.png',                      // 浙江大学logo
+    fzu: '/images/partner_fzu.png',                      // 福州大学logo
+    xidian: '/images/partner_xidian.png',                // 西安电子科技大学logo
 
     // 科研院所和国有企业
-    ihep_cas: '/images/logo_ihep_cas.png',               // 中国科学院高能物理研究所logo
-    norinco: '/images/logo_norinco.png',                 // 中国兵器工业集团logo
-    cetc: '/images/logo_cetc.png',                       // 中国电子科技集团logo
-    casc: '/images/logo_casc.png'                        // 中国航天科技集团logo
+    ihep_cas: '/images/partner_ihep_cas.png',            // 中国科学院高能物理研究所logo
+    norinco: '/images/partner_norinco.jpg',              // 中国兵器工业集团logo (jpg格式)
+    cetc: '/images/partner_cetc.png',                    // 中国电子科技集团logo
+    casc: '/images/partner_casc.png'                     // 中国航天科技集团logo
   }
 }
 
