@@ -128,7 +128,7 @@
     class="back-to-home-floating-button"
   >
     <template #icon>
-      <n-icon :size="20">
+      <n-icon :size="20" class="home-icon">
         <svg viewBox="0 0 24 24">
           <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"/>
         </svg>
@@ -355,25 +355,48 @@ const goBackToHome = () => {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  box-shadow: 0 4px 16px rgba(24, 144, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(30, 58, 138, 0.3);
   backdrop-filter: blur(8px);
-  background: rgba(24, 144, 255, 0.9) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(30, 58, 138, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .back-to-home-floating-button:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 24px rgba(24, 144, 255, 0.4);
-  background: rgba(24, 144, 255, 1) !important;
+  box-shadow: 0 8px 24px rgba(30, 58, 138, 0.4);
+  background: rgba(30, 58, 138, 1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
 }
 
 .back-to-home-floating-button:active {
   transform: translateY(-1px) scale(0.98);
+  background: rgba(21, 40, 96, 0.95) !important;
 }
 
-/* 移动端按钮优化 */
-@media (max-width: 768px) {
+/* 桌面端图标大小 */
+.back-to-home-floating-button .home-icon {
+  font-size: 20px;
+}
+
+/* 响应式按钮大小优化 */
+
+/* 平板端 (768px-1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .back-to-home-floating-button {
+    right: 20px;
+    bottom: 20px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .back-to-home-floating-button :deep(.n-icon) {
+    font-size: 18px;
+  }
+}
+
+/* 移动端大屏 (481px-767px) */
+@media (min-width: 481px) and (max-width: 767px) {
   .back-to-home-floating-button {
     right: 16px;
     bottom: 16px;
@@ -381,17 +404,30 @@ const goBackToHome = () => {
     height: 48px;
   }
 
+  .back-to-home-floating-button :deep(.n-icon) {
+    font-size: 16px;
+  }
+
   .back-to-home-floating-button:hover {
     transform: none; /* 移动端禁用悬停效果 */
   }
 }
 
+/* 移动端小屏 (≤480px) */
 @media (max-width: 480px) {
   .back-to-home-floating-button {
     right: 12px;
     bottom: 12px;
     width: 44px;
     height: 44px;
+  }
+
+  .back-to-home-floating-button :deep(.n-icon) {
+    font-size: 14px;
+  }
+
+  .back-to-home-floating-button:hover {
+    transform: none; /* 移动端禁用悬停效果 */
   }
 }
 
