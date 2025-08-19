@@ -402,6 +402,15 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   flex: 1;
+  padding: 20px;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(248, 250, 252, 0.98) 100%);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 确保logo容器有足够的空间和清晰的背景 */
+  min-height: 120px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .more-partners-hint {
@@ -452,12 +461,21 @@ onMounted(() => {
 .partner-logo {
   position: relative;
   z-index: 1;
-  opacity: 0.9;
+  opacity: 0.95;
   transition: all 0.4s ease;
   border-radius: 8px;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  /* 确保logo清晰显示 */
+  width: auto;
+  height: auto;
+  max-width: 140px;
+  max-height: 70px;
+  filter: contrast(1.1) brightness(1.02);
+  /* 防止图片模糊 */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .partner-card-inner:hover .partner-logo {
@@ -528,6 +546,16 @@ onMounted(() => {
     padding: 8px;
     border-radius: 8px;
     min-height: 60px;
+  }
+
+  .partner-logo-container {
+    padding: 12px;
+    min-height: 80px;
+  }
+
+  .partner-logo {
+    max-width: 100px;
+    max-height: 50px;
   }
 
   .partner-name {

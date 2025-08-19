@@ -92,7 +92,7 @@ export const IMAGE_RESOURCES = {
   partners: {
     // 高等院校
     sjtu: '/images/partner_sjtu.png',                    // 上海交通大学logo
-    zju: '/images/partner_zju.png',                      // 浙江大学logo
+    zju: '/images/partner_zju.webp',                     // 浙江大学logo (高质量webp格式)
     fzu: '/images/partner_fzu.png',                      // 福州大学logo
     xidian: '/images/partner_xidian.png',                // 西安电子科技大学logo
 
