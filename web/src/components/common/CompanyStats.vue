@@ -238,9 +238,31 @@ const certImageSize = computed(() => {
 
 // hover大图尺寸（响应式，增强放大效果）
 const hoverImageSize = computed(() => {
-  if (breakpoints.lg.value) return { width: 450, height: 450 }  // 桌面端：450x450 (3倍放大)
-  if (breakpoints.md.value) return { width: 380, height: 380 }  // 平板：380x380 (约3倍放大)
-  return { width: 320, height: 320 }  // 移动端：320x320 (约3倍放大)
+  const viewportWidth = window.innerWidth
+  const viewportHeight = window.innerHeight
+
+  // 桌面端：根据具体分辨率优化
+  if (breakpoints.lg.value) {
+    if (viewportWidth >= 1920) return { width: 480, height: 480 }      // 1920x1080+
+    if (viewportWidth >= 1440) return { width: 450, height: 450 }      // 1440x900+
+    return { width: 420, height: 420 }                                 // 1366x768+
+  }
+
+  // 平板端：横屏/竖屏适配
+  if (breakpoints.md.value) {
+    if (viewportWidth > viewportHeight) {
+      // 横屏平板 (1024x768)
+      return { width: 380, height: 380 }
+    } else {
+      // 竖屏平板 (768x1024)
+      return { width: 350, height: 350 }
+    }
+  }
+
+  // 移动端：根据具体设备优化
+  if (viewportWidth >= 414) return { width: 340, height: 340 }        // iPhone XR (414x896)
+  if (viewportWidth >= 375) return { width: 320, height: 320 }        // iPhone 6/7/8 (375x667)
+  return { width: 300, height: 300 }                                  // 小屏Android (360x640)
 })
 
 // 统计数字样式
@@ -268,29 +290,60 @@ const showHoverImage = (imageKey, title, event) => {
   currentImageSrc.value = getImagePath('certificates', imageKey)
   currentImageTitle.value = title
 
+  // 检测是否为触摸设备
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+
   // 计算大图显示位置
   const rect = event.currentTarget.getBoundingClientRect()
   const viewportWidth = window.innerWidth
   const viewportHeight = window.innerHeight
 
-  // 大图尺寸（使用响应式尺寸）
-  const imageWidth = hoverImageSize.value.width + 40  // 加上容器padding
-  const imageHeight = hoverImageSize.value.height + 80  // 加上标题和padding
+  // 大图容器尺寸（精确计算，增加25px高度提升舒适度）
+  const containerPadding = 48  // 24px * 2
+  const headerHeight = 60     // 标题区域高度（增加了间距）
+  const extraHeight = 25      // 额外增加的舒适高度
 
-  // 计算最佳位置（优先显示在右侧，如果空间不够则显示在左侧）
-  let left = rect.right + 20
-  let top = rect.top + (rect.height - imageHeight) / 2
+  const imageWidth = hoverImageSize.value.width + containerPadding
+  const imageHeight = hoverImageSize.value.height + containerPadding + headerHeight + extraHeight
 
-  // 如果右侧空间不够，显示在左侧
-  if (left + imageWidth > viewportWidth - 20) {
-    left = rect.left - imageWidth - 20
-  }
+  // 智能位置计算算法 - 适配所有分辨率
+  const margin = 20
+  const isMobile = viewportWidth <= 768
 
-  // 确保不超出视口顶部和底部
-  if (top < 20) {
-    top = 20
-  } else if (top + imageHeight > viewportHeight - 20) {
-    top = viewportHeight - imageHeight - 20
+  let left, top
+
+  if (isMobile) {
+    // 移动端：居中显示，确保最佳触摸体验
+    left = (viewportWidth - imageWidth) / 2
+    top = (viewportHeight - imageHeight) / 2
+
+    // 移动端边界检查
+    left = Math.max(margin, Math.min(left, viewportWidth - imageWidth - margin))
+    top = Math.max(margin, Math.min(top, viewportHeight - imageHeight - margin))
+  } else {
+    // 桌面端/平板端：智能侧边显示
+    const rightSpace = viewportWidth - rect.right - margin
+    const leftSpace = rect.left - margin
+
+    // 优先右侧，空间不足时选择左侧
+    if (rightSpace >= imageWidth) {
+      left = rect.right + margin
+    } else if (leftSpace >= imageWidth) {
+      left = rect.left - imageWidth - margin
+    } else {
+      // 两侧空间都不足，居中显示
+      left = (viewportWidth - imageWidth) / 2
+    }
+
+    // 垂直居中对齐触发元素
+    top = rect.top + (rect.height - imageHeight) / 2
+
+    // 垂直边界检查
+    if (top < margin) {
+      top = margin
+    } else if (top + imageHeight > viewportHeight - margin) {
+      top = viewportHeight - imageHeight - margin
+    }
   }
 
   hoverImagePosition.value = {
@@ -305,11 +358,15 @@ const showHoverImage = (imageKey, title, event) => {
 
 // 隐藏悬停大图
 const hideHoverImage = () => {
+  // 检测是否为触摸设备，调整延迟时间
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+  const delay = isTouchDevice ? 150 : 50  // 触摸设备延迟更长，避免误触
+
   hoverTimer = setTimeout(() => {
     showHoverImageState.value = false
     currentImageSrc.value = ''
     currentImageTitle.value = ''
-  }, 50) // 减少延迟到50ms，提升响应速度
+  }, delay)
 }
 
 // 保持悬停大图显示（当鼠标移到大图上时）
@@ -552,9 +609,13 @@ const keepHoverImage = () => {
 
 .hover-image-header {
   text-align: center;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
+  margin-bottom: 20px;  /* 增加底部间距 */
+  padding: 8px 0 16px 0;  /* 增加上下padding */
   border-bottom: 2px solid rgba(0, 212, 170, 0.2);
+  min-height: 44px;  /* 确保标题区域有足够高度 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hover-image-title {
@@ -633,7 +694,28 @@ const keepHoverImage = () => {
 }
 
 /* 响应式设计 */
-@media (max-width: 1024px) {
+/* 大屏桌面端优化 (1920x1080+) */
+@media (min-width: 1920px) {
+  .hover-image-container {
+    padding: 28px;
+    border-radius: 24px;
+  }
+
+  .hover-image-title {
+    font-size: 18px;
+  }
+}
+
+/* 标准桌面端 (1366x768 - 1919x1080) */
+@media (min-width: 1366px) and (max-width: 1919px) {
+  .hover-image-container {
+    padding: 24px;
+    border-radius: 20px;
+  }
+}
+
+/* 平板端优化 */
+@media (max-width: 1024px) and (min-width: 769px) {
   .stats-data-section,
   .certifications-section {
     padding: 16px;
@@ -641,6 +723,22 @@ const keepHoverImage = () => {
 
   .cert-card {
     padding: 20px;
+  }
+
+  /* 平板横屏优化 */
+  @media (orientation: landscape) {
+    .hover-image-container {
+      max-width: 85vw;
+      max-height: 85vh;
+    }
+  }
+
+  /* 平板竖屏优化 */
+  @media (orientation: portrait) {
+    .hover-image-container {
+      max-width: 90vw;
+      max-height: 80vh;
+    }
   }
 }
 
@@ -672,6 +770,9 @@ const keepHoverImage = () => {
   .cert-card {
     padding: 16px;
     border-radius: 16px;
+    /* 移动端触摸优化 */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .cert-name {
@@ -680,17 +781,84 @@ const keepHoverImage = () => {
 
   .hover-image-container {
     padding: 20px;
-    max-width: 90vw; /* 移动端使用视口宽度 */
+    max-width: 95vw; /* 移动端使用视口宽度，留出更多边距 */
+    max-height: 90vh; /* 限制最大高度，避免超出屏幕 */
     border-radius: 16px;
+    /* 移动端优化 */
+    overflow: hidden;
+    position: relative;
   }
 
   .hover-cert-image {
     max-width: 100%; /* 移动端图片自适应容器 */
+    max-height: calc(90vh - 120px); /* 减去标题和padding的高度 */
     border-radius: 12px;
+    object-fit: contain; /* 确保图片完整显示 */
   }
 
   .hover-image-title {
     font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .hover-image-header {
+    margin-bottom: 16px;
+    padding: 6px 0 12px 0;
+    min-height: 36px;
+  }
+}
+
+/* iPhone XR/11 (414x896) 优化 */
+@media (max-width: 414px) and (min-width: 376px) {
+  .hover-image-container {
+    max-width: 92vw;
+    padding: 18px;
+  }
+
+  .hover-cert-image {
+    max-height: calc(85vh - 100px);
+  }
+}
+
+/* iPhone 6/7/8 (375x667) 优化 */
+@media (max-width: 375px) and (min-width: 361px) {
+  .hover-image-container {
+    max-width: 90vw;
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .hover-cert-image {
+    max-height: calc(80vh - 90px);
+    border-radius: 10px;
+  }
+
+  .hover-image-title {
+    font-size: 13px;
+  }
+}
+
+/* 小屏Android (360x640) 优化 */
+@media (max-width: 360px) {
+  .hover-image-container {
+    max-width: 88vw;
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .hover-cert-image {
+    max-height: calc(75vh - 80px);
+    border-radius: 8px;
+  }
+
+  .hover-image-title {
+    font-size: 12px;
+  }
+
+  .hover-image-header {
+    margin-bottom: 12px;
+    padding: 4px 0 8px 0;
+    min-height: 32px;
   }
 }
 
