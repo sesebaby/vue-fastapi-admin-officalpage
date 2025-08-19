@@ -331,6 +331,17 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
   .main-services-section button {
     font-size: var(--sipumtech-font-size-small) !important;
   }
+
+  /* 核心业务卡片内所有文字优化 */
+  .service-card .n-text {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* 服务特性列表文字 */
+  .service-card .n-list .n-thing {
+    font-size: 12px !important;
+  }
 }
 
 /* 核心业务展示区域 */
@@ -403,12 +414,75 @@ const emit = defineEmits(['start-hover', 'end-hover', 'get-solution', 'tech-cons
   .service-card :deep(.n-space) {
     gap: 16px !important;
   }
+
+  /* 移动端：优化所有文字元素 */
+  .service-card :deep(.n-text) {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* 移动端：特别优化描述文字 */
+  .service-card :deep(.n-text[style*="textAlign: center"]) {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    padding: 0 8px;
+  }
+
+  /* 移动端：优化特性列表 */
+  .service-card :deep(.n-list .n-thing) {
+    font-size: 12px !important;
+  }
 }
 
 @media (max-width: 480px) {
   /* 小屏幕：进一步优化高度 */
   .service-card {
     min-height: 450px;
+  }
+}
+
+/* iPhone 6/7/8 (375x667) 专门优化 */
+@media (max-width: 375px) {
+  /* 核心业务卡片描述文字优化 */
+  .service-card .n-text[style*="font-size: var(--sipumtech-font-size-body)"] {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* 服务标题优化 */
+  .service-card .n-text[style*="font-size: var(--sipumtech-font-size-h4)"] {
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* 品牌标识文字优化 */
+  .service-card .n-text[style*="font-size: var(--sipumtech-font-size-small)"] {
+    font-size: 11px !important;
+  }
+
+  /* 副标题文字优化 */
+  .service-card .n-text[style*="font-size: var(--sipumtech-font-size-body)"][style*="font-weight: var(--sipumtech-font-weight-semibold)"] {
+    font-size: 12px !important;
+  }
+
+  /* 特性列表文字优化 */
+  .service-card .n-thing {
+    font-size: 12px !important;
+  }
+
+  /* 按钮文字优化 */
+  .service-card .n-button {
+    font-size: 12px !important;
+  }
+
+  /* 卡片内间距优化 */
+  .service-card :deep(.n-space) {
+    gap: 12px !important;
+  }
+
+  /* 进一步减小卡片高度 */
+  .service-card {
+    min-height: 420px;
   }
 }
 
