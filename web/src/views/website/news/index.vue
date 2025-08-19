@@ -41,7 +41,7 @@
             class="news-item-card"
             @click="handleNewsClick(item.id)"
           >
-            <n-grid :cols="responsiveCols" :x-gap="30" :y-gap="20">
+            <n-grid :cols="responsiveCols" :x-gap="responsiveXGap" :y-gap="responsiveYGap">
               <!-- 新闻图片 -->
               <n-grid-item :span="imageSpan">
                 <n-card embedded class="news-image-wrapper">
@@ -72,11 +72,13 @@
                   <n-text
                     class="news-item-title"
                     :style="{
-                      fontSize: '20px',
+                      fontSize: titleFontSize,
                       fontWeight: '600',
                       color: 'var(--sipumtech-primary-blue)',
                       lineHeight: '1.4',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      wordBreak: 'break-word',
+                      display: 'block'
                     }"
                   >
                     {{ $t(item.titleKey) }}
@@ -85,9 +87,11 @@
                   <!-- 新闻描述 -->
                   <n-text
                     :style="{
-                      fontSize: '14px',
+                      fontSize: descriptionFontSize,
                       color: 'var(--sipumtech-text-secondary)',
-                      lineHeight: '1.6'
+                      lineHeight: '1.6',
+                      wordBreak: 'break-word',
+                      display: 'block'
                     }"
                   >
                     {{ $t(item.excerptKey) }}
@@ -142,6 +146,49 @@ const contentSpan = computed(() => {
   if (width <= 768) return 24      // 小平板：全宽
   if (width <= 1024) return 16     // 平板：内容稍小
   return 18                        // 桌面端：标准比例
+})
+
+// 响应式间距配置
+const responsiveXGap = computed(() => {
+  if (typeof window === 'undefined') return 30
+  const width = window.innerWidth
+
+  if (width <= 480) return 0       // 移动端：无横向间距
+  if (width <= 768) return 16      // 小平板：小间距
+  if (width <= 1024) return 24     // 平板：中等间距
+  return 30                        // 桌面端：标准间距
+})
+
+const responsiveYGap = computed(() => {
+  if (typeof window === 'undefined') return 20
+  const width = window.innerWidth
+
+  if (width <= 480) return 16      // 移动端：小纵向间距
+  if (width <= 768) return 18      // 小平板：中等间距
+  return 20                        // 桌面端：标准间距
+})
+
+// 响应式字体大小
+const titleFontSize = computed(() => {
+  if (typeof window === 'undefined') return '20px'
+  const width = window.innerWidth
+
+  if (width <= 320) return '14px'   // 超小屏
+  if (width <= 375) return '15px'   // 小屏
+  if (width <= 480) return '16px'   // 移动端
+  if (width <= 768) return '18px'   // 平板
+  return '20px'                     // 桌面端
+})
+
+const descriptionFontSize = computed(() => {
+  if (typeof window === 'undefined') return '14px'
+  const width = window.innerWidth
+
+  if (width <= 320) return '12px'   // 超小屏
+  if (width <= 375) return '12px'   // 小屏
+  if (width <= 480) return '13px'   // 移动端
+  if (width <= 768) return '14px'   // 平板
+  return '14px'                     // 桌面端
 })
 
 // 新闻数据（与NewsSection保持一致）
@@ -261,6 +308,8 @@ const handleRetry = () => {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* 新闻内容区域 */
@@ -274,11 +323,26 @@ const handleRetry = () => {
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .news-item-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* 移动端卡片优化 */
+@media (max-width: 768px) {
+  .news-item-card {
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+
+  .news-item-card:hover {
+    transform: none; /* 移动端禁用悬停效果 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
 }
 
 /* 新闻图片 */
@@ -325,8 +389,37 @@ const handleRetry = () => {
 }
 
 /* 新闻标题 */
+.news-item-title {
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
 .news-item-title:hover {
   color: var(--sipumtech-accent-green) !important;
+}
+
+/* 移动端文字优化 */
+@media (max-width: 768px) {
+  .news-item-title {
+    line-height: 1.3 !important;
+    margin-bottom: 8px;
+  }
+
+  /* 确保文字不会溢出容器 */
+  :deep(.n-text) {
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+
+  /* Grid项目宽度限制 */
+  :deep(.n-grid-item) {
+    min-width: 0;
+    overflow: hidden;
+  }
 }
 
 /* 响应式设计 - 优化多分辨率适配 */
@@ -429,7 +522,7 @@ const handleRetry = () => {
   }
 
   .container {
-    padding: 0 12px;
+    padding: 0 8px;
   }
 
   .news-image-wrapper {
@@ -438,15 +531,29 @@ const handleRetry = () => {
   }
 
   .news-item-title {
-    font-size: 15px !important;
+    font-size: 14px !important;
+    line-height: 1.2 !important;
   }
 
   .news-item-card {
     margin-bottom: 16px;
+    border-radius: 8px;
   }
 
   .news-date-tag {
-    font-size: 11px !important;
+    font-size: 10px !important;
+  }
+
+  /* 超小屏幕文字强制换行 */
+  :deep(.n-text) {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* 确保内容区域不会溢出 */
+  :deep(.n-space) {
+    width: 100%;
+    max-width: 100%;
   }
 }
 </style>
