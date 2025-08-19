@@ -67,7 +67,7 @@
       <n-button
         circle
         type="primary"
-        aria-label="打开导航菜单"
+        :aria-label="$t('website.ui.open_navigation_menu')"
         @click="showSideNav = true"
         style="width: 48px; height: 48px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);"
       >

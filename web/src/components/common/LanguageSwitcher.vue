@@ -7,7 +7,7 @@
       :class="['lang-item', { active: currentLocale === 'zh-CN' }]"
       @click="handleLanguageSwitch('zh-CN')"
     >
-      中文
+      {{ $t('lang') }}
     </n-button>
     <span v-if="!mobile" class="lang-divider">|</span>
     <n-button

@@ -9,6 +9,14 @@
     "rights_reserved": "All Rights Reserved"
   },
   "common": {
+    "add": "Add",
+    "delete": "Delete",
+    "edit": "Edit",
+    "query": "Query",
+    "reset": "Reset",
+    "action": "Action",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
     "loading": "Loading...",
     "retry": "Retry",
     "reload_page": "Reload Page"
@@ -36,6 +44,10 @@
     "mobile_menu_toggle": "Menu"
   },
   "website": {
+    "ui": {
+      "navigation_menu": "Navigation Menu",
+      "open_navigation_menu": "Open Navigation Menu"
+    },
     "hero": {
       "company_name": "SIPUMTECH",
       "title_1": "Advanced Packaging · One-Stop Service",
@@ -51,7 +63,11 @@
       "trust_experience": "5 Years Professional Experience",
       "value_tech": "Professional Technology",
       "value_speed": "Rapid Response",
-      "value_quality": "Quality Assurance"
+      "value_quality": "Quality Assurance",
+      "company_image_alt": "Company Main Image",
+      "tech_background_alt": "Technology Background",
+      "company_scene_2_alt": "Company Scene 2",
+      "company_scene_3_alt": "Company Scene 3"
     },
     "about": {
       "title": "About SIPUMTECH",
@@ -152,6 +168,9 @@
     "news": {
       "title": "News & Updates",
       "more": "View More",
+      "loading": "Loading news...",
+      "no_news_title": "No News",
+      "no_news_desc": "No news content available at the moment",
       "news_4_title": "4th National Academic Conference on Radiation Detection Microelectronics",
       "news_4_excerpt": "SIPUMTECH participated in the 4th National Academic Conference on Radiation Detection Microelectronics, showcasing our latest technological achievements and solutions in the field of radiation detection microelectronics.",
       "news_1_title": "SIPUMTECH Awarded High-Tech Enterprise Certification",
@@ -176,6 +195,14 @@
       "map_loading": "Loading map...",
       "map_error_title": "Map Loading Failed",
       "map_error_desc": "Unable to load map, please check your network connection or try again later",
+      "map_error_possible_causes": "Possible causes:",
+      "map_error_cause_1": "Baidu Map API key not configured or invalid",
+      "map_error_cause_2": "Network connection issues",
+      "map_error_cause_3": "API key permission settings issues",
+      "map_error_solutions": "Solutions:",
+      "map_error_solution_1": "Visit <a href=\"https://lbsyun.baidu.com/\" target=\"_blank\" style=\"color: #1890ff;\">Baidu Map Open Platform</a> to apply for API key",
+      "map_error_solution_2": "Configure the key in the .env.local file in the project root directory",
+      "map_error_solution_3": "Restart the development server",
       "view_in_map": "View in Map",
       "copy_address": "Copy Address",
       "address_copied": "Address copied to clipboard",
@@ -216,6 +243,11 @@
       "testimonials_subtitle": "Hear what our partners say",
       "partners_title": "Partners",
       "partners_subtitle": "Strategic partnerships with renowned universities, research institutes and state-owned enterprises",
+      "partners_loading": "Loading partners...",
+      "partners_error_title": "Partners Loading Failed",
+      "partners_error_desc": "Unable to load partner information",
+      "more_partners_count": "{count} more partners...",
+      "more_partners_general": "More partners...",
       "testimonial_1_quote": "SIPUMTECH's advanced packaging technology solutions are very professional, with fast team response and quality assurance. During the cooperation, they demonstrated extremely high professional standards and service awareness.",
       "testimonial_1_name": "Engineer Zhang",
       "testimonial_1_title": "Hardware Design Director",

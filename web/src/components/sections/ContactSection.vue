@@ -126,20 +126,20 @@
 
                 <!-- 地图加载失败提示 -->
                 <div v-if="mapError" class="map-error">
-                  <n-result status="error" title="地图加载失败">
+                  <n-result status="error" :title="$t('website.contact.map_error_title')">
                     <template #description>
                       <div style="text-align: left; max-width: 400px;">
-                        <p><strong>可能的原因：</strong></p>
+                        <p><strong>{{ $t('website.contact.map_error_possible_causes') }}</strong></p>
                         <ul style="margin: 8px 0; padding-left: 20px;">
-                          <li>百度地图API密钥未配置或无效</li>
-                          <li>网络连接问题</li>
-                          <li>API密钥权限设置问题</li>
+                          <li>{{ $t('website.contact.map_error_cause_1') }}</li>
+                          <li>{{ $t('website.contact.map_error_cause_2') }}</li>
+                          <li>{{ $t('website.contact.map_error_cause_3') }}</li>
                         </ul>
-                        <p><strong>解决方法：</strong></p>
+                        <p><strong>{{ $t('website.contact.map_error_solutions') }}</strong></p>
                         <ol style="margin: 8px 0; padding-left: 20px;">
-                          <li>访问 <a href="https://lbsyun.baidu.com/" target="_blank" style="color: #1890ff;">百度地图开放平台</a> 申请API密钥</li>
-                          <li>在项目根目录的 <code>.env.local</code> 文件中配置密钥</li>
-                          <li>重启开发服务器</li>
+                          <li v-html="$t('website.contact.map_error_solution_1')"></li>
+                          <li>{{ $t('website.contact.map_error_solution_2') }}</li>
+                          <li>{{ $t('website.contact.map_error_solution_3') }}</li>
                         </ol>
                       </div>
                     </template>

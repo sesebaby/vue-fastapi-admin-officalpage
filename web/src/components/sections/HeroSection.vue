@@ -23,7 +23,7 @@
         <n-image
           :src="getImagePath('hero', 'company_hero')"
           :fallback-src="PLACEHOLDER_IMAGES.business"
-          alt="公司主图"
+          :alt="$t('website.hero.company_image_alt')"
           :object-fit="adaptiveImageStyle.objectFit"
           :preview-disabled="true"
           :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: ${carouselHeight}; ${adaptiveImageStyle.additionalStyles}`"
@@ -40,7 +40,7 @@
         <n-image
           :src="getImagePath('hero', 'tech_background')"
           :fallback-src="PLACEHOLDER_IMAGES.technology"
-          alt="科技背景"
+          :alt="$t('website.hero.tech_background_alt')"
           :object-fit="adaptiveImageStyle.objectFit"
           :preview-disabled="true"
           :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: ${carouselHeight}; ${adaptiveImageStyle.additionalStyles}`"
@@ -57,7 +57,7 @@
         <n-image
           :src="getImagePath('hero', 'third_slide')"
           :fallback-src="PLACEHOLDER_IMAGES.business"
-          alt="公司实景2"
+          :alt="$t('website.hero.company_scene_2_alt')"
           :object-fit="adaptiveImageStyle.objectFit"
           :preview-disabled="true"
           :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: ${carouselHeight}; ${adaptiveImageStyle.additionalStyles}`"
@@ -74,7 +74,7 @@
         <n-image
           :src="getImagePath('hero', 'fourth_slide')"
           :fallback-src="PLACEHOLDER_IMAGES.business"
-          alt="公司实景3"
+          :alt="$t('website.hero.company_scene_3_alt')"
           :object-fit="adaptiveImageStyle.objectFit"
           :preview-disabled="true"
           :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: ${carouselHeight}; ${adaptiveImageStyle.additionalStyles}`"

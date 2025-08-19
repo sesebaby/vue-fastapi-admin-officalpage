@@ -44,6 +44,10 @@
     "mobile_menu_toggle": "菜单"
   },
   "website": {
+    "ui": {
+      "navigation_menu": "导航菜单",
+      "open_navigation_menu": "打开导航菜单"
+    },
     "hero": {
       "company_name": "SIPUMTECH",
       "title_1": "先进封装 · 一站式服务",
@@ -59,7 +63,11 @@
       "trust_experience": "5年专业经验",
       "value_tech": "专业技术",
       "value_speed": "快速响应",
-      "value_quality": "质量保证"
+      "value_quality": "质量保证",
+      "company_image_alt": "公司主图",
+      "tech_background_alt": "科技背景",
+      "company_scene_2_alt": "公司实景2",
+      "company_scene_3_alt": "公司实景3"
     },
     "about": {
       "title": "关于思普微",
@@ -161,6 +169,9 @@
     "news": {
       "title": "新闻动态",
       "more": "查看更多",
+      "loading": "正在加载新闻...",
+      "no_news_title": "暂无新闻",
+      "no_news_desc": "目前还没有新闻内容",
       "news_4_title": "第四届全国辐射探测微电子学术年会",
       "news_4_excerpt": "SIPUMTECH参加第四届全国辐射探测微电子学术年会，展示在辐射探测微电子领域的最新技术成果和解决方案。",
       "news_1_title": "SIPUMTECH获得ISO9001质量管理体系认证",
@@ -185,6 +196,14 @@
       "map_loading": "地图加载中...",
       "map_error_title": "地图加载失败",
       "map_error_desc": "无法加载地图，请检查网络连接或稍后重试",
+      "map_error_possible_causes": "可能的原因：",
+      "map_error_cause_1": "百度地图API密钥未配置或无效",
+      "map_error_cause_2": "网络连接问题",
+      "map_error_cause_3": "API密钥权限设置问题",
+      "map_error_solutions": "解决方法：",
+      "map_error_solution_1": "访问 <a href=\"https://lbsyun.baidu.com/\" target=\"_blank\" style=\"color: #1890ff;\">百度地图开放平台</a> 申请API密钥",
+      "map_error_solution_2": "在项目根目录的 .env.local 文件中配置密钥",
+      "map_error_solution_3": "重启开发服务器",
       "view_in_map": "在地图中查看",
       "copy_address": "复制地址",
       "address_copied": "地址已复制到剪贴板",
@@ -225,6 +244,11 @@
       "testimonials_subtitle": "听听我们的合作伙伴怎么说",
       "partners_title": "合作伙伴",
       "partners_subtitle": "与知名高等院校、科研院所及国有企业建立战略合作关系",
+      "partners_loading": "正在加载合作伙伴...",
+      "partners_error_title": "合作伙伴加载失败",
+      "partners_error_desc": "无法加载合作伙伴信息",
+      "more_partners_count": "还有 {count} 个合作伙伴...",
+      "more_partners_general": "还有更多合作伙伴...",
       "testimonial_1_quote": "SIPUMTECH的先进封装技术解决方案非常专业，团队响应速度快，质量有保障。合作过程中，他们展现出了极高的专业水准和服务意识。",
       "testimonial_1_name": "张工程师",
       "testimonial_1_title": "硬件设计总监",

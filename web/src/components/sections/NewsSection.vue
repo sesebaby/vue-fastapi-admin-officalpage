@@ -42,7 +42,7 @@
           type="skeleton"
           variant="grid"
           :grid-items="3"
-          message="正在加载新闻..."
+          :message="$t('website.news.loading')"
         />
 
         <!-- 错误状态 -->
@@ -114,8 +114,8 @@
         <n-result
           v-else
           status="info"
-          title="暂无新闻"
-          description="目前还没有新闻内容"
+          :title="$t('website.news.no_news_title')"
+          :description="$t('website.news.no_news_desc')"
         />
       </ErrorBoundary>
     </div>
@@ -191,7 +191,7 @@ const {
 } = useAsyncState(fetchNewsData, {
   immediate: false,
   onError: (err) => {
-    console.error('新闻数据加载失败:', err)
+    console.error('News data loading failed:', err)
   }
 })
 
@@ -202,7 +202,7 @@ onMounted(() => {
 
 // 新闻点击处理
 const handleNewsClick = (newsId) => {
-  console.log('新闻点击:', newsId)
+  console.log('News clicked:', newsId)
   // 这里可以添加具体的业务逻辑，比如：
   // - 跳转到新闻详情页
   // - 打开新闻弹窗

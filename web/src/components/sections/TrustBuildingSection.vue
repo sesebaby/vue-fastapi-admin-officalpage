@@ -130,15 +130,15 @@
               type="skeleton"
               variant="grid"
               :grid-items="6"
-              message="正在加载合作伙伴..."
+              :message="$t('website.trust.partners_loading')"
             />
 
             <!-- 错误状态 -->
             <n-result
               v-else-if="partnersError"
               status="error"
-              title="合作伙伴加载失败"
-              description="无法加载合作伙伴信息"
+              :title="$t('website.trust.partners_error_title')"
+              :description="$t('website.trust.partners_error_desc')"
             >
               <template #footer>
                 <n-button type="primary" @click="retryPartners">
@@ -261,10 +261,10 @@ const morePartnersText = computed(() => {
   // 移动端显示通用文本，桌面端显示具体数量
   if (breakpoints.sm.value) {
     // 桌面端和平板端：显示具体数量
-    return `还有 ${remainingCount} 个合作伙伴...`
+    return t('website.trust.more_partners_count', { count: remainingCount })
   } else {
     // 移动端：显示通用文本
-    return '还有更多合作伙伴...'
+    return t('website.trust.more_partners_general')
   }
 })
 
