@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  vue-fastapi-admin:
+    build: .
+    container_name: vue-fastapi-admin
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=your-secret-key-here-change-in-production
+      - DATABASE_URL=sqlite:///app/db.sqlite3
+      # 如果使用MySQL，取消注释以下配置
+      # - DATABASE_URL=mysql://user:password@mysql:3306/dbname
+      # 如果使用PostgreSQL，取消注释以下配置
+      # - DATABASE_URL=postgresql://user:password@postgres:5432/dbname
+    volumes:
+      # 持久化数据库文件（SQLite）
+      - ./data:/app/data
+      # 持久化日志
+      - ./logs:/app/logs
+      # 如果需要修改配置，可以挂载配置文件
+      # - ./app/settings/config.py:/app/app/settings/config.py:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - vue-fastapi-network
+
+  # 如果使用MySQL（可选）
+  # mysql:
+  #   image: mysql:8.0
+  #   container_name: vue-fastapi-mysql
+  #   restart: unless-stopped
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=rootpassword
+  #     - MYSQL_DATABASE=vue_fastapi_admin
+  #     - MYSQL_USER=admin
+  #     - MYSQL_PASSWORD=adminpassword
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #   networks:
+  #     - vue-fastapi-network
+
+  # 如果使用PostgreSQL（可选）
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: vue-fastapi-postgres
+  #   restart: unless-stopped
+  #   environment:
+  #     - POSTGRES_USER=admin
+  #     - POSTGRES_PASSWORD=adminpassword
+  #     - POSTGRES_DB=vue_fastapi_admin
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - vue-fastapi-network
+
+networks:
+  vue-fastapi-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  postgres_data:

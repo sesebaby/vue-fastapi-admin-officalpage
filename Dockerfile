@@ -1,33 +1,65 @@
-FROM node:18.12.0-alpine3.16 AS web
+# 第一阶段：构建前端
+FROM node:18-alpine AS web-builder
 
-WORKDIR /opt/vue-fastapi-admin
-COPY /web ./web
-RUN cd /opt/vue-fastapi-admin/web && npm i --registry=https://registry.npmmirror.com && npm run build
+# 安装pnpm
+RUN npm install -g pnpm@8
 
+WORKDIR /app/web
+# 只复制package相关文件，利用Docker缓存
+COPY web/package.json web/pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --registry=https://registry.npmmirror.com
 
+# 复制源代码并构建
+COPY web/ ./
+RUN pnpm build
+
+# 第二阶段：Python运行环境
 FROM python:3.11-slim-bullseye
 
-WORKDIR /opt/vue-fastapi-admin
-ADD . .
-COPY /deploy/entrypoint.sh .
+WORKDIR /app
 
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked,id=core-apt \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked,id=core-apt \
-    sed -i "s@http://.*.debian.org@http://mirrors.ustc.edu.cn@g" /etc/apt/sources.list \
-    && rm -f /etc/apt/apt.conf.d/docker-clean \
+# 设置环境变量
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    LANG=zh_CN.UTF-8 \
+    TZ=Asia/Shanghai
+
+# 安装系统依赖
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        gcc \
+        python3-dev \
+        nginx \
+        supervisor \
+        curl \
+        && rm -rf /var/lib/apt/lists/* \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && echo "Asia/Shanghai" > /etc/timezone \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends gcc python3-dev bash nginx vim curl procps net-tools
+    && echo "Asia/Shanghai" > /etc/timezone
 
-RUN pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+# 安装Python依赖
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
-COPY --from=web /opt/vue-fastapi-admin/web/dist /opt/vue-fastapi-admin/web/dist
-ADD /deploy/web.conf /etc/nginx/sites-available/web.conf
-RUN rm -f /etc/nginx/sites-enabled/default \ 
-    && ln -s /etc/nginx/sites-available/web.conf /etc/nginx/sites-enabled/ 
+# 复制后端代码
+COPY app/ ./app/
+COPY run.py .
+COPY pyproject.toml .
 
-ENV LANG=zh_CN.UTF-8
+# 复制前端构建产物
+COPY --from=web-builder /app/web/dist /app/web/dist
+
+# 复制配置文件
+COPY deploy/nginx.conf /etc/nginx/sites-available/default
+COPY deploy/entrypoint.sh /app/entrypoint.sh
+COPY deploy/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# 创建日志目录
+RUN mkdir -p /var/log/supervisor /app/logs
+
+# 赋予执行权限
+RUN chmod +x /app/entrypoint.sh
+
 EXPOSE 80
 
-ENTRYPOINT [ "sh", "entrypoint.sh" ]
+# 使用entrypoint
+ENTRYPOINT ["/app/entrypoint.sh"]
