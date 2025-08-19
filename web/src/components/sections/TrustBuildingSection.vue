@@ -177,9 +177,9 @@
                           />
                         </div>
                         <!-- 机构名称文字 -->
-                        <div class="partner-name-text">
+                        <n-text class="partner-name-text">
                           {{ partner.name }}
-                        </div>
+                        </n-text>
                       </div>
                     </div>
                   </div>
@@ -506,18 +506,21 @@ onMounted(() => {
   image-rendering: crisp-edges;
 }
 
-/* 机构名称文字样式 */
+/* 机构名称文字样式 - 兼容Naive UI的n-text组件 */
 .partner-name-text {
-  color: #1e40af;
-  font-size: 14px;
-  font-weight: 600;
+  /* 使用Naive UI的CSS变量命名约定 */
+  color: var(--n-text-color, #1e40af);
+  font-size: var(--n-font-size, 14px);
+  font-weight: var(--n-font-weight, 600);
   text-align: center;
   line-height: 1.3;
-  transition: all 0.3s ease;
+  transition: all 0.3s var(--n-bezier, ease);
   opacity: 0.9;
   /* 确保文字不会换行过多 */
   word-break: keep-all;
   overflow-wrap: break-word;
+  /* 确保与n-text组件的默认样式兼容 */
+  display: inline;
 }
 
 /* Hover效果 */
@@ -527,7 +530,7 @@ onMounted(() => {
 }
 
 .partner-card-inner:hover .partner-name-text {
-  color: #1d4ed8;
+  color: var(--n-text-color-hover, #1d4ed8);
   opacity: 1;
   text-shadow: 0 1px 3px rgba(29, 78, 216, 0.2);
 }
