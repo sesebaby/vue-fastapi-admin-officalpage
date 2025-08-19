@@ -170,7 +170,7 @@
                           :width="partnerImageSize.width"
                           :height="partnerImageSize.height"
                           object-fit="contain"
-                          class="partner-logo"
+                          :class="getPartnerLogoClass(partner.name)"
                           :fallback-src="PLACEHOLDER_IMAGES.logo"
                         />
                       </div>
@@ -275,6 +275,18 @@ const fetchPartnersData = async () => {
     { name: '中国电子科技集团', logo: getImagePath('partners', 'cetc') },
     { name: '中国航天科技集团', logo: getImagePath('partners', 'casc') }
   ]
+}
+
+// 获取合作伙伴logo的CSS类
+const getPartnerLogoClass = (partnerName) => {
+  const whiteTextLogos = ['上海交通大学', '西安电子科技大学', '中国科学院高能物理研究所']
+  const baseClass = 'partner-logo'
+
+  if (whiteTextLogos.includes(partnerName)) {
+    return `${baseClass} partner-logo-white-text`
+  }
+
+  return baseClass
 }
 
 // 使用异步状态管理
@@ -483,6 +495,25 @@ onMounted(() => {
   transform: scale(1.05);
 }
 
+/* 针对白色文字logo的特殊处理 */
+.partner-logo-white-text {
+  /* 使用CSS滤镜来改善白色文字的可见性 */
+  filter: contrast(1.3) brightness(0.9) saturate(1.1);
+  /* 添加轻微的阴影来增强文字可读性 */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  /* 为白色文字logo添加轻微的背景色调 */
+  background: linear-gradient(135deg,
+    rgba(240, 242, 247, 0.8) 0%,
+    rgba(248, 250, 252, 0.9) 100%);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.partner-card-inner:hover .partner-logo-white-text {
+  filter: contrast(1.4) brightness(0.85) saturate(1.2);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+}
+
 .partner-overlay {
   position: absolute;
   bottom: 8px;
@@ -556,6 +587,12 @@ onMounted(() => {
   .partner-logo {
     max-width: 100px;
     max-height: 50px;
+  }
+
+  /* 移动端白色文字logo优化 */
+  .partner-logo-white-text {
+    padding: 2px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.08);
   }
 
   .partner-name {
