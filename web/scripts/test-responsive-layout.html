@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合作伙伴响应式布局测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .viewport-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .partners-grid {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        /* 桌面端：4列2行 */
+        @media (min-width: 1200px) {
+            .partners-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .viewport-info::before {
+                content: "🖥️ 桌面端 (≥1200px) - 4列2行布局";
+            }
+        }
+        
+        /* 平板端：4列2行 */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .partners-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .viewport-info::before {
+                content: "📱 平板端 (768px-1199px) - 4列2行布局";
+            }
+        }
+        
+        /* 移动端：2列4行 */
+        @media (max-width: 767px) {
+            .partners-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .viewport-info::before {
+                content: "📱 移动端 (<768px) - 2列4行布局";
+            }
+        }
+        
+        .partner-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.98) 100%);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .partner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.05) 0%, rgba(0, 123, 255, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+        
+        .partner-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 212, 170, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 212, 170, 0.15), 0 4px 12px rgba(0, 212, 170, 0.12);
+        }
+        
+        .partner-card:hover::before {
+            opacity: 1;
+        }
+        
+        .partner-logo {
+            position: relative;
+            z-index: 1;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: all 0.4s ease;
+            filter: contrast(1.1) brightness(1.02);
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+        
+        /* 桌面端图片尺寸 */
+        @media (min-width: 1200px) {
+            .partner-logo {
+                width: 140px;
+                height: 70px;
+            }
+        }
+        
+        /* 平板端图片尺寸 */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .partner-logo {
+                width: 120px;
+                height: 60px;
+            }
+        }
+        
+        /* 移动端图片尺寸 */
+        @media (max-width: 767px) {
+            .partner-logo {
+                width: 100px;
+                height: 50px;
+            }
+        }
+        
+        .partner-card:hover .partner-logo {
+            transform: scale(1.05);
+        }
+        
+        /* 深色背景logo特殊处理 */
+        .partner-logo-dark-bg {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 6px;
+            border-radius: 6px;
+        }
+        
+        .partner-card:hover .partner-logo-dark-bg {
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border-color: rgba(0, 212, 170, 0.2);
+        }
+        
+        .partner-name {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .partner-card:hover .partner-name {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .test-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .test-info h3 {
+            color: #495057;
+            margin-bottom: 10px;
+        }
+        
+        .test-info ul {
+            color: #6c757d;
+            padding-left: 20px;
+        }
+        
+        .test-info li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="test-title">合作伙伴响应式布局测试</h1>
+        
+        <div class="viewport-info"></div>
+        
+        <div class="partners-grid">
+            <div class="partner-card">
+                <img src="/images/partner_sjtu.png" alt="上海交通大学" class="partner-logo partner-logo-dark-bg">
+                <div class="partner-name">上海交通大学</div>
+            </div>
+            <div class="partner-card">
+                <img src="/images/partner_zju.png" alt="浙江大学" class="partner-logo">
+                <div class="partner-name">浙江大学</div>
+            </div>
+            <div class="partner-card">
+                <img src="/images/partner_fzu.png" alt="福州大学" class="partner-logo">
+                <div class="partner-name">福州大学</div>
+            </div>
+            <div class="partner-card">
+                <img src="/images/partner_xidian.png" alt="西安电子科技大学" class="partner-logo partner-logo-dark-bg">
+                <div class="partner-name">西安电子科技大学</div>
+            </div>
+            <div class="partner-card">
+                <img src="/images/partner_ihep_cas.png" alt="中国科学院高能物理研究所" class="partner-logo partner-logo-dark-bg">
+                <div class="partner-name">中国科学院高能物理研究所</div>
+            </div>
+            <div class="partner-card">
+                <img src="/images/partner_norinco.jpg" alt="中国兵器工业集团" class="partner-logo">
+                <div class="partner-name">中国兵器工业集团</div>
+            </div>
+            <div class="partner-card">
+                <img src="/images/partner_cetc.png" alt="中国电子科技集团" class="partner-logo">
+                <div class="partner-name">中国电子科技集团</div>
+            </div>
+            <div class="partner-card">
+                <img src="/images/partner_casc.png" alt="中国航天科技集团" class="partner-logo partner-logo-dark-bg">
+                <div class="partner-name">中国航天科技集团</div>
+            </div>
+        </div>
+        
+        <div class="test-info">
+            <h3>📋 测试说明</h3>
+            <ul>
+                <li><strong>桌面端 (≥1200px):</strong> 4列2行布局，图片尺寸 140×70px</li>
+                <li><strong>平板端 (768px-1199px):</strong> 4列2行布局，图片尺寸 120×60px</li>
+                <li><strong>移动端 (<768px):</strong> 2列4行布局，图片尺寸 100×50px</li>
+                <li><strong>交互效果:</strong> hover时卡片上移、缩放、阴影变化</li>
+                <li><strong>深色logo:</strong> 上海交大、西电、中科院高能所、中国航天 有特殊背景处理</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // 实时显示视口信息
+        function updateViewportInfo() {
+            const width = window.innerWidth;
+            const info = document.querySelector('.viewport-info');
+            info.innerHTML = `当前视口宽度: ${width}px`;
+        }
+        
+        window.addEventListener('resize', updateViewportInfo);
+        updateViewportInfo();
+    </script>
+</body>
+</html>

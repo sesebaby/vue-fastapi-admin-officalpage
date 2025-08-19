@@ -279,11 +279,17 @@ const fetchPartnersData = async () => {
 
 // 获取合作伙伴logo的CSS类
 const getPartnerLogoClass = (partnerName) => {
-  const whiteTextLogos = ['上海交通大学', '西安电子科技大学', '中国科学院高能物理研究所']
+  // 深色背景或白色文字的logo需要特殊处理以提高可见性
+  const darkBackgroundLogos = [
+    '上海交通大学',
+    '西安电子科技大学',
+    '中国科学院高能物理研究所',
+    '中国航天科技集团'  // 通常也是深色logo
+  ]
   const baseClass = 'partner-logo'
 
-  if (whiteTextLogos.includes(partnerName)) {
-    return `${baseClass} partner-logo-white-text`
+  if (darkBackgroundLogos.includes(partnerName)) {
+    return `${baseClass} partner-logo-dark-bg`
   }
 
   return baseClass
@@ -420,8 +426,8 @@ onMounted(() => {
     rgba(248, 250, 252, 0.98) 100%);
   border-radius: 16px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  /* 确保logo容器有足够的空间和清晰的背景 */
-  min-height: 120px;
+  /* 确保logo容器有足够的空间和清晰的背景，响应式最小高度 */
+  min-height: 80px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
@@ -476,18 +482,17 @@ onMounted(() => {
   opacity: 0.95;
   transition: all 0.4s ease;
   border-radius: 8px;
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  /* 确保logo清晰显示 */
-  width: auto;
-  height: auto;
-  max-width: 140px;
-  max-height: 70px;
+  /* 确保logo清晰显示和统一尺寸 */
   filter: contrast(1.1) brightness(1.02);
   /* 防止图片模糊 */
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
+  /* 确保图片在容器中居中 */
+  display: block;
+  margin: 0 auto;
 }
 
 .partner-card-inner:hover .partner-logo {
@@ -495,7 +500,27 @@ onMounted(() => {
   transform: scale(1.05);
 }
 
-/* 针对白色文字logo的特殊处理 */
+/* 针对深色背景logo的特殊处理 */
+.partner-logo-dark-bg {
+  /* 为深色logo提供更好的对比度和可见性 */
+  filter: contrast(1.2) brightness(1.05) saturate(1.1);
+  /* 添加轻微的白色背景和阴影来增强可读性 */
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  /* 添加轻微的边框来增强对比度 */
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.partner-card-inner:hover .partner-logo-dark-bg {
+  filter: contrast(1.3) brightness(1.1) saturate(1.2);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 212, 170, 0.2);
+}
+
+/* 保留原有白色文字logo样式作为备用 */
 .partner-logo-white-text {
   /* 使用CSS滤镜来改善白色文字的可见性 */
   filter: contrast(1.3) brightness(0.9) saturate(1.1);
@@ -584,9 +609,13 @@ onMounted(() => {
     min-height: 80px;
   }
 
-  .partner-logo {
-    max-width: 100px;
-    max-height: 50px;
+  /* 移动端logo样式由partnerImageSize控制，无需额外CSS限制 */
+
+  /* 移动端深色背景logo优化 */
+  .partner-logo-dark-bg {
+    padding: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    border-width: 0.5px;
   }
 
   /* 移动端白色文字logo优化 */
