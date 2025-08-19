@@ -141,42 +141,25 @@
         
         /* 基础文字样式 */
         .partner-text-base {
-            color: #374151;
+            color: #1e40af;
             font-size: 14px;
+            font-weight: 700;
         }
-        
-        /* 高等院校样式 */
-        .partner-text-university {
+
+        /* 所有合作伙伴统一使用蓝色 */
+        .partner-text-university,
+        .partner-text-research,
+        .partner-text-enterprise {
             color: #1e40af;
             font-weight: 700;
         }
         
-        /* 科研院所样式 */
-        .partner-text-research {
-            color: #059669;
-            font-weight: 700;
-        }
-        
-        /* 国有企业样式 */
-        .partner-text-enterprise {
-            color: #dc2626;
-            font-weight: 700;
-        }
-        
-        /* hover效果增强 */
-        .partner-card:hover .partner-text-university {
+        /* hover效果增强 - 统一蓝色 */
+        .partner-card:hover .partner-text-university,
+        .partner-card:hover .partner-text-research,
+        .partner-card:hover .partner-text-enterprise {
             color: #1d4ed8;
             text-shadow: 0 1px 3px rgba(29, 78, 216, 0.2);
-        }
-        
-        .partner-card:hover .partner-text-research {
-            color: #047857;
-            text-shadow: 0 1px 3px rgba(4, 120, 87, 0.2);
-        }
-        
-        .partner-card:hover .partner-text-enterprise {
-            color: #b91c1c;
-            text-shadow: 0 1px 3px rgba(185, 28, 28, 0.2);
         }
         
         /* 移动端优化 */
@@ -249,15 +232,7 @@
         <div class="legend">
             <div class="legend-item">
                 <div class="legend-color legend-university"></div>
-                <span>高等院校</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color legend-research"></div>
-                <span>科研院所</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color legend-enterprise"></div>
-                <span>国有企业</span>
+                <span>所有合作伙伴统一使用蓝色显示</span>
             </div>
         </div>
         
@@ -310,7 +285,7 @@
                 <li><strong>桌面端 (≥1200px):</strong> 4列2行布局，字体14px</li>
                 <li><strong>平板端 (768px-1199px):</strong> 4列2行布局，字体14px</li>
                 <li><strong>移动端 (<768px):</strong> 2列4行布局，字体12px</li>
-                <li><strong>分类显示:</strong> 蓝色-高等院校，绿色-科研院所，红色-国有企业</li>
+                <li><strong>统一颜色:</strong> 所有合作伙伴文字统一使用蓝色显示</li>
                 <li><strong>交互效果:</strong> hover时卡片上移、文字缩放、阴影变化</li>
                 <li><strong>优势:</strong> 文字显示确保完美的视觉一致性，无图片加载问题</li>
             </ul>

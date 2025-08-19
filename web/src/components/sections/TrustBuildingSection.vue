@@ -510,42 +510,25 @@ onMounted(() => {
 
 /* 基础文字样式 */
 .partner-text-base {
-  color: var(--sipumtech-text-primary);
+  color: #1e40af;
   font-size: 14px;
+  font-weight: 700;
 }
 
-/* 高等院校样式 */
-.partner-text-university {
+/* 所有合作伙伴统一使用蓝色 */
+.partner-text-university,
+.partner-text-research,
+.partner-text-enterprise {
   color: #1e40af;
   font-weight: 700;
 }
 
-/* 科研院所样式 */
-.partner-text-research {
-  color: #059669;
-  font-weight: 700;
-}
-
-/* 国有企业样式 */
-.partner-text-enterprise {
-  color: #dc2626;
-  font-weight: 700;
-}
-
-/* 文字hover效果增强 */
-.partner-card-inner:hover .partner-text-university {
+/* 文字hover效果增强 - 统一蓝色 */
+.partner-card-inner:hover .partner-text-university,
+.partner-card-inner:hover .partner-text-research,
+.partner-card-inner:hover .partner-text-enterprise {
   color: #1d4ed8;
   text-shadow: 0 1px 3px rgba(29, 78, 216, 0.2);
-}
-
-.partner-card-inner:hover .partner-text-research {
-  color: #047857;
-  text-shadow: 0 1px 3px rgba(4, 120, 87, 0.2);
-}
-
-.partner-card-inner:hover .partner-text-enterprise {
-  color: #b91c1c;
-  text-shadow: 0 1px 3px rgba(185, 28, 28, 0.2);
 }
 
 /* 移除partner-overlay和partner-name样式，因为文字模式不需要 */
