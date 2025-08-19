@@ -163,19 +163,13 @@
                 >
                   <div class="partner-card">
                     <div class="partner-card-inner">
-                      <div class="partner-logo-container">
-                        <n-image
-                          :src="partner.logo"
-                          :alt="partner.name"
-                          :width="partnerImageSize.width"
-                          :height="partnerImageSize.height"
-                          object-fit="contain"
-                          :class="getPartnerLogoClass(partner.name)"
-                          :fallback-src="PLACEHOLDER_IMAGES.logo"
-                        />
-                      </div>
-                      <div class="partner-overlay">
-                        <n-text class="partner-name">{{ partner.name }}</n-text>
+                      <div class="partner-text-container">
+                        <div
+                          class="partner-text"
+                          :class="getPartnerTextClass(partner.name)"
+                        >
+                          {{ partner.name }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -228,11 +222,11 @@ const partnerCols = computed(() => {
   return 2  // 移动端：2列（4行显示8个）
 })
 
-// 合作伙伴图片尺寸（统一尺寸）
-const partnerImageSize = computed(() => {
-  if (breakpoints.lg.value) return { width: 140, height: 70 }  // 桌面端：140x70
-  if (breakpoints.md.value) return { width: 120, height: 60 }  // 平板：120x60
-  return { width: 100, height: 50 }  // 移动端：100x50
+// 合作伙伴文字容器尺寸（统一尺寸）
+const partnerTextSize = computed(() => {
+  if (breakpoints.lg.value) return { minHeight: '70px', fontSize: '16px' }  // 桌面端
+  if (breakpoints.md.value) return { minHeight: '60px', fontSize: '14px' }  // 平板端
+  return { minHeight: '50px', fontSize: '12px' }  // 移动端
 })
 
 // 显示所有合作伙伴（8个合作伙伴，响应式布局）
@@ -264,32 +258,47 @@ const fetchPartnersData = async () => {
 
   return [
     // 第一行合作伙伴 - 高等院校
-    { name: '上海交通大学', logo: getImagePath('partners', 'sjtu') },
-    { name: '浙江大学', logo: getImagePath('partners', 'zju') },
-    { name: '福州大学', logo: getImagePath('partners', 'fzu') },
-    { name: '西安电子科技大学', logo: getImagePath('partners', 'xidian') },
+    { name: '上海交通大学', category: 'university' },
+    { name: '浙江大学', category: 'university' },
+    { name: '福州大学', category: 'university' },
+    { name: '西安电子科技大学', category: 'university' },
 
     // 第二行合作伙伴 - 科研院所和国有企业
-    { name: '中国科学院高能物理研究所', logo: getImagePath('partners', 'ihep_cas') },
-    { name: '中国兵器工业集团', logo: getImagePath('partners', 'norinco') },
-    { name: '中国电子科技集团', logo: getImagePath('partners', 'cetc') },
-    { name: '中国航天科技集团', logo: getImagePath('partners', 'casc') }
+    { name: '中国科学院高能物理研究所', category: 'research' },
+    { name: '中国兵器工业集团', category: 'enterprise' },
+    { name: '中国电子科技集团', category: 'enterprise' },
+    { name: '中国航天科技集团', category: 'enterprise' }
   ]
 }
 
-// 获取合作伙伴logo的CSS类
-const getPartnerLogoClass = (partnerName) => {
-  // 深色背景或白色文字的logo需要特殊处理以提高可见性
-  const darkBackgroundLogos = [
+// 获取合作伙伴文字的CSS类
+const getPartnerTextClass = (partnerName) => {
+  // 根据合作伙伴类型添加不同的样式类
+  const universityPartners = [
     '上海交通大学',
-    '西安电子科技大学',
-    '中国科学院高能物理研究所',
-    '中国航天科技集团'  // 通常也是深色logo
+    '浙江大学',
+    '福州大学',
+    '西安电子科技大学'
   ]
-  const baseClass = 'partner-logo'
 
-  if (darkBackgroundLogos.includes(partnerName)) {
-    return `${baseClass} partner-logo-dark-bg`
+  const researchPartners = [
+    '中国科学院高能物理研究所'
+  ]
+
+  const enterprisePartners = [
+    '中国兵器工业集团',
+    '中国电子科技集团',
+    '中国航天科技集团'
+  ]
+
+  const baseClass = 'partner-text-base'
+
+  if (universityPartners.includes(partnerName)) {
+    return `${baseClass} partner-text-university`
+  } else if (researchPartners.includes(partnerName)) {
+    return `${baseClass} partner-text-research`
+  } else if (enterprisePartners.includes(partnerName)) {
+    return `${baseClass} partner-text-enterprise`
   }
 
   return baseClass
@@ -413,7 +422,7 @@ onMounted(() => {
   justify-content: center;
 }
 
-.partner-logo-container {
+.partner-text-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -426,7 +435,7 @@ onMounted(() => {
     rgba(248, 250, 252, 0.98) 100%);
   border-radius: 16px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  /* 确保logo容器有足够的空间和清晰的背景，响应式最小高度 */
+  /* 确保文字容器有足够的空间和清晰的背景，响应式最小高度 */
   min-height: 80px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
@@ -476,7 +485,7 @@ onMounted(() => {
     0 4px 12px rgba(0, 212, 170, 0.12);
 }
 
-.partner-logo {
+.partner-text {
   position: relative;
   z-index: 1;
   opacity: 0.95;
@@ -484,89 +493,62 @@ onMounted(() => {
   border-radius: 8px;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  /* 确保logo清晰显示和统一尺寸 */
-  filter: contrast(1.1) brightness(1.02);
-  /* 防止图片模糊 */
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-  /* 确保图片在容器中居中 */
-  display: block;
-  margin: 0 auto;
-}
-
-.partner-card-inner:hover .partner-logo {
-  opacity: 1;
-  transform: scale(1.05);
-}
-
-/* 针对深色背景logo的特殊处理 */
-.partner-logo-dark-bg {
-  /* 为深色logo提供更好的对比度和可见性 */
-  filter: contrast(1.2) brightness(1.05) saturate(1.1);
-  /* 添加轻微的白色背景和阴影来增强可读性 */
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  /* 添加轻微的边框来增强对比度 */
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  padding: 6px;
-  border-radius: 6px;
-}
-
-.partner-card-inner:hover .partner-logo-dark-bg {
-  filter: contrast(1.3) brightness(1.1) saturate(1.2);
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  border-color: rgba(0, 212, 170, 0.2);
-}
-
-/* 保留原有白色文字logo样式作为备用 */
-.partner-logo-white-text {
-  /* 使用CSS滤镜来改善白色文字的可见性 */
-  filter: contrast(1.3) brightness(0.9) saturate(1.1);
-  /* 添加轻微的阴影来增强文字可读性 */
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  /* 为白色文字logo添加轻微的背景色调 */
-  background: linear-gradient(135deg,
-    rgba(240, 242, 247, 0.8) 0%,
-    rgba(248, 250, 252, 0.9) 100%);
-  border-radius: 8px;
-  padding: 4px;
-}
-
-.partner-card-inner:hover .partner-logo-white-text {
-  filter: contrast(1.4) brightness(0.85) saturate(1.2);
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
-}
-
-.partner-overlay {
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
-  padding: 8px 12px;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 8px;
-  z-index: 2;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-}
-
-.partner-card-inner:hover .partner-overlay {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.partner-name {
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  display: block;
+  font-weight: 600;
+  line-height: 1.4;
+  padding: 8px;
+  box-sizing: border-box;
 }
+
+.partner-card-inner:hover .partner-text {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+/* 基础文字样式 */
+.partner-text-base {
+  color: var(--sipumtech-text-primary);
+  font-size: 14px;
+}
+
+/* 高等院校样式 */
+.partner-text-university {
+  color: #1e40af;
+  font-weight: 700;
+}
+
+/* 科研院所样式 */
+.partner-text-research {
+  color: #059669;
+  font-weight: 700;
+}
+
+/* 国有企业样式 */
+.partner-text-enterprise {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+/* 文字hover效果增强 */
+.partner-card-inner:hover .partner-text-university {
+  color: #1d4ed8;
+  text-shadow: 0 1px 3px rgba(29, 78, 216, 0.2);
+}
+
+.partner-card-inner:hover .partner-text-research {
+  color: #047857;
+  text-shadow: 0 1px 3px rgba(4, 120, 87, 0.2);
+}
+
+.partner-card-inner:hover .partner-text-enterprise {
+  color: #b91c1c;
+  text-shadow: 0 1px 3px rgba(185, 28, 28, 0.2);
+}
+
+/* 移除partner-overlay和partner-name样式，因为文字模式不需要 */
 
 @keyframes fadeInUp {
   from {
@@ -604,28 +586,18 @@ onMounted(() => {
     min-height: 60px;
   }
 
-  .partner-logo-container {
+  .partner-text-container {
     padding: 12px;
-    min-height: 80px;
+    min-height: 60px;
   }
 
-  /* 移动端logo样式由partnerImageSize控制，无需额外CSS限制 */
-
-  /* 移动端深色背景logo优化 */
-  .partner-logo-dark-bg {
-    padding: 4px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-    border-width: 0.5px;
-  }
-
-  /* 移动端白色文字logo优化 */
-  .partner-logo-white-text {
-    padding: 2px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.08);
-  }
-
-  .partner-name {
+  /* 移动端文字样式优化 */
+  .partner-text-base {
     font-size: 12px;
+  }
+
+  .partner-text {
+    padding: 6px;
   }
 
   .more-partners-hint {
