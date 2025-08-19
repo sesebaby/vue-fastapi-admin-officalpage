@@ -119,8 +119,9 @@
                       width="280"
                       height="280"
                       object-fit="contain"
-                      class="cert-display-image"
-                      preview-disabled
+                      class="cert-display-image cert-clickable"
+                      :preview-src="getImagePath('certificates', 'iso9001')"
+                      show-toolbar-tooltip
                     />
                   </div>
                   <div class="cert-description">
@@ -139,12 +140,13 @@
                     <n-image
                       :src="getImagePath('certificates', 'military')"
                       :fallback-src="PLACEHOLDER_IMAGES.certificate"
-                      alt="军工认证"
+                      alt="武器装备质量管理体系认证"
                       width="280"
                       height="280"
                       object-fit="contain"
-                      class="cert-display-image"
-                      preview-disabled
+                      class="cert-display-image cert-clickable"
+                      :preview-src="getImagePath('certificates', 'military')"
+                      show-toolbar-tooltip
                     />
                   </div>
                   <div class="cert-description">
@@ -425,6 +427,35 @@ const statisticStyle = computed(() => ({
 .cert-display-image:hover {
   transform: scale(1.02);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 可点击证书图片样式 */
+.cert-clickable {
+  cursor: pointer;
+  position: relative;
+}
+
+.cert-clickable::after {
+  content: '🔍';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.cert-clickable:hover::after {
+  opacity: 1;
 }
 
 /* 证书描述样式 */
