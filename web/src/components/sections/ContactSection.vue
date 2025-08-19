@@ -61,10 +61,7 @@
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">{{ $t('website.contact.phone_title') }}</h3>
-                  <div class="contact-info-single">
-                    <span class="contact-person-name">{{ $t('website.contact.contact_person') }}</span>
-                    <span class="contact-phone-number">{{ $t('website.contact.phone') }}</span>
-                  </div>
+                  <p class="card-text">{{ $t('website.contact.contact_person') }}<br>{{ $t('website.contact.phone') }}</p>
                 </div>
               </div>
             </n-grid-item>
@@ -239,25 +236,7 @@
                 </n-card>
               </div>
 
-              <!-- 地址信息显示 -->
-              <div class="address-info">
-                <n-space align="center" :size="12">
-                  <n-icon :size="20" color="var(--sipumtech-accent-green)">
-                    <svg viewBox="0 0 24 24">
-                      <path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                    </svg>
-                  </n-icon>
-                  <n-text
-                    :style="{
-                      fontSize: 'var(--sipumtech-font-size-body)',
-                      color: 'var(--sipumtech-text-primary)',
-                      fontWeight: '500'
-                    }"
-                  >
-                    {{ $t('website.contact.address') }}
-                  </n-text>
-                </n-space>
-              </div>
+
             </n-space>
           </n-card>
         </div>
@@ -942,47 +921,6 @@ onUnmounted(() => {
   transition: color 0.3s ease;
 }
 
-/* 联系方式信息样式 - 优化的单行布局 */
-.contact-info-single {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-  text-align: center;
-}
-
-.contact-person-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--sipumtech-primary-blue, #1e3a8a);
-  background: linear-gradient(135deg, #f0f7ff, #e8f4fd);
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 2px solid #e8f4fd;
-  transition: all 0.3s ease;
-}
-
-.contact-person-name:hover {
-  background: linear-gradient(135deg, #e8f4fd, #dbeafe);
-  border-color: #bfdbfe;
-  transform: scale(1.05);
-}
-
-.contact-phone-number {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--sipumtech-text-primary, #1e40af);
-  letter-spacing: 1px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  padding: 4px 8px;
-  border-radius: 8px;
-}
-
-.contact-phone-number:hover {
-  color: #10b981;
-  background: rgba(16, 185, 129, 0.1);
-}
 
 /* 地址卡片特殊样式 - 针对长文本优化，统一高度 */
 .contact-info-card:first-child {
@@ -1048,16 +986,6 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
-  /* 大屏端联系方式样式 */
-  .contact-person-name {
-    font-size: 17px;
-    padding: 10px 18px;
-  }
-
-  .contact-phone-number {
-    font-size: 19px;
-    letter-spacing: 1.5px;
-  }
 }
 
 /* 地图卡片样式 - 简洁清晰设计 */
@@ -1292,16 +1220,6 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
-  /* 平板端联系方式样式 */
-  .contact-person-name {
-    font-size: 15px;
-    padding: 8px 14px;
-  }
-
-  .contact-phone-number {
-    font-size: 17px;
-    letter-spacing: 1px;
-  }
 
   .map-info-overlay {
     max-width: 280px;
@@ -1404,22 +1322,6 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
-  /* 移动端联系方式样式 - 优化适配 */
-  .contact-info-single {
-    gap: 8px;
-  }
-  
-  .contact-person-name {
-    font-size: 14px;
-    padding: 6px 12px;
-    border-radius: 16px;
-  }
-
-  .contact-phone-number {
-    font-size: 16px;
-    letter-spacing: 0.5px;
-    padding: 2px 4px;
-  }
 
   .map-background {
     height: 300px;
@@ -1448,17 +1350,6 @@ onUnmounted(() => {
 }
 
 @media (max-width: 480px) {
-  /* 超小屏幕联系方式样式 */
-  .contact-person-name {
-    font-size: 13px !important;
-    padding: 5px 10px !important;
-    border-radius: 14px !important;
-  }
-
-  .contact-phone-number {
-    font-size: 15px !important;
-    letter-spacing: 0.3px !important;
-  }
 
   .map-background {
     height: 250px;
