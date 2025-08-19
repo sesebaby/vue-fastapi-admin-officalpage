@@ -182,8 +182,11 @@
           :alt="currentImageTitle"
           object-fit="contain"
           class="hover-cert-image"
-          width="300"
-          height="300"
+          :width="hoverImageSize.width"
+          :height="hoverImageSize.height"
+          :img-props="{
+            style: 'image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;'
+          }"
         />
       </div>
     </div>
@@ -233,6 +236,13 @@ const certImageSize = computed(() => {
   return { width: 110, height: 110 }  // 移动端：110x110
 })
 
+// hover大图尺寸（响应式，增强放大效果）
+const hoverImageSize = computed(() => {
+  if (breakpoints.lg.value) return { width: 450, height: 450 }  // 桌面端：450x450 (3倍放大)
+  if (breakpoints.md.value) return { width: 380, height: 380 }  // 平板：380x380 (约3倍放大)
+  return { width: 320, height: 320 }  // 移动端：320x320 (约3倍放大)
+})
+
 // 统计数字样式
 const statisticStyle = computed(() => ({
   fontSize: '36px',
@@ -263,9 +273,9 @@ const showHoverImage = (imageKey, title, event) => {
   const viewportWidth = window.innerWidth
   const viewportHeight = window.innerHeight
 
-  // 大图尺寸
-  const imageWidth = 320
-  const imageHeight = 380
+  // 大图尺寸（使用响应式尺寸）
+  const imageWidth = hoverImageSize.value.width + 40  // 加上容器padding
+  const imageHeight = hoverImageSize.value.height + 80  // 加上标题和padding
 
   // 计算最佳位置（优先显示在右侧，如果空间不够则显示在左侧）
   let left = rect.right + 20
@@ -299,7 +309,7 @@ const hideHoverImage = () => {
     showHoverImageState.value = false
     currentImageSrc.value = ''
     currentImageTitle.value = ''
-  }, 100) // 100ms延迟，避免鼠标快速移动时闪烁
+  }, 50) // 减少延迟到50ms，提升响应速度
 }
 
 // 保持悬停大图显示（当鼠标移到大图上时）
@@ -466,12 +476,13 @@ const keepHoverImage = () => {
 }
 
 .cert-card:hover {
-  transform: translateY(-12px) scale(1.08);
+  transform: translateY(-16px) scale(1.12);
   border-color: var(--sipumtech-accent-green);
   box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.18),
-    0 12px 20px rgba(0, 212, 170, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    0 25px 50px rgba(0, 0, 0, 0.2),
+    0 15px 25px rgba(0, 212, 170, 0.3),
+    0 8px 16px rgba(30, 58, 138, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .cert-image {
@@ -519,21 +530,24 @@ const keepHoverImage = () => {
   position: fixed;
   pointer-events: auto;
   z-index: 9999;
-  animation: fadeInScale 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInScale 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25));
 }
 
 .hover-image-container {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 16px;
-  padding: 20px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 20px;
+  padding: 24px;
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.2),
-    0 8px 24px rgba(0, 0, 0, 0.1),
-    0 0 0 1px rgba(0, 212, 170, 0.2);
-  border: 2px solid rgba(0, 212, 170, 0.3);
-  max-width: 320px;
+    0 25px 60px rgba(0, 0, 0, 0.2),
+    0 12px 30px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 212, 170, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 3px solid rgba(0, 212, 170, 0.4);
+  max-width: none; /* 移除最大宽度限制，让图片完整显示 */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hover-image-header {
@@ -551,26 +565,43 @@ const keepHoverImage = () => {
 }
 
 .hover-cert-image {
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease;
+  border-radius: 16px;
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.2),
+    0 6px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100% !important;
   height: auto !important;
-  max-width: 280px;
+  max-width: none; /* 移除最大宽度限制 */
+  /* 提升图片清晰度 */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: high-quality;
+  -ms-interpolation-mode: bicubic;
 }
 
 .hover-cert-image:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.25),
+    0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 @keyframes fadeInScale {
-  from {
+  0% {
     opacity: 0;
-    transform: scale(0.9) translateY(-10px);
+    transform: scale(0.8) translateY(20px);
+    filter: blur(4px);
   }
-  to {
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02) translateY(-2px);
+    filter: blur(1px);
+  }
+  100% {
     opacity: 1;
     transform: scale(1) translateY(0);
+    filter: blur(0px);
   }
 }
 
@@ -648,12 +679,14 @@ const keepHoverImage = () => {
   }
 
   .hover-image-container {
-    padding: 16px;
-    max-width: 280px;
+    padding: 20px;
+    max-width: 90vw; /* 移动端使用视口宽度 */
+    border-radius: 16px;
   }
 
   .hover-cert-image {
-    max-width: 240px;
+    max-width: 100%; /* 移动端图片自适应容器 */
+    border-radius: 12px;
   }
 
   .hover-image-title {
