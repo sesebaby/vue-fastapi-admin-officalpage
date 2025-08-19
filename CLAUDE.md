@@ -27,7 +27,7 @@ uv sync
 # Install dependencies using pip
 pip install -r requirements.txt
 
-# Code formatting and linting
+# Code formatting and linting (run these before committing)
 black ./                    # Format Python code
 isort ./ --profile black    # Sort imports
 ruff check ./app           # Lint Python code
@@ -39,6 +39,9 @@ make clean-db              # Delete migrations and db files
 
 # Run tests
 make test
+
+# Clean up cache files
+make clean                  # Remove __pycache__, .pytest_cache, etc.
 ```
 
 ### Frontend Development
@@ -109,12 +112,12 @@ web/src/
 
 ### Core Models (app/models/admin.py:)
 - **User**: Admin users with role assignments and department links
-- **Role**: Roles with menu and API permissions
-- **Menu**: Dynamic menu system with hierarchical structure
-- **Api**: API endpoint permissions
+- **Role**: Roles with menu and API permissions  
+- **Menu**: Dynamic menu system with hierarchical structure (supports different MenuTypes)
+- **Api**: API endpoint permissions with method types (GET, POST, PUT, DELETE)
 - **Dept**: Department/organization structure
 - **AuditLog**: System activity logging
-- **ContactMessage**: Customer inquiry form submissions
+- **ContactMessage**: Customer inquiry form submissions (for corporate website)
 
 ### Authentication Flow
 1. Login via `/api/v1/base/access_token` endpoint
@@ -146,9 +149,10 @@ web/src/
 
 ### Website Development
 - Only modify files in `web/src/views/website/`, `web/src/layout/website/`, and `web/src/components/sections/`
-- Use responsive design with Naive UI grid system
+- Use responsive design with Naive UI grid system  
 - Support both Chinese and English languages
 - Follow mobile-first responsive design principles
+- Website sections are modularized - see `web/src/components/sections/README.md` for component documentation
 
 ## Important Configuration Files
 
@@ -167,13 +171,15 @@ web/src/
 
 ### Backend Quality Tools
 - **Black**: Code formatting (line length: 120)
-- **Ruff**: Fast Python linter
+- **Ruff**: Fast Python linter  
 - **Isort**: Import sorting
+- **Make commands**: Use `make check` to run formatting checks, `make format` to auto-format
 
 ### Frontend Quality Tools
 - **ESLint**: JavaScript/Vue linting with `@zclzone` config
 - **Prettier**: Code formatting
 - **TypeScript**: Type checking support
+- **Lint-staged**: Pre-commit hooks for code quality
 
 ## API Documentation
 

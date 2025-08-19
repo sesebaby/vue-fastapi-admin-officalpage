@@ -49,7 +49,7 @@ const computedTooltip = computed(() => {
   return props.tooltip || t('navigation.admin_login_tooltip')
 })
 
-// 处理登录点击
+// 处理登录点击 - 跳转到外部OA系统
 const handleLogin = async () => {
   try {
     loading.value = true
@@ -57,10 +57,10 @@ const handleLogin = async () => {
     // 触发父组件事件
     emit('login-click')
     
-    // 导航到登录页面
-    await router.push(props.loginPath)
+    // 直接跳转到外部OA系统
+    window.open('http://oa.sipumtech.com', '_blank')
   } catch (error) {
-    console.error('Navigation to login failed:', error)
+    console.error('Navigation to OA system failed:', error)
     // 可以在这里添加错误提示
   } finally {
     loading.value = false
