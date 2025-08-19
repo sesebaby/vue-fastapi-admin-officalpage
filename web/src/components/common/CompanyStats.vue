@@ -10,191 +10,160 @@
         </n-space>
 
         <!-- 主要内容区域 -->
-        <n-grid :cols="mainGridCols" :x-gap="40" :y-gap="40">
-          <!-- 左侧：统计数据 -->
-          <n-grid-item>
-            <div class="stats-data-section">
-              <n-grid :cols="statsGridCols" :x-gap="20" :y-gap="30">
-                <!-- 成立年份 -->
-                <n-grid-item>
-                  <div class="stat-item">
-                    <n-statistic
-                      :label="$t('website.stats.founded_year')"
-                      :value="2019"
-                      :value-style="statisticStyle"
-                    >
-                      <template #suffix>
-                        <span class="stat-suffix">{{ $t('website.stats.year') }}</span>
-                      </template>
-                    </n-statistic>
-                  </div>
-                </n-grid-item>
+        <n-space vertical :size="50">
+          <!-- 上半部分：数据统计卡片区域 -->
+          <div class="stats-data-section">
+            <n-grid :cols="statsGridCols" :x-gap="20" :y-gap="30">
+              <!-- 成立年份 -->
+              <n-grid-item>
+                <div class="stat-item">
+                  <n-statistic
+                    :label="$t('website.stats.founded_year')"
+                    :value="2019"
+                    :value-style="statisticStyle"
+                  >
+                    <template #suffix>
+                      <span class="stat-suffix">{{ $t('website.stats.year') }}</span>
+                    </template>
+                  </n-statistic>
+                </div>
+              </n-grid-item>
 
-                <!-- 服务客户数 -->
-                <n-grid-item>
-                  <div class="stat-item">
-                    <n-statistic
-                      :label="$t('website.stats.clients_served')"
-                      value="100+"
-                      :value-style="statisticStyle"
+              <!-- 服务客户数 -->
+              <n-grid-item>
+                <div class="stat-item">
+                  <n-statistic
+                    :label="$t('website.stats.clients_served')"
+                    value="100+"
+                    :value-style="statisticStyle"
+                  />
+                </div>
+              </n-grid-item>
+
+              <!-- 完成项目数 -->
+              <n-grid-item>
+                <div class="stat-item">
+                  <n-statistic
+                    :label="$t('website.stats.projects_completed')"
+                    value="200+"
+                    :value-style="statisticStyle"
+                  />
+                </div>
+              </n-grid-item>
+
+              <!-- 团队规模 -->
+              <n-grid-item>
+                <div class="stat-item">
+                  <n-statistic
+                    :label="$t('website.stats.team_size')"
+                    value="15+"
+                    :value-style="statisticStyle"
+                  >
+                    <template #suffix>
+                      <span class="stat-suffix">{{ $t('website.stats.people') }}</span>
+                    </template>
+                  </n-statistic>
+                </div>
+              </n-grid-item>
+
+              <!-- 技术专利 -->
+              <n-grid-item>
+                <div class="stat-item">
+                  <n-statistic
+                    :label="$t('website.stats.patents')"
+                    value="5+"
+                    :value-style="statisticStyle"
+                  >
+                    <template #suffix>
+                      <span class="stat-suffix">{{ $t('website.stats.items') }}</span>
+                    </template>
+                  </n-statistic>
+                </div>
+              </n-grid-item>
+
+              <!-- 行业经验 -->
+              <n-grid-item>
+                <div class="stat-item">
+                  <n-statistic
+                    :label="$t('website.stats.industry_experience')"
+                    value="5+"
+                    :value-style="statisticStyle"
+                  >
+                    <template #suffix>
+                      <span class="stat-suffix">{{ $t('website.stats.years') }}</span>
+                    </template>
+                  </n-statistic>
+                </div>
+              </n-grid-item>
+            </n-grid>
+          </div>
+
+          <!-- 下半部分：认证证书展示区域 -->
+          <div class="certifications-section">
+            <div class="certifications-header">
+              <n-text class="section-title">资质认证</n-text>
+              <n-text class="section-subtitle">权威认证，品质保障</n-text>
+            </div>
+            <div class="certificates-container">
+              <!-- ISO9001认证 -->
+              <div class="cert-container">
+                <div class="cert-display-card">
+                  <div class="cert-header">
+                    <n-text class="cert-title">ISO9001质量管理体系认证</n-text>
+                  </div>
+                  <div class="cert-image-wrapper">
+                    <n-image
+                      :src="getImagePath('certificates', 'iso9001')"
+                      :fallback-src="PLACEHOLDER_IMAGES.certificate"
+                      alt="ISO9001认证"
+                      width="280"
+                      height="280"
+                      object-fit="contain"
+                      class="cert-display-image"
+                      preview-disabled
                     />
                   </div>
-                </n-grid-item>
+                  <div class="cert-description">
+                    <n-text class="cert-desc-text">{{ $t('website.stats.iso_certification') }}</n-text>
+                  </div>
+                </div>
+              </div>
 
-                <!-- 完成项目数 -->
-                <n-grid-item>
-                  <div class="stat-item">
-                    <n-statistic
-                      :label="$t('website.stats.projects_completed')"
-                      value="200+"
-                      :value-style="statisticStyle"
+              <!-- 军工认证 -->
+              <div class="cert-container">
+                <div class="cert-display-card">
+                  <div class="cert-header">
+                    <n-text class="cert-title">武器装备质量管理体系认证</n-text>
+                  </div>
+                  <div class="cert-image-wrapper">
+                    <n-image
+                      :src="getImagePath('certificates', 'military')"
+                      :fallback-src="PLACEHOLDER_IMAGES.certificate"
+                      alt="军工认证"
+                      width="280"
+                      height="280"
+                      object-fit="contain"
+                      class="cert-display-image"
+                      preview-disabled
                     />
                   </div>
-                </n-grid-item>
-
-                <!-- 团队规模 -->
-                <n-grid-item>
-                  <div class="stat-item">
-                    <n-statistic
-                      :label="$t('website.stats.team_size')"
-                      value="15+"
-                      :value-style="statisticStyle"
-                    >
-                      <template #suffix>
-                        <span class="stat-suffix">{{ $t('website.stats.people') }}</span>
-                      </template>
-                    </n-statistic>
+                  <div class="cert-description">
+                    <n-text class="cert-desc-text">{{ $t('website.stats.military_certification') }}</n-text>
                   </div>
-                </n-grid-item>
-
-                <!-- 技术专利 -->
-                <n-grid-item>
-                  <div class="stat-item">
-                    <n-statistic
-                      :label="$t('website.stats.patents')"
-                      value="5+"
-                      :value-style="statisticStyle"
-                    >
-                      <template #suffix>
-                        <span class="stat-suffix">{{ $t('website.stats.items') }}</span>
-                      </template>
-                    </n-statistic>
-                  </div>
-                </n-grid-item>
-
-                <!-- 行业经验 -->
-                <n-grid-item>
-                  <div class="stat-item">
-                    <n-statistic
-                      :label="$t('website.stats.industry_experience')"
-                      value="5+"
-                      :value-style="statisticStyle"
-                    >
-                      <template #suffix>
-                        <span class="stat-suffix">{{ $t('website.stats.years') }}</span>
-                      </template>
-                    </n-statistic>
-                  </div>
-                </n-grid-item>
-              </n-grid>
-            </div>
-          </n-grid-item>
-
-          <!-- 右侧：认证展示 -->
-          <n-grid-item>
-            <div class="certifications-section">
-              <n-space :size="30" justify="center" align="center">
-                <!-- ISO9001认证 -->
-                <div class="cert-container">
-                  <n-tooltip trigger="hover" placement="top">
-                    <template #trigger>
-                      <div
-                        class="cert-card"
-                        @mouseenter="showHoverImage('iso9001', $t('website.stats.iso_certification'), $event)"
-                        @mouseleave="hideHoverImage"
-                      >
-                        <n-image
-                          :src="getImagePath('certificates', 'iso9001')"
-                          :fallback-src="PLACEHOLDER_IMAGES.certificate"
-                          alt="ISO9001认证"
-                          :width="certImageSize.width"
-                          :height="certImageSize.height"
-                          object-fit="contain"
-                          class="cert-image"
-                        />
-                        <div class="cert-overlay">
-                          <n-text class="cert-name">ISO9001</n-text>
-                        </div>
-                      </div>
-                    </template>
-                    {{ $t('website.stats.iso_certification') }}
-                  </n-tooltip>
                 </div>
-
-                <!-- 军工认证 -->
-                <div class="cert-container">
-                  <n-tooltip trigger="hover" placement="top">
-                    <template #trigger>
-                      <div
-                        class="cert-card"
-                        @mouseenter="showHoverImage('military', $t('website.stats.military_certification'), $event)"
-                        @mouseleave="hideHoverImage"
-                      >
-                        <n-image
-                          :src="getImagePath('certificates', 'military')"
-                          :fallback-src="PLACEHOLDER_IMAGES.certificate"
-                          alt="军工认证"
-                          :width="certImageSize.width"
-                          :height="certImageSize.height"
-                          object-fit="contain"
-                          class="cert-image"
-                        />
-                        <div class="cert-overlay">
-                          <n-text class="cert-name">军工认证</n-text>
-                        </div>
-                      </div>
-                    </template>
-                    {{ $t('website.stats.military_certification') }}
-                  </n-tooltip>
-                </div>
-              </n-space>
+              </div>
             </div>
-          </n-grid-item>
-        </n-grid>
+          </div>
+        </n-space>
       </n-space>
     </n-card>
 
-    <!-- 悬停大图显示 -->
-    <div
-      v-if="showHoverImageState"
-      class="hover-image-overlay"
-      :style="hoverImagePosition"
-      @mouseenter="keepHoverImage"
-      @mouseleave="hideHoverImage"
-    >
-      <div class="hover-image-container">
-        <div class="hover-image-header">
-          <n-text strong class="hover-image-title">{{ currentImageTitle }}</n-text>
-        </div>
-        <n-image
-          :src="currentImageSrc"
-          :fallback-src="PLACEHOLDER_IMAGES.certificate"
-          :alt="currentImageTitle"
-          object-fit="contain"
-          class="hover-cert-image"
-          :width="hoverImageSize.width"
-          :height="hoverImageSize.height"
-          :img-props="{
-            style: 'image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;'
-          }"
-        />
-      </div>
-    </div>
+
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useBreakpoints } from '@vueuse/core'
 import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
@@ -236,34 +205,7 @@ const certImageSize = computed(() => {
   return { width: 110, height: 110 }  // 移动端：110x110
 })
 
-// hover大图尺寸（响应式，增强放大效果）
-const hoverImageSize = computed(() => {
-  const viewportWidth = window.innerWidth
-  const viewportHeight = window.innerHeight
 
-  // 桌面端：根据具体分辨率优化
-  if (breakpoints.lg.value) {
-    if (viewportWidth >= 1920) return { width: 480, height: 480 }      // 1920x1080+
-    if (viewportWidth >= 1440) return { width: 450, height: 450 }      // 1440x900+
-    return { width: 420, height: 420 }                                 // 1366x768+
-  }
-
-  // 平板端：横屏/竖屏适配
-  if (breakpoints.md.value) {
-    if (viewportWidth > viewportHeight) {
-      // 横屏平板 (1024x768)
-      return { width: 380, height: 380 }
-    } else {
-      // 竖屏平板 (768x1024)
-      return { width: 350, height: 350 }
-    }
-  }
-
-  // 移动端：根据具体设备优化
-  if (viewportWidth >= 414) return { width: 340, height: 340 }        // iPhone XR (414x896)
-  if (viewportWidth >= 375) return { width: 320, height: 320 }        // iPhone 6/7/8 (375x667)
-  return { width: 300, height: 300 }                                  // 小屏Android (360x640)
-})
 
 // 统计数字样式
 const statisticStyle = computed(() => ({
@@ -272,110 +214,6 @@ const statisticStyle = computed(() => ({
   color: 'var(--sipumtech-primary-blue)',
   textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
 }))
-
-// 悬停大图状态
-const showHoverImageState = ref(false)
-const currentImageSrc = ref('')
-const currentImageTitle = ref('')
-const hoverImagePosition = ref({})
-let hoverTimer = null
-
-// 显示悬停大图
-const showHoverImage = (imageKey, title, event) => {
-  // 清除之前的定时器
-  if (hoverTimer) {
-    clearTimeout(hoverTimer)
-  }
-
-  currentImageSrc.value = getImagePath('certificates', imageKey)
-  currentImageTitle.value = title
-
-  // 检测是否为触摸设备
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
-
-  // 计算大图显示位置
-  const rect = event.currentTarget.getBoundingClientRect()
-  const viewportWidth = window.innerWidth
-  const viewportHeight = window.innerHeight
-
-  // 大图容器尺寸（精确计算，增加25px高度提升舒适度）
-  const containerPadding = 48  // 24px * 2
-  const headerHeight = 60     // 标题区域高度（增加了间距）
-  const extraHeight = 25      // 额外增加的舒适高度
-
-  const imageWidth = hoverImageSize.value.width + containerPadding
-  const imageHeight = hoverImageSize.value.height + containerPadding + headerHeight + extraHeight
-
-  // 智能位置计算算法 - 适配所有分辨率
-  const margin = 20
-  const isMobile = viewportWidth <= 768
-
-  let left, top
-
-  if (isMobile) {
-    // 移动端：居中显示，确保最佳触摸体验
-    left = (viewportWidth - imageWidth) / 2
-    top = (viewportHeight - imageHeight) / 2
-
-    // 移动端边界检查
-    left = Math.max(margin, Math.min(left, viewportWidth - imageWidth - margin))
-    top = Math.max(margin, Math.min(top, viewportHeight - imageHeight - margin))
-  } else {
-    // 桌面端/平板端：智能侧边显示
-    const rightSpace = viewportWidth - rect.right - margin
-    const leftSpace = rect.left - margin
-
-    // 优先右侧，空间不足时选择左侧
-    if (rightSpace >= imageWidth) {
-      left = rect.right + margin
-    } else if (leftSpace >= imageWidth) {
-      left = rect.left - imageWidth - margin
-    } else {
-      // 两侧空间都不足，居中显示
-      left = (viewportWidth - imageWidth) / 2
-    }
-
-    // 垂直居中对齐触发元素
-    top = rect.top + (rect.height - imageHeight) / 2
-
-    // 垂直边界检查
-    if (top < margin) {
-      top = margin
-    } else if (top + imageHeight > viewportHeight - margin) {
-      top = viewportHeight - imageHeight - margin
-    }
-  }
-
-  hoverImagePosition.value = {
-    position: 'fixed',
-    left: `${left}px`,
-    top: `${top}px`,
-    zIndex: 9999
-  }
-
-  showHoverImageState.value = true
-}
-
-// 隐藏悬停大图
-const hideHoverImage = () => {
-  // 检测是否为触摸设备，调整延迟时间
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
-  const delay = isTouchDevice ? 150 : 50  // 触摸设备延迟更长，避免误触
-
-  hoverTimer = setTimeout(() => {
-    showHoverImageState.value = false
-    currentImageSrc.value = ''
-    currentImageTitle.value = ''
-  }, delay)
-}
-
-// 保持悬停大图显示（当鼠标移到大图上时）
-const keepHoverImage = () => {
-  if (hoverTimer) {
-    clearTimeout(hoverTimer)
-    hoverTimer = null
-  }
-}
 </script>
 
 <style scoped>
@@ -484,185 +322,202 @@ const keepHoverImage = () => {
   font-weight: 500;
 }
 
+/* 认证证书展示区域 */
 .certifications-section {
-  padding: 20px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 200px;
-}
-
-.cert-card {
-  position: relative;
-  padding: 24px;
+  padding: 40px 30px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* 认证区域标题 */
+.certifications-header {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--sipumtech-primary-blue);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  color: var(--sipumtech-text-secondary);
+  opacity: 0.8;
+}
+
+/* 证书容器 */
+.certificates-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* 证书直接展示卡片样式 */
+.cert-display-card {
+  position: relative;
+  padding: 24px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 2px solid rgba(0, 212, 170, 0.2);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-}
-
-.cert-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg,
-    rgba(0, 212, 170, 0.05) 0%,
-    rgba(30, 58, 138, 0.05) 100%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 0;
-}
-
-.cert-card:hover::before {
-  opacity: 1;
-}
-
-.cert-card:hover {
-  transform: translateY(-16px) scale(1.12);
-  border-color: var(--sipumtech-accent-green);
-  box-shadow:
-    0 25px 50px rgba(0, 0, 0, 0.2),
-    0 15px 25px rgba(0, 212, 170, 0.3),
-    0 8px 16px rgba(30, 58, 138, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-}
-
-.cert-image {
-  position: relative;
-  z-index: 1;
-  border-radius: 8px;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-}
-
-.cert-overlay {
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
-  padding: 8px 12px;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 8px;
-  z-index: 2;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-}
-
-.cert-card:hover .cert-overlay {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.cert-name {
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
   text-align: center;
-  display: block;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
 }
 
-/* 悬停大图样式 */
-.cert-container {
-  position: relative;
+.cert-display-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 212, 170, 0.4);
 }
 
-.hover-image-overlay {
-  position: fixed;
-  pointer-events: auto;
-  z-index: 9999;
-  animation: fadeInScale 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25));
+/* 证书标题样式 */
+.cert-header {
+  margin-bottom: 20px;
 }
 
-.hover-image-container {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow:
-    0 25px 60px rgba(0, 0, 0, 0.2),
-    0 12px 30px rgba(0, 0, 0, 0.1),
-    0 0 0 1px rgba(0, 212, 170, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  border: 3px solid rgba(0, 212, 170, 0.4);
-  max-width: none; /* 移除最大宽度限制，让图片完整显示 */
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hover-image-header {
-  text-align: center;
-  margin-bottom: 20px;  /* 增加底部间距 */
-  padding: 8px 0 16px 0;  /* 增加上下padding */
-  border-bottom: 2px solid rgba(0, 212, 170, 0.2);
-  min-height: 44px;  /* 确保标题区域有足够高度 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hover-image-title {
-  font-size: 16px;
+.cert-title {
+  font-size: 18px;
   font-weight: 600;
   color: var(--sipumtech-primary-blue);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.hover-cert-image {
-  border-radius: 16px;
-  box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.2),
-    0 6px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 100% !important;
-  height: auto !important;
-  max-width: none; /* 移除最大宽度限制 */
-  /* 提升图片清晰度 */
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-  image-rendering: high-quality;
-  -ms-interpolation-mode: bicubic;
+/* 证书图片容器样式 - 遵循Naive UI设计原则 */
+.cert-image-wrapper {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 12px;
+  border: 1px solid rgba(0, 212, 170, 0.1);
 }
 
-.hover-cert-image:hover {
-  transform: scale(1.03);
-  box-shadow:
-    0 16px 40px rgba(0, 0, 0, 0.25),
-    0 8px 20px rgba(0, 0, 0, 0.15);
+.cert-display-image {
+  width: 100%;
+  height: auto;
+  max-width: 280px;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-@keyframes fadeInScale {
-  0% {
-    opacity: 0;
-    transform: scale(0.8) translateY(20px);
-    filter: blur(4px);
+.cert-display-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 证书描述样式 */
+.cert-description {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 212, 170, 0.2);
+}
+
+.cert-desc-text {
+  font-size: 14px;
+  color: var(--sipumtech-text-secondary);
+  line-height: 1.5;
+}
+
+/* 证书容器样式 */
+.cert-container {
+  position: relative;
+  flex: 1;
+  max-width: 450px;
+}
+
+
+
+/* 响应式设计 - 遵循Naive UI断点规范 */
+@media (max-width: 768px) {
+  .certifications-section {
+    padding: 24px 20px;
   }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.02) translateY(-2px);
-    filter: blur(1px);
+
+  .certificates-container {
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
   }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    filter: blur(0px);
+
+  .cert-display-card {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .cert-title {
+    font-size: 16px;
+  }
+
+  .cert-display-image {
+    max-width: 260px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .section-subtitle {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .certifications-section {
+    padding: 20px 16px;
+  }
+
+  .certificates-container {
+    gap: 24px;
+  }
+
+  .cert-display-card {
+    padding: 16px;
+  }
+
+  .cert-title {
+    font-size: 14px;
+  }
+
+  .cert-display-image {
+    max-width: 220px;
+  }
+
+  .cert-desc-text {
+    font-size: 12px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .section-subtitle {
+    font-size: 13px;
+  }
+
+  .certifications-header {
+    margin-bottom: 30px;
   }
 }
 
@@ -697,8 +552,10 @@ const keepHoverImage = () => {
 /* 大屏桌面端优化 (1920x1080+) */
 @media (min-width: 1920px) {
   .hover-image-container {
-    padding: 28px;
-    border-radius: 24px;
+    padding: 16px;
+    border-radius: 14px;
+    max-width: 70vw;
+    max-height: 70vh;
   }
 
   .hover-image-title {
@@ -709,8 +566,10 @@ const keepHoverImage = () => {
 /* 标准桌面端 (1366x768 - 1919x1080) */
 @media (min-width: 1366px) and (max-width: 1919px) {
   .hover-image-container {
-    padding: 24px;
-    border-radius: 20px;
+    padding: 14px;
+    border-radius: 12px;
+    max-width: 72vw;
+    max-height: 72vh;
   }
 }
 
@@ -728,16 +587,18 @@ const keepHoverImage = () => {
   /* 平板横屏优化 */
   @media (orientation: landscape) {
     .hover-image-container {
-      max-width: 85vw;
-      max-height: 85vh;
+      max-width: 75vw;
+      max-height: 75vh;
+      padding: 12px;
     }
   }
 
   /* 平板竖屏优化 */
   @media (orientation: portrait) {
     .hover-image-container {
-      max-width: 90vw;
-      max-height: 80vh;
+      max-width: 80vw;
+      max-height: 70vh;
+      padding: 12px;
     }
   }
 }
@@ -780,10 +641,10 @@ const keepHoverImage = () => {
   }
 
   .hover-image-container {
-    padding: 20px;
-    max-width: 95vw; /* 移动端使用视口宽度，留出更多边距 */
-    max-height: 90vh; /* 限制最大高度，避免超出屏幕 */
-    border-radius: 16px;
+    padding: 12px;
+    max-width: 85vw; /* 移动端使用视口宽度，留出更多边距 */
+    max-height: 80vh; /* 限制最大高度，避免超出屏幕 */
+    border-radius: 12px;
     /* 移动端优化 */
     overflow: hidden;
     position: relative;
@@ -811,8 +672,9 @@ const keepHoverImage = () => {
 /* iPhone XR/11 (414x896) 优化 */
 @media (max-width: 414px) and (min-width: 376px) {
   .hover-image-container {
-    max-width: 92vw;
-    padding: 18px;
+    max-width: 82vw;
+    max-height: 75vh;
+    padding: 10px;
   }
 
   .hover-cert-image {
@@ -823,9 +685,10 @@ const keepHoverImage = () => {
 /* iPhone 6/7/8 (375x667) 优化 */
 @media (max-width: 375px) and (min-width: 361px) {
   .hover-image-container {
-    max-width: 90vw;
-    padding: 16px;
-    border-radius: 14px;
+    max-width: 80vw;
+    max-height: 72vh;
+    padding: 8px;
+    border-radius: 10px;
   }
 
   .hover-cert-image {
@@ -841,9 +704,10 @@ const keepHoverImage = () => {
 /* 小屏Android (360x640) 优化 */
 @media (max-width: 360px) {
   .hover-image-container {
-    max-width: 88vw;
-    padding: 14px;
-    border-radius: 12px;
+    max-width: 78vw;
+    max-height: 70vh;
+    padding: 8px;
+    border-radius: 8px;
   }
 
   .hover-cert-image {
