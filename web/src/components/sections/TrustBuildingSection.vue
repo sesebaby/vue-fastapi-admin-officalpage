@@ -163,11 +163,21 @@
                 >
                   <div class="partner-card">
                     <div class="partner-card-inner">
-                      <div class="partner-text-container">
-                        <div
-                          class="partner-text"
-                          :class="getPartnerTextClass(partner.name)"
-                        >
+                      <div class="partner-logo-text-container">
+                        <!-- Logo图片 -->
+                        <div class="partner-logo-wrapper">
+                          <n-image
+                            :src="getImagePath('partnerLogos', getPartnerKey(partner.name))"
+                            :alt="partner.name"
+                            :width="partnerLogoSize.width"
+                            :height="partnerLogoSize.height"
+                            object-fit="contain"
+                            class="partner-logo-image"
+                            :fallback-src="PLACEHOLDER_IMAGES.logo"
+                          />
+                        </div>
+                        <!-- 机构名称文字 -->
+                        <div class="partner-name-text">
                           {{ partner.name }}
                         </div>
                       </div>
@@ -222,11 +232,18 @@ const partnerCols = computed(() => {
   return 2  // 移动端：2列（4行显示8个）
 })
 
-// 合作伙伴文字容器尺寸（统一尺寸）
-const partnerTextSize = computed(() => {
-  if (breakpoints.lg.value) return { minHeight: '70px', fontSize: '16px' }  // 桌面端
-  if (breakpoints.md.value) return { minHeight: '60px', fontSize: '14px' }  // 平板端
-  return { minHeight: '50px', fontSize: '12px' }  // 移动端
+// 合作伙伴logo尺寸（响应式）
+const partnerLogoSize = computed(() => {
+  if (breakpoints.lg.value) return { width: 60, height: 60 }    // 桌面端：60x60
+  if (breakpoints.md.value) return { width: 50, height: 50 }    // 平板端：50x50
+  return { width: 40, height: 40 }                              // 移动端：40x40
+})
+
+// 合作伙伴容器尺寸（统一尺寸）
+const partnerContainerSize = computed(() => {
+  if (breakpoints.lg.value) return { minHeight: '100px', fontSize: '14px' }  // 桌面端
+  if (breakpoints.md.value) return { minHeight: '90px', fontSize: '13px' }   // 平板端
+  return { minHeight: '80px', fontSize: '12px' }                             // 移动端
 })
 
 // 显示所有合作伙伴（8个合作伙伴，响应式布局）
@@ -271,37 +288,20 @@ const fetchPartnersData = async () => {
   ]
 }
 
-// 获取合作伙伴文字的CSS类
-const getPartnerTextClass = (partnerName) => {
-  // 根据合作伙伴类型添加不同的样式类
-  const universityPartners = [
-    '上海交通大学',
-    '浙江大学',
-    '福州大学',
-    '西安电子科技大学'
-  ]
-
-  const researchPartners = [
-    '中国科学院高能物理研究所'
-  ]
-
-  const enterprisePartners = [
-    '中国兵器工业集团',
-    '中国电子科技集团',
-    '中国航天科技集团'
-  ]
-
-  const baseClass = 'partner-text-base'
-
-  if (universityPartners.includes(partnerName)) {
-    return `${baseClass} partner-text-university`
-  } else if (researchPartners.includes(partnerName)) {
-    return `${baseClass} partner-text-research`
-  } else if (enterprisePartners.includes(partnerName)) {
-    return `${baseClass} partner-text-enterprise`
+// 获取合作伙伴的key（用于图片路径映射）
+const getPartnerKey = (partnerName) => {
+  const nameToKeyMap = {
+    '上海交通大学': 'sjtu',
+    '浙江大学': 'zju',
+    '福州大学': 'fzu',
+    '西安电子科技大学': 'xidian',
+    '中国科学院高能物理研究所': 'ihep_cas',
+    '中国兵器工业集团': 'norinco',
+    '中国电子科技集团': 'cetc',
+    '中国航天科技集团': 'casc'
   }
 
-  return baseClass
+  return nameToKeyMap[partnerName] || 'sjtu' // 默认返回sjtu作为fallback
 }
 
 // 使用异步状态管理
@@ -422,22 +422,24 @@ onMounted(() => {
   justify-content: center;
 }
 
-.partner-text-container {
+.partner-logo-text-container {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   flex: 1;
-  padding: 20px;
+  padding: 16px;
   background: linear-gradient(135deg,
     rgba(255, 255, 255, 0.98) 0%,
     rgba(248, 250, 252, 0.98) 100%);
   border-radius: 16px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  /* 确保文字容器有足够的空间和清晰的背景，响应式最小高度 */
-  min-height: 80px;
+  /* 确保logo+文字容器有足够的空间，响应式最小高度 */
+  min-height: 100px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  gap: 8px; /* logo和文字之间的间距 */
 }
 
 .more-partners-hint {
@@ -485,51 +487,52 @@ onMounted(() => {
     0 4px 12px rgba(0, 212, 170, 0.12);
 }
 
-.partner-text {
-  position: relative;
-  z-index: 1;
-  opacity: 0.95;
-  transition: all 0.4s ease;
-  border-radius: 8px;
-  width: 100%;
-  height: 100%;
+/* Logo包装器样式 */
+.partner-logo-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  font-weight: 600;
-  line-height: 1.4;
-  padding: 8px;
-  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
 }
 
-.partner-card-inner:hover .partner-text {
-  opacity: 1;
-  transform: scale(1.02);
+/* Logo图片样式 */
+.partner-logo-image {
+  border-radius: 8px;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  /* 确保logo清晰显示 */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
-/* 基础文字样式 */
-.partner-text-base {
+/* 机构名称文字样式 */
+.partner-name-text {
   color: #1e40af;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.3;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+  /* 确保文字不会换行过多 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
-/* 所有合作伙伴统一使用蓝色 */
-.partner-text-university,
-.partner-text-research,
-.partner-text-enterprise {
-  color: #1e40af;
-  font-weight: 700;
+/* Hover效果 */
+.partner-card-inner:hover .partner-logo-image {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
 }
 
-/* 文字hover效果增强 - 统一蓝色 */
-.partner-card-inner:hover .partner-text-university,
-.partner-card-inner:hover .partner-text-research,
-.partner-card-inner:hover .partner-text-enterprise {
+.partner-card-inner:hover .partner-name-text {
   color: #1d4ed8;
+  opacity: 1;
   text-shadow: 0 1px 3px rgba(29, 78, 216, 0.2);
 }
+
+/* 移除旧的文字样式类，已整合到新的logo+文字布局中 */
 
 /* 移除partner-overlay和partner-name样式，因为文字模式不需要 */
 
@@ -569,18 +572,20 @@ onMounted(() => {
     min-height: 60px;
   }
 
-  .partner-text-container {
+  .partner-logo-text-container {
     padding: 12px;
-    min-height: 60px;
+    min-height: 80px;
+    gap: 6px;
   }
 
   /* 移动端文字样式优化 */
-  .partner-text-base {
+  .partner-name-text {
     font-size: 12px;
+    line-height: 1.2;
   }
 
-  .partner-text {
-    padding: 6px;
+  .partner-logo-wrapper {
+    margin-bottom: 2px;
   }
 
   .more-partners-hint {

@@ -101,6 +101,21 @@ export const IMAGE_RESOURCES = {
     norinco: '/images/partner_norinco.jpg',              // 中国兵器工业集团logo (jpg格式)
     cetc: '/images/partner_cetc.png',                    // 中国电子科技集团logo
     casc: '/images/partner_casc.png'                     // 中国航天科技集团logo
+  },
+
+  // 合作伙伴高质量logo图片（300x300原始尺寸，用于logo+文字组合显示）
+  partnerLogos: {
+    // 高等院校
+    sjtu: '/images/logo_sjtu.png',                       // 上海交通大学高质量logo
+    zju: '/images/logo_zju.png',                         // 浙江大学高质量logo
+    fzu: '/images/logo_fzu.png',                         // 福州大学高质量logo
+    xidian: '/images/logo_xidian.png',                   // 西安电子科技大学高质量logo
+
+    // 科研院所和国有企业
+    ihep_cas: '/images/logo_ihep_cas.png',               // 中国科学院高能物理研究所高质量logo
+    norinco: '/images/logo_norinco.png',                 // 中国兵器工业集团高质量logo
+    cetc: '/images/logo_cetc.png',                       // 中国电子科技集团高质量logo
+    casc: '/images/logo_casc.png'                        // 中国航天科技集团高质量logo
   }
 }
 
