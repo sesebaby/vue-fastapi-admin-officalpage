@@ -358,7 +358,8 @@ const goBackToHome = () => {
   box-shadow: 0 4px 16px rgba(30, 58, 138, 0.3);
   backdrop-filter: blur(8px);
   background: rgba(30, 58, 138, 0.9) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border: none !important;
+  outline: none !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -366,7 +367,8 @@ const goBackToHome = () => {
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 8px 24px rgba(30, 58, 138, 0.4);
   background: rgba(30, 58, 138, 1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border: none !important;
+  outline: none !important;
 }
 
 .back-to-home-floating-button:active {
@@ -377,6 +379,30 @@ const goBackToHome = () => {
 /* 桌面端图标大小 */
 .back-to-home-floating-button .home-icon {
   font-size: 20px;
+}
+
+/* 强制移除所有可能的边框和轮廓 */
+.back-to-home-floating-button,
+.back-to-home-floating-button:hover,
+.back-to-home-floating-button:focus,
+.back-to-home-floating-button:active,
+.back-to-home-floating-button:visited {
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 4px 16px rgba(30, 58, 138, 0.3) !important;
+}
+
+.back-to-home-floating-button:hover {
+  box-shadow: 0 8px 24px rgba(30, 58, 138, 0.4) !important;
+}
+
+/* 覆盖Naive UI的默认样式 */
+.back-to-home-floating-button:deep(.n-button__border) {
+  display: none !important;
+}
+
+.back-to-home-floating-button:deep(.n-button__state-border) {
+  display: none !important;
 }
 
 /* 响应式按钮大小优化 */
@@ -439,6 +465,16 @@ const goBackToHome = () => {
   cursor: pointer;
   width: 100%;
   box-sizing: border-box;
+  background: var(--sipumtech-bg-tech) !important;
+}
+
+/* 覆盖Naive UI卡片的默认背景 */
+.news-item-card :deep(.n-card) {
+  background: var(--sipumtech-bg-tech) !important;
+}
+
+.news-item-card :deep(.n-card__content) {
+  background: var(--sipumtech-bg-tech) !important;
 }
 
 .news-item-card:hover {
@@ -465,6 +501,12 @@ const goBackToHome = () => {
   overflow: hidden;
   height: 200px;
   position: relative;
+  background: var(--sipumtech-bg-tech) !important;
+}
+
+/* 覆盖图片包装器的Naive UI样式 */
+.news-image-wrapper :deep(.n-card) {
+  background: var(--sipumtech-bg-tech) !important;
 }
 
 .news-image-container {
@@ -474,7 +516,7 @@ const goBackToHome = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: var(--sipumtech-bg-tech);
 }
 
 .news-item-image {
