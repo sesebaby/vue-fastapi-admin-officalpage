@@ -3,8 +3,8 @@
   <n-layout class="news-list-page">
     <!-- 新闻列表内容 -->
     <n-layout-content class="news-content">
-      <n-space justify="center">
-        <div class="container">
+      <n-space justify="center" class="news-container-wrapper">
+        <n-el tag="div" class="container">
         <!-- 加载状态 -->
         <LoadingState
           v-if="isLoading"
@@ -45,14 +45,17 @@
               <!-- 新闻图片 -->
               <n-grid-item :span="imageSpan">
                 <n-card embedded class="news-image-wrapper">
-                  <n-image
-                    :src="getImagePath('news', item.image)"
-                    :alt="$t(item.titleKey)"
-                    :fallback-src="PLACEHOLDER_IMAGES.news"
-                    object-fit="cover"
-                    class="news-item-image"
-                    :height="200"
-                  />
+                  <div class="news-image-container">
+                    <n-image
+                      :src="getImagePath('news', item.image)"
+                      :alt="$t(item.titleKey)"
+                      :fallback-src="PLACEHOLDER_IMAGES.news"
+                      object-fit="cover"
+                      class="news-item-image"
+                      :height="200"
+                    />
+                    <div class="news-image-overlay"></div>
+                  </div>
                 </n-card>
               </n-grid-item>
 
@@ -109,20 +112,41 @@
           title="暂无新闻"
           description="目前还没有新闻内容"
         />
-        </div>
+
+
+        </n-el>
       </n-space>
     </n-layout-content>
   </n-layout>
+
+  <!-- 固定定位的回到首页按钮 -->
+  <n-button
+    type="primary"
+    size="large"
+    circle
+    @click="goBackToHome"
+    class="back-to-home-floating-button"
+  >
+    <template #icon>
+      <n-icon :size="20">
+        <svg viewBox="0 0 24 24">
+          <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"/>
+        </svg>
+      </n-icon>
+    </template>
+  </n-button>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 import { useAsyncState } from '@/composables/useAsyncState'
 import LoadingState from '@/components/common/LoadingState.vue'
 
 const { t } = useI18n()
+const router = useRouter()
 
 // 响应式布局配置
 const responsiveCols = ref(24)
@@ -295,6 +319,11 @@ const handleNewsClick = (newsId) => {
 const handleRetry = () => {
   retry()
 }
+
+// 回到首页
+const goBackToHome = () => {
+  router.push('/')
+}
 </script>
 
 <style scoped>
@@ -315,6 +344,55 @@ const handleRetry = () => {
 /* 新闻内容区域 */
 .news-content {
   padding: 80px 0 60px;
+}
+
+/* 固定定位的回到首页按钮 */
+.back-to-home-floating-button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1000;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(24, 144, 255, 0.3);
+  backdrop-filter: blur(8px);
+  background: rgba(24, 144, 255, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-to-home-floating-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(24, 144, 255, 0.4);
+  background: rgba(24, 144, 255, 1) !important;
+}
+
+.back-to-home-floating-button:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* 移动端按钮优化 */
+@media (max-width: 768px) {
+  .back-to-home-floating-button {
+    right: 16px;
+    bottom: 16px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .back-to-home-floating-button:hover {
+    transform: none; /* 移动端禁用悬停效果 */
+  }
+}
+
+@media (max-width: 480px) {
+  .back-to-home-floating-button {
+    right: 12px;
+    bottom: 12px;
+    width: 44px;
+    height: 44px;
+  }
 }
 
 /* 新闻条目卡片 */
@@ -350,16 +428,46 @@ const handleRetry = () => {
   border-radius: 12px;
   overflow: hidden;
   height: 200px;
+  position: relative;
+}
+
+.news-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
 .news-item-image {
   width: 100%;
   height: 100%;
   transition: transform 0.3s ease;
+  border-radius: 8px;
+}
+
+.news-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(0px);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 .news-item-card:hover .news-item-image {
   transform: scale(1.05);
+}
+
+.news-item-card:hover .news-image-overlay {
+  backdrop-filter: blur(2px);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 /* 不同分辨率下的图片高度优化 */
