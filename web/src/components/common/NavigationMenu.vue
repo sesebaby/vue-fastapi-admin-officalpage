@@ -11,7 +11,7 @@
       :key="item.key"
       :href="item.href"
       :class="['nav-item', { active: item.active }]"
-      @click="handleNavClick(item)"
+      @click="handleNavClick(item, $event)"
     >
       {{ item.label }}
     </a>
@@ -21,6 +21,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter, useRoute } from 'vue-router'
 
 const props = defineProps({
   spacing: {
@@ -41,6 +42,8 @@ const props = defineProps({
 const emit = defineEmits(['nav-click'])
 
 const { t } = useI18n()
+const router = useRouter()
+const route = useRoute()
 
 // 导航菜单项配置
 const menuItems = computed(() => [
@@ -89,7 +92,35 @@ const menuItems = computed(() => [
 ])
 
 // 处理导航点击
-const handleNavClick = (item) => {
+const handleNavClick = (item, event) => {
+  event.preventDefault() // 阻止默认的锚点跳转
+
+  // 检查当前是否在主页
+  if (route.path === '/') {
+    // 在主页，直接滚动到对应区域
+    const targetElement = document.querySelector(item.href)
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  } else {
+    // 不在主页，先跳转到主页，然后滚动到对应区域
+    router.push('/').then(() => {
+      // 等待页面渲染完成后再滚动
+      setTimeout(() => {
+        const targetElement = document.querySelector(item.href)
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          })
+        }
+      }, 100)
+    })
+  }
+
   emit('nav-click', item)
 }
 </script>

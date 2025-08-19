@@ -19,6 +19,15 @@ export const basicRoutes = [
           requiresAuth: false, // 不需要登录
         },
       },
+      {
+        path: 'news',
+        component: () => import('@/views/website/news/index.vue'),
+        name: 'NewsList',
+        meta: {
+          title: '新闻动态 - 苏州思普微电子科技有限公司',
+          requiresAuth: false, // 不需要登录
+        },
+      },
     ],
     meta: { order: 0, requiresAuth: false },
   },

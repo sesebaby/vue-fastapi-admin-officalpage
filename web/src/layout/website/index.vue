@@ -150,6 +150,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter, useRoute } from 'vue-router'
 import { useBreakpoints } from '@vueuse/core'
 import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
 import CompanyLogo from '@/components/common/CompanyLogo.vue'
@@ -158,6 +159,8 @@ import AdminLoginButton from '@/components/common/AdminLoginButton.vue'
 import { useActiveSection } from '@/views/website/_shared/useActiveSection'
 
 const { locale, t } = useI18n()
+const router = useRouter()
+const route = useRoute()
 
 const showMobileMenu = ref(false)
 const { activeSection, setActiveSection } = useActiveSection()
@@ -258,21 +261,34 @@ const toggleMobileMenu = () => {
 // 处理移动端菜单项点击
 const handleMobileMenuSelect = (key, item) => {
   try {
-    // 导航到对应的锚点 - 添加window对象安全检查
     if (item.href && typeof window !== 'undefined') {
       // 更新当前导航状态
       setActiveSection(key)
 
-      // 平滑滚动到目标位置
-      const targetElement = document.querySelector(item.href)
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        })
+      // 检查当前是否在主页
+      if (route.path === '/') {
+        // 在主页，直接滚动到对应区域
+        const targetElement = document.querySelector(item.href)
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          })
+        }
       } else {
-        // 降级处理：直接跳转
-        window.location.href = item.href
+        // 不在主页，先跳转到主页，然后滚动到对应区域
+        router.push('/').then(() => {
+          // 等待页面渲染完成后再滚动
+          setTimeout(() => {
+            const targetElement = document.querySelector(item.href)
+            if (targetElement) {
+              targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              })
+            }
+          }, 100)
+        })
       }
     }
   } catch (error) {

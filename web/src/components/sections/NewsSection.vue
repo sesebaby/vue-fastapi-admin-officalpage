@@ -19,10 +19,9 @@
         </n-space>
         <n-button
           text
-          tag="a"
-          href="#"
           size="large"
           class="news-more-button"
+          @click="handleMoreClick"
         >
           <n-space align="center" :size="8">
             <span>{{ $t('website.news.more') }}</span>
@@ -126,12 +125,14 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { getImagePath, PLACEHOLDER_IMAGES } from '@/utils/imageUtils'
 import { useAsyncState } from '@/composables/useAsyncState'
 import LoadingState from '@/components/common/LoadingState.vue'
 import ErrorBoundary from '@/components/common/ErrorBoundary.vue'
 
 const { t } = useI18n()
+const router = useRouter()
 
 // 响应式Grid配置 - 使用简单的数值，通过CSS媒体查询来实现响应式
 const responsiveCols = ref(3)
@@ -140,6 +141,13 @@ const responsiveYGap = ref(30)
 
 // 新闻数据状态
 const newsData = ref([
+  {
+    id: 'news_4',
+    date: '2025-08-19',
+    titleKey: 'website.news.news_4_title',
+    excerptKey: 'website.news.news_4_excerpt',
+    image: 'news_4'
+  },
   {
     id: 'news_1',
     date: '2024-08-06',
@@ -199,6 +207,11 @@ const handleNewsClick = (newsId) => {
   // - 跳转到新闻详情页
   // - 打开新闻弹窗
   // - 发送埋点数据
+}
+
+// 查看更多点击处理
+const handleMoreClick = () => {
+  router.push('/news')
 }
 
 // 错误重试处理

@@ -68,6 +68,7 @@ export const IMAGE_RESOURCES = {
 
   // 新闻动态图片 - 使用新的公司活动图片
   news: {
+    news_4: '/images/news/第四届全国辐射探测微电子学术年会.png',  // 第四届全国辐射探测微电子学术年会
     news_1: '/images/iso_certification_news.png',       // ISO9001质量管理体系认证
     news_2: '/images/company_scene_05.jpg',             // 公司新闻2
     news_3: '/images/ICEPT2024.png',                    // 2024年电子封装技术大会
