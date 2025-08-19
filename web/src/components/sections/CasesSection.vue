@@ -41,14 +41,15 @@
             class="service-card"
             :class="{ 'hovered': hoveredIndex === index }"
           >
-            <n-space vertical align="center" :size="12">
+            <n-space vertical align="center" :size="8" style="height: 100%; padding: 12px;">
               <!-- 服务图标 -->
               <n-avatar
-                :size="60"
+                :size="50"
                 :style="{
                   background: 'linear-gradient(135deg, var(--sipumtech-primary-blue), var(--sipumtech-accent-blue))',
                   color: '#ffffff',
-                  fontSize: '28px'
+                  fontSize: '24px',
+                  flexShrink: 0
                 }"
               >
                 {{ service.icon }}
@@ -57,29 +58,36 @@
               <!-- 服务标题 -->
               <n-text
                 :style="{
-                  fontSize: '16px',
+                  fontSize: '14px',
                   fontWeight: 'var(--sipumtech-font-weight-bold)',
                   color: 'var(--sipumtech-primary-blue)',
                   textAlign: 'center',
-                  lineHeight: '1.3'
+                  lineHeight: '1.2',
+                  maxWidth: '100%',
+                  wordBreak: 'break-word',
+                  flexShrink: 0
                 }"
               >
                 {{ $t(`website.cases.service_${index + 1}_title`) }}
               </n-text>
 
-              <!-- 服务描述 -->
-              <n-text
+              <!-- 服务描述 - 使用n-ellipsis确保文字不溢出 -->
+              <n-ellipsis
                 class="service-description"
+                :line-clamp="3"
                 :style="{
-                  fontSize: '12px',
+                  fontSize: '11px',
                   color: 'var(--sipumtech-text-secondary)',
                   textAlign: 'center',
-                  lineHeight: '1.4',
-                  whiteSpace: 'pre-line'
+                  lineHeight: '1.3',
+                  whiteSpace: 'pre-line',
+                  maxWidth: '100%',
+                  wordBreak: 'break-word',
+                  overflowWrap: 'break-word'
                 }"
               >
                 {{ $t(`website.cases.service_${index + 1}_desc`) }}
-              </n-text>
+              </n-ellipsis>
             </n-space>
           </n-card>
         </div>
@@ -378,7 +386,7 @@ onUnmounted(() => {
   transition-delay: calc(0.5s + var(--delay));
 }
 
-/* 服务卡片样式 */
+/* 服务卡片样式 - 优化内容布局和溢出处理 */
 .service-card {
   width: 100%;
   height: 100%;
@@ -388,6 +396,17 @@ onUnmounted(() => {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border: 2px solid transparent;
+  overflow: hidden; /* 确保内容不会溢出卡片边界 */
+}
+
+/* 确保卡片内容正确布局 */
+.service-card :deep(.n-card__content) {
+  height: 100%;
+  padding: 0; /* 移除默认padding，使用自定义spacing */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .service-card:hover,
@@ -395,6 +414,23 @@ onUnmounted(() => {
   transform: translateY(-8px) scale(1.05);
   box-shadow: 0 12px 40px rgba(30, 58, 138, 0.2);
   border-color: var(--sipumtech-primary-blue);
+}
+
+/* 服务描述文字样式 - 确保不溢出 */
+.service-description {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0; /* 允许flex项目缩小 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 确保n-ellipsis组件正确工作 */
+.service-description :deep(.n-ellipsis) {
+  width: 100%;
+  text-align: center;
 }
 
 /* 装饰性连接线 */
@@ -489,6 +525,25 @@ onUnmounted(() => {
       translateY(-260px) /* 平板端适中距离 */
       rotate(calc(-1 * var(--angle)))
       scale(1);
+  }
+
+  /* 平板端文字和图标大小调整 */
+  .service-item .n-avatar {
+    width: 45px !important;
+    height: 45px !important;
+    font-size: 22px !important;
+  }
+
+  .service-item .n-text {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* 平板端服务描述优化 */
+  .service-description {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    max-height: 36px; /* 限制最大高度避免溢出 */
   }
 }
 
