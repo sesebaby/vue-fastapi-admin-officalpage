@@ -34,53 +34,59 @@
           >
             <!-- 地址信息卡片 -->
             <n-grid-item>
-              <div class="contact-info-card modern-glass-card">
-                <div class="card-icon-wrapper">
-                  <div class="card-icon address-icon">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
-                    </svg>
+              <n-card hoverable class="contact-info-card">
+                <n-space vertical align="center" :size="20">
+                  <div class="card-icon-wrapper">
+                    <div class="card-icon address-icon">
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                      </svg>
+                    </div>
                   </div>
-                </div>
-                <div class="card-content">
-                  <h3 class="card-title">{{ $t('website.contact.address_title') }}</h3>
-                  <p class="card-text">{{ $t('website.contact.address') }}</p>
-                </div>
-              </div>
+                  <n-space vertical align="center" :size="8">
+                    <n-text strong class="card-title">{{ $t('website.contact.address_title') }}</n-text>
+                    <n-text class="card-text">{{ $t('website.contact.address') }}</n-text>
+                  </n-space>
+                </n-space>
+              </n-card>
             </n-grid-item>
 
             <!-- 电话信息卡片 -->
             <n-grid-item>
-              <div class="contact-info-card modern-glass-card">
-                <div class="card-icon-wrapper">
-                  <div class="card-icon phone-icon">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"/>
-                    </svg>
+              <n-card hoverable class="contact-info-card">
+                <n-space vertical align="center" :size="20">
+                  <div class="card-icon-wrapper">
+                    <div class="card-icon phone-icon">
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"/>
+                      </svg>
+                    </div>
                   </div>
-                </div>
-                <div class="card-content">
-                  <h3 class="card-title">{{ $t('website.contact.phone_title') }}</h3>
-                  <p class="card-text">{{ $t('website.contact.contact_person') }}<br>{{ $t('website.contact.phone') }}</p>
-                </div>
-              </div>
+                  <n-space vertical align="center" :size="8">
+                    <n-text strong class="card-title">{{ $t('website.contact.phone_title') }}</n-text>
+                    <n-text class="card-text">{{ $t('website.contact.contact_person') }}<br>{{ $t('website.contact.phone') }}</n-text>
+                  </n-space>
+                </n-space>
+              </n-card>
             </n-grid-item>
 
             <!-- 邮箱信息卡片 -->
             <n-grid-item>
-              <div class="contact-info-card modern-glass-card">
-                <div class="card-icon-wrapper">
-                  <div class="card-icon email-icon">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
-                    </svg>
+              <n-card hoverable class="contact-info-card">
+                <n-space vertical align="center" :size="20">
+                  <div class="card-icon-wrapper">
+                    <div class="card-icon email-icon">
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                      </svg>
+                    </div>
                   </div>
-                </div>
-                <div class="card-content">
-                  <h3 class="card-title">{{ $t('website.contact.email_title') }}</h3>
-                  <p class="card-text">{{ $t('website.contact.email') }}</p>
-                </div>
-              </div>
+                  <n-space vertical align="center" :size="8">
+                    <n-text strong class="card-title">{{ $t('website.contact.email_title') }}</n-text>
+                    <n-text class="card-text">{{ $t('website.contact.email') }}</n-text>
+                  </n-space>
+                </n-space>
+              </n-card>
             </n-grid-item>
           </n-grid>
         </div>
@@ -699,22 +705,7 @@ onMounted(() => {
       initBaiduMap()
     }, 200)
 
-    // 调试：检查第三个card的显示状态
-    setTimeout(() => {
-      const contactCards = document.querySelectorAll('.contact-info-card')
-      console.log(`联系信息卡片总数: ${contactCards.length}`)
-
-      contactCards.forEach((card, index) => {
-        const computedStyle = window.getComputedStyle(card)
-        console.log(`Card ${index + 1}:`, {
-          display: computedStyle.display,
-          visibility: computedStyle.visibility,
-          opacity: computedStyle.opacity,
-          width: computedStyle.width,
-          height: computedStyle.height
-        })
-      })
-    }, 500)
+    // NaiveUI组件原生支持，无需调试代码
   })
 })
 
@@ -916,12 +907,10 @@ onUnmounted(() => {
   box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
 }
 
-/* 确保第三个card（邮箱card）的显示一致性 */
-.contact-info-card:nth-child(3) {
-  /* 确保第三个card与其他card具有相同的基础样式 */
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+/* 联系信息卡片基础样式 - 遵循NaiveUI优先原则 */
+.contact-info-card {
+  height: 200px;
+  text-align: center;
 }
 
 /* 图标悬停效果 */
@@ -963,20 +952,7 @@ onUnmounted(() => {
 }
 
 
-/* 地址卡片特殊样式 - 针对长文本优化，统一高度 */
-.contact-info-card:first-child {
-  height: 200px; /* 统一固定高度 */
-  min-height: 200px;
-  padding: 28px 20px;
-}
-
-.contact-info-card:first-child .card-text {
-  font-size: 12px;
-  line-height: 1.3;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
-}
+/* 移除特殊样式，使用NaiveUI原生样式 */
 
 /* 卡片悬停时的文字效果 */
 .modern-glass-card:hover .card-title {
@@ -1008,20 +984,7 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
-  /* 大屏端地址卡片特殊样式 - 统一高度 */
-  .contact-info-card:first-child {
-    height: 240px; /* 统一固定高度 */
-    min-height: 240px;
-    padding: 32px 24px;
-  }
-
-  .contact-info-card:first-child .card-text {
-    font-size: 12px;
-    line-height: 1.25;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-  }
+  /* 大屏端使用NaiveUI原生样式 */
 
 }
 
@@ -1139,9 +1102,7 @@ onUnmounted(() => {
     min-height: 450px;  /* 增加卡片高度以适应更大的地图 */
   }
 
-  .contact-info-card {
-    min-height: 100px;
-  }
+  /* 使用NaiveUI原生高度 */
 
   .map-loading,
   .map-error {
@@ -1242,20 +1203,7 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
-  /* 平板端地址卡片特殊样式 - 统一高度 */
-  .contact-info-card:first-child {
-    height: 200px; /* 统一固定高度 */
-    min-height: 200px;
-    padding: 24px 18px;
-  }
-
-  .contact-info-card:first-child .card-text {
-    font-size: 11px;
-    line-height: 1.25;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-  }
+  /* 平板端使用NaiveUI原生样式 */
 
 
   .map-info-overlay {
@@ -1344,20 +1292,7 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
-  /* 移动端地址卡片特殊样式 - 统一高度 */
-  .contact-info-card:first-child {
-    height: 180px; /* 统一固定高度 */
-    min-height: 180px;
-    padding: 20px 16px;
-  }
-
-  .contact-info-card:first-child .card-text {
-    font-size: 10px;
-    line-height: 1.2;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-  }
+  /* 移动端使用NaiveUI原生样式 */
 
 
   .map-background {
