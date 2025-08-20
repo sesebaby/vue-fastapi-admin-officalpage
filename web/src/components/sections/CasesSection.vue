@@ -41,54 +41,55 @@
             class="service-card"
             :class="{ 'hovered': hoveredIndex === index }"
           >
-            <n-space vertical align="center" :size="8" style="height: 100%; padding: 12px;">
-              <!-- 服务图标 -->
-              <n-avatar
-                :size="50"
-                :style="{
-                  background: 'linear-gradient(135deg, var(--sipumtech-primary-blue), var(--sipumtech-accent-blue))',
-                  color: '#ffffff',
-                  fontSize: '24px',
-                  flexShrink: 0
-                }"
-              >
-                {{ service.icon }}
-              </n-avatar>
+            <!-- 长方形卡片布局 - 左右结构 -->
+            <div class="card-content-wrapper">
+              <!-- 左侧图标区域 -->
+              <div class="icon-section">
+                <n-avatar
+                  :size="50"
+                  :style="{
+                    background: 'linear-gradient(135deg, var(--sipumtech-primary-blue), var(--sipumtech-accent-blue))',
+                    color: '#ffffff',
+                    fontSize: '24px',
+                    flexShrink: 0
+                  }"
+                >
+                  {{ service.icon }}
+                </n-avatar>
+              </div>
 
-              <!-- 服务标题 -->
-              <n-text
-                :style="{
-                  fontSize: '14px',
-                  fontWeight: 'var(--sipumtech-font-weight-bold)',
-                  color: 'var(--sipumtech-primary-blue)',
-                  textAlign: 'center',
-                  lineHeight: '1.2',
-                  maxWidth: '100%',
-                  wordBreak: 'break-word',
-                  flexShrink: 0
-                }"
-              >
-                {{ $t(`website.cases.service_${index + 1}_title`) }}
-              </n-text>
+              <!-- 右侧文字区域 -->
+              <div class="text-section">
+                <!-- 服务标题 -->
+                <n-text
+                  class="service-title"
+                  :style="{
+                    fontSize: '15px',
+                    fontWeight: 'var(--sipumtech-font-weight-bold)',
+                    color: 'var(--sipumtech-primary-blue)',
+                    lineHeight: '1.3',
+                    display: 'block',
+                    marginBottom: '6px'
+                  }"
+                >
+                  {{ $t(`website.cases.service_${index + 1}_title`) }}
+                </n-text>
 
-              <!-- 服务描述 - 使用n-ellipsis确保文字不溢出 -->
-              <n-ellipsis
-                class="service-description"
-                :line-clamp="3"
-                :style="{
-                  fontSize: '11px',
-                  color: 'var(--sipumtech-text-secondary)',
-                  textAlign: 'center',
-                  lineHeight: '1.3',
-                  whiteSpace: 'pre-line',
-                  maxWidth: '100%',
-                  wordBreak: 'break-word',
-                  overflowWrap: 'break-word'
-                }"
-              >
-                {{ $t(`website.cases.service_${index + 1}_desc`) }}
-              </n-ellipsis>
-            </n-space>
+                <!-- 服务描述 - 仅在桌面端显示 -->
+                <n-ellipsis
+                  v-if="shouldShowDescription"
+                  class="service-description"
+                  :line-clamp="1"
+                  :style="{
+                    fontSize: '12px',
+                    color: 'var(--sipumtech-text-secondary)',
+                    lineHeight: '1.4'
+                  }"
+                >
+                  {{ $t(`website.cases.service_${index + 1}_desc`) }}
+                </n-ellipsis>
+              </div>
+            </div>
           </n-card>
         </div>
 
@@ -110,13 +111,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
+import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
 
 // 响应式数据
 const circularContainer = ref(null)
 const isVisible = ref(false)
 const hoveredIndex = ref(-1)
+
+// 响应式断点检测
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isDesktop = breakpoints.greater('lg') // >= 1024px
+const shouldShowDescription = computed(() => isDesktop.value)
 
 // 服务项目配置
 const services = ref([
@@ -217,8 +224,8 @@ onUnmounted(() => {
 /* 圆形服务展示容器 - 优化响应式布局 */
 .circular-services-container {
   position: relative;
-  width: 800px; /* 增大桌面端容器尺寸 */
-  height: 800px;
+  width: 1100px; /* 增大桌面端容器尺寸以适配更大的卡片 */
+  height: 1100px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -361,15 +368,15 @@ onUnmounted(() => {
 }
 */
 
-/* 环形服务项目 */
+/* 环形服务项目 - 长方形卡片设计 */
 .service-item {
   position: absolute;
-  width: 160px;
-  height: 160px;
+  width: 260px; /* 增大长方形卡片宽度以避免文字截断 */
+  height: 150px; /* 保持长方形卡片高度 */
   transform-origin: center;
   transform:
     rotate(var(--angle))
-    translateY(-250px)
+    translateY(-450px) /* 增大距离适配更大的容器和卡片 */
     rotate(calc(-1 * var(--angle)))
     scale(0);
   opacity: 0;
@@ -379,23 +386,30 @@ onUnmounted(() => {
 .service-item.animate-in {
   transform:
     rotate(var(--angle))
-    translateY(-320px) /* 增大距离适配更大的容器 */
+    translateY(-450px) /* 增大距离适配更大的容器和卡片 */
     rotate(calc(-1 * var(--angle)))
     scale(1);
   opacity: 1;
   transition-delay: calc(0.5s + var(--delay));
 }
 
-/* 服务卡片样式 - 优化内容布局和溢出处理 */
+/* 服务卡片样式 - 长方形毛玻璃效果设计 */
 .service-card {
   width: 100%;
   height: 100%;
-  border-radius: 16px;
-  transition: all 0.3s ease;
+  border-radius: 20px; /* 增大圆角适配长方形 */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border: 2px solid transparent;
+  /* 毛玻璃效果 */
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  /* 立体效果 */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 8px 32px rgba(30, 58, 138, 0.12),
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
   overflow: hidden; /* 确保内容不会溢出卡片边界 */
 }
 
@@ -404,33 +418,63 @@ onUnmounted(() => {
   height: 100%;
   padding: 0; /* 移除默认padding，使用自定义spacing */
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 长方形卡片内容布局 */
+.card-content-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  gap: 12px;
+}
+
+.icon-section {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-section {
+  flex: 1;
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  min-width: 0; /* 允许文字区域收缩 */
+}
+
+.service-title {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 服务描述文字样式 - 现在通过条件渲染控制显示 */
+.service-description {
+  width: 100%;
+  text-align: left;
 }
 
 .service-card:hover,
 .service-card.hovered {
-  transform: translateY(-8px) scale(1.05);
-  box-shadow: 0 12px 40px rgba(30, 58, 138, 0.2);
-  border-color: var(--sipumtech-primary-blue);
-}
-
-/* 服务描述文字样式 - 确保不溢出 */
-.service-description {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 0; /* 允许flex项目缩小 */
-  width: 100%;
-  box-sizing: border-box;
+  transform: translateY(-12px) scale(1.03);
+  /* 增强悬停时的毛玻璃和立体效果 */
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-color: rgba(30, 58, 138, 0.3);
+  box-shadow:
+    0 16px 48px rgba(30, 58, 138, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 /* 确保n-ellipsis组件正确工作 */
 .service-description :deep(.n-ellipsis) {
   width: 100%;
-  text-align: center;
 }
 
 /* 装饰性连接线 */
@@ -515,35 +559,45 @@ onUnmounted(() => {
 /* 平板端优化 (768px-1024px) */
 @media (max-width: 1024px) and (min-width: 769px) {
   .circular-services-container {
-    width: 650px;
-    height: 650px;
+    width: 850px; /* 增大平板端容器尺寸 */
+    height: 850px;
+  }
+
+  .service-item {
+    width: 220px; /* 增大平板端长方形卡片宽度 */
+    height: 120px; /* 平板端长方形卡片高度 */
+    transform:
+      rotate(var(--angle))
+      translateY(-350px) /* 调整平板端距离 */
+      rotate(calc(-1 * var(--angle)))
+      scale(0);
   }
 
   .service-item.animate-in {
     transform:
       rotate(var(--angle))
-      translateY(-260px) /* 平板端适中距离 */
+      translateY(-350px) /* 调整平板端距离 */
       rotate(calc(-1 * var(--angle)))
       scale(1);
   }
 
-  /* 平板端文字和图标大小调整 */
+  /* 平板端卡片内容布局调整 */
+  .card-content-wrapper {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  /* 平板端图标大小调整 */
   .service-item .n-avatar {
-    width: 45px !important;
-    height: 45px !important;
-    font-size: 22px !important;
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 20px !important;
   }
 
-  .service-item .n-text {
-    font-size: 12px !important;
-    line-height: 1.2 !important;
-  }
-
-  /* 平板端服务描述优化 */
-  .service-description {
-    font-size: 10px !important;
-    line-height: 1.2 !important;
-    max-height: 36px; /* 限制最大高度避免溢出 */
+  /* 平板端文字大小调整 */
+  .service-title {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
   }
 }
 
@@ -555,12 +609,12 @@ onUnmounted(() => {
   }
 
   .circular-services-container {
-    width: 400px;
-    height: 400px;
+    width: 480px; /* 适当减小移动端容器尺寸以适配更紧凑的卡片 */
+    height: 480px;
   }
 
   .center-circle {
-    width: 150px; /* 稍微增大移动端中心圆 */
+    width: 150px; /* 保持移动端中心圆尺寸 */
     height: 150px;
   }
 
@@ -568,12 +622,27 @@ onUnmounted(() => {
     padding: 15px;
   }
 
+  /* 移动端中心圆文字控制（≤768px）- 使用显式类选择器并提高优先级 */
+  .center-title {
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+  .center-subtitle {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+  }
+
+
   .service-item {
-    width: 100px; /* 减小服务项目卡片尺寸 */
-    height: 100px;
+    width: 160px; /* 减小移动端长方形卡片宽度，确保6个卡片完整显示 */
+    height: 100px; /* 移动端长方形卡片高度 */
     transform:
       rotate(var(--angle))
-      translateY(-190px) /* 增加距离避免重叠 */
+      translateY(-220px) /* 调整距离适配更紧凑的布局 */
       rotate(calc(-1 * var(--angle)))
       scale(0);
   }
@@ -581,25 +650,31 @@ onUnmounted(() => {
   .service-item.animate-in {
     transform:
       rotate(var(--angle))
-      translateY(-190px) /* 增加距离避免重叠 */
+      translateY(-220px) /* 调整距离适配更紧凑的布局 */
       rotate(calc(-1 * var(--angle)))
       scale(1);
   }
 
-  /* 移动端服务项目图标和文字大小调整 */
-  .service-item .n-avatar {
-    width: 40px !important;
-    height: 40px !important;
-    font-size: 20px !important;
+  /* 移动端卡片内容布局调整 - 优化紧凑布局 */
+  .card-content-wrapper {
+    padding: 12px 10px; /* 增加垂直padding确保文字不被截断 */
+    gap: 8px;
+    justify-content: center; /* 确保内容居中对齐 */
   }
 
-  .service-item .n-text {
-    font-size: 11px !important;
-    line-height: 1.2 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    max-width: 90px !important;
+  /* 移动端图标大小调整 */
+  .service-item .n-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 16px !important;
+  }
+
+  /* 移动端文字大小调整 - 确保标题清晰可读 */
+  .service-title {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    font-weight: 600 !important; /* 增加字重提高可读性 */
+    text-align: center !important; /* 确保文字居中 */
   }
 
   .connection-line {
@@ -618,21 +693,16 @@ onUnmounted(() => {
       rotate(var(--line-angle))
       scaleY(1);
   }
-
-  /* 移动端隐藏服务描述文字以避免重叠 */
-  .service-description {
-    display: none !important;
-  }
 }
 
 @media (max-width: 480px) {
   .circular-services-container {
-    width: 320px;
-    height: 320px;
+    width: 380px; /* 减小超小屏幕容器尺寸以适配更紧凑的卡片 */
+    height: 380px;
   }
 
   .center-circle {
-    width: 110px; /* 稍微减小中心圆 */
+    width: 110px; /* 保持中心圆尺寸 */
     height: 110px;
   }
 
@@ -640,21 +710,23 @@ onUnmounted(() => {
     padding: 10px;
   }
 
-  /* 超小屏幕中心文字调整 */
-  .center-content .n-text:first-child {
-    font-size: 18px !important;
+  /* 超小屏幕中心文字调整（≤480px）- 使用明确类名，避免选择器歧义 */
+  .center-title {
+    font-size: 16px !important;
+    line-height: 1.2 !important;
   }
 
-  .center-content .n-text:last-child {
-    font-size: 12px !important;
+  .center-subtitle {
+    font-size: 11px !important;
+    line-height: 1.2 !important;
   }
 
   .service-item {
-    width: 80px; /* 进一步减小服务项目卡片 */
-    height: 80px;
+    width: 130px; /* 减小超小屏幕长方形卡片宽度，确保紧凑布局 */
+    height: 80px; /* 超小屏幕长方形卡片高度 */
     transform:
       rotate(var(--angle))
-      translateY(-150px) /* 调整距离 */
+      translateY(-170px) /* 调整距离适配更紧凑的布局 */
       rotate(calc(-1 * var(--angle)))
       scale(0);
   }
@@ -662,30 +734,94 @@ onUnmounted(() => {
   .service-item.animate-in {
     transform:
       rotate(var(--angle))
-      translateY(-150px) /* 调整距离 */
+      translateY(-170px) /* 调整距离适配更紧凑的布局 */
       rotate(calc(-1 * var(--angle)))
       scale(1);
   }
 
-  /* 超小屏幕服务项目图标和文字进一步缩小 */
+  /* 超小屏幕卡片内容布局调整 - 最紧凑布局 */
+  .card-content-wrapper {
+    padding: 10px 8px; /* 保持适当的padding确保内容不贴边 */
+    gap: 6px;
+    justify-content: center; /* 确保内容居中对齐 */
+  }
+
+  /* 超小屏幕图标大小调整 */
   .service-item .n-avatar {
-    width: 32px !important;
-    height: 32px !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 14px !important;
+  }
+
+  /* 超小屏幕文字大小调整 - 确保标题清晰可读 */
+  .service-title {
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+    font-weight: 600 !important; /* 增加字重提高可读性 */
+    text-align: center !important; /* 确保文字居中 */
+  }
+}
+
+/* 极小屏幕优化 (≤360px) - 针对最小的移动设备 */
+@media (max-width: 360px) {
+  .circular-services-container {
+    width: 320px; /* 进一步减小容器尺寸 */
+    height: 320px;
+  }
+
+  .center-circle {
+    width: 100px; /* 适当减小中心圆 */
+    height: 100px;
+  }
+
+  .center-content {
+    padding: 8px;
+  }
+
+  /* 极小屏幕中心文字调整 */
+  .center-content .n-text:first-child {
     font-size: 16px !important;
   }
 
-  .service-item .n-text {
-    font-size: 10px !important;
-    line-height: 1.1 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    max-width: 76px !important;
+  .center-content .n-text:last-child {
+    font-size: 11px !important;
   }
 
-  /* 移动端隐藏服务描述文字以避免重叠 */
-  .service-description {
-    display: none !important;
+  .service-item {
+    width: 110px; /* 极小屏幕卡片宽度 */
+    height: 70px; /* 极小屏幕卡片高度 */
+    transform:
+      rotate(var(--angle))
+      translateY(-145px) /* 调整距离 */
+      rotate(calc(-1 * var(--angle)))
+      scale(0);
+  }
+
+  .service-item.animate-in {
+    transform:
+      rotate(var(--angle))
+      translateY(-145px) /* 调整距离 */
+      rotate(calc(-1 * var(--angle)))
+      scale(1);
+  }
+
+  /* 极小屏幕卡片内容布局 */
+  .card-content-wrapper {
+    padding: 8px 6px;
+    gap: 4px;
+  }
+
+  /* 极小屏幕图标调整 */
+  .service-item .n-avatar {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 12px !important;
+  }
+
+  /* 极小屏幕文字调整 */
+  .service-title {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
   }
 }
 </style>
