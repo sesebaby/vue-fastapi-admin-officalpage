@@ -823,7 +823,7 @@ onUnmounted(() => {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   padding: 32px 24px;
-  height: 200px; /* 使用固定高度而不是最小高度 */
+  height: 260px; /* 增加基础高度，确保文字内容完整显示 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -909,7 +909,7 @@ onUnmounted(() => {
 
 /* 联系信息卡片基础样式 - 遵循NaiveUI优先原则 */
 .contact-info-card {
-  height: 200px;
+  height: 260px; /* 增加高度确保文字内容完整显示 */
   text-align: center;
 }
 
@@ -968,7 +968,7 @@ onUnmounted(() => {
   /* 移除自定义grid样式，避免与n-grid冲突 */
 
   .modern-glass-card {
-    height: 240px; /* 固定高度，以地址卡片内容为基准 */
+    height: 300px; /* 增加大屏端高度，确保文字内容完整显示 */
     padding: 36px 28px;
   }
 
@@ -1175,7 +1175,7 @@ onUnmounted(() => {
   }
 
   .modern-glass-card {
-    height: 200px; /* 固定高度，确保平板端卡片高度一致 */
+    height: 260px; /* 增加平板端高度，确保文字内容完整显示 */
     padding: 28px 20px;
     border-radius: 16px;
   }
@@ -1262,7 +1262,7 @@ onUnmounted(() => {
   }
 
   .modern-glass-card {
-    height: 180px; /* 固定高度，确保手机端卡片高度一致 */
+    height: 220px; /* 增加移动端高度，确保文字内容完整显示 */
     padding: 24px 18px;
     border-radius: 14px;
     margin-bottom: 16px;

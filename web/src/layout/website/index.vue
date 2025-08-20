@@ -139,21 +139,44 @@
           :size="6"
           style="max-width: 1200px; width: 100%; padding: 0 30px; border-top: 1px solid var(--sipumtech-divider, #e2e8f0); padding-top: 25px; text-align: center; color: var(--sipumtech-text-secondary, #6b7280);"
         >
-          <!-- 版权信息和ICP备案信息在同一行显示 -->
-          <n-space align="center" justify="center" :size="16" :wrap="false">
-            <n-text style="font-size: 14px; margin: 6px 0;">
+          <!-- 版权信息和ICP备案信息 - 移动端分两行显示，桌面端同一行显示 -->
+          <n-space
+            align="center"
+            justify="center"
+            :size="isMobile ? 8 : 16"
+            :vertical="isMobile"
+            :wrap="false"
+          >
+            <n-text :style="{
+              fontSize: isMobile ? '13px' : '14px',
+              margin: '6px 0',
+              textAlign: 'center',
+              lineHeight: isMobile ? '1.4' : '1.2'
+            }">
               &copy; 2019-2025 {{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司 版权所有' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd. All Rights Reserved' }}
             </n-text>
             <n-a
               href="https://beian.miit.gov.cn/#/Integrated/index"
               target="_blank"
-              style="font-size: 14px; margin: 6px 0; color: var(--sipumtech-text-secondary, #6b7280); text-decoration: none;"
+              :style="{
+                fontSize: isMobile ? '13px' : '14px',
+                margin: '6px 0',
+                color: 'var(--sipumtech-text-secondary, #6b7280)',
+                textDecoration: 'none',
+                textAlign: 'center',
+                lineHeight: isMobile ? '1.4' : '1.2'
+              }"
               :underline="false"
             >
               苏ICP备2025201169号
             </n-a>
           </n-space>
-          <n-text style="margin: 6px 0; font-size: 14px;">
+          <n-text :style="{
+            margin: '6px 0',
+            fontSize: isMobile ? '13px' : '14px',
+            textAlign: 'center',
+            lineHeight: isMobile ? '1.4' : '1.2'
+          }">
             {{ currentLocale === 'zh-CN' ? '专业技术 · 快速响应 · 质量保证' : 'Professional Technology · Rapid Response · Quality Assurance' }}
           </n-text>
         </n-flex>
