@@ -47,7 +47,7 @@ export async function resReject(error) {
       const userStore = useUserStore()
       userStore.logout()
     } catch (error) {
-      console.log('resReject error', error)
+      // 用户登出处理错误
       return
     }
   }

@@ -198,7 +198,7 @@ const handleLearnMore = () => {
   }
 
   // 可以在这里添加埋点统计
-  console.log('用户点击了解更多按钮')
+  // 用户点击了解更多按钮
 }
 
 const handleContactUs = () => {
@@ -209,7 +209,7 @@ const handleContactUs = () => {
   }
 
   // 可以在这里添加埋点统计
-  console.log('用户点击联系我们按钮')
+  // 用户点击联系我们按钮
 }
 </script>
 

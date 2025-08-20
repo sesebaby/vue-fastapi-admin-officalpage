@@ -60,7 +60,7 @@ const handleLogin = async () => {
     // 直接跳转到外部OA系统
     window.open('http://oa.sipumtech.com', '_blank')
   } catch (error) {
-    console.error('Navigation to OA system failed:', error)
+    // 导航到OA系统失败
     // 可以在这里添加错误提示
   } finally {
     loading.value = false

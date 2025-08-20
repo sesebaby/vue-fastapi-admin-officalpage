@@ -429,7 +429,7 @@ const loadBaiduMapAPI = () => {
     }
 
     const apiKey = import.meta.env.VITE_BAIDU_MAP_API_KEY || 'your_api_key_here'
-    console.log('读取到的API密钥:', apiKey, '长度:', apiKey?.length)
+    // API密钥已读取 (长度检查)
 
     // 直接加载百度地图的JavaScript文件
     const script = document.createElement('script')
@@ -474,7 +474,7 @@ const loadBaiduMapAPI = () => {
 const initBaiduMap = async (retryCount = 0) => {
   // 防止重复初始化
   if (isMapInitializing.value) {
-    console.log('地图正在初始化中，跳过重复请求')
+    // 地图正在初始化中，跳过重复请求
     return
   }
 
@@ -503,9 +503,9 @@ const initBaiduMap = async (retryCount = 0) => {
     await nextTick()
 
     // 使用改进的DOM元素等待机制
-    console.log('等待地图容器DOM元素...')
+    // 等待地图容器DOM元素
     const mapContainer = await waitForElement('#baidu-map-container', 3000)
-    console.log('地图容器找到:', mapContainer)
+    // 地图容器检查完成
 
     // 强制设置地图容器高度，确保地图正常显示
     mapContainer.style.height = '400px'
@@ -527,7 +527,7 @@ const initBaiduMap = async (retryCount = 0) => {
           mapContainer.innerHTML = ''
         }
       } catch (e) {
-        console.warn('清理旧地图实例时出错:', e)
+        // 清理旧地图实例时出错
       }
     }
 
@@ -540,7 +540,7 @@ const initBaiduMap = async (retryCount = 0) => {
     const isMobile = window.innerWidth <= 768
     const zoomLevel = isMobile ? 15 : 16  // 移动端使用稍小的缩放级别以显示更多周边环境
 
-    console.log(`地图初始化 - 设备类型: ${isMobile ? '移动端' : '桌面端'}, 缩放级别: ${zoomLevel}, 坐标: (${companyLocation.lng}, ${companyLocation.lat})`)
+    // 地图初始化参数已设置
 
     // 设置地图中心点和缩放级别
     baiduMap.value.centerAndZoom(point, zoomLevel)
@@ -558,7 +558,7 @@ const initBaiduMap = async (retryCount = 0) => {
     mapMarker.value = new BMap.Marker(point)
     baiduMap.value.addOverlay(mapMarker.value)
 
-    console.log('地图标记已创建并添加到地图')
+    // 地图标记已创建并添加到地图
 
     // 根据设备类型创建不同尺寸的信息窗口
     const infoWindowWidth = isMobile ? 250 : 300
@@ -612,12 +612,12 @@ const initBaiduMap = async (retryCount = 0) => {
     isMapInitializing.value = false // 成功时重置初始化标志
 
   } catch (error) {
-    console.error(`百度地图初始化失败 (尝试 ${retryCount + 1}/${maxRetries}):`, error)
+    // 百度地图初始化失败
 
     // 如果是DOM元素未找到且还有重试机会，则重试
     if (error.message.includes('DOM元素') && retryCount < maxRetries - 1) {
       mapRetryCount.value = retryCount + 1
-      console.log(`将在 ${(retryCount + 1) * 1000}ms 后重试...`)
+      // 准备重试地图初始化
 
       // 重置初始化标志，允许重试
       isMapInitializing.value = false
@@ -727,7 +727,7 @@ onUnmounted(() => {
         try {
           mapContainer.innerHTML = ''
         } catch (domError) {
-          console.warn('清理地图容器DOM时出错:', domError)
+          // 清理地图容器DOM时出错
         }
       }
       baiduMap.value = null
@@ -736,7 +736,7 @@ onUnmounted(() => {
       mapMarker.value = null
     }
   } catch (error) {
-    console.warn('地图清理时出现错误:', error)
+    // 地图清理时出现错误
   }
 })
 

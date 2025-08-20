@@ -119,13 +119,13 @@ const carouselHeight = computed(() => {
 // 图片加载完成处理
 const handleImageLoad = () => {
   imagesLoaded.value++
-  console.log(`图片加载完成: ${imagesLoaded.value}/${totalImages.value}`)
+  // 图片加载完成计数
 
   // 当所有图片都加载完成时，启动自动播放
   if (imagesLoaded.value >= totalImages.value) {
     setTimeout(() => {
       autoplayEnabled.value = true
-      console.log('所有图片加载完成，启动轮播自动播放')
+      // 所有图片加载完成，启动轮播自动播放
     }, 500) // 延迟500ms确保渲染完成
   }
 }
@@ -133,7 +133,7 @@ const handleImageLoad = () => {
 // 轮播事件处理函数
 const handleSlideChange = (index) => {
   currentSlideIndex.value = index
-  console.log(`轮播切换到第 ${index + 1} 张图片`)
+  // 轮播切换
 }
 
 // 轮播控制方法
@@ -203,7 +203,7 @@ onMounted(() => {
     if (carouselRef.value) {
       // 确保从第一张开始
       carouselRef.value.to(0)
-      console.log('轮播组件初始化完成')
+      // 轮播组件初始化完成
     }
   }, 100)
 })

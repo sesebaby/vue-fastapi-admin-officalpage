@@ -90,7 +90,7 @@ const errorDescription = computed(() => {
 
 // 捕获子组件错误
 onErrorCaptured((error, instance, info) => {
-  console.error('ErrorBoundary caught an error:', error, info)
+  // ErrorBoundary 捕获到错误
   
   hasError.value = true
   errorInfo.value = {
