@@ -43,6 +43,8 @@
             :interval="6000"
             :show-dots="true"
             :show-arrow="false"
+            :keyboard="false"
+            :mousewheel="false"
             style="height: auto;"
           >
             <!-- 第一组证言 -->

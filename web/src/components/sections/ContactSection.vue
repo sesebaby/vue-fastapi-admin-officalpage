@@ -26,7 +26,7 @@
         <div class="contact-info-section">
           <!-- 联系信息卡片网格 - 大屏3列水平排列，平板和手机垂直排列 -->
           <n-grid
-            :cols="'1024:3 768:1 480:1'"
+            :cols="contactGridCols"
             :x-gap="24"
             :y-gap="20"
             item-responsive
@@ -296,9 +296,25 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useBreakpoints } from '@vueuse/core'
 import api from '@/api'
 
 const { t } = useI18n()
+
+// 响应式断点配置
+const breakpoints = useBreakpoints({
+  sm: 480,
+  md: 768,
+  lg: 1024,
+  xl: 1200
+})
+
+// 联系信息网格列数配置
+const contactGridCols = computed(() => {
+  if (breakpoints.lg.value) return 3  // 大屏：3列
+  if (breakpoints.md.value) return 1  // 平板：1列
+  return 1  // 移动端：1列
+})
 
 // 在线联系表单状态
 const contactFormRef = ref(null)
@@ -682,6 +698,23 @@ onMounted(() => {
     setTimeout(() => {
       initBaiduMap()
     }, 200)
+
+    // 调试：检查第三个card的显示状态
+    setTimeout(() => {
+      const contactCards = document.querySelectorAll('.contact-info-card')
+      console.log(`联系信息卡片总数: ${contactCards.length}`)
+
+      contactCards.forEach((card, index) => {
+        const computedStyle = window.getComputedStyle(card)
+        console.log(`Card ${index + 1}:`, {
+          display: computedStyle.display,
+          visibility: computedStyle.visibility,
+          opacity: computedStyle.opacity,
+          width: computedStyle.width,
+          height: computedStyle.height
+        })
+      })
+    }, 500)
   })
 })
 
@@ -883,6 +916,14 @@ onUnmounted(() => {
   box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
 }
 
+/* 确保第三个card（邮箱card）的显示一致性 */
+.contact-info-card:nth-child(3) {
+  /* 确保第三个card与其他card具有相同的基础样式 */
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
 /* 图标悬停效果 */
 .modern-glass-card:hover .card-icon {
   transform: scale(1.1) rotate(5deg);
@@ -946,13 +987,9 @@ onUnmounted(() => {
   color: var(--sipumtech-text-primary, #374151);
 }
 
-/* 大屏端确保3个卡片等宽等高 */
+/* 大屏端确保3个卡片等宽等高 - 移除自定义grid样式，使用n-grid原生响应式 */
 @media (min-width: 1024px) {
-  .contact-info-section .n-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 30px;
-  }
+  /* 移除自定义grid样式，避免与n-grid冲突 */
 
   .modern-glass-card {
     height: 240px; /* 固定高度，以地址卡片内容为基准 */
