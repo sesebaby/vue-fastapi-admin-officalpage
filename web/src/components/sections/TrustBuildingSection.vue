@@ -53,7 +53,6 @@
                     :quote="$t('website.trust.testimonial_1_quote')"
                     :customer-name="$t('website.trust.testimonial_1_name')"
                     :customer-title="$t('website.trust.testimonial_1_title')"
-                    :company-name="$t('website.trust.testimonial_1_company')"
                     :avatar="getImagePath('customers', 'avatar_1')"
                     :project-tags="[
                       $t('website.project_tags.advanced_packaging'),
@@ -67,7 +66,6 @@
                     :quote="$t('website.trust.testimonial_2_quote')"
                     :customer-name="$t('website.trust.testimonial_2_name')"
                     :customer-title="$t('website.trust.testimonial_2_title')"
-                    :company-name="$t('website.trust.testimonial_2_company')"
                     :avatar="getImagePath('customers', 'avatar_2')"
                     :project-tags="[
                       $t('website.project_tags.hardware_solution'),
@@ -87,7 +85,6 @@
                     :quote="$t('website.trust.testimonial_3_quote')"
                     :customer-name="$t('website.trust.testimonial_3_name')"
                     :customer-title="$t('website.trust.testimonial_3_title')"
-                    :company-name="$t('website.trust.testimonial_3_company')"
                     :avatar="getImagePath('customers', 'avatar_3')"
                     :project-tags="[
                       $t('website.project_tags.tech_consultation'),
@@ -101,7 +98,6 @@
                     :quote="$t('website.trust.testimonial_4_quote')"
                     :customer-name="$t('website.trust.testimonial_4_name')"
                     :customer-title="$t('website.trust.testimonial_4_title')"
-                    :company-name="$t('website.trust.testimonial_4_company')"
                     :avatar="getImagePath('customers', 'avatar_4')"
                     :project-tags="[
                       $t('website.project_tags.one_stop_service'),

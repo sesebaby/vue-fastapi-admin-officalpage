@@ -35,7 +35,6 @@
           <n-space vertical :size="4">
             <h4 class="customer-name">{{ customerName }}</h4>
             <p class="customer-title">{{ customerTitle }}</p>
-            <p class="company-name">{{ companyName }}</p>
           </n-space>
         </n-space>
 
@@ -85,11 +84,6 @@ const props = defineProps({
   customerTitle: {
     type: String,
     default: ''
-  },
-  // 公司名称
-  companyName: {
-    type: String,
-    required: true
   },
   // 客户头像
   avatar: {
@@ -245,13 +239,6 @@ const props = defineProps({
   margin: 0;
 }
 
-.company-name {
-  font-size: var(--sipumtech-font-size-small);
-  font-weight: var(--sipumtech-font-weight-medium);
-  color: var(--sipumtech-accent-green);
-  margin: 0;
-}
-
 .project-tag {
   background: rgba(0, 212, 170, 0.1) !important;
   border: 1px solid rgba(0, 212, 170, 0.2) !important;
@@ -307,8 +294,7 @@ const props = defineProps({
     font-size: var(--sipumtech-font-size-small);
   }
 
-  .customer-title,
-  .company-name {
+  .customer-title {
     font-size: var(--sipumtech-font-size-xs);
   }
 
