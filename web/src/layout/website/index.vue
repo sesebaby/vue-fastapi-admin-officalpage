@@ -139,9 +139,23 @@
           :size="6"
           style="max-width: 1200px; width: 100%; padding: 0 30px; border-top: 1px solid var(--sipumtech-divider, #e2e8f0); padding-top: 25px; text-align: center; color: var(--sipumtech-text-secondary, #6b7280);"
         >
-          <p style="margin: 6px 0; font-size: 14px;">&copy; 2019-2025 {{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司 版权所有' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd. All Rights Reserved' }}</p>
-          <p style="margin: 6px 0; font-size: 14px;">{{ currentLocale === 'zh-CN' ? '专业技术 · 快速响应 · 质量保证' : 'Professional Technology · Rapid Response · Quality Assurance' }}</p>
-          <p style="margin: 6px 0; font-size: 14px;">苏ICP备2025201169号</p>
+          <!-- 版权信息和ICP备案信息在同一行显示 -->
+          <n-space align="center" justify="center" :size="16" :wrap="false">
+            <n-text style="font-size: 14px; margin: 6px 0;">
+              &copy; 2019-2025 {{ currentLocale === 'zh-CN' ? '苏州思普微电子科技有限公司 版权所有' : 'Suzhou SIPUMTECH Electronic Technology Co., Ltd. All Rights Reserved' }}
+            </n-text>
+            <n-a
+              href="https://beian.miit.gov.cn/#/Integrated/index"
+              target="_blank"
+              style="font-size: 14px; margin: 6px 0; color: var(--sipumtech-text-secondary, #6b7280); text-decoration: none;"
+              :underline="false"
+            >
+              苏ICP备2025201169号
+            </n-a>
+          </n-space>
+          <n-text style="margin: 6px 0; font-size: 14px;">
+            {{ currentLocale === 'zh-CN' ? '专业技术 · 快速响应 · 质量保证' : 'Professional Technology · Rapid Response · Quality Assurance' }}
+          </n-text>
         </n-flex>
       </n-flex>
     </n-layout-footer>
