@@ -64,30 +64,33 @@
                 <n-text
                   class="service-title"
                   :style="{
-                    fontSize: '15px',
+                    fontSize: '18px',
                     fontWeight: 'var(--sipumtech-font-weight-bold)',
                     color: 'var(--sipumtech-primary-blue)',
                     lineHeight: '1.3',
                     display: 'block',
-                    marginBottom: '6px'
+                    marginBottom: '8px',
+                    marginTop: '-4px'
                   }"
                 >
                   {{ $t(`website.cases.service_${index + 1}_title`) }}
                 </n-text>
 
-                <!-- 服务描述 - 仅在桌面端显示 -->
-                <n-ellipsis
+                <!-- 服务描述 - 支持换行显示 -->
+                <n-text
                   v-if="shouldShowDescription"
                   class="service-description"
-                  :line-clamp="1"
                   :style="{
-                    fontSize: '12px',
+                    fontSize: '15px',
                     color: 'var(--sipumtech-text-secondary)',
-                    lineHeight: '1.4'
+                    lineHeight: '1.5',
+                    whiteSpace: 'pre-line',
+                    textAlign: 'left',
+                    width: '100%'
                   }"
                 >
                   {{ $t(`website.cases.service_${index + 1}_desc`) }}
-                </n-ellipsis>
+                </n-text>
               </div>
             </div>
           </n-card>
@@ -123,7 +126,8 @@ const hoveredIndex = ref(-1)
 // 响应式断点检测
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const isDesktop = breakpoints.greater('lg') // >= 1024px
-const shouldShowDescription = computed(() => isDesktop.value)
+const isTablet = breakpoints.between('md', 'lg') // 768px-1024px
+const shouldShowDescription = computed(() => isDesktop.value || isTablet.value)
 
 // 服务项目配置
 const services = ref([
@@ -428,8 +432,8 @@ onUnmounted(() => {
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 16px;
-  gap: 12px;
+  padding: 18px 16px;
+  gap: 14px;
 }
 
 .icon-section {
@@ -596,8 +600,14 @@ onUnmounted(() => {
 
   /* 平板端文字大小调整 */
   .service-title {
-    font-size: 13px !important;
+    font-size: 16px !important;
     line-height: 1.3 !important;
+    margin-top: -3px !important;
+  }
+
+  .service-description {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
   }
 }
 
@@ -657,8 +667,8 @@ onUnmounted(() => {
 
   /* 移动端卡片内容布局调整 - 优化紧凑布局 */
   .card-content-wrapper {
-    padding: 12px 10px; /* 增加垂直padding确保文字不被截断 */
-    gap: 8px;
+    padding: 14px 10px; /* 增加垂直padding确保文字不被截断 */
+    gap: 10px;
     justify-content: center; /* 确保内容居中对齐 */
   }
 
@@ -671,10 +681,11 @@ onUnmounted(() => {
 
   /* 移动端文字大小调整 - 确保标题清晰可读 */
   .service-title {
-    font-size: 12px !important;
+    font-size: 15px !important;
     line-height: 1.4 !important;
     font-weight: 600 !important; /* 增加字重提高可读性 */
     text-align: center !important; /* 确保文字居中 */
+    margin-top: -2px !important;
   }
 
   .connection-line {
@@ -755,10 +766,11 @@ onUnmounted(() => {
 
   /* 超小屏幕文字大小调整 - 确保标题清晰可读 */
   .service-title {
-    font-size: 11px !important;
+    font-size: 14px !important;
     line-height: 1.3 !important;
     font-weight: 600 !important; /* 增加字重提高可读性 */
     text-align: center !important; /* 确保文字居中 */
+    margin-top: -2px !important;
   }
 }
 
@@ -820,8 +832,9 @@ onUnmounted(() => {
 
   /* 极小屏幕文字调整 */
   .service-title {
-    font-size: 10px !important;
+    font-size: 13px !important;
     line-height: 1.2 !important;
+    margin-top: -1px !important;
   }
 }
 </style>

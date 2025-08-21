@@ -83,7 +83,8 @@
                   </div>
                   <n-space vertical align="center" :size="8">
                     <n-text strong class="card-title">{{ $t('website.contact.email_title') }}</n-text>
-                    <n-text class="card-text">{{ $t('website.contact.email') }}</n-text>
+                    <!-- 硬编码邮箱地址以确保在所有环境下都能正常显示 -->
+                    <n-text class="card-text email-address-hardcoded">sales@sipumtech.com</n-text>
                   </n-space>
                 </n-space>
               </n-card>
@@ -91,6 +92,21 @@
           </n-grid>
         </div>
 
+        <!-- 调试信息区域 - 仅在开发环境显示 -->
+        <!-- <div v-if="isDev" class="debug-info-section">
+          <n-card title="邮箱地址调试信息" size="small" style="margin: 20px 0; border: 2px dashed #f59e0b;">
+            <n-space vertical :size="8">
+              <n-text>组件挂载状态: {{ debugInfo.componentMounted ? '✅ 已挂载' : '❌ 未挂载' }}</n-text>
+              <n-text>国际化加载状态: {{ debugInfo.i18nLoaded ? '✅ 已加载' : '❌ 未加载' }}</n-text>
+              <n-text>邮箱标题 (i18n): "{{ debugInfo.emailTitleFromI18n }}"</n-text>
+              <n-text>邮箱地址 (i18n): "{{ debugInfo.emailFromI18n }}"</n-text>
+              <n-text>硬编码邮箱地址: "sales@sipumtech.com"</n-text>
+              <n-text style="color: #10b981; font-weight: bold;">
+                💡 当前使用硬编码方案确保邮箱地址在所有环境下都能正常显示
+              </n-text>
+            </n-space>
+          </n-card>
+        </div> -->
 
         <!-- 地图区域 - 大屏端单独一行 -->
         <div class="map-section">
@@ -306,6 +322,17 @@ import { useBreakpoints } from '@vueuse/core'
 import api from '@/api'
 
 const { t } = useI18n()
+
+// 调试信息 - 用于排查邮箱地址显示问题
+const debugInfo = ref({
+  emailFromI18n: '',
+  emailTitleFromI18n: '',
+  componentMounted: false,
+  i18nLoaded: false
+})
+
+// 开发环境检测
+const isDev = ref(import.meta.env.DEV)
 
 // 响应式断点配置
 const breakpoints = useBreakpoints({
@@ -699,6 +726,21 @@ const copyAddress = async () => {
 
 // 组件挂载时初始化地图
 onMounted(() => {
+  // 调试信息收集
+  debugInfo.value.componentMounted = true
+  debugInfo.value.emailFromI18n = t('website.contact.email')
+  debugInfo.value.emailTitleFromI18n = t('website.contact.email_title')
+  debugInfo.value.i18nLoaded = !!t('website.contact.email')
+
+  // 控制台调试输出
+  console.log('=== ContactSection 调试信息 ===')
+  console.log('邮箱地址 (i18n):', t('website.contact.email'))
+  console.log('邮箱标题 (i18n):', t('website.contact.email_title'))
+  console.log('国际化是否加载:', !!t('website.contact.email'))
+  console.log('组件挂载状态:', true)
+  console.log('调试信息对象:', debugInfo.value)
+  console.log('================================')
+
   // 延迟初始化，确保DOM完全渲染
   nextTick(() => {
     setTimeout(() => {
@@ -951,6 +993,40 @@ onUnmounted(() => {
   transition: color 0.3s ease;
 }
 
+/* 硬编码邮箱地址样式 - 确保与其他联系信息样式完全一致 */
+.email-address-hardcoded {
+  font-size: 14px !important;
+  color: var(--sipumtech-text-secondary, #64748b) !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+  word-wrap: break-word !important;
+  hyphens: auto !important;
+  transition: color 0.3s ease !important;
+  /* 确保邮箱地址可以正常选择和复制 */
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  /* 防止任何可能的隐藏或过滤 */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* 调试信息区域样式 */
+.debug-info-section {
+  margin: 20px 0;
+}
+
+.debug-info-section .n-card {
+  background: #fffbeb !important;
+  border: 2px dashed #f59e0b !important;
+}
+
+.debug-info-section .n-text {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+}
 
 /* 移除特殊样式，使用NaiveUI原生样式 */
 
@@ -982,6 +1058,14 @@ onUnmounted(() => {
     line-height: 1.5;
     word-break: break-word;
     hyphens: auto;
+  }
+
+  /* 大屏端硬编码邮箱地址样式 */
+  .email-address-hardcoded {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
   }
 
   /* 大屏端使用NaiveUI原生样式 */
@@ -1203,6 +1287,14 @@ onUnmounted(() => {
     hyphens: auto;
   }
 
+  /* 平板端硬编码邮箱地址样式 */
+  .email-address-hardcoded {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+  }
+
   /* 平板端使用NaiveUI原生样式 */
 
 
@@ -1290,6 +1382,14 @@ onUnmounted(() => {
     line-height: 1.4;
     word-break: break-word;
     hyphens: auto;
+  }
+
+  /* 移动端硬编码邮箱地址样式 */
+  .email-address-hardcoded {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
   }
 
   /* 移动端使用NaiveUI原生样式 */

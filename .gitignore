@@ -22,3 +22,6 @@ web/dist20250816.zip
 其他/修改需求20250819/~$修改内容.docx
 web/dist.zip
 web/dist.zip
+
+# 忽略所有zip文件
+*.zip
