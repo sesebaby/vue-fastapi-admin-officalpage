@@ -323,7 +323,7 @@ import api from '@/api'
 
 const { t } = useI18n()
 
-// 调试信息 - 用于排查邮箱地址显示问题
+// 调试信息 - 用于排查邮箱地址显示问题（已优化，避免影响地图初始化）
 const debugInfo = ref({
   emailFromI18n: '',
   emailTitleFromI18n: '',
@@ -726,26 +726,27 @@ const copyAddress = async () => {
 
 // 组件挂载时初始化地图
 onMounted(() => {
-  // 调试信息收集
-  debugInfo.value.componentMounted = true
-  debugInfo.value.emailFromI18n = t('website.contact.email')
-  debugInfo.value.emailTitleFromI18n = t('website.contact.email_title')
-  debugInfo.value.i18nLoaded = !!t('website.contact.email')
-
-  // 控制台调试输出
-  console.log('=== ContactSection 调试信息 ===')
-  console.log('邮箱地址 (i18n):', t('website.contact.email'))
-  console.log('邮箱标题 (i18n):', t('website.contact.email_title'))
-  console.log('国际化是否加载:', !!t('website.contact.email'))
-  console.log('组件挂载状态:', true)
-  console.log('调试信息对象:', debugInfo.value)
-  console.log('================================')
-
   // 延迟初始化，确保DOM完全渲染
   nextTick(() => {
     setTimeout(() => {
       initBaiduMap()
     }, 200)
+
+    // 调试信息收集 - 移到地图初始化之后，避免影响时序
+    setTimeout(() => {
+      debugInfo.value.componentMounted = true
+      debugInfo.value.emailFromI18n = t('website.contact.email')
+      debugInfo.value.emailTitleFromI18n = t('website.contact.email_title')
+      debugInfo.value.i18nLoaded = !!t('website.contact.email')
+
+      console.log('=== ContactSection 调试信息 ===')
+      console.log('邮箱地址 (i18n):', t('website.contact.email'))
+      console.log('邮箱标题 (i18n):', t('website.contact.email_title'))
+      console.log('国际化是否加载:', !!t('website.contact.email'))
+      console.log('组件挂载状态:', true)
+      console.log('调试信息对象:', debugInfo.value)
+      console.log('================================')
+    }, 500) // 在地图初始化后执行调试代码
 
     // NaiveUI组件原生支持，无需调试代码
   })
