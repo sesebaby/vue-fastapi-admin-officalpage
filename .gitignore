@@ -25,3 +25,4 @@ web/dist.zip
 
 # 忽略所有zip文件
 *.zip
+web/dist.zip
