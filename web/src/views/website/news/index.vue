@@ -327,11 +327,39 @@ const goBackToHome = () => {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px; /* 增加最大宽度以更好利用大屏空间 */
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px; /* 稍微增加内边距 */
   width: 100%;
   box-sizing: border-box;
+}
+
+/* 响应式容器宽度优化 */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1600px; /* 大屏幕进一步增加宽度 */
+    padding: 0 32px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1800px; /* 超大屏幕最大化利用 */
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .container {
+    max-width: 100%; /* 平板端使用全宽 */
+    padding: 0 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 0 20px; /* 移动端保持原有内边距 */
+  }
 }
 
 /* 新闻内容区域 */

@@ -28,6 +28,15 @@ export const basicRoutes = [
           requiresAuth: false, // 不需要登录
         },
       },
+      {
+        path: 'cases',
+        component: () => import('@/views/website/cases/index.vue'),
+        name: 'CasesList',
+        meta: {
+          title: '成功案例 - 苏州思普微电子科技有限公司',
+          requiresAuth: false,
+        },
+      },
     ],
     meta: { order: 0, requiresAuth: false },
   },

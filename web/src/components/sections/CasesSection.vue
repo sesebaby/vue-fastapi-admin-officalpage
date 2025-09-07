@@ -3,10 +3,27 @@
   <section id="cases" class="cases-section section-half">
     <div class="section-container">
       <!-- 标题区域 -->
-      <n-space vertical align="center" :size="20" style="margin-bottom: 80px;">
-        <h2 class="section-title">{{ $t('website.cases.title') }}</h2>
-        <div class="title-underline"></div>
-        <p class="section-subtitle">{{ $t('website.cases.subtitle') }}</p>
+      <n-space justify="space-between" align="center" :size="20" style="margin-bottom: 80px;">
+        <n-space vertical :size="20">
+          <h2 class="section-title">{{ $t('website.cases.title') }}</h2>
+          <div class="title-underline"></div>
+          <p class="section-subtitle">{{ $t('website.cases.subtitle') }}</p>
+        </n-space>
+        <n-button
+          text
+          size="large"
+          class="cases-more-button"
+          @click="handleMoreClick"
+        >
+          <n-space align="center" :size="8">
+            <span>{{ $t('website.cases.more') }}</span>
+            <n-icon :size="16">
+              <svg viewBox="0 0 24 24">
+                <path fill="currentColor" d="M8.59 16.59L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.41z"/>
+              </svg>
+            </n-icon>
+          </n-space>
+        </n-button>
       </n-space>
 
       <!-- 圆形服务展示区域 -->
@@ -117,6 +134,7 @@
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
+import { useRouter } from 'vue-router'
 
 // 响应式数据
 const circularContainer = ref(null)
@@ -165,6 +183,12 @@ const handleServiceHover = (index, isHover) => {
 onUnmounted(() => {
   stop()
 })
+
+// 查看更多
+const router = useRouter()
+const handleMoreClick = () => {
+  router.push('/cases')
+}
 </script>
 
 <style scoped>
