@@ -232,13 +232,6 @@ const newsData = ref([
     image: 'news_1'
   },
   {
-    id: 'news_2',
-    date: '2024-07-28',
-    titleKey: 'website.news.news_2_title',
-    excerptKey: 'website.news.news_2_excerpt',
-    image: 'news_2'
-  },
-  {
     id: 'news_3',
     date: '2024-02-01',
     titleKey: 'website.news.news_3_title',
