@@ -170,6 +170,21 @@
             >
               苏ICP备2025201169号
             </n-a>
+            <n-a
+              href="https://beian.miit.gov.cn/#/Integrated/index"
+              target="_blank"
+              :style="{
+                fontSize: isMobile ? '13px' : '14px',
+                margin: '6px 0',
+                color: 'var(--sipumtech-text-secondary, #6b7280)',
+                textDecoration: 'none',
+                textAlign: 'center',
+                lineHeight: isMobile ? '1.4' : '1.2'
+              }"
+              :underline="false"
+            >
+              苏公网安备32050902102663号
+            </n-a>
           </n-space>
           <n-text :style="{
             margin: '6px 0',
