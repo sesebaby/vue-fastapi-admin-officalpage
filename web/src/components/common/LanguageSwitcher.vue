@@ -7,7 +7,7 @@
       :class="['lang-item', { active: currentLocale === 'zh-CN' }]"
       @click="handleLanguageSwitch('zh-CN')"
     >
-      {{ $t('lang') }}
+      中文
     </n-button>
     <span v-if="!mobile" class="lang-divider">|</span>
     <n-button
@@ -62,44 +62,36 @@ const handleLanguageSwitch = (lang) => {
 </script>
 
 <style scoped>
-.lang-item {
-  background: none;
-  border: none;
-  color: var(--n-text-color-2);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 6px 12px;
-  border-radius: var(--n-border-radius);
-  font-size: var(--n-font-size);
-  font-weight: 500;
-}
-
-.lang-item.active {
-  color: var(--n-color-primary);
-  background: var(--n-color-primary-suppl);
-  font-weight: 600;
-}
-
-.lang-item:hover {
-  color: var(--n-color-primary-hover);
-  background: var(--n-color-target);
-}
-
+/* 语言分隔符样式 */
 .lang-divider {
   color: var(--n-border-color);
+  font-weight: 300;
+  opacity: 0.6;
 }
 
-/* 移动端样式 */
-.mobile .lang-item {
-  border: 1px solid var(--n-border-color);
-  flex: 1;
+/* 移动端特殊样式 - 为移动端按钮添加边框以增强视觉效果 */
+:deep(.n-button.lang-item) {
+  /* 移动端样式 */
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
 }
 
-.mobile .lang-item.active {
+/* 移动端激活状态的边框样式 */
+.mobile :deep(.n-button.lang-item.active) {
   border-color: var(--n-color-primary);
 }
 
-.mobile .lang-item:hover {
+/* 移动端悬停状态的边框样式 */
+.mobile :deep(.n-button.lang-item:hover) {
   border-color: var(--n-color-primary-hover);
+}
+
+/* 确保按钮文本在不同状态下的可读性 */
+:deep(.n-button.lang-item .n-button__content) {
+  font-weight: 500;
+}
+
+:deep(.n-button.lang-item.active .n-button__content) {
+  font-weight: 600;
 }
 </style>
