@@ -35,22 +35,7 @@
         />
       </div>
 
-      <!-- 第二张轮播 - 新增 hero_new_pic 图片 -->
-      <div class="hero-slide">
-        <n-image
-          :src="getImagePath('hero', 'new_second_slide')"
-          :fallback-src="PLACEHOLDER_IMAGES.business"
-          :alt="$t('website.hero.company_image_alt')"
-          :object-fit="adaptiveImageStyle.objectFit"
-          :preview-disabled="true"
-          :style="`position: absolute; top: 0; left: 0; z-index: 1; display: block; width: 100%; height: ${carouselHeight}; ${adaptiveImageStyle.additionalStyles}`"
-          :img-props="{
-            style: `width: 100%; height: 100%; object-fit: ${adaptiveImageStyle.objectFit}; object-position: ${adaptiveImageStyle.objectPosition};`
-          }"
-          @load="handleImageLoad"
-          @error="handleImageLoad"
-        />
-      </div>
+      
 
       <!-- 第三张轮播 - 使用原版科技背景图片（顺位后移） -->
       <div class="hero-slide">
@@ -122,7 +107,7 @@ const autoplayEnabled = ref(false) // 初始禁用，等待图片加载完成
 const carouselInterval = ref(6000) // 增加到6秒，确保有足够展示时间
 const currentSlideIndex = ref(0)
 const imagesLoaded = ref(0) // 跟踪已加载的图片数量
-const totalImages = ref(5) // 总图片数量（新增一张）
+const totalImages = ref(4) // 总图片数量（移除第二张）
 
 // 响应式窗口尺寸监听
 const { width: windowWidth, height: windowHeight } = useWindowSize()
