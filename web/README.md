@@ -1,5 +1,18 @@
 # Vue FastAPI Admin - Web前端项目
 
+## 开头点题
+如果您只想部署,不用向下看, 这样操作即可
+
+## 一 在文件夹内,使用npm安装,nodejs最好18以上
+npm install
+
+## 二 执行构建  
+npm build
+
+## 三 压缩部署
+找到dist文件夹, 上传到服务器即可
+
+
 
 <h1 align="center">苏州思普微电子科技有限公司企业官网</h1>
 
@@ -355,7 +368,7 @@ pnpm type-check
 # 进入web目录
 cd web
 
-# 执行构建
+# 执行构建  
 pnpm build
 ```
 
@@ -418,14 +431,7 @@ server {
 2. 配置CDN的回源策略
 3. 设置合适的缓存策略
 
-#### 方式三：Docker部署
-项目已包含完整的Docker部署方案：
 
-```bash
-# 在项目根目录执行
-docker build -t vue-fastapi-admin .
-docker run -d -p 80:80 vue-fastapi-admin
-```
 
 ### 环境变量配置
 
