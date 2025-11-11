@@ -39,76 +39,58 @@
               hoverable
               class="cases-item-card"
             >
-              <n-grid :cols="responsiveCols" :x-gap="responsiveXGap" :y-gap="responsiveYGap">
-                <!-- 左侧信息区域 -->
-                <n-grid-item :span="contentSpan">
-                  <n-space vertical :size="16">
-                    <!-- 发布时间 -->
-                    <n-tag
-                      type="info"
-                      size="small"
-                      class="cases-date-tag"
-                    >
-                      {{ formatDate(item.date) }}
-                    </n-tag>
-
-                    <!-- 案例标题 -->
-                    <n-text
-                      class="cases-item-title"
-                      :style="{
-                        fontSize: titleFontSize,
-                        fontWeight: '600',
-                        color: 'var(--sipumtech-primary-blue)',
-                        lineHeight: '1.4',
-                        wordBreak: 'break-word',
-                        display: 'block'
-                      }"
-                    >
-                      {{ $t(item.titleKey) }}
-                    </n-text>
-
-                    <!-- 项目信息 -->
-                    <n-space vertical :size="8">
-                      <n-text
-                        :style="{
-                          fontSize: descriptionFontSize,
-                          color: 'var(--sipumtech-text-secondary)',
-                          lineHeight: '1.6',
-                          wordBreak: 'break-word',
-                          display: 'block'
-                        }"
-                      >
-                        {{ $t('website.cases.project_name_label') }}：{{ $t(item.projectKey) }}
-                      </n-text>
-                      <n-text
-                        :style="{
-                          fontSize: descriptionFontSize,
-                          color: 'var(--sipumtech-text-secondary)',
-                          lineHeight: '1.6',
-                          wordBreak: 'break-word',
-                          display: 'block',
-                          fontFamily: 'monospace'
-                        }"
-                      >
-                        {{ $t('website.cases.project_number_label') }}：{{ item.projectNumber }}
-                      </n-text>
-                    </n-space>
-                  </n-space>
-                </n-grid-item>
-
-                <!-- 右侧金额区域 -->
-                <n-grid-item :span="amountSpan">
-                  <div class="cases-amount-section">
-                    <n-tag
-                      type="success"
-                      size="large"
-                      class="cases-amount-tag"
-                    >
-                      {{ $t(item.amountKey) }}
-                    </n-tag>
-                  </div>
-                </n-grid-item>
-              </n-grid>
+              <div class="cases-item-row">
+                <div class="cases-cell cases-date">
+                  <n-tag
+                    type="info"
+                    size="small"
+                    class="cases-date-tag"
+                  >
+                    {{ formatDate(item.date) }}
+                  </n-tag>
+                </div>
+                <div class="cases-cell cases-title-cell">
+                  <n-text
+                    class="cases-item-title"
+                    :style="{
+                      fontSize: titleFontSize,
+                      fontWeight: '600',
+                      color: 'var(--sipumtech-primary-blue)',
+                      lineHeight: '1.4',
+                      wordBreak: 'break-word',
+                      display: 'block'
+                    }"
+                  >
+                    {{ $t(item.titleKey) }}
+                  </n-text>
+                </div>
+                <div class="cases-cell cases-project">
+                  <n-text
+                    class="cases-inline-text"
+                    :style="{
+                      fontSize: descriptionFontSize,
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: '1.6',
+                      wordBreak: 'break-word'
+                    }"
+                  >
+                    <span class="cases-label">{{ $t('website.cases.project_name_label') }}：</span>{{ $t(item.projectKey) }}
+                  </n-text>
+                </div>
+                <div class="cases-cell cases-number">
+                  <n-text
+                    class="cases-inline-text cases-meta-number"
+                    :style="{
+                      fontSize: descriptionFontSize,
+                      color: 'var(--sipumtech-text-secondary)',
+                      lineHeight: '1.6',
+                      wordBreak: 'break-word'
+                    }"
+                  >
+                    <span class="cases-label">{{ $t('website.cases.project_number_label') }}：</span>{{ item.projectNumber }}
+                  </n-text>
+                </div>
+              </div>
             </n-card>
           </n-space>
 
@@ -155,46 +137,6 @@ const router = useRouter()
 // 窗口宽度响应式状态
 const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1200)
 
-// 响应式布局配置（与新闻页面保持一致）
-const responsiveCols = ref(24)
-
-// 优化的响应式布局配置，提升宽度利用率
-const contentSpan = computed(() => {
-  const width = windowWidth.value
-  if (width <= 480) return 24      // 移动端：全宽
-  if (width <= 768) return 24      // 小平板：全宽
-  if (width <= 1024) return 18     // 平板：内容区域
-  if (width <= 1440) return 19     // 桌面端：增加内容区域比例
-  return 20                        // 大屏：进一步增加内容区域
-})
-
-const amountSpan = computed(() => {
-  const width = windowWidth.value
-  if (width <= 480) return 24      // 移动端：全宽
-  if (width <= 768) return 24      // 小平板：全宽
-  if (width <= 1024) return 6      // 平板：金额区域
-  if (width <= 1440) return 5      // 桌面端：减少金额区域比例
-  return 4                         // 大屏：进一步减少金额区域比例
-})
-
-// 优化的响应式间距配置，适配更宽的布局
-const responsiveXGap = computed(() => {
-  const width = windowWidth.value
-  if (width <= 480) return 0       // 移动端：无横向间距
-  if (width <= 768) return 16      // 小平板：小间距
-  if (width <= 1024) return 24     // 平板：中等间距
-  if (width <= 1440) return 32     // 桌面端：增加间距
-  return 40                        // 大屏：更大间距以适配宽布局
-})
-
-const responsiveYGap = computed(() => {
-  const width = windowWidth.value
-  if (width <= 480) return 16      // 移动端：小纵向间距
-  if (width <= 768) return 18      // 小平板：中等间距
-  if (width <= 1024) return 20     // 平板：标准间距
-  return 24                        // 桌面端及以上：增加纵向间距
-})
-
 // 优化的响应式字体大小，适配更宽的布局
 const titleFontSize = computed(() => {
   const width = windowWidth.value
@@ -218,13 +160,19 @@ const descriptionFontSize = computed(() => {
   return '18px'                     // 大屏：更大字体
 })
 
-// 静态案例数据（仅文字）——替换为用户提供的两条
+// 静态案例数据（仅文字）——根据业务提供的最新案例维护
 const casesData = ref([
+  {
+    id: 'case_2025_10_18',
+    date: '2025-10-18',
+    titleKey: 'website.cases.case_2025_10_18_title',
+    projectKey: 'website.cases.case_2025_10_18_project',
+    projectNumber: '251028_RK3576'
+  },
   {
     id: 'case_2025_07_18',
     date: '2025-07-18',
     titleKey: 'website.cases.case_2025_07_18_title',
-    amountKey: 'website.cases.case_2025_07_18_amount',
     projectKey: 'website.cases.case_2025_07_18_project',
     projectNumber: 'ZUPC-JC-FW-2507001'
   },
@@ -232,7 +180,6 @@ const casesData = ref([
     id: 'case_2024_04_23',
     date: '2024-04-23',
     titleKey: 'website.cases.case_2024_04_23_title',
-    amountKey: 'website.cases.case_2024_04_23_amount',
     projectKey: 'website.cases.case_2024_04_23_project',
     projectNumber: 'JJ2024000024'
   }
@@ -309,7 +256,7 @@ const formatDate = (dateString) => {
 }
 
 .container {
-  max-width: 1400px; /* 增加最大宽度以更好利用大屏空间 */
+  max-width: 1500px; /* 增加最大宽度以更好展示单行案例 */
   margin: 0 auto;
   padding: 0 24px; /* 稍微增加内边距 */
   width: 100%;
@@ -319,14 +266,14 @@ const formatDate = (dateString) => {
 /* 响应式容器宽度优化 */
 @media (min-width: 1440px) {
   .container {
-    max-width: 1600px; /* 大屏幕进一步增加宽度 */
+    max-width: 1700px; /* 大屏幕进一步增加宽度 */
     padding: 0 32px;
   }
 }
 
 @media (min-width: 1920px) {
   .container {
-    max-width: 1800px; /* 超大屏幕最大化利用 */
+    max-width: 1900px; /* 超大屏幕最大化利用 */
     padding: 0 40px;
   }
 }
@@ -405,30 +352,65 @@ const formatDate = (dateString) => {
   color: var(--sipumtech-accent-green) !important;
 }
 
-/* 金额区域 */
-.cases-amount-section {
-  display: flex;
+/* 单行信息布局 */
+.cases-item-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 180px) minmax(260px, 2fr) minmax(240px, 1.4fr) minmax(220px, 1fr);
   align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 20px;
+  gap: 28px;
+  width: 100%;
 }
 
-.cases-amount-tag {
-  font-weight: 600;
-  font-size: 16px;
-  padding: 12px 20px;
+.cases-cell {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.cases-title-cell {
+  padding-right: 8px;
+}
+
+.cases-project,
+.cases-number {
+  font-weight: 500;
+  color: var(--sipumtech-text-secondary);
+}
+
+.cases-inline-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cases-label {
+  color: inherit;
+  font-weight: inherit;
+  margin-right: 4px;
+}
+
+.cases-meta-number {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', monospace;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 1024px) {
+  .cases-item-row {
+    grid-template-columns: minmax(120px, 150px) minmax(220px, 1fr);
+    row-gap: 12px;
+  }
+
+  .cases-item-row .cases-project,
+  .cases-item-row .cases-number {
+    grid-column: span 2;
+  }
 }
 
 /* 大屏幕优化 */
 @media (min-width: 1440px) {
-  .cases-amount-section {
-    padding: 24px;
-  }
-
-  .cases-amount-tag {
-    font-size: 18px;
-    padding: 14px 24px;
+  .cases-item-row {
+    gap: 32px;
+    grid-template-columns: minmax(150px, 200px) minmax(320px, 2.2fr) minmax(280px, 1.4fr) minmax(220px, 1fr);
   }
 
   .cases-item-title {
@@ -437,13 +419,9 @@ const formatDate = (dateString) => {
 }
 
 @media (min-width: 1920px) {
-  .cases-amount-section {
-    padding: 28px;
-  }
-
-  .cases-amount-tag {
-    font-size: 20px;
-    padding: 16px 28px;
+  .cases-item-row {
+    gap: 40px;
+    grid-template-columns: minmax(160px, 220px) minmax(360px, 2.4fr) minmax(320px, 1.6fr) minmax(260px, 1.1fr);
   }
 
   .cases-item-title {
@@ -456,14 +434,9 @@ const formatDate = (dateString) => {
   .cases-content {
     padding: 60px 0 50px;
   }
-
-  .cases-amount-section {
-    padding: 18px;
-  }
-
-  .cases-amount-tag {
-    font-size: 15px;
-    padding: 10px 18px;
+  .cases-item-row {
+    gap: 20px;
+    grid-template-columns: minmax(130px, 160px) minmax(220px, 1.4fr) minmax(220px, 1fr) minmax(200px, 0.8fr);
   }
 }
 
@@ -479,14 +452,15 @@ const formatDate = (dateString) => {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 
-  .cases-amount-section {
-    padding: 16px 0;
-    justify-content: flex-start;
+  .cases-item-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
-  .cases-amount-tag {
-    font-size: 14px;
-    padding: 8px 16px;
+  .cases-inline-text {
+    white-space: normal;
   }
 }
 
@@ -503,12 +477,6 @@ const formatDate = (dateString) => {
     word-break: break-word;
     overflow-wrap: break-word;
     max-width: 100%;
-  }
-
-  /* Grid项目宽度限制 */
-  :deep(.n-grid-item) {
-    min-width: 0;
-    overflow: hidden;
   }
 }
 
@@ -536,11 +504,6 @@ const formatDate = (dateString) => {
     font-size: 10px !important;
   }
 
-  .cases-amount-tag {
-    font-size: 12px !important;
-    padding: 6px 12px !important;
-  }
-
   /* 超小屏幕文字强制换行 */
   :deep(.n-text) {
     font-size: 12px !important;
@@ -551,6 +514,14 @@ const formatDate = (dateString) => {
   :deep(.n-space) {
     width: 100%;
     max-width: 100%;
+  }
+
+  .cases-item-row {
+    gap: 10px;
+  }
+
+  .cases-inline-text {
+    font-size: 12px !important;
   }
 }
 
@@ -698,4 +669,3 @@ const formatDate = (dateString) => {
   .container { padding: 0 8px; }
 }
 </style>
-
