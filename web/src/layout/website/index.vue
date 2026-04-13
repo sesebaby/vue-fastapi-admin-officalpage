@@ -1,5 +1,5 @@
 <template>
-  <n-layout :style="{ minHeight: '100vh', fontFamily: 'var(--n-font-family)' }" position="absolute">
+  <n-layout :style="{ minHeight: '100vh', fontFamily: 'var(--n-font-family)' }">
     <!-- 顶部导航栏 - 使用Naive UI原生布局系统和栅格组件 -->
     <n-layout-header
       position="absolute"

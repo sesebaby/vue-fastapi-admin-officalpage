@@ -1,8 +1,8 @@
 <template>
   <!-- 新闻列表页面 -->
-  <n-layout class="news-list-page">
+  <section class="news-list-page">
     <!-- 新闻列表内容 -->
-    <n-layout-content class="news-content">
+    <div class="news-content">
       <n-space justify="center" class="news-container-wrapper">
         <n-el tag="div" class="container">
         <!-- 加载状态 -->
@@ -116,8 +116,8 @@
 
         </n-el>
       </n-space>
-    </n-layout-content>
-  </n-layout>
+    </div>
+  </section>
 
   <!-- 固定定位的回到首页按钮 -->
   <n-button
@@ -322,7 +322,6 @@ const goBackToHome = () => {
 <style scoped>
 /* 新闻列表页面样式 */
 .news-list-page {
-  min-height: 100vh;
   background: var(--sipumtech-bg-tech);
 }
 

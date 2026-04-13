@@ -1,7 +1,7 @@
 <template>
   <!-- 成功案例列表（纯文字列表，无图片） -->
-  <n-layout class="cases-list-page">
-    <n-layout-content class="cases-content">
+  <section class="cases-list-page">
+    <div class="cases-content">
       <n-space justify="center" class="cases-container-wrapper">
         <n-el tag="div" class="container">
           <!-- 加载状态 -->
@@ -103,8 +103,8 @@
           />
         </n-el>
       </n-space>
-    </n-layout-content>
-  </n-layout>
+    </div>
+  </section>
 
   <!-- 回到首页浮动按钮 -->
   <n-button
@@ -251,7 +251,6 @@ const formatDate = (dateString) => {
 
 <style scoped>
 .cases-list-page {
-  min-height: 100vh;
   background: var(--sipumtech-bg-tech);
 }
 
